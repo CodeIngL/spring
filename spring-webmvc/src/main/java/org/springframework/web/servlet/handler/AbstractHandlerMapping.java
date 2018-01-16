@@ -343,27 +343,37 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	/**
 	 * Look up a handler for the given request, falling back to the default
 	 * handler if no specific one is found.
+	 *
+	 * 查找给定请求的处理程序，如果找不到特定的请求，则返回到默认处理程序。
+	 *
 	 * @param request current HTTP request
 	 * @return the corresponding handler instance, or the default handler
 	 * @see #getHandlerInternal
 	 */
 	@Override
 	public final HandlerExecutionChain getHandler(HttpServletRequest request) throws Exception {
+		//调用内部方法，该方法将回调子类的实现
 		Object handler = getHandlerInternal(request);
+		//没有处理器，返回一个默认的处理器
 		if (handler == null) {
 			handler = getDefaultHandler();
 		}
+		//都没有直接返回空
 		if (handler == null) {
 			return null;
 		}
 		// Bean name or resolved handler?
+		// 这是获得的可能是一bean的名称，或者是一个handler
 		if (handler instanceof String) {
+			// 是名称则找到对应的handler，通过context来找到
 			String handlerName = (String) handler;
 			handler = getApplicationContext().getBean(handlerName);
 		}
 
+		//对handler进行包装，但是本身handler就可能是HandlerExecutionChain
 		HandlerExecutionChain executionChain = getHandlerExecutionChain(handler, request);
 		if (CorsUtils.isCorsRequest(request)) {
+			//是一个合法的跨域请求
 			CorsConfiguration globalConfig = this.globalCorsConfigSource.getCorsConfiguration(request);
 			CorsConfiguration handlerConfig = getCorsConfiguration(handler, request);
 			CorsConfiguration config = (globalConfig != null ? globalConfig.combine(handlerConfig) : handlerConfig);
@@ -384,6 +394,19 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	 * <p>Note: This method may also return a pre-built {@link HandlerExecutionChain},
 	 * combining a handler object with dynamically determined interceptors.
 	 * Statically specified interceptors will get merged into such an existing chain.
+	 *
+	 * <br/>
+	 * 查找给定请求的处理程序，如果找不到特定请求，则返回null。 这个方法被getHandler调用; 如果设置了null返回值，将导致默认处理程序。
+	 * <br/>
+	 * 在CORS预飞行请求上，这个方法应该返回一个不匹配飞行前请求的匹配项，而是根据URL路径，
+	 * “Access-Control-Request-Method”头中的HTTP方法和头文件 从“Access-Control-Request-Headers”头部获得，从而允许CORS配置通过getCorsConfigurations获得，
+	 *
+	 * <br/>
+	 *
+	 * 这个方法还可以返回一个预先构建的HandlerExecutionChain，将一个处理程序对象与动态确定的拦截器结合起来。 静态指定的拦截器将被合并到这样一个现有的链中。
+	 *
+	 *
+	 *
 	 * @param request current HTTP request
 	 * @return the corresponding handler instance, or {@code null} if none found
 	 * @throws Exception if there is an internal error
@@ -405,24 +428,44 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	 * <p>For simply adding an interceptor in a custom subclass, consider calling
 	 * {@code super.getHandlerExecutionChain(handler, request)} and invoking
 	 * {@link HandlerExecutionChain#addInterceptor} on the returned chain object.
+	 *
+	 *
+	 * <br/>
+	 * 为给定的处理程序构建一个HandlerExecutionChain，包括可用的拦截器。
+	 * <br/>
+	 * 默认实现用给定的处理程序，
+	 * 处理程序映射的通用拦截器以及与当前请求URL相匹配的任何MappedInterceptors构建标准的HandlerExecutionChain。
+	 * 拦截器按照他们注册的顺序添加。 为了扩展/重新排列拦截器列表，子类可以覆盖它。
+	 *
+	 * <br/>
+	 * 注意：传入的处理程序对象可能是原始处理程序或预构建的HandlerExecutionChain。
+	 * 这个方法应该明确地处理这两种情况，要么建立一个新的HandlerExecutionChain，要么扩展现有的链。
+	 *
 	 * @param handler the resolved handler instance (never {@code null})
 	 * @param request current HTTP request
 	 * @return the HandlerExecutionChain (never {@code null})
 	 * @see #getAdaptedInterceptors()
 	 */
 	protected HandlerExecutionChain getHandlerExecutionChain(Object handler, HttpServletRequest request) {
+
+		//获得一个包装链，如果本身已经是一个链了，那么直接转换，如果是一个标准的handler，那么使用来包装他
 		HandlerExecutionChain chain = (handler instanceof HandlerExecutionChain ?
 				(HandlerExecutionChain) handler : new HandlerExecutionChain(handler));
 
+		//查找路径
 		String lookupPath = this.urlPathHelper.getLookupPathForRequest(request);
+
+		//遍历拦截器进行处理
 		for (HandlerInterceptor interceptor : this.adaptedInterceptors) {
 			if (interceptor instanceof MappedInterceptor) {
 				MappedInterceptor mappedInterceptor = (MappedInterceptor) interceptor;
 				if (mappedInterceptor.matches(lookupPath, this.pathMatcher)) {
+					//能够匹配，就进行添加
 					chain.addInterceptor(mappedInterceptor.getInterceptor());
 				}
 			}
 			else {
+				//直接添加
 				chain.addInterceptor(interceptor);
 			}
 		}

@@ -88,6 +88,7 @@ public abstract class AbstractUrlHandlerMapping extends AbstractHandlerMapping i
 
 	/**
 	 * Whether to match to URLs irrespective of the presence of a trailing slash.
+	 * 是否与URL匹配，而不管是否存在尾部斜线。
 	 */
 	public boolean useTrailingSlashMatch() {
 		return this.useTrailingSlashMatch;
@@ -109,6 +110,9 @@ public abstract class AbstractUrlHandlerMapping extends AbstractHandlerMapping i
 
 	/**
 	 * Look up a handler for the URL path of the given request.
+	 *
+	 * 查找给定请求的URL路径的处理程序。
+	 *
 	 * @param request current HTTP request
 	 * @return the handler instance, or {@code null} if none found
 	 */
@@ -249,6 +253,9 @@ public abstract class AbstractUrlHandlerMapping extends AbstractHandlerMapping i
 	 * the {@link #URI_TEMPLATE_VARIABLES_ATTRIBUTE} before executing the handler.
 	 * <p>The default implementation builds a {@link HandlerExecutionChain}
 	 * with a special interceptor that exposes the path attribute and uri template variables
+	 *
+	 * 为给定的原始处理程序构建一个处理程序对象，在执行处理程序之前公开实际的处理程序PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE以及URI_TEMPLATE_VARIABLES_ATTRIBUTE。
+	 * 默认实现用一个特殊的拦截器构建一个HandlerExecutionChain，该拦截器公开path属性和uri模板变量
 	 * @param rawHandler the raw handler to expose
 	 * @param pathWithinMapping the path to expose before executing the handler
 	 * @param uriTemplateVariables the URI template variables, can be {@code null} if no variables found
@@ -257,8 +264,11 @@ public abstract class AbstractUrlHandlerMapping extends AbstractHandlerMapping i
 	protected Object buildPathExposingHandler(Object rawHandler, String bestMatchingPattern,
 			String pathWithinMapping, Map<String, String> uriTemplateVariables) {
 
+		//构建一个handler执行链
 		HandlerExecutionChain chain = new HandlerExecutionChain(rawHandler);
+		//添加一个拦截器
 		chain.addInterceptor(new PathExposingHandlerInterceptor(bestMatchingPattern, pathWithinMapping));
+		//根据是否有模板参数，来是否添加模板拦截器
 		if (!CollectionUtils.isEmpty(uriTemplateVariables)) {
 			chain.addInterceptor(new UriTemplateVariablesHandlerInterceptor(uriTemplateVariables));
 		}

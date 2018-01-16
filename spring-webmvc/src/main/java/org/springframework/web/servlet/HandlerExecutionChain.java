@@ -124,12 +124,19 @@ public class HandlerExecutionChain {
 	 * @return {@code true} if the execution chain should proceed with the
 	 * next interceptor or the handler itself. Else, DispatcherServlet assumes
 	 * that this interceptor has already dealt with the response itself.
+	 *
+	 * <br/>
+	 * 应用注册拦截器的preHandle方法。
+	 * <br/>
+	 * 返回：
+	 * 如果执行链应继续执行下一个拦截器或处理程序本身，则为true。 否则，DispatcherServlet假定这个拦截器已经处理了响应本身。
 	 */
 	boolean applyPreHandle(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HandlerInterceptor[] interceptors = getInterceptors();
 		if (!ObjectUtils.isEmpty(interceptors)) {
 			for (int i = 0; i < interceptors.length; i++) {
 				HandlerInterceptor interceptor = interceptors[i];
+				//调用拦截器的preHandle方法，如果中间返回相应，则回调之前的所有的已经调用过preHandle方法的拦截器
 				if (!interceptor.preHandle(request, response, this.handler)) {
 					triggerAfterCompletion(request, response, null);
 					return false;
@@ -142,6 +149,8 @@ public class HandlerExecutionChain {
 
 	/**
 	 * Apply postHandle methods of registered interceptors.
+	 *
+	 * 应用注册拦截器的postHandle方法。
 	 */
 	void applyPostHandle(HttpServletRequest request, HttpServletResponse response, ModelAndView mv) throws Exception {
 		HandlerInterceptor[] interceptors = getInterceptors();
@@ -157,6 +166,8 @@ public class HandlerExecutionChain {
 	 * Trigger afterCompletion callbacks on the mapped HandlerInterceptors.
 	 * Will just invoke afterCompletion for all interceptors whose preHandle invocation
 	 * has successfully completed and returned true.
+	 *
+	 * 在映射的HandlerInterceptors上触发afterCompletion回调。 对于preHandle调用已成功完成并返回true的所有拦截器，将只调用afterCompletion。
 	 */
 	void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse response, Exception ex)
 			throws Exception {
@@ -177,6 +188,9 @@ public class HandlerExecutionChain {
 
 	/**
 	 * Apply afterConcurrentHandlerStarted callback on mapped AsyncHandlerInterceptors.
+	 *
+	 * <br/>
+	 * 在映射的AsyncHandlerInterceptors上应用afterConcurrentHandlerStarted回调。
 	 */
 	void applyAfterConcurrentHandlingStarted(HttpServletRequest request, HttpServletResponse response) {
 		HandlerInterceptor[] interceptors = getInterceptors();

@@ -937,6 +937,7 @@ public class DispatcherServlet extends FrameworkServlet {
 				multipartRequestParsed = (processedRequest != request);
 
 				// Determine handler for the current request.
+				// 为当前的请求定位处理的handler（确切的说是HandlerExecutionChain）
 				mappedHandler = getHandler(processedRequest);
 				if (mappedHandler == null || mappedHandler.getHandler() == null) {
 					noHandlerFound(processedRequest, response);
@@ -944,10 +945,14 @@ public class DispatcherServlet extends FrameworkServlet {
 				}
 
 				// Determine handler adapter for the current request.
+				// 为当前的请求定位处理的handler的适配器
 				HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
 
 				// Process last-modified header, if supported by the handler.
+				// 处理最后修改的头部（如果处理程序支持）
 				String method = request.getMethod();
+
+				//无关紧要的事情
 				boolean isGet = "GET".equals(method);
 				if (isGet || "HEAD".equals(method)) {
 					long lastModified = ha.getLastModified(request, mappedHandler.getHandler());
@@ -959,11 +964,13 @@ public class DispatcherServlet extends FrameworkServlet {
 					}
 				}
 
+				//pre阶段响应已经成功被写会，直接返回，处理完毕
 				if (!mappedHandler.applyPreHandle(processedRequest, response)) {
 					return;
 				}
 
 				// Actually invoke the handler.
+				// 实际的处理程序的调用
 				mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 
 				if (asyncManager.isConcurrentHandlingStarted()) {
@@ -1018,6 +1025,9 @@ public class DispatcherServlet extends FrameworkServlet {
 	/**
 	 * Handle the result of handler selection and handler invocation, which is
 	 * either a ModelAndView or an Exception to be resolved to a ModelAndView.
+	 *
+	 * 处理处理程序选择和处理程序调用的结果，这是ModelAndView或要解析为ModelAndView的异常。
+	 *
 	 */
 	private void processDispatchResult(HttpServletRequest request, HttpServletResponse response,
 			HandlerExecutionChain mappedHandler, ModelAndView mv, Exception exception) throws Exception {
@@ -1191,6 +1201,7 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * @throws ServletException if no HandlerAdapter can be found for the handler. This is a fatal error.
 	 */
 	protected HandlerAdapter getHandlerAdapter(Object handler) throws ServletException {
+		//遍历所有的适配器，返回第一个适配的适配器
 		for (HandlerAdapter ha : this.handlerAdapters) {
 			if (logger.isTraceEnabled()) {
 				logger.trace("Testing handler adapter [" + ha + "]");

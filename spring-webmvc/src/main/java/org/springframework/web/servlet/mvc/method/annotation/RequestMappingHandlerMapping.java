@@ -114,6 +114,10 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 		this.embeddedValueResolver = resolver;
 	}
 
+	/**
+	 * 对应对于RequestMappingHandlerMapping
+	 * 在调用父类前还做了一部分分操作
+	 */
 	@Override
 	public void afterPropertiesSet() {
 		this.config = new RequestMappingInfo.BuilderConfiguration();

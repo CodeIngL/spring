@@ -140,6 +140,9 @@ public class UrlPathHelper {
 	 * Return the mapping lookup path for the given request, within the current
 	 * servlet mapping if applicable, else within the web application.
 	 * <p>Detects include request URL if called within a RequestDispatcher include.
+	 *
+	 *
+	 * 返回给定请求的映射查找路径，如果适用的话，在当前的servlet映射中，或者在web应用程序中返回。如果在RequestDispatcher中调用include请求，则检测包含请求URL。
 	 * @param request current HTTP request
 	 * @return the lookup path
 	 * @see #getPathWithinApplication
@@ -217,6 +220,9 @@ public class UrlPathHelper {
 	/**
 	 * Return the path within the web application for the given request.
 	 * <p>Detects include request URL if called within a RequestDispatcher include.
+	 *
+	 * 返回给定请求的Web应用程序中的路径。如果在RequestDispatcher中调用include请求，则检测包含请求URL。
+	 *
 	 * @param request current HTTP request
 	 * @return the path within the web application
 	 */
@@ -277,6 +283,8 @@ public class UrlPathHelper {
 	 * <ul>
 	 *     <li>replace all "//" by "/"</li>
 	 * </ul>
+	 *
+	 * 用以下规则消毒给定的路径
 	 */
 	private String getSanitizedPath(final String path) {
 		String sanitized = path;

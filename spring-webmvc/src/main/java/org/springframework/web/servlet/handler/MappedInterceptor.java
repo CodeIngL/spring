@@ -37,6 +37,14 @@ import org.springframework.web.servlet.ModelAndView;
  * ancestor ApplicationContext's) which effectively means the interceptor is
  * registered "globally" with all handler mappings.
  *
+ * <br/>
+ * 包含并委托对HandlerInterceptor的调用以及拦截器应该应用的include（并且可选地排除）路径模式。 还提供了匹配逻辑来测试拦截器是否适用于给定的请求路径。
+ * <br/>
+ * MappedInterceptor可以直接用任何AbstractHandlerMethodMapping注册。
+ * 此外，MappedInterceptor类型的bean自动被AbstractHandlerMethodMapping（包括祖先的ApplicationContext）检测到，
+ * 这有效地意味着拦截器被全局注册为所有的处理器映射。
+ *
+ *
  * @author Keith Donald
  * @author Rossen Stoyanchev
  * @author Brian Clozel

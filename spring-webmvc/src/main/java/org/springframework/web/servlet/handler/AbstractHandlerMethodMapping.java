@@ -178,6 +178,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 	/**
 	 * Detects handler methods at initialization.
+	 *
+	 * 检测handler用于匹配
+	 * @see #initHandlerMethods()
 	 */
 	@Override
 	public void afterPropertiesSet() {
@@ -186,6 +189,8 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 	/**
 	 * Scan beans in the ApplicationContext, detect and register handler methods.
+	 *
+	 * 扫描bean在上下文中，检测并主持handler方法
 	 * @see #isHandler(Class)
 	 * @see #getMappingForMethod(Method, Class)
 	 * @see #handlerMethodsInitialized(Map)
