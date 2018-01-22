@@ -175,16 +175,35 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 			ClassUtils.isPresent("com.google.gson.Gson", AnnotationDrivenBeanDefinitionParser.class.getClassLoader());
 
 
+	/**
+	 * 解析<mvc:annotation-driven/>标签
+	 * @param element the element that is to be parsed into one or more {@link BeanDefinition BeanDefinitions}
+	 * @param parserContext the object encapsulating the current state of the parsing process;
+	 * provides access to a {@link org.springframework.beans.factory.support.BeanDefinitionRegistry}
+	 * @return
+	 */
 	@Override
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		Object source = parserContext.extractSource(element);
 		XmlReaderContext readerContext = parserContext.getReaderContext();
 
+		/**
+		 * 对应<mvc:annotation-driven/>的实体
+		 */
 		CompositeComponentDefinition compDefinition = new CompositeComponentDefinition(element.getTagName(), source);
 		parserContext.pushContainingComponent(compDefinition);
 
+		/**
+		 * 获得contentNegotiationManager
+		 * 也就是内容协商的管理器这鸟玩意
+		 * 对应属性content-negotiation-manager，没用新建一个
+		 * @see #getContentNegotiationManager(Element, Object, ParserContext)
+		 */
 		RuntimeBeanReference contentNegotiationManager = getContentNegotiationManager(element, source, parserContext);
 
+		/**
+		 * RequestMappingHandlerMapping定义
+		 */
 		RootBeanDefinition handlerMappingDef = new RootBeanDefinition(RequestMappingHandlerMapping.class);
 		handlerMappingDef.setSource(source);
 		handlerMappingDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -203,13 +222,30 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		configurePathMatchingProperties(handlerMappingDef, element, parserContext);
 		readerContext.getRegistry().registerBeanDefinition(HANDLER_MAPPING_BEAN_NAME , handlerMappingDef);
 
+		/**
+		 * cors定义
+		 */
 		RuntimeBeanReference corsConfigurationsRef = MvcNamespaceUtils.registerCorsConfigurations(null, parserContext, source);
 		handlerMappingDef.getPropertyValues().add("corsConfigurations", corsConfigurationsRef);
 
+		/**
+		 * 定义
+		 */
 		RuntimeBeanReference conversionService = getConversionService(element, source, parserContext);
+
+		/**
+		 * 定义
+		 */
 		RuntimeBeanReference validator = getValidator(element, source, parserContext);
+
+		/**
+		 * 定义
+		 */
 		RuntimeBeanReference messageCodesResolver = getMessageCodesResolver(element);
 
+		/**
+		 * ConfigurableWebBindingInitializer定义
+		 */
 		RootBeanDefinition bindingDef = new RootBeanDefinition(ConfigurableWebBindingInitializer.class);
 		bindingDef.setSource(source);
 		bindingDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -225,6 +261,9 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		ManagedList<?> callableInterceptors = getCallableInterceptors(element, source, parserContext);
 		ManagedList<?> deferredResultInterceptors = getDeferredResultInterceptors(element, source, parserContext);
 
+		/**
+		 * RequestMappingHandlerAdapter定义
+		 */
 		RootBeanDefinition handlerAdapterDef = new RootBeanDefinition(RequestMappingHandlerAdapter.class);
 		handlerAdapterDef.setSource(source);
 		handlerAdapterDef.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -261,6 +300,9 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		handlerAdapterDef.getPropertyValues().add("deferredResultInterceptors", deferredResultInterceptors);
 		readerContext.getRegistry().registerBeanDefinition(HANDLER_ADAPTER_BEAN_NAME , handlerAdapterDef);
 
+		/**
+		 * CompositeUriComponentsContributorFactoryBean定义
+		 */
 		String uriCompContribName = MvcUriComponentsBuilder.MVC_URI_COMPONENTS_CONTRIBUTOR_BEAN_NAME;
 		RootBeanDefinition uriCompContribDef = new RootBeanDefinition(CompositeUriComponentsContributorFactoryBean.class);
 		uriCompContribDef.setSource(source);
@@ -268,6 +310,9 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		uriCompContribDef.getPropertyValues().addPropertyValue("conversionService", conversionService);
 		readerContext.getRegistry().registerBeanDefinition(uriCompContribName, uriCompContribDef);
 
+		/**
+		 * ConversionServiceExposingInterceptor定义
+		 */
 		RootBeanDefinition csInterceptorDef = new RootBeanDefinition(ConversionServiceExposingInterceptor.class);
 		csInterceptorDef.setSource(source);
 		csInterceptorDef.getConstructorArgumentValues().addIndexedArgumentValue(0, conversionService);
@@ -278,6 +323,9 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		mappedCsInterceptorDef.getConstructorArgumentValues().addIndexedArgumentValue(1, csInterceptorDef);
 		String mappedInterceptorName = readerContext.registerWithGeneratedName(mappedCsInterceptorDef);
 
+		/**
+		 * ExceptionHandlerExceptionResolver定义
+		 */
 		RootBeanDefinition exceptionHandlerExceptionResolver = new RootBeanDefinition(ExceptionHandlerExceptionResolver.class);
 		exceptionHandlerExceptionResolver.setSource(source);
 		exceptionHandlerExceptionResolver.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -295,6 +343,9 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 
 		String methodExceptionResolverName = readerContext.registerWithGeneratedName(exceptionHandlerExceptionResolver);
 
+		/**
+		 * ResponseStatusExceptionResolver定义
+		 */
 		RootBeanDefinition responseStatusExceptionResolver = new RootBeanDefinition(ResponseStatusExceptionResolver.class);
 		responseStatusExceptionResolver.setSource(source);
 		responseStatusExceptionResolver.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -302,6 +353,9 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		String responseStatusExceptionResolverName =
 				readerContext.registerWithGeneratedName(responseStatusExceptionResolver);
 
+		/**
+		 * DefaultHandlerExceptionResolver定义
+		 */
 		RootBeanDefinition defaultExceptionResolver = new RootBeanDefinition(DefaultHandlerExceptionResolver.class);
 		defaultExceptionResolver.setSource(source);
 		defaultExceptionResolver.setRole(BeanDefinition.ROLE_INFRASTRUCTURE);
@@ -373,6 +427,13 @@ class AnnotationDrivenBeanDefinitionParser implements BeanDefinitionParser {
 		}
 	}
 
+	/**
+	 * 获得内容协商这鸟玩意
+	 * @param element
+	 * @param source
+	 * @param parserContext
+	 * @return
+	 */
 	private RuntimeBeanReference getContentNegotiationManager(Element element, Object source,
 			ParserContext parserContext) {
 

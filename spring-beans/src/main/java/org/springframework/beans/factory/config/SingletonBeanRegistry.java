@@ -24,6 +24,11 @@ package org.springframework.beans.factory.config;
  *
  * <p>The {@link ConfigurableBeanFactory} interface extends this interface.
  *
+ * <p>
+ * 为共享bean实例定义注册表的接口。 可以通过org.springframework.beans.factory.BeanFactory实现来实现，以便以统一的方式公开他们的单例管理工具。
+ * <p>
+ *	{@link ConfigurableBeanFactory}接口扩展了这个接口
+ *
  * @author Juergen Hoeller
  * @since 2.0
  * @see ConfigurableBeanFactory

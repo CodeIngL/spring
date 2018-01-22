@@ -37,6 +37,18 @@ import java.lang.annotation.Target;
  * {@link DependsOn} annotation metadata is ignored, and
  * {@code <bean depends-on="..."/>} is respected instead.
  *
+ *
+ * <p>
+ *     当前bean依赖的bean。
+ *     在这个bean之前，指定的任何bean都被保证由容器创建。
+ *     在bean没有明确依赖另一个属性或构造函数参数的情况下使用，而是依赖于另一个bean的初始化。
+ * <p>
+ *     可用于任何直接或间接使用org.springframework.stereotype.Component进行注解的类或使用Bean注解的方法。
+ * <p>
+ *     除非正在使用组件扫描，否则在类层次上使用DependsOn将无效。
+ *     如果DependsOn注解的类是通过XML声明的，则DependsOn注释元数据将被忽略，而<bean depends-on =“...”/>会被使用。
+ *
+ *
  * @author Juergen Hoeller
  * @since 3.0
  */

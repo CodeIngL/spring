@@ -36,6 +36,10 @@ import org.springframework.instrument.classloading.LoadTimeWeaver;
  * with the Spring application context's default
  * {@link org.springframework.instrument.classloading.LoadTimeWeaver}.
  *
+ * <p>
+ * 注册AspectJ的ClassPreProcessorAgentAdapter与Spring应用程序上下文的默认LoadTimeWeaver的后处理器。
+ *
+ *
  * @author Juergen Hoeller
  * @author Ramnivas Laddad
  * @since 2.5

@@ -46,6 +46,16 @@ import org.springframework.core.type.filter.TypeFilter;
  *
  * <p>See {@link Configuration @Configuration}'s Javadoc for usage examples.
  *
+ * <p>
+ *		配置与@Configuration类一起使用的组件扫描方向。 提供与Spring XML <context：component-scan>元素并行的支持。
+ * <p>
+ *		可以指定basePackageClasses或basePackages（或其别名值）来定义要扫描的特定软件包。 如果未定义特定的包，则将从声明此批注的类的包中进行扫描。
+ * <p>
+ *		请注意，<context：component-scan>元素有一个annotation-config属性; 但是，这个注解不成立。 这是因为在几乎所有使用@ComponentScan的情况下，默认的注解配置处理（例如处理@Autowired和朋友）都被假定。
+ *		而且，当使用AnnotationConfigApplicationContext时，注释配置处理器总是被注册，这意味着任何试图在@ComponentScan级别禁用它们的尝试都将被忽略。
+ * <p>
+ *
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @author Sam Brannen

@@ -30,6 +30,16 @@ import java.util.Locale;
  * being able to reload message definitions without restarting the VM
  * </ul>
  *
+ *
+ * <p>
+ *     用于解析消息的策略接口，支持这些消息的参数化和国际化。
+ *     Spring为生产提供了两个开箱即用的实现：
+ * <ul>
+ * <li>{@link org.springframework.context.support.ResourceBundleMessageSource},
+ * built on top of the standard {@link java.util.ResourceBundle}
+ * <li>{@link org.springframework.context.support.ReloadableResourceBundleMessageSource},
+ * being able to reload message definitions without restarting the VM
+ * </ul>
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see org.springframework.context.support.ResourceBundleMessageSource

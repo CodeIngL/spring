@@ -66,6 +66,34 @@ import org.springframework.beans.factory.config.BeanReference;
  * classified with this role are completely unimportant to the end user and are required only for
  * internal implementation reasons.
  *
+ * <p>
+ *     描述一些BeanDefinitions和BeanReference的逻辑视图的界面，如某些配置上下文中所介绍的。
+ * <p>
+ *     通过引入可插入的自定义XML标记，现在可以使用单个逻辑配置实体（本例中为XML标记）来创建多个BeanDefinitions和RuntimeBeanReference，以便为最终用户提供更简洁的配置和更大的便利。
+ *     因此，不能再假设每个配置实体（例如XML标签）映射到一个BeanDefinition。
+ *     对于希望提供可视化或支持配置Spring应用程序的工具供应商和其他用户来说，
+ *     有一些适当的机制将org.springframework.beans.factory.BeanFactory中的BeanDefinitions绑定到配置数据是很重要的对最终用户具有具体的意义。
+ *     因此，org.springframework.beans.factory.xml.NamespaceHandler实现能够为每个正在配置的逻辑实体以ComponentDefinition的形式发布事件。
+ *     然后第三方可以订阅这些事件，从而允许以用户为中心的bean元数据视图。
+ * <p>
+ *     每个ComponentDefinition都有一个特定于配置的源对象。
+ *     对于基于XML的配置，这通常是包含用户提供的配置信息的org.w3c.dom.Node。
+ *     除此之外，包含在ComponentDefinition中的每个BeanDefinition都有自己的源对象，它可能指向不同的，更具体的一组配置数据。
+ *     除此之外，Bean元数据的各个部分（如PropertyValues）也可能有一个源对象，提供更高级别的细节。
+ *     源对象提取通过SourceExtractor进行处理，可以根据需要进行自定义。
+ * <p>
+ *     虽然直接访问重要的BeanReferences是通过getBeanReferences提供的，
+ *     但工具可能希望检查所有BeanDefinitions来收集整套的BeanReference。
+ *     要求实现提供验证整个逻辑实体的配置所需的所有BeanReference，以及提供配置的完全用户可视化所需的BeanReference。
+ *     预计某些BeanReference对于验证或配置的用户视图来说并不重要，因此这些可能会被省略。一个工具可能希望显示通过提供的BeanDefinitions来源的任何额外的BeanReference，但是这不被认为是典型的情况。
+ * <p>
+ *     工具可以通过检查角色标识符来确定包含BeanDefinitions的重要性。
+ *     这个角色本质上是提示配置提供者相信BeanDefinition对于最终用户有多重要。
+ *     预计工具将不会显示给定ComponentDefinition的所有BeanDefinitions，而是根据角色进行筛选。
+ *     工具可以选择使这个过滤用户可配置。
+ *     应该特别注意INFRASTRUCTURE角色标识符。用这个角色分类的BeanDefinitions对于最终用户来说是完全不重要的，并且只是出于内部实现的原因。
+ * <p>
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0

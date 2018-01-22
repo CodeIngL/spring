@@ -44,6 +44,19 @@ import org.springframework.util.ObjectUtils;
  * the {@link #convertPropertyValue} method. For example, encrypted values
  * can be detected and decrypted accordingly before processing them.
  *
+ * <p>
+ *     允许从属性资源（即属性文件）中配置各个bean属性值。 对于定位于系统管理员的自定义配置文件非常有用，它们将覆盖应用程序上下文中配置的bean属性
+ * <p>
+ *     分发中提供了两个具体的实现：
+ * <ul>
+ * <li>{@link PropertyOverrideConfigurer} for "beanName.property=value" style overriding
+ * (<i>pushing</i> values from a properties file into bean definitions)
+ * <li>{@link PropertyPlaceholderConfigurer} for replacing "${...}" placeholders
+ * (<i>pulling</i> values from a properties file into bean definitions)
+ * </ul>
+ * <p>
+ *     通过重写convertPropertyValue方法，可以在读取属性值之后转换属性值。 例如，可以在处理加密值之前相应地检测和解密加密值。
+ *
  * @author Juergen Hoeller
  * @since 02.10.2003
  * @see PropertyOverrideConfigurer

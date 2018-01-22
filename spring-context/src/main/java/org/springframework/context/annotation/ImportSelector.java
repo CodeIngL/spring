@@ -38,6 +38,20 @@ import org.springframework.core.type.AnnotationMetadata;
  * {@code @Configuration} classes have been processed (see {@link DeferredImportSelector}
  * for details).
  *
+ * <p>
+ *	   接口由类型来实现，这些类型根据给定的选择标准（通常是一个或多个注释属性）确定应该导入哪个@Configuration类。
+ *	   ImportSelector可以实现以下Aware接口中的任何一个，并且在selectImport之前调用它们各自的方法：
+ * </p>
+ * <ul>
+ * <li>{@link org.springframework.context.EnvironmentAware EnvironmentAware}</li>
+ * <li>{@link org.springframework.beans.factory.BeanFactoryAware BeanFactoryAware}</li>
+ * <li>{@link org.springframework.beans.factory.BeanClassLoaderAware BeanClassLoaderAware}</li>
+ * <li>{@link org.springframework.context.ResourceLoaderAware ResourceLoaderAware}</li>
+ * </ul>
+ * <p>
+ *     ImportSelectors通常以与常规@Import批注相同的方式进行处理，但是，也可以推迟选择导入，直到处理完所有的@Configuration类（有关详细信息，请参阅DeferredImportSelector）。
+ * </p>
+ *
  * @author Chris Beams
  * @since 3.1
  * @see DeferredImportSelector

@@ -93,6 +93,61 @@ import org.springframework.core.ResolvableType;
  * <li>a custom destroy-method definition
  * </ol>
  *
+ * <p>访问Spring bean容器的根接口。
+ * 这是一个bean容器的基本客户端视图; 更多的接口如ListableBeanFactory和org.springframework.beans.factory.config.ConfigurableBeanFactory可用于特定目的。</p>
+ * <p>这个接口是由持有许多bean定义的对象实现的，每个定义都由一个String名字唯一标识。 根据bean的定义，工厂将返回一个包含对象的独立实例（Prototype设计模式），或者一个共享实例（Singleton设计模式的一个高级替代方案，其中实例是该范围内的一个单例 的工厂）。
+ * 将返回哪种类型的实例取决于bean工厂配置：API是相同的。
+ * 自Spring 2.0以来，根据具体的应用上下文（例如Web环境中的“请求”和“会话”范围），可以使用更多的范围。</p>
+ * <p>
+ *     这种方法的重点在于BeanFactory是应用程序组件的中央注册表，集中了应用程序组件的配置（例如，单个对象不需要读取属性文件）。
+ *     请参阅“专家一对一J2EE设计和开发”的第4章和第11章，以讨论此方法的优点。
+ * </p>
+ * <p>
+ *     请注意，通常依赖依赖注入（“push”配置）通过setter或构造函数来配置应用程序对象通常会更好，而不是像BeanFactory查找那样使用任何形式的“pull”配置。
+ *     Spring的依赖注入功能是使用这个BeanFactory接口及其子接口实现的。
+ * </p>
+ * <p>
+ *     通常，BeanFactory将加载存储在配置源（例如XML文档）中的bean定义，并使用org.springframework.beans包来配置bean。
+ *     但是，实现可以直接在Java代码中直接返回它创建的Java对象。
+ *     对于如何存储定义没有限制：LDAP，RDBMS，XML，属性文件等。
+ *     鼓励实现支持bean间的引用（依赖注入）。
+ * </p>
+ * <p>
+ *     与ListableBeanFactory中的方法相比，如果这是HierarchicalBeanFactory，则此接口中的所有操作也将检查父级工厂。
+ *     如果在这个工厂实例中找不到一个bean，那么直接的父工厂将被询问。
+ *     这个工厂实例中的Bean应该在任何父级工厂中覆盖同名的bean。
+ * </p>
+ * <p>
+ *     Bean工厂实现应该尽可能地支持标准的bean生命周期接口。 全套初始化方法及其标准顺序是：
+ * <ol>
+ * <li>BeanNameAware's {@code setBeanName}
+ * <li>BeanClassLoaderAware's {@code setBeanClassLoader}
+ * <li>BeanFactoryAware's {@code setBeanFactory}
+ * <li>EnvironmentAware's {@code setEnvironment}
+ * <li>EmbeddedValueResolverAware's {@code setEmbeddedValueResolver}
+ * <li>ResourceLoaderAware's {@code setResourceLoader}
+ * (only applicable when running in an application context)
+ * <li>ApplicationEventPublisherAware's {@code setApplicationEventPublisher}
+ * (only applicable when running in an application context)
+ * <li>MessageSourceAware's {@code setMessageSource}
+ * (only applicable when running in an application context)
+ * <li>ApplicationContextAware's {@code setApplicationContext}
+ * (only applicable when running in an application context)
+ * <li>ServletContextAware's {@code setServletContext}
+ * (only applicable when running in a web application context)
+ * <li>{@code postProcessBeforeInitialization} methods of BeanPostProcessors
+ * <li>InitializingBean's {@code afterPropertiesSet}
+ * <li>a custom init-method definition
+ * <li>{@code postProcessAfterInitialization} methods of BeanPostProcessors
+ * </ol>
+ * <p>关闭一个bean工厂时，应用以下生命周期方法：</p>
+ * <ol>
+ * <li>{@code postProcessBeforeDestruction} methods of DestructionAwareBeanPostProcessors
+ * <li>DisposableBean's {@code destroy}
+ * <li>a custom destroy-method definition
+ * </ol>
+ *
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Chris Beams

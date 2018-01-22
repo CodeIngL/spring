@@ -20,6 +20,9 @@ package org.springframework.beans;
  * Interface to be implemented by bean metadata elements
  * that carry a configuration source object.
  *
+ * <p>
+ *    接口由携带配置源对象的bean元数据元素实现。
+ *
  * @author Juergen Hoeller
  * @since 2.0
  */

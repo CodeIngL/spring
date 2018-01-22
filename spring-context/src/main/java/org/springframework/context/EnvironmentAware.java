@@ -23,6 +23,8 @@ import org.springframework.core.env.Environment;
  * Interface to be implemented by any bean that wishes to be notified
  * of the {@link Environment} that it runs in.
  *
+ * 接口由希望被通知运行的环境的任何bean实现。
+ *
  * @author Chris Beams
  * @since 3.1
  * @see org.springframework.core.env.EnvironmentCapable

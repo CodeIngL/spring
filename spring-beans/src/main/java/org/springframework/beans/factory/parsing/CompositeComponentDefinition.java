@@ -26,6 +26,10 @@ import org.springframework.util.Assert;
  * {@link ComponentDefinition} instances, aggregating them into a named group
  * of components.
  *
+ * <p>
+ *     ComponentDefinition实现包含一个或多个嵌套的ComponentDefinition实例，将它们聚合成一组命名的组件。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.0.1
  * @see #getNestedComponents()

@@ -33,6 +33,12 @@ import javax.servlet.ServletContextListener;
  * <p>This listener should be registered before ContextLoaderListener in {@code web.xml}
  * when using custom log4j initialization.
  *
+ *
+ * 在Web环境中自定义log4j初始化的引导监听器。 委托给Log4jWebConfigurer（请参阅其javadoc的配置细节）。
+ * <p>警告：假设一个展开的WAR文件，用于加载配置文件和写入日志文件。
+ * 如果要保持WAR未展开或不需要WAR目录中特定于应用程序的日志文件，请不要在应用程序中使用log4j安装程序（因此，请勿使用Log4jConfigListener或Log4jConfigServlet）。
+ * 相反，使用全局的，VM范围的log4j设置（例如，在JBoss中）或JDK 1.4的java.util.logging（这也是全局的）。
+ *
  * @author Juergen Hoeller
  * @since 13.03.2003
  * @see Log4jWebConfigurer

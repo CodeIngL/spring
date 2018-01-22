@@ -25,6 +25,12 @@ package org.springframework.context.annotation;
  * interface or use the {@link org.springframework.core.annotation.Order} annotation to
  * indicate a precedence against other {@link DeferredImportSelector}s.
  *
+ *
+ * <p>
+ *      ImportSelector的一个变体，在所有的@Configuration bean被处理之后运行。 当所选的导入是@Conditional时，这种类型的选择器特别有用。
+ * <p>
+ *     实现还可以扩展org.springframework.core.Ordered接口或使用org.springframework.core.annotation.Order注释来指示其他DeferredImportSelector的优先级。
+ *
  * @author Phillip Webb
  * @since 4.0
  */
