@@ -285,6 +285,13 @@ public class ContextLoader {
 	 * using the application context provided at construction time, or creating a new one
 	 * according to the "{@link #CONTEXT_CLASS_PARAM contextClass}" and
 	 * "{@link #CONFIG_LOCATION_PARAM contextConfigLocation}" context-params.
+	 *
+	 * <p>
+	 *     为给定的servlet上下文初始化Spring的Web应用程序上下文，
+	 *     使用构造时提供的应用程序上下文，
+	 *     或者根据“contextClass”和“contextConfigLocation”上下文参数创建一个新的。
+	 * </p>
+	 *
 	 * @param servletContext current servlet context
 	 * @return the new WebApplicationContext
 	 * @see #ContextLoader(WebApplicationContext)

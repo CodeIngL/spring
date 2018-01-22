@@ -31,6 +31,20 @@ import javax.servlet.ServletContextListener;
  * constructor, allowing for programmatic configuration in Servlet 3.0+ environments.
  * See {@link org.springframework.web.WebApplicationInitializer} for usage examples.
  *
+ *
+ * <p>
+ *     引导监听器启动并关闭Spring的根WebApplicationContext。 简单地委托到ContextLoader以及ContextCleanupListener。
+ * </p>
+ *
+ * <p>
+ *     如果使用后者，则该监听器应该在web.xml中的org.springframework.web.util.Log4jConfigListener之后进行注册。
+ * </p>
+ *
+ * <p>
+ *     从Spring 3.1开始，ContextLoaderListener支持通过ContextLoaderListener（WebApplicationContext）构造函数注入根Web应用程序上下文，
+ *     从而允许在Servlet 3.0+环境中进行编程式配置。
+ *     有关使用示例，请参阅org.springframework.web.WebApplicationInitializer。
+ * </p>
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 17.02.2003
@@ -101,6 +115,11 @@ public class ContextLoaderListener extends ContextLoader implements ServletConte
 
 	/**
 	 * Initialize the root web application context.
+	 *
+	 * <p>
+	 *     初始化根Web应用程序上下文。
+	 * </p>
+	 *
 	 */
 	@Override
 	public void contextInitialized(ServletContextEvent event) {

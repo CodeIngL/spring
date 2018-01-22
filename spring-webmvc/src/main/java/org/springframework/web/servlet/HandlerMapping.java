@@ -121,6 +121,11 @@ public interface HandlerMapping {
 	 * <p>Returns {@code null} if no match was found. This is not an error.
 	 * The DispatcherServlet will query all registered HandlerMapping beans to find
 	 * a match, and only decide there is an error if none can find a handler.
+	 *
+	 * <br/>
+	 * 为此请求返回一个处理程序和任何拦截器。 可以根据请求URL，会话状态或实现类选择的任何因素进行选择。
+	 * 返回的HandlerExecutionChain包含一个处理程序对象，而不是一个标记接口，所以处理程序不受任何限制。
+	 * 例如，可以写一个HandlerAdapter来允许使用另一个框架的处理程序对象。
 	 * @param request current HTTP request
 	 * @return a HandlerExecutionChain instance containing handler object and
 	 * any interceptors, or {@code null} if no mapping found

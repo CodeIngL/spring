@@ -265,6 +265,11 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	 * <p>This is called in addition to any {@link MappedInterceptor}s that may have been provided
 	 * via {@link #setInterceptors}, by default adding all beans of type {@link MappedInterceptor}
 	 * from the current context and its ancestors. Subclasses can override and refine this policy.
+	 *
+	 * <br/>
+	 * 检测MappedInterceptor类型的bean，并将它们添加到映射的拦截器列表中。
+	 * 除了可能通过setInterceptors提供的任何MappedInterceptors之外，还会调用此方法，默认情况下将从当前上下文及其祖先中添加所有MappedInterceptor类型的Bean。
+	 * 子类可以覆盖和优化这个策略。
 	 * @param mappedInterceptors an empty list to add {@link MappedInterceptor} instances to
 	 */
 	protected void detectMappedInterceptors(List<HandlerInterceptor> mappedInterceptors) {
@@ -297,6 +302,12 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 	 * and {@link WebRequestInterceptor}. Each given {@link WebRequestInterceptor}
 	 * will be wrapped in a {@link WebRequestHandlerInterceptorAdapter}.
 	 * Can be overridden in subclasses.
+	 * <br/>
+	 * 使给定的拦截器对象适应HandlerInterceptor接口。
+	 * <br/>
+	 * 默认情况下，支持的拦截器类型是HandlerInterceptor和WebRequestInterceptor。
+	 * 每个给定的WebRequestInterceptor将被封装在WebRequestHandlerInterceptorAdapter中。 可以在子类中重写。
+	 *
 	 * @param interceptor the specified interceptor object
 	 * @return the interceptor wrapped as HandlerInterceptor
 	 * @see org.springframework.web.servlet.HandlerInterceptor

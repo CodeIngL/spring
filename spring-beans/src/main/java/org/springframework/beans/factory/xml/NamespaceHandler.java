@@ -39,6 +39,20 @@ import org.springframework.beans.factory.config.BeanDefinitionHolder;
  * not implement this interface directly, but rather make use of the provided
  * {@link NamespaceHandlerSupport} class.
  *
+ * <br/>
+ * <p>
+ * 		公共接口NamespaceHandler,在DefaultBeanDefinitionDocumentReader用于处理Spring XML配置文件中的自定义命名空间的基本接口。
+ * </p>
+ * <p>
+ *     预期实现将返回自定义顶级标记的BeanDefinitionParser接口的实现以及自定义嵌套标记的BeanDefinitionDecorator接口的实现。
+ * </p>
+ * <p>
+ *     解析器在直接在<beans>标记下遇到自定义标记时会调用parse，并在直接在<bean>标记下遇到自定义标记时进行修饰。
+ * </p>
+ * <p>
+ *     编写自己的自定义元素扩展的开发人员通常不会直接实现此接口，而是使用提供的NamespaceHandlerSupport类。
+ * </p>
+ *
  * @author Rob Harrop
  * @author Erik Wiersma
  * @since 2.0

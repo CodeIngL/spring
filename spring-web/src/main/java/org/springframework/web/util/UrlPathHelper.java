@@ -244,6 +244,9 @@ public class UrlPathHelper {
 	 * is a match return the extra part. This method is needed because the
 	 * context path and the servlet path returned by the HttpServletRequest are
 	 * stripped of semicolon content unlike the requesUri.
+     *
+     * 匹配给定的“映射”到“requestUri”的开始，如果有匹配返回额外的部分。
+     * 这个方法是必须的，因为HttpServletRequest返回的上下文路径和servlet路径被剥离了不像requesUri的分号内容。
 	 */
 	private String getRemainingPath(String requestUri, String mapping, boolean ignoreCase) {
 		int index1 = 0;
@@ -489,6 +492,9 @@ public class UrlPathHelper {
 	 * Remove ";" (semicolon) content from the given request URI if the
 	 * {@linkplain #setRemoveSemicolonContent(boolean) removeSemicolonContent}
 	 * property is set to "true". Note that "jssessionid" is always removed.
+	 *
+	 * 去掉 ”;” （分号）内容从给定的请求URI，如果removeSemicolonContent属性设置为“true”。 请注意，“jssessionid”总是被删除。
+	 *
 	 * @param requestUri the request URI string to remove ";" content from
 	 * @return the updated URI string
 	 */

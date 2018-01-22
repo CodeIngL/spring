@@ -31,6 +31,18 @@ package org.springframework.beans.factory;
  * and {@link org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory}
  * for examples of processing {@code *Aware} interface callbacks.
  *
+ * <br/>
+ * 标记超级接口，表示一个bean有资格通过一个回调式方法被Spring容器通知一个特定的框架对象。
+ * 实际的方法签名是由单独的子接口确定的，
+ * 但是通常应该只包含一个接受单个参数的void返回方法。
+ *
+ * <br/>
+ * 请注意，仅实现Aware不提供默认功能。
+ * 相反，处理必须明确完成，例如在BeanPostProcessor中。
+ * 请参阅org.springframework.context.support.ApplicationContextAwareProcessor
+ * 和org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory
+ * 以获取处理示例 *了解接口回调。
+ *
  * @author Chris Beams
  * @since 3.1
  */
