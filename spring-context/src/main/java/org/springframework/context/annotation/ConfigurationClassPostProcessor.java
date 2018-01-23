@@ -211,7 +211,9 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 
 	/**
 	 * Derive further bean definitions from the configuration classes in the registry.
-	 * 从注册表中的配置类派生更多的bean定义。
+	 * <p>
+	 * 		从注册表中的配置类派生更多的bean定义。
+	 * </p>
 	 */
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
@@ -232,6 +234,10 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	/**
 	 * Prepare the Configuration classes for servicing bean requests at runtime
 	 * by replacing them with CGLIB-enhanced subclasses.
+	 *
+	 * <p>
+	 *     在运行时通过用CGLIB增强的子类替换它们来准备Configuration类来为bean请求提供服务。
+	 * </p>
 	 */
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
@@ -244,6 +250,8 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		if (!this.registriesPostProcessed.contains(factoryId)) {
 			// BeanDefinitionRegistryPostProcessor hook apparently not supported...
 			// Simply call processConfigurationClasses lazily at this point then.
+			// BeanDefinitionRegistryPostProcessor挂钩显然不支持...
+			// 那么只需在这一点上简单地调用processConfigurationClasses即可。
 			processConfigBeanDefinitions((BeanDefinitionRegistry) beanFactory);
 		}
 
@@ -366,6 +374,11 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 * Post-processes a BeanFactory in search of Configuration class BeanDefinitions;
 	 * any candidates are then enhanced by a {@link ConfigurationClassEnhancer}.
 	 * Candidate status is determined by BeanDefinition attribute metadata.
+	 *
+	 * <p>
+	 *     在搜索Configuration类BeanDefinitions后处理一个BeanFactory; 任何候选人然后由一个ConfigurationClassEnhancer增强。 候选状态由BeanDefinition属性元数据决定。
+	 * </p>
+	 *
 	 * @see ConfigurationClassEnhancer
 	 */
 	public void enhanceConfigurationClasses(ConfigurableListableBeanFactory beanFactory) {

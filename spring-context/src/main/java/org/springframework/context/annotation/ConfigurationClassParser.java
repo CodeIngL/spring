@@ -90,6 +90,15 @@ import org.springframework.util.StringUtils;
  * <p>This ASM-based implementation avoids reflection and eager class loading in order to
  * interoperate effectively with lazy class loading in a Spring ApplicationContext.
  *
+ * <p>
+ *     解析Configuration类定义，填充ConfigurationClass对象的集合（解析单个Configuration类可能会导致任意数量的ConfigurationClass对象，因为一个Configuration类可能使用Import注释导入另一个Configuration类）。
+ * <p>
+ *     这个类有助于将解析Configuration类的结构的重心从注册BeanDefinition对象的重心分离出来（基于该模型的内容（除了需要立即注册的@ComponentScan注解）。
+ * <p>
+ *     这个基于ASM的实现可以避免反射和加载类，以便与Spring ApplicationContext中的惰性类加载进行有效的互操作。
+ * <p>
+ *
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @author Phillip Webb

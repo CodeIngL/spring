@@ -65,6 +65,11 @@ import org.springframework.util.ReflectionUtils;
  * instance. Otherwise, a call to such an {@code @Bean} method serves as a
  * reference back to the container, obtaining the corresponding bean by name.
  *
+ * <p>
+ * 		通过生成与Spring容器交互的CGLIB子类来增强配置类，以尊重@Bean方法的bean范围的语义。
+ * 		每个这样的@Bean方法将在生成的子类中被覆盖，如果容器实际上请求构造一个新的实例，则只委托给实际的@Bean方法实现。
+ * 		否则，调用这样一个@Bean方法作为对容器的引用，通过名称获得相应的bean。
+ * </p>
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.0
