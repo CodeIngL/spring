@@ -60,6 +60,14 @@ import org.springframework.util.StringUtils;
  * not implement/extend any of its artifacts as a set of configuration classes is not a
  * {@link Resource}.
  *
+ *
+ * <p>
+ *     	读取给定的一组完整的ConfigurationClass实例，根据BeanDefinitionRegistry的内容注册Bean定义。
+ * </p>
+ * <p>
+ *     该类是在BeanDefinitionReader层次结构之后建模的，但是由于一组配置类不是资源，因此不实现/扩展任何工件。
+ * </p>
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @author Phillip Webb

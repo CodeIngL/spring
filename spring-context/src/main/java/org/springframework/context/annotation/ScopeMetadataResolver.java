@@ -21,6 +21,10 @@ import org.springframework.beans.factory.config.BeanDefinition;
 /**
  * Strategy interface for resolving the scope of bean definitions.
  *
+ * <p>
+ *     用于解决bean定义范围的策略接口。
+ * </p>
+ *
  * @author Mark Fisher
  * @since 2.5
  * @see org.springframework.context.annotation.Scope
@@ -36,6 +40,11 @@ public interface ScopeMetadataResolver {
 	 * present on {@link BeanDefinition#getBeanClassName() the class} of the
 	 * supplied {@code definition}, or to use metadata present in the
 	 * {@link BeanDefinition#attributeNames()} of the supplied {@code definition}.
+	 *
+	 * <p>
+	 *     解析适用于提供的bean定义的ScopeMetadata。
+	 * <p>
+	 *     实现当然可以使用他们喜欢的任何策略来确定范围元数据，但是一些立即想到的实现可能是使用所提供定义的类中存在的源代码级别注释，或者使用BeanDefinition.attributeNames中存在的元数据 ）提供的定义。
 	 * @param definition the target bean definition
 	 * @return the relevant scope metadata; never {@code null}
 	 */

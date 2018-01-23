@@ -193,6 +193,17 @@ public class AnnotationConfigWebApplicationContext extends AbstractRefreshableWe
 	 * <p>Configuration class bean definitions are registered with generated bean
 	 * definition names unless the {@code value} attribute is provided to the stereotype
 	 * annotation.
+	 * <p>
+	 *     注册由register（Class ...）指定的任何类的org.springframework.beans.factory.config.BeanDefinition并扫描scan（String ...）指定的任何包。
+	 * <p>
+	 *     对于由setConfigLocation（String）或setConfigLocations（String []）指定的任何值，首先尝试将每个位置作为类加载，如果类加载成功，则注册BeanDefinition，如果类加载失败（即引发ClassNotFoundException） 该值是一个包，并尝试扫描它的注释类。
+	 * <p>
+	 *     对于由setConfigLocation（String）或setConfigLocations（String []）指定的任何值，首先尝试将每个位置作为类加载，如果类加载成功，则注册BeanDefinition，如果类加载失败（即引发ClassNotFoundException） 该值是一个包，并尝试扫描它的注释类。
+	 * <p>
+	 *     启用默认的注释配置后处理器集合，以便可以使用@Autowired，@Required和关联的注释。
+	 * <p>
+	 *     除非value属性被提供给构造型注释，否则配置类的bean定义被注册到生成的bean定义名称中。
+	 *
 	 * @param beanFactory the bean factory to load bean definitions into
 	 * @see #register(Class...)
 	 * @see #scan(String...)
@@ -203,22 +214,28 @@ public class AnnotationConfigWebApplicationContext extends AbstractRefreshableWe
 	 */
 	@Override
 	protected void loadBeanDefinitions(DefaultListableBeanFactory beanFactory) {
+		//获得bean定义读取器
 		AnnotatedBeanDefinitionReader reader = getAnnotatedBeanDefinitionReader(beanFactory);
+		//获得bean定义扫描器
 		ClassPathBeanDefinitionScanner scanner = getClassPathBeanDefinitionScanner(beanFactory);
 
+		//获得名字生成器
 		BeanNameGenerator beanNameGenerator = getBeanNameGenerator();
+		//先对这个名字生成器进行注册
 		if (beanNameGenerator != null) {
 			reader.setBeanNameGenerator(beanNameGenerator);
 			scanner.setBeanNameGenerator(beanNameGenerator);
 			beanFactory.registerSingleton(AnnotationConfigUtils.CONFIGURATION_BEAN_NAME_GENERATOR, beanNameGenerator);
 		}
 
+		//获得策略解析器解析bean定义范围，单例或者多例之类的
 		ScopeMetadataResolver scopeMetadataResolver = getScopeMetadataResolver();
 		if (scopeMetadataResolver != null) {
 			reader.setScopeMetadataResolver(scopeMetadataResolver);
 			scanner.setScopeMetadataResolver(scopeMetadataResolver);
 		}
 
+		//获得注解类
 		if (!this.annotatedClasses.isEmpty()) {
 			if (logger.isInfoEnabled()) {
 				logger.info("Registering annotated classes: [" +
@@ -227,6 +244,7 @@ public class AnnotationConfigWebApplicationContext extends AbstractRefreshableWe
 			reader.register(this.annotatedClasses.toArray(new Class<?>[this.annotatedClasses.size()]));
 		}
 
+		//获得基本表
 		if (!this.basePackages.isEmpty()) {
 			if (logger.isInfoEnabled()) {
 				logger.info("Scanning base packages: [" +
@@ -235,14 +253,17 @@ public class AnnotationConfigWebApplicationContext extends AbstractRefreshableWe
 			scanner.scan(this.basePackages.toArray(new String[this.basePackages.size()]));
 		}
 
+		//获得配置定位
 		String[] configLocations = getConfigLocations();
 		if (configLocations != null) {
+			//处理配置类
 			for (String configLocation : configLocations) {
 				try {
 					Class<?> clazz = getClassLoader().loadClass(configLocation);
 					if (logger.isInfoEnabled()) {
 						logger.info("Successfully resolved class for [" + configLocation + "]");
 					}
+					//进行注册
 					reader.register(clazz);
 				}
 				catch (ClassNotFoundException ex) {

@@ -217,17 +217,21 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 */
 	@Override
 	public void postProcessBeanDefinitionRegistry(BeanDefinitionRegistry registry) {
+		//获得注册表的身份标识
 		int registryId = System.identityHashCode(registry);
+		//已经存在，报错，该注册表已经处理过了--->BeanDefinitionRegistryPostProcessor
 		if (this.registriesPostProcessed.contains(registryId)) {
 			throw new IllegalStateException(
 					"postProcessBeanDefinitionRegistry already called on this post-processor against " + registry);
 		}
+		//已经存在，报错，spring已经处理过--->BeanFactoryPostProcessor
 		if (this.factoriesPostProcessed.contains(registryId)) {
 			throw new IllegalStateException(
 					"postProcessBeanFactory already called on this post-processor against " + registry);
 		}
+		//加入已经处理过的注册表
 		this.registriesPostProcessed.add(registryId);
-
+		//处理
 		processConfigBeanDefinitions(registry);
 	}
 
@@ -241,11 +245,14 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 */
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) {
+		//获得factory的身份标识
 		int factoryId = System.identityHashCode(beanFactory);
+		//已经存在，报错，spring已经处理过--->BeanFactoryPostProcessor
 		if (this.factoriesPostProcessed.contains(factoryId)) {
 			throw new IllegalStateException(
 					"postProcessBeanFactory already called on this post-processor against " + beanFactory);
 		}
+		//加入已经处理过的factory表
 		this.factoriesPostProcessed.add(factoryId);
 		if (!this.registriesPostProcessed.contains(factoryId)) {
 			// BeanDefinitionRegistryPostProcessor hook apparently not supported...
@@ -254,8 +261,9 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			// 那么只需在这一点上简单地调用processConfigurationClasses即可。
 			processConfigBeanDefinitions((BeanDefinitionRegistry) beanFactory);
 		}
-
+		//cglib加强
 		enhanceConfigurationClasses(beanFactory);
+		//包装一个ImportAwareBeanPostProcessor，下一步处理
 		beanFactory.addBeanPostProcessor(new ImportAwareBeanPostProcessor(beanFactory));
 	}
 
@@ -267,10 +275,14 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 	 */
 	public void processConfigBeanDefinitions(BeanDefinitionRegistry registry) {
 		List<BeanDefinitionHolder> configCandidates = new ArrayList<BeanDefinitionHolder>();
+		//获得该注册表中的所有的bean名称
 		String[] candidateNames = registry.getBeanDefinitionNames();
 
+		//遍历处理
 		for (String beanName : candidateNames) {
+			//获得bean定义
 			BeanDefinition beanDef = registry.getBeanDefinition(beanName);
+			//
 			if (ConfigurationClassUtils.isFullConfigurationClass(beanDef) ||
 					ConfigurationClassUtils.isLiteConfigurationClass(beanDef)) {
 				if (logger.isDebugEnabled()) {
