@@ -77,6 +77,33 @@ import org.springframework.util.Assert;
  * special bean definition formats in a refreshable manner, consider deriving
  * from the {@link AbstractRefreshableApplicationContext} base class.
  *
+ * <p>
+ *     泛型ApplicationContext实现，它包含一个内部的DefaultListableBeanFactory实例，并且不承担特定的bean定义格式。
+ *     实现BeanDefinitionRegistry接口，以便允许应用任何bean定义读取器。
+ * <p>
+ *     典型的用法是通过BeanDefinitionRegistry接口注册各种bean定义，然后调用refresh（）以应用程序上下文语义初始化这些bean（处理org.springframework.context.ApplicationContextAware，自动检测BeanFactoryPostProcessor等）。
+ * <p>
+ *     与为每个刷新创建一个新的内部BeanFactory实例的其他ApplicationContext实现相比，此上下文的内部BeanFactory从一开始就可用，以便能够在其上注册bean定义。 refresh（）只能被调用一次。
+ * <p>Usage example:
+ *
+ * <pre class="code">
+ * GenericApplicationContext ctx = new GenericApplicationContext();
+ * XmlBeanDefinitionReader xmlReader = new XmlBeanDefinitionReader(ctx);
+ * xmlReader.loadBeanDefinitions(new ClassPathResource("applicationContext.xml"));
+ * PropertiesBeanDefinitionReader propReader = new PropertiesBeanDefinitionReader(ctx);
+ * propReader.loadBeanDefinitions(new ClassPathResource("otherBeans.properties"));
+ * ctx.refresh();
+ *
+ * MyBean myBean = (MyBean) ctx.getBean("myBean");
+ * ...</pre>
+ * <p>
+ *     对于XML bean定义的典型情况，只需使用ClassPathXmlApplicationContext或FileSystemXmlApplicationContext，这些设置更容易设置，但灵活性较差，因为您只需使用XML bean定义的标准资源位置，而不是混合任意的bean定义格式。
+ *     在Web环境中的等价物是org.springframework.web.context.support.XmlWebApplicationContext。
+ * <p>
+ *     对于应该以可刷新的方式读取特殊的bean定义格式的自定义应用程序上下文实现，可以考虑从AbstractRefreshableApplicationContext基类派生。
+ * <p>
+ *
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 1.1.2

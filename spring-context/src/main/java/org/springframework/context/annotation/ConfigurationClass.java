@@ -39,6 +39,9 @@ import org.springframework.util.ClassUtils;
  * Includes a set of {@link Bean} methods, including all such methods
  * defined in the ancestry of the class, in a 'flattened-out' manner.
  *
+ * <p>
+ * 表示一个用户定义的@Configuration类。 包括一套Bean方法，包括所有在类的祖先中定义的方法，以“扁平化”的方式。
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @author Phillip Webb
@@ -207,6 +210,10 @@ final class ConfigurationClass {
 		return this.importedResources;
 	}
 
+	/**
+	 * 进行校验配置是否合理
+	 * @param problemReporter
+	 */
 	public void validate(ProblemReporter problemReporter) {
 		// A configuration class may not be final (CGLIB limitation)
 		if (getMetadata().isAnnotated(Configuration.class.getName())) {

@@ -74,6 +74,23 @@ import org.springframework.web.context.ContextLoader;
  * definitions will override ones defined in earlier loaded files. This can be leveraged
  * to deliberately override certain bean definitions via an extra Configuration class.
  *
+ * <p>
+ *     接受注释类作为输入的WebApplicationContext实现 - 特别是@Configuration注释的类，还包括普通的@Component类和使用javax.inject注解的兼容JSR-330的类。允许逐个注册类（指定类名作为配置位置）以及类路径扫描（指定基本包作为配置位置）。
+ * <p>
+ *     这基本上相当于Web环境的AnnotationConfigApplicationContext。
+ * <p>
+ *     为了使用这个应用程序上下文，必须将ContextLoader和/或contextClass的init-param的contextClass context-param设置为这个类的完全限定名称。
+ * <p>
+ *     从Spring 3.1开始，当使用基于代码的新WebApplicationInitializer替代web.xml时，这个类也可以直接实例化并注入到Spring的DispatcherServlet或ContextLoaderListener中。有关详细信息和用法示例，请参阅其Javadoc。
+ * <p>
+ *     与XmlWebApplicationContext不同，没有默认的配置类位置。
+ *     而是需要为FrameworkServlet的ContextLoader和/或“contextConfigLocation”init-param设置“contextConfigLocation”上下文参数。参数值可以包含完全限定的类名和基本包来扫描组件。有关如何处理这些位置的详细信息，请参阅loadBeanDefinitions。
+ * <p>
+ *     作为设置“contextConfigLocation”参数的替代方案，用户可以实现ApplicationContextInitializer并设置“contextInitializerClasses”上下文参数/初始参数。 在这种情况下，用户应该优先使用setConfigLocation（String）方法的refresh（）和scan（String ...）方法，该方法主要供ContextLoader使用。
+ * <p>
+ *     注意：如果有多个@Configuration类，稍后的@Bean定义将覆盖在先前加载的文件中定义的定义。 这可以用来通过一个额外的配置类故意重写某些bean定义。
+ * <p>
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.0

@@ -64,6 +64,10 @@ public interface AnnotatedTypeMetadata {
 	 * Retrieve the attributes of the annotation of the given type, if any (i.e. if
 	 * defined on the underlying element, as direct annotation or meta-annotation),
 	 * also taking attribute overrides on composed annotations into account.
+	 *
+	 * <p>
+	 *     检索给定类型（如果在底层元素上定义为直接注释或元注释）的给定类型注释的属性，也考虑组合注释的属性覆盖。
+	 * </p>
 	 * @param annotationName the fully qualified class name of the annotation
 	 * type to look for
 	 * @param classValuesAsString whether to convert class references to String

@@ -37,6 +37,13 @@ import org.springframework.util.Assert;
  *
  * <p>See @{@link Configuration}'s javadoc for usage examples.
  *
+ * <p>
+ *     独立的应用程序上下文，接受注释的类作为输入 - 特别是@配置注释的类，也是简单的@Component类型和使用javax.inject注解的JSR-330兼容的类。
+ *     允许使用寄存器（Class ...）逐个注册类，以及使用scan（String ...）进行类路径扫描。
+ * </p>
+ * <p>
+ *     在多个@Configuration类的情况下，后面的类中定义的@Bean方法将覆盖在以前的类中定义的方法。 这可以用来通过一个额外的@Configuration类有意地覆盖某些bean定义。
+ * </p>
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.0

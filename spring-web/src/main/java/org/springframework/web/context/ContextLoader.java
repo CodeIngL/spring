@@ -315,6 +315,7 @@ public class ContextLoader {
 		try {
 			// Store context in local instance variable, to guarantee that
 			// it is available on ServletContext shutdown.
+			// 将上下文存储在本地实例变量中，以确保它在ServletContext关闭时可用。
 			if (this.context == null) {
 				this.context = createWebApplicationContext(servletContext);
 			}
@@ -323,6 +324,7 @@ public class ContextLoader {
 				if (!cwac.isActive()) {
 					// The context has not yet been refreshed -> provide services such as
 					// setting the parent context, setting the application context id, etc
+					// 返回父上下文，如果没有父节点，则返回null，这是上下文层次结构的根。
 					if (cwac.getParent() == null) {
 						// The context instance was injected without an explicit parent ->
 						// determine parent for root web application context, if any.
@@ -332,6 +334,7 @@ public class ContextLoader {
 					configureAndRefreshWebApplicationContext(cwac, servletContext);
 				}
 			}
+			//设置属性，用于能够访问，对于servletContext来说
 			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, this.context);
 
 			ClassLoader ccl = Thread.currentThread().getContextClassLoader();
@@ -355,11 +358,13 @@ public class ContextLoader {
 		}
 		catch (RuntimeException ex) {
 			logger.error("Context initialization failed", ex);
+			//设置属性，用于能够访问，对于servletContext来说，通过这个来访问发生了什么异常
 			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, ex);
 			throw ex;
 		}
 		catch (Error err) {
 			logger.error("Context initialization failed", err);
+			//设置属性，用于能够访问，对于servletContext来说，通过这个来访问发生了什么异常
 			servletContext.setAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE, err);
 			throw err;
 		}

@@ -34,6 +34,9 @@ import org.springframework.util.Assert;
  * This is an alternative to {@link ClassPathBeanDefinitionScanner}, applying
  * the same resolution of annotations but for explicitly registered classes only.
  *
+ * <p>
+ *     方便的注释bean类的程序注册的适配器。 这是ClassPathBeanDefinitionScanner的替代方法，只应用注解的相同分辨率，但仅用于显式注册的类。
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @author Sam Brannen
@@ -157,6 +160,10 @@ public class AnnotatedBeanDefinitionReader {
 	/**
 	 * Register a bean from the given bean class, deriving its metadata from
 	 * class-declared annotations.
+	 *
+	 * <p>
+	 *     从给定的bean类注册一个bean，从类声明的注释中派生它的元数据。
+	 * </p>
 	 * @param annotatedClass the class of the bean
 	 * @param name an explicit name for the bean
 	 * @param qualifiers specific qualifier annotations to consider,
