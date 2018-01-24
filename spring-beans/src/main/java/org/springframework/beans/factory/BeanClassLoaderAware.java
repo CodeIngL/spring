@@ -28,6 +28,16 @@ package org.springframework.beans.factory;
  * <p>For a list of all bean lifecycle methods, see the
  * {@link BeanFactory BeanFactory javadocs}.
  *
+ * <p>
+ *     回调，允许一个bean知道这个bean类加载器; 也就是现在的bean工厂用来加载bean类的类加载器。
+ * </p>
+ * <p>
+ *     这主要是由框架类来实现的，尽管它们可能从共享类加载器加载，但它们必须按名称来选择应用程序类。
+ * </p>
+ * <p>
+ *     有关所有bean生命周期方法的列表，请参阅BeanFactory javadocs。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 2.0

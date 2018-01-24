@@ -286,6 +286,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 			if (ConfigurationClassUtils.isFullConfigurationClass(beanDef) ||
 					ConfigurationClassUtils.isLiteConfigurationClass(beanDef)) {
 				if (logger.isDebugEnabled()) {
+					// Bean定义已经作为一个配置类来处理
 					logger.debug("Bean definition has already been processed as a configuration class: " + beanDef);
 				}
 			}
@@ -295,6 +296,7 @@ public class ConfigurationClassPostProcessor implements BeanDefinitionRegistryPo
 		}
 
 		// Return immediately if no @Configuration classes were found
+		// 如果没有找到@Configuration类，立即返回
 		if (configCandidates.isEmpty()) {
 			return;
 		}

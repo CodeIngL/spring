@@ -139,6 +139,102 @@ import org.springframework.core.io.support.PropertySourceFactory;
  * and {@link org.springframework.core.env.MutablePropertySources MutablePropertySources}
  * javadocs for details.
  *
+ * <p>
+ *     Annotation提供了一个便捷的声明机制，用于将一个PropertySource添加到Spring的环境中。 与@Configuration类一起使用。
+ * </p>
+ *
+ * <h3>Example usage</h3>
+ *
+ * <p>
+ *    给定一个包含键/值对testbean.name = myTestBean的文件app.properties，以下@Configuration类使用@PropertySource将app.properties提供给Environment的一组PropertySources。
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * &#064;PropertySource("classpath:/com/myco/app.properties")
+ * public class AppConfig {
+ *     &#064;Autowired
+ *     Environment env;
+ *
+ *     &#064;Bean
+ *     public TestBean testBean() {
+ *         TestBean testBean = new TestBean();
+ *         testBean.setName(env.getProperty("testbean.name"));
+ *         return testBean;
+ *     }
+ * }</pre>
+ * <p>
+ *     请注意，Environment对象是@Autowired到配置类中，然后在填充TestBean对象时使用。 鉴于上面的配置，调用testBean.getName（）将返回“myTestBean”。
+ * </p>
+ * <h3>Resolving ${...} placeholders in {@code <bean>} and {@code @Value} annotations</h3>
+ *
+ * <p>
+ *     为了使用PropertySource中的属性来解析<bean>定义或@Value注解中的$ {...}占位符，必须注册一个PropertySourcesPlaceholderConfigurer。
+ *     当在XML中使用<context：property-placeholder>时会自动发生，但在使用@Configuration类时必须使用静态@Bean方法显式注册。
+ *     有关详细信息和示例，请参阅@Contact的javadoc中的“使用外部化值”部分以及@ Bean的javadoc中的“关于BeanFactoryPostProcessor返回@Bean方法的说明”。
+ * </p>
+ *
+ * <h3>Resolving ${...} placeholders within {@code @PropertySource} resource locations</h3>
+ *
+ * <p>
+ *     存在于@PropertySource资源位置中的任何$ {...}占位符将根据已经在环境中注册的一组属性源来解析。 例如：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * &#064;PropertySource("classpath:/com/${my.placeholder:default/path}/app.properties")
+ * public class AppConfig {
+ *     &#064;Autowired
+ *     Environment env;
+ *
+ *     &#064;Bean
+ *     public TestBean testBean() {
+ *         TestBean testBean = new TestBean();
+ *         testBean.setName(env.getProperty("testbean.name"));
+ *         return testBean;
+ *     }
+ * }</pre>
+ *
+ * <p>
+ *     假设“my.placeholder”存在于已经注册的一个财产来源中，例如 系统属性或环境变量，占位符将被解析为相应的值。 如果不是，则默认使用“default / path”。
+ *     表示一个默认值（用冒号“：”分隔）是可选的。 如果没有指定默认值，并且无法解析属性，则会抛出IllegalArgumentException异常。
+ * </p>
+ *
+ * <h3>A note on property overriding with @PropertySource</h3>
+ *
+ * <p>
+ *     在给定属性键存在于多个.properties文件中的情况下，最后处理的@PropertySource注释将“赢”并被覆盖。 例如，给定两个属性文件a.properties和b.properties，请考虑以下两个使用@PropertySource注释引用它们的配置类：
+ * </p>
+ *
+ * <pre class="code">
+ * &#064;Configuration
+ * &#064;PropertySource("classpath:/com/myco/a.properties")
+ * public class ConfigA { }
+ *
+ * &#064;Configuration
+ * &#064;PropertySource("classpath:/com/myco/b.properties")
+ * public class ConfigB { }
+ * </pre>
+ *
+ * <p>
+ *     覆盖顺序取决于这些类在应用程序上下文中注册的顺序。
+ * </p>
+ * <pre class="code">
+ * AnnotationConfigApplicationContext ctx =
+ *     new AnnotationConfigApplicationContext();
+ * ctx.register(ConfigA.class);
+ * ctx.register(ConfigB.class);
+ * ctx.refresh();
+ * </pre>
+ *
+ * <p>
+ *     在上面的场景中，b.properties中的属性将覆盖a.properties中存在的任何重复项，因为ConfigB是最后注册的。
+ * </p>
+ * <p>
+ *      在某些情况下，使用@ProperySource注解时严格控制属性来源顺序可能不切实际。
+ *      例如，如果上面的@Configuration类是通过组件扫描注册的，则排序很难预测。
+ *      在这种情况下 - 如果重写很重要 - 建议用户回退使用编程的PropertySource API。
+ *      有关详细信息，请参阅ConfigurableEnvironment和MutablePropertySources javadocs。
+ * </p>
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @author Phillip Webb

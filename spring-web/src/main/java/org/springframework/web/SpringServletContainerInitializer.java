@@ -98,7 +98,44 @@ import org.springframework.core.annotation.AnnotationAwareOrderComparator;
  *
  * <h2>See Also</h2>
  * See {@link WebApplicationInitializer} Javadoc for examples and detailed usage
- * recommendations.<p>
+ * recommendations.
+ *
+ * <p>
+ *     Servlet 3.0 ServletContainerInitializer被设计为使用Spring的WebApplicationInitializer SPI来支持servlet容器的基于代码的配置，而不是传统的基于web.xml的方法（或可能结合使用）。
+ * <h2>Mechanism of Operation</h2>
+ * <p>
+ *     这个类将被加载并实例化，并且在容器启动期间由任何Servlet 3.0兼容的容器调用onStartup方法，假定spring-web模块JAR存在于类路径中。
+ *     这是通过检测Spring-Web模块的META-INF/services/javax.servlet.ServletContainerInitializer服务提供程序配置文件的JAR Services API ServiceLoader.load（Class）方法实现的。
+ *     有关完整的详细信息，请参阅JAR Services API文档以及Servlet 3.0最终草稿规范的第8.2.4节。
+ * <h3>In combination with {@code web.xml}</h3>
+ * <p>
+ *     Web应用程序可以选择通过web.xml中的metadata-complete属性（它控制扫描Servlet注释或通过web.xml中的<absolute-ordering>元素）
+ *     来限制Servlet容器在启动时扫描的类路径数量 ，它控制哪些网页片段（即罐子）被允许执行ServletContainerInitializer扫描。
+ *     当使用这个特性时，SpringServletContainerInitializer可以通过添加“spring_web”到web.xml里的命名的web碎片列表来启用，如下所示：
+ * <pre class="code">
+ * {@code
+ * <absolute-ordering>
+ *   <name>some_web_fragment</name>
+ *   <name>spring_web</name>
+ * </absolute-ordering>
+ * }</pre>
+ * <h2>Relationship to Spring's {@code WebApplicationInitializer}</h2>
+ * <p>
+ *     Spring的WebApplicationInitializer SPI仅由一个方法组成：WebApplicationInitializer.onStartup（ServletContext）。
+ *     签名与ServletContainerInitializer.onStartup（Set，ServletContext）非常相似：
+ *     简单地说，SpringServletContainerInitializer负责将ServletContext实例化并委派给任何用户定义的WebApplicationInitializer实现。
+ *     然后每个WebApplicationInitializer负责完成初始化ServletContext的实际工作。下面的onStartup文档中详细介绍了授权的具体过程
+ * <h2>General Notes</h2>
+ * <p>
+ *     一般来说，这个类应该被视为支持更重要和面向用户的WebApplicationInitializer SPI的基础结构。利用这个容器初始化器也是完全可选的：
+ *     虽然这个初始化器在所有的Servlet 3.0+运行时被加载和调用是真的，但是在类路径中是否可以使用任何WebApplicationInitializer实现仍然是用户的选择。
+ *     如果未检测到WebApplicationInitializer类型，则此容器初始值设定项将不起作用。
+ * <p>
+ *     请注意，使用这个容器初始值设定项和WebApplicationInitializer与Spring MVC没有任何“捆绑”，除了这些类型是在spring-web模块JAR中提供的。
+ *     相反，它们可以被认为是通用的，以便于ServletContext的基于代码的简单配置。
+ *     换句话说，任何servlet，监听器或过滤器都可以在WebApplicationInitializer中注册，而不仅仅是Spring MVC特定的组件。
+ * <p>
+ *     本类既不是为扩展而设计的，也不是为了扩展。它应该被认为是一个内部类型，WebApplicationInitializer是面向公众的SPI。
  *
  * @author Chris Beams
  * @author Juergen Hoeller

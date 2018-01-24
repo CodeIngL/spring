@@ -28,6 +28,10 @@ import org.springframework.core.io.ResourceLoader;
  * caching a {@link MetadataReader} instance per Spring {@link Resource} handle
  * (i.e. per ".class" file).
  *
+ * <p>
+ *     缓存MetadataReaderFactory接口的实现，为每个Spring Resource句柄（即每个“.class”文件）缓存一个MetadataReader实例。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Costin Leau
  * @since 2.5

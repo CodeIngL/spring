@@ -173,16 +173,23 @@ class ConfigurationClassParser {
 	public void parse(Set<BeanDefinitionHolder> configCandidates) {
 		this.deferredImportSelectors = new LinkedList<DeferredImportSelectorHolder>();
 
+		/**
+		 * 遍历处理bean定义
+		 */
 		for (BeanDefinitionHolder holder : configCandidates) {
+			//获得bean定义
 			BeanDefinition bd = holder.getBeanDefinition();
 			try {
 				if (bd instanceof AnnotatedBeanDefinition) {
+					//处理AnnotatedBeanDefinition定义
 					parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());
 				}
 				else if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
+					//有效的AbstractBeanDefinition
 					parse(((AbstractBeanDefinition) bd).getBeanClass(), holder.getBeanName());
 				}
 				else {
+					//直接解析
 					parse(bd.getBeanClassName(), holder.getBeanName());
 				}
 			}
@@ -265,18 +272,25 @@ class ConfigurationClassParser {
 			return;
 		}
 
+		//获得缓存
 		ConfigurationClass existingClass = this.configurationClasses.get(configClass);
 		if (existingClass != null) {
+			//已导入
 			if (configClass.isImported()) {
+				//已导入
 				if (existingClass.isImported()) {
+					//何必
 					existingClass.mergeImportedBy(configClass);
 				}
 				// Otherwise ignore new imported config class; existing non-imported class overrides it.
+				// 否则，忽略新导入的配置类; 现有的非导入类将覆盖它。
 				return;
 			}
 			else {
 				// Explicit bean definition found, probably replacing an import.
 				// Let's remove the old one and go with the new one.
+				// 找到显式的bean定义，可能会替换一个导入。
+				// 让我们删除旧的和新的。
 				this.configurationClasses.remove(configClass);
 				for (Iterator<ConfigurationClass> it = this.knownSuperclasses.values().iterator(); it.hasNext();) {
 					if (configClass.equals(it.next())) {
@@ -844,6 +858,9 @@ class ConfigurationClassParser {
 	/**
 	 * Simple wrapper that allows annotated source classes to be dealt with
 	 * in a uniform manner, regardless of how they are loaded.
+	 * <p>
+	 *     简单的包装，允许注释的源类以统一的方式处理，而不管它们是如何加载的
+	 * </p>
 	 */
 	private class SourceClass {
 

@@ -383,6 +383,323 @@ import org.springframework.stereotype.Component;
  * annotations remaining undetected).
  * </ul>
  *
+ * <p>
+ *     指示一个类声明一个或多个@Bean方法，并且可以由Spring容器处理，以便在运行时为这些bean生成bean定义和服务请求，例如：
+ * </p>
+ *
+ * <pre class="code">
+ * &#064;Configuration
+ * public class AppConfig {
+ *
+ *     &#064;Bean
+ *     public MyBean myBean() {
+ *         // instantiate, configure and return bean ...
+ *     }
+ * }</pre>
+ *
+ * <h2>Bootstrapping {@code @Configuration} classes</h2>
+ *
+ * <h3>Via {@code AnnotationConfigApplicationContext}</h3>
+ *
+ * <p>
+ *     &#064;Configuration 类通常使用AnnotationConfigApplicationContext或其支持Web的变体AnnotationConfigWebApplicationContext进行引导。
+ *     前者的一个简单例子如下：
+ * </p>
+ * <pre class="code">
+ * AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext();
+ * ctx.register(AppConfig.class);
+ * ctx.refresh();
+ * MyBean myBean = ctx.getBean(MyBean.class);
+ * // use myBean ...
+ * </pre>
+ *
+ * <p>
+ *     有关更多详细信息，请参阅AnnotationConfigApplicationContext Javadoc，有关web.xml配置说明，请参阅AnnotationConfigWebApplicationContext。
+ * </p>
+ *
+ * <h3>Via Spring {@code <beans>} XML</h3>
+ *
+ * <p>
+ *     作为直接针对AnnotationConfigApplicationContext注册@Configuration类的替代方法，可以在Spring XML文件中将@Configuration类声明为正常的<bean>定义：
+ * </p>
+ * <pre class="code">
+ * {@code
+ * <beans>
+ *    <context:annotation-config/>
+ *    <bean class="com.acme.AppConfig"/>
+ * </beans>}
+ * </pre>
+ *
+ *
+ * <p>
+ *     在上面的示例中，为了启用ConfigurationClassPostProcessor和其他与注释有关的后置处理器，需要<context：annotation-config />来处理@Configuration类。
+ * </p>
+ *
+ * <h3>Via component scanning</h3>
+ *
+ * <p>
+ *     &#064;Configuration是用&#064;Component进行元注释的，因此@Configuration类是组件扫描的候选对象（通常使用Spring XML的<context:component-scan />元素），
+ *     因此也可以像任何常规的@ @元素那样利用@ Autowired / @ Inject 零件。 特别是，如果存在单个构造函数，则自动装配语义将被透明地应用：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * public class AppConfig {
+ *     private final SomeBean someBean;
+ *
+ *     public AppConfig(SomeBean someBean) {
+ *         this.someBean = someBean;
+ *     }
+ *
+ *     // &#064;Bean definition using "SomeBean"
+ *
+ * }</pre>
+ * <p>
+ *     &#064;Configuration类不仅可以使用组件扫描进行引导，还可以使用@ComponentScan注释来配置组件扫描：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * &#064;ComponentScan("com.acme.app.services")
+ * public class AppConfig {
+ *     // various &#064;Bean definitions ...
+ * }</pre>
+ * <p>
+ *     有关详细信息，请参阅@ComponentScan javadoc。
+ * </p>
+ * <h2>Working with externalized values</h2>
+ *
+ * <h3>Using the {@code Environment} API</h3>
+ * <p>
+ *     通过将Spring org.springframework.core.env.Environment注入@Configuration类（例如使用@Autowired注解），可以查找外部化的值：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * public class AppConfig {
+ *
+ *     &#064Autowired Environment env;
+ *
+ *     &#064;Bean
+ *     public MyBean myBean() {
+ *         MyBean myBean = new MyBean();
+ *         myBean.setName(env.getProperty("bean.name"));
+ *         return myBean;
+ *     }
+ * }</pre>
+ * <p>
+ *     通过Environment解决的属性驻留在一个或多个“属性源”对象中，而@Configuration类可以使用@PropertySources注释向Environment对象提供属性源：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * &#064;PropertySource("classpath:/com/acme/app.properties")
+ * public class AppConfig {
+ *
+ *     &#064Inject Environment env;
+ *
+ *     &#064;Bean
+ *     public MyBean myBean() {
+ *         return new MyBean(env.getProperty("bean.name"));
+ *     }
+ * }</pre>
+ * <p>
+ *     有关更多详细信息，请参阅Environment和@PropertySource Javadoc。
+ * </p>
+ *
+ * <h3>Using the {@code @Value} annotation</h3>
+ *
+ * <p>
+ *     外部化的值可以通过@Value注解'连接到@Configuration类中：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * &#064;PropertySource("classpath:/com/acme/app.properties")
+ * public class AppConfig {
+ *
+ *     &#064Value("${bean.name}") String beanName;
+ *
+ *     &#064;Bean
+ *     public MyBean myBean() {
+ *         return new MyBean(beanName);
+ *     }
+ * }</pre>
+ * <p>
+ *     这种方法在使用Spring的PropertySourcesPlaceholderConfigurer时非常有用，通常通过XML通过<context：property-placeholder />来启用。 有关使用BeanFactoryPostProcessor类型（例如PropertySourcesPlaceholderConfigurer）的详细信息，
+ *     请参阅下面有关使用@ImportResource使用Spring XML构建@Configuration类的部分，请参阅@Value Javadoc，并参阅@Bean Javadoc。
+ * </p>
+ * <h2>Composing {@code @Configuration} classes</h2>
+ *
+ * <h3>With the {@code @Import} annotation</h3>
+ * <p>
+ *     &#064;Configuration类可以使用@Import注释编写，与<import>在Spring XML中的工作方式不同。
+ *     由于@Configuration对象是作为容器内的Spring bean进行管理的，所以导入的配置可以按通常的方式注入（例如通过构造函数注入）：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * public class DatabaseConfig {
+ *
+ *     &#064;Bean
+ *     public DataSource dataSource() {
+ *         // instantiate, configure and return DataSource
+ *     }
+ * }
+ *
+ * &#064;Configuration
+ * &#064;Import(DatabaseConfig.class)
+ * public class AppConfig {
+ *
+ *     private final DatabaseConfig dataConfig;
+ *
+ *     public AppConfig(DatabaseConfig dataConfig) {
+ *         this.dataConfig = dataConfig;
+ *     }
+ *
+ *     &#064;Bean
+ *     public MyBean myBean() {
+ *         // reference the dataSource() bean method
+ *         return new MyBean(dataConfig.dataSource());
+ *     }
+ * }</pre>
+ * <p>
+ *     现在AppConfig和导入的DatabaseConfig都可以通过在Spring上下文中注册AppConfig来引导：
+ * </p>
+ * <pre class="code">
+ * new AnnotationConfigApplicationContext(AppConfig.class);</pre>
+ *
+ * <h3>With the {@code @Profile} annotation</h3>
+ *
+ * <p>
+ *     &#064;Configuration类可以使用@Profile注释标记，以表明只有给定的一个或多个配置文件处于活动状态时才应该处理它们：
+ * </p>
+ * <pre class="code">
+ * &#064;Profile("development")
+ * &#064;Configuration
+ * public class EmbeddedDatabaseConfig {
+ *
+ *     &#064;Bean
+ *     public DataSource dataSource() {
+ *         // instantiate, configure and return embedded DataSource
+ *     }
+ * }
+ *
+ * &#064;Profile("production")
+ * &#064;Configuration
+ * public class ProductionDatabaseConfig {
+ *
+ *     &#064;Bean
+ *     public DataSource dataSource() {
+ *         // instantiate, configure and return production DataSource
+ *     }
+ * }</pre>
+ * <p>
+ *     或者，您也可以在@Bean方法级别声明配置文件条件，例如 用于相同配置类中的替代bean变体：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * public class ProfileDatabaseConfig {
+ *
+ *     &#064;Bean("dataSource")
+ *     &#064;Profile("development")
+ *     public DataSource embeddedDatabase() { ... }
+ *
+ *     &#064;Bean("dataSource")
+ *     &#064;Profile("production")
+ *     public DataSource productionDatabase() { ... }
+ * }</pre>
+ * <p>有关更多详细信息，请参阅@Profile和org.springframework.core.env.Environment javadocs。</p>
+ *
+ * <h3>With Spring XML using the {@code @ImportResource} annotation</h3>
+ *
+ * <p>
+ *     如上所述，@Configuration类可以在Spring XML文件中声明为常规的Spring <bean>定义。 也可以使用@ImportResource注解将Spring XML配置文件导入到@Configuration类中。 从XML导入的Bean定义可以通常的方式注入（例如使用Inject注解）：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * &#064;ImportResource("classpath:/com/acme/database-config.xml")
+ * public class AppConfig {
+ *
+ *     &#064Inject DataSource dataSource; // from XML
+ *
+ *     &#064;Bean
+ *     public MyBean myBean() {
+ *         // inject the XML-defined dataSource bean
+ *         return new MyBean(this.dataSource);
+ *     }
+ * }</pre>
+ *
+ * <h3>With nested {@code @Configuration} classes</h3>
+ *
+ * <p>
+ *     &#064;Configuration类可以如下嵌套在一起：
+ * </p>
+ * <pre class="code">
+ * &#064;Configuration
+ * public class AppConfig {
+ *
+ *     &#064;Inject DataSource dataSource;
+ *
+ *     &#064;Bean
+ *     public MyBean myBean() {
+ *         return new MyBean(dataSource);
+ *     }
+ *
+ *     &#064;Configuration
+ *     static class DatabaseConfig {
+ *         &#064;Bean
+ *         DataSource dataSource() {
+ *             return new EmbeddedDatabaseBuilder().build();
+ *         }
+ *     }
+ * }</pre>
+ * <p>
+ *     当引导这样的安排时，只有AppConfig需要针对应用上下文进行注册。 由于是一个嵌套的@Configuration类，DatabaseConfig将被自动注册。 这样可以避免在AppConfig DatabaseConfig之间的关系已经隐式清除时使用@Import注释。
+ * </p>
+ * <p>
+ *     还要注意，可以使用嵌套的@Configuration类对@Profile注释产生良好的效果，以将同一个bean的两个选项提供给封闭的@Configuration类。
+ * </p>
+ *
+ * <h2>Configuring lazy initialization</h2>
+ *
+ * <p>
+ *     默认情况下，@Bean方法将在容器引导时间被迫切地实例化。 为了避免这种情况，可以将@Configuration与@Lazy注释结合使用，以表示在类中声明的所有@Bean方法在默认情况下是懒惰地初始化的。 请注意@Lazy也可以用于单独的@Bean方法。
+ * </p>
+ *
+ * <h2>Testing support for {@code @Configuration} classes</h2>
+ *
+ * <p>
+ *     Spring-Test模块中提供的Spring TestContext框架提供@ContextConfiguration注解，从Spring 3.1开始，它可以接受一个@Configuration Class对象的数组：
+ * </p>
+ * <pre class="code">
+ * &#064;RunWith(SpringJUnit4ClassRunner.class)
+ * &#064;ContextConfiguration(classes={AppConfig.class, DatabaseConfig.class})
+ * public class MyTests {
+ *
+ *     &#064;Autowired MyBean myBean;
+ *
+ *     &#064;Autowired DataSource dataSource;
+ *
+ *     &#064;Test
+ *     public void test() {
+ *         // assertions against myBean ...
+ *     }
+ * }</pre>
+ * <p>
+ *     有关详细信息，请参阅TestContext框架参考文档。
+ * </p>
+ *
+ * <h2>Enabling built-in Spring features using {@code @Enable} annotations</h2>
+ *
+ * <p>
+ *     诸如异步方法执行，计划任务执行，注解驱动事务管理，甚至Spring MVC等Spring特性可以使用各自的@Enable注解从@Configuration类中启用和配置。 有关详细信息，请参阅@EnableAsync，@EnableScheduling，@EnableTransactionManagement，@EnableAspectJAutoProxy和@EnableWebMvc。
+ * </p>
+ *
+ * <h2>Constraints when authoring {@code @Configuration} classes</h2>
+ *
+ * <ul>
+ * <li>配置类必须以类的形式提供（即不能作为从工厂方法返回的实例），允许通过生成的子类进行运行时增强。
+ * <li>配置类不能为final
+ * <li>配置类必须是非本地的（即不能在方法中声明）。
+ * <li>任何嵌套的配置类都必须声明为{@code static}.
+ * <li>@Bean方法可能不会创建进一步的配置类（任何这样的实例将被视为常规bean，其配置注释未被检测到）。
+ * </ul>
+ *
  * @author Rod Johnson
  * @author Chris Beams
  * @since 3.0
