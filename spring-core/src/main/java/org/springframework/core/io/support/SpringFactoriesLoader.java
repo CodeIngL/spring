@@ -50,6 +50,22 @@ import org.springframework.util.StringUtils;
  * where {@code example.MyService} is the name of the interface, and {@code MyServiceImpl1}
  * and {@code MyServiceImpl2} are two implementations.
  *
+ * <p>
+ *     通用的工厂加载机制内部使用的框架内。
+ * </p>
+ * <p>
+ *      SpringFactoriesLoader从META-INF/spring.factories文件中加载和实例化给定类型的工厂，
+ *      这些文件可能出现在类路径中的多个JAR文件中。
+ *      spring.factories文件必须是Properties格式，其中键是接口或抽象类的完全限定名称，值是以逗号分隔的实现类名称列表。
+ *      例如：
+ * </p>
+ *
+ * <pre class="code">example.MyService=example.MyServiceImpl1,example.MyServiceImpl2</pre>
+ *
+ * <p>
+ *     其中example.MyService是接口的名称，MyServiceImpl1和MyServiceImpl2是两个实现。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @author Juergen Hoeller
  * @author Sam Brannen
