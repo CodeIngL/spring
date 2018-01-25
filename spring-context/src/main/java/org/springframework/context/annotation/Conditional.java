@@ -51,6 +51,30 @@ import java.lang.annotation.Target;
  * custom <em>composed annotation</em> that is meta-annotated with
  * {@code @Conditional} must not be declared as {@code @Inherited}.
  *
+ * <p>
+ *     表示当所有指定的条件匹配时，组件仅适用于注册。
+ * </p>
+ * <p>
+ *     条件是任何状态，可以在bean定义到期之前以编程方式确定（详见条件）。
+ * </p>
+ * <p>
+ *     @ Conditional注释可以用于以下任何一种方式：
+ * </p>
+ * <ul>
+ * <li>as a type-level annotation on any class directly or indirectly annotated with
+ * {@code @Component}, including {@link Configuration @Configuration} classes</li>
+ * <li>as a meta-annotation, for the purpose of composing custom stereotype
+ * annotations</li>
+ * <li>as a method-level annotation on any {@link Bean @Bean} method</li>
+ * </ul>
+ * <p>
+ *     如果@Configuration类标记为@Conditional，则与该类关联的所有@Bean方法，@Import标注和@ComponentScan标注将受条件限制。
+ * </p>
+ * <p>
+ *     注意：不支持@Conditional注解的继承; 不会考虑超类或重写方法的任何条件。
+ *     为了执行这些语义，@Conditional本身不被声明为@Inherited; 此外，使用@Conditional进行元注释的任何自定义组合注释都不能声明为@Inherited。
+ * </p>
+ *
  * @author Phillip Webb
  * @author Sam Brannen
  * @since 4.0

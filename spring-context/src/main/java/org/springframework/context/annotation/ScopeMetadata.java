@@ -26,6 +26,13 @@ import org.springframework.util.Assert;
  * <p>The default scope is "singleton", and the default is to <i>not</i> create
  * scoped-proxies.
  *
+ * <p>
+ *     描述Spring管理的bean的作用域特征，包括作用域名称和作用域代理行为。
+ * </p>
+ * <p>
+ *     默认范围是“singleton”，默认是不创建scoped-proxies。
+ * </p>
+ *
  * @author Mark Fisher
  * @author Juergen Hoeller
  * @since 2.5

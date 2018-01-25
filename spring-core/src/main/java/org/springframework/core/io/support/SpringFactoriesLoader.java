@@ -116,6 +116,10 @@ public abstract class SpringFactoriesLoader {
 	 * Load the fully qualified class names of factory implementations of the
 	 * given type from {@value #FACTORIES_RESOURCE_LOCATION}, using the given
 	 * class loader.
+	 *
+	 * <p>
+	 *     使用给定的类加载器从META-INF/spring.factories加载给定类型的工厂实现的完全限定类名称。
+	 * </p>
 	 * @param factoryClass the interface or abstract class representing the factory
 	 * @param classLoader the ClassLoader to use for loading resources; can be
 	 * {@code null} to use the default

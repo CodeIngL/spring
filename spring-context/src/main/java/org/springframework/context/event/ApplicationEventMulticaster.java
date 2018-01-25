@@ -69,6 +69,11 @@ public interface ApplicationEventMulticaster {
 	 * Multicast the given application event to appropriate listeners.
 	 * <p>Consider using {@link #multicastEvent(ApplicationEvent, ResolvableType)}
 	 * if possible as it provides a better support for generics-based events.
+	 *
+	 * <p>
+	 *     如果可能，请考虑使用multicastEvent（ApplicationEvent，ResolvableType），因为它为基于泛型的事件提供了更好的支持。
+	 * </p>
+	 *
 	 * @param event the event to multicast
 	 */
 	void multicastEvent(ApplicationEvent event);
@@ -77,6 +82,11 @@ public interface ApplicationEventMulticaster {
 	 * Multicast the given application event to appropriate listeners.
 	 * <p>If the {@code eventType} is {@code null}, a default type is built
 	 * based on the {@code event} instance.
+	 *
+	 * <p>
+	 *     将给定的应用程序事件多播到适当的监听器。
+	 *     如果eventType为null，则会根据事件实例构建一个默认类型。
+	 * </p>
 	 * @param event the event to multicast
 	 * @param eventType the type of event (can be null)
 	 * @since 4.2

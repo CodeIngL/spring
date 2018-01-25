@@ -231,12 +231,22 @@ public class AnnotationConfigUtils {
 		}
 	}
 
+	/**
+	 * 处理通用的注解信息
+	 * @param abd
+	 */
 	public static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd) {
 		processCommonDefinitionAnnotations(abd, abd.getMetadata());
 	}
 
+	/**
+	 * 处理通用的注解信息
+	 * @param abd
+	 * @param metadata
+	 */
 	static void processCommonDefinitionAnnotations(AnnotatedBeanDefinition abd, AnnotatedTypeMetadata metadata) {
 		if (metadata.isAnnotated(Lazy.class.getName())) {
+			//是否代用Lazy注解
 			abd.setLazyInit(attributesFor(metadata, Lazy.class).getBoolean("value"));
 		}
 		else if (abd.getMetadata() != metadata && abd.getMetadata().isAnnotated(Lazy.class.getName())) {
@@ -244,9 +254,11 @@ public class AnnotationConfigUtils {
 		}
 
 		if (metadata.isAnnotated(Primary.class.getName())) {
+			//是否代用Primary注解
 			abd.setPrimary(true);
 		}
 		if (metadata.isAnnotated(DependsOn.class.getName())) {
+			//是否代用DependsOn注解
 			abd.setDependsOn(attributesFor(metadata, DependsOn.class).getStringArray("value"));
 		}
 

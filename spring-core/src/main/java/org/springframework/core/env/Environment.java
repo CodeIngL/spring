@@ -56,6 +56,25 @@ package org.springframework.core.env;
  * {@link ConfigurableEnvironment} Javadoc for usage examples demonstrating manipulation
  * of property sources prior to application context {@code refresh()}.
  *
+ * <p>
+ *     表示当前应用程序运行环境的接口。模拟应用程序环境的两个关键方面：配置文件和属性。与属性访问相关的方法通过PropertyResolver超级接口暴露。
+ * </p>
+ * <p>
+ *     配置文件是只有在给定配置文件处于活动状态时才能在容器中注册的命名的逻辑bean定义组。豆可以被分配给配置文件，不管是以XML还是通过注释来定义;有关语法的详细信息，请参阅spring-beans 3.1模式或@Profile注释。与配置文件相关的环境对象的作用是确定哪些配置文件（如果有的话）当前处于活动状态，以及哪些配置文件（如果有的话）默认为活动的。
+ * </p>
+ * <p>
+ *     属性在几乎所有应用程序中都扮演着重要的角色，可能来源于各种来源：属性文件，JVM系统属性，系统环境变量，JNDI，servlet上下文参数，ad-hoc属性对象，Maps等等。与属性相关的环境对象的作用是为用户提供一个方便的服务接口来配置属性来源并解析属性。
+ * </p>
+ * <p>
+ *     在ApplicationContext中管理的Bean可以注册为EnvironmentAware或@Inject环境，以便直接查询配置文件状态或解析属性。
+ * </p>
+ * <p>
+ *     然而，在大多数情况下，应用程序级bean不需要直接与环境交互，而是可能需要用属性占位符配置器替换$ {...}属性值，例如PropertySourcesPlaceholderConfigurer，本身是EnvironmentAware， 在使用<context：property-placeholder />时，默认情况下会注册Spring 3.1。
+ * </p>
+ * <p>
+ *     环境对象的配置必须通过ConfigurableEnvironment接口完成，从所有AbstractApplicationContext子类的getEnvironment（）方法返回。 有关在应用程序上下文刷新之前演示操作属性源的使用示例，请参阅ConfigurableEnvironment Javadoc（）。
+ * </p>
+ *
  * @author Chris Beams
  * @since 3.1
  * @see PropertyResolver

@@ -123,16 +123,22 @@ class ConfigurationClassParser {
 
 	private final MetadataReaderFactory metadataReaderFactory;
 
+	//问题报告期，针对bean解析
 	private final ProblemReporter problemReporter;
 
+	//环境属性类
 	private final Environment environment;
 
+	//资源加载器
 	private final ResourceLoader resourceLoader;
 
+	//注册表
 	private final BeanDefinitionRegistry registry;
 
+	//componentScan扫描器
 	private final ComponentScanAnnotationParser componentScanParser;
 
+	//值计算器
 	private final ConditionEvaluator conditionEvaluator;
 
 	private final Map<ConfigurationClass, ConfigurationClass> configurationClasses =
@@ -150,6 +156,10 @@ class ConfigurationClassParser {
 	/**
 	 * Create a new {@link ConfigurationClassParser} instance that will be used
 	 * to populate the set of configuration classes.
+	 *
+	 * <p>
+	 *     创建一个新的ConfigurationClassParser实例，用于填充配置类的集合。
+	 * </p>
 	 */
 	public ConfigurationClassParser(MetadataReaderFactory metadataReaderFactory,
 			ProblemReporter problemReporter, Environment environment, ResourceLoader resourceLoader,
@@ -279,7 +289,7 @@ class ConfigurationClassParser {
 			if (configClass.isImported()) {
 				//已导入
 				if (existingClass.isImported()) {
-					//何必
+					//合并配置
 					existingClass.mergeImportedBy(configClass);
 				}
 				// Otherwise ignore new imported config class; existing non-imported class overrides it.
@@ -862,7 +872,7 @@ class ConfigurationClassParser {
 	 * Simple wrapper that allows annotated source classes to be dealt with
 	 * in a uniform manner, regardless of how they are loaded.
 	 * <p>
-	 *     简单的包装，允许注释的源类以统一的方式处理，而不管它们是如何加载的
+	 *     简单的包装，允许注解的源类以统一的方式处理，而不管它们是如何加载的
 	 * </p>
 	 */
 	private class SourceClass {
