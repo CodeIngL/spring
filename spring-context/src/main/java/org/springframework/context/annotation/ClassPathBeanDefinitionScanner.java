@@ -49,6 +49,16 @@ import org.springframework.util.PatternMatchUtils;
  * <p>Also supports Java EE 6's {@link javax.annotation.ManagedBean} and
  * JSR-330's {@link javax.inject.Named} annotations, if available.
  *
+ * <p>
+ *     一个bean定义扫描程序，用于检测类路径上的bean候选项，并将相应的bean定义注册到给定的注册表（BeanFactory或ApplicationContext）。
+ * </p>
+ * <p>
+ *     候选类通过可配置的类型过滤器进行检测。 默认过滤器包括用Spring的@Component，@Repository，@Service或@Controller构造型注解的类。
+ * </p>
+ * <p>
+ *     如果可用，还支持Java EE 6的javax.annotation.ManagedBean和JSR-330的javax.inject.Named注释。
+ * </p>
+ *
  * @author Mark Fisher
  * @author Juergen Hoeller
  * @author Chris Beams
