@@ -47,6 +47,19 @@ import org.springframework.util.ObjectUtils;
  * annotation provides a convenient and declarative way of adding property sources to the
  * enclosing {@code Environment}.
  *
+ * <p>
+ *     表示名称/值属性对源的抽象基类。底层的源对象可以是封装属性的任何类型的T。示例包括java.util.Properties对象，java.util.Map对象，ServletContext和ServletConfig对象（用于访问init参数）。探索PropertySource类型层次来查看提供的实现。
+ * </p>
+ * <p>
+ *     PropertySource对象通常不是孤立使用的，而是通过一个PropertySources对象来进行的，该对象聚合了属性来源，并与PropertyResolver实现一起使用，该实现可以在PropertySources集合中执行基于优先级的搜索。
+ * </p>
+ * <p>
+ *     PropertySource标识不是基于封装属性的内容而是基于PropertySource的名称来确定的。这在处理集合上下文中的PropertySource对象时非常有用。有关详细信息，请参阅MutablePropertySources中的操作以及named（String）和toString（）方法。
+ * </p>
+ * <p>
+ *     请注意，使用@Configuration类时，@PropertySource批注提供了一种方便的声明方式，将属性源添加到封闭环境中。
+ * </p>
+ *
  * @author Chris Beams
  * @since 3.1
  * @see PropertySources

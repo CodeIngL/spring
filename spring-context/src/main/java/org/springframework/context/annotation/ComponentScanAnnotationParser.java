@@ -44,6 +44,9 @@ import org.springframework.util.StringUtils;
 
 /**
  * Parser for the @{@link ComponentScan} annotation.
+ * <p>
+ *     解析器用于@{@link ComponentScan}注解
+ * </p>
  *
  * @author Chris Beams
  * @author Juergen Hoeller

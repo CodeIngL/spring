@@ -274,6 +274,13 @@ public abstract class WebApplicationContextUtils {
 	 * <p>This method is idempotent with respect to the fact it may be called any number
 	 * of times but will perform replacement of stub property sources with their
 	 * corresponding actual property sources once and only once.
+	 *
+	 * <p>
+	 *     用填充了给定servletContext和servletConfig对象的实际实例替换基于Servlet的存根属性源。
+	 * </p>
+	 * <p>
+	 *     这个方法对于它可能被调用的次数是幂等的，但是将会用其对应的实际属性来源一次又一次地替换存根属性来源。
+	 * </p>
 	 * @param propertySources the {@link MutablePropertySources} to initialize (must not
 	 * be {@code null})
 	 * @param servletContext the current {@link ServletContext} (ignored if {@code null}

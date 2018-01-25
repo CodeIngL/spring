@@ -328,6 +328,7 @@ class ConfigurationClassParser {
 
 		// Recursively process any member (nested) classes first
 		// 首先递归处理任何成员（嵌套的）类
+		// 因此嵌套的内部类似乎更有优先级
 		processMemberClasses(configClass, sourceClass);
 
 		// Process any @PropertySource annotations
@@ -352,9 +353,11 @@ class ConfigurationClassParser {
 				!this.conditionEvaluator.shouldSkip(sourceClass.getMetadata(), ConfigurationPhase.REGISTER_BEAN)) {
 			for (AnnotationAttributes componentScan : componentScans) {
 				// The config class is annotated with @ComponentScan -> perform the scan immediately
+				// 配置类用@ComponentScan注释 - >立即执行扫描
 				Set<BeanDefinitionHolder> scannedBeanDefinitions =
 						this.componentScanParser.parse(componentScan, sourceClass.getMetadata().getClassName());
 				// Check the set of scanned definitions for any further config classes and parse recursively if needed
+				// 检查任何进一步的配置类的扫描定义集，如果需要递归解析
 				for (BeanDefinitionHolder holder : scannedBeanDefinitions) {
 					if (ConfigurationClassUtils.checkConfigurationClassCandidate(
 							holder.getBeanDefinition(), this.metadataReaderFactory)) {
