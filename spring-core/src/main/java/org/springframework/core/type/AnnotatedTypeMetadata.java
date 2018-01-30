@@ -99,12 +99,17 @@ public interface AnnotatedTypeMetadata {
 	 * Retrieve all attributes of all annotations of the given type, if any (i.e. if
 	 * defined on the underlying element, as direct annotation or meta-annotation).
 	 * Note that this variant does <i>not</i> take attribute overrides into account.
+	 *
+	 * <p>
+	 *     检索给定类型的所有注解的所有属性（如果在底层元素上定义为直接注解或元注解）。 请注意，该变体不考虑属性覆盖。
+	 * </p>
 	 * @param annotationName the fully qualified class name of the annotation
-	 * type to look for
-	 * @param classValuesAsString  whether to convert class references to String
+	 * type to look for（要查找的注释类型的完全限定类名称）
+	 * @param classValuesAsString  whether to convert class references to String(是否将类引用转换为String)
 	 * @return a MultiMap of attributes, with the attribute name as key (e.g. "value")
 	 * and a list of the defined attribute values as Map value. This return value will
-	 * be {@code null} if no matching annotation is defined.
+	 * be {@code null} if no matching annotation is defined.(以属性名称作为关键字（例如“value”）的属性的MultiMap，
+	 * 以及定义的属性值的列表作为Map值。 如果没有定义匹配的注解，则此返回值将为空。)
 	 * @see #getAllAnnotationAttributes(String)
 	 */
 	MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationName, boolean classValuesAsString);

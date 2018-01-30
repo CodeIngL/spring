@@ -19,6 +19,9 @@ package org.springframework.messaging.tcp;
 /**
  * A contract to determine the frequency of reconnect attempts after connection failure.
  *
+ * <p>
+ *     连接失败后确定重新连接尝试次数的合同。
+ * </p>
  * @author Rossen Stoyanchev
  * @since 4.0
  */

@@ -88,6 +88,10 @@ public @interface Conditional {
 	/**
 	 * All {@link Condition}s that must {@linkplain Condition#matches match}
 	 * in order for the component to be registered.
+	 *
+	 * <p>
+	 *     所有必须匹配的条件才能注册组件。
+	 * </p>
 	 */
 	Class<? extends Condition>[] value();
 

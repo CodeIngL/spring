@@ -35,7 +35,8 @@ import org.springframework.util.Assert;
  * the same resolution of annotations but for explicitly registered classes only.
  *
  * <p>
- *     方便的注释bean类的程序注册的适配器。 这是ClassPathBeanDefinitionScanner的替代方法，只应用注解的相同分辨率，但仅用于显式注册的类。
+ *     方便注册bean注解类的程序的适配器。
+ *     这是ClassPathBeanDefinitionScanner的替代方法，同样处理注解的解决方式，但仅用于显式注册的类。
  *
  * @author Juergen Hoeller
  * @author Chris Beams

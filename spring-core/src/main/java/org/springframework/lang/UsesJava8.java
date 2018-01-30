@@ -26,6 +26,10 @@ import java.lang.annotation.Target;
  * Indicates that the annotated element uses Java 8 specific API constructs,
  * without implying that it strictly requires Java 8.
  *
+ * <p>
+ *     指示被注解的元素使用Java 8特定的API构造，而不意味着它严格要求Java 8。
+ * </p>
+ *
  * @author Stephane Nicoll
  * @since 4.1
  */

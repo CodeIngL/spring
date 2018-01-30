@@ -22,6 +22,10 @@ import org.springframework.messaging.Message;
  * A contract for managing lifecycle events for a TCP connection including
  * the handling of incoming messages.
  *
+ * <p>
+ *     用于管理TCP连接的生命周期事件（包括处理传入消息）的合同。
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @since 4.0
  * @param <P> the type of payload for in and outbound messages

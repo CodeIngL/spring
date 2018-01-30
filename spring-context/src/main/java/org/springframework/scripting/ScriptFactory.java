@@ -23,6 +23,10 @@ import java.io.IOException;
  * of a specific script as well as a factory method for
  * creating the actual scripted Java {@code Object}.
  *
+ * <p>
+ *     脚本定义接口，封装特定脚本的配置以及用于创建实际脚本Java对象的工厂方法。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @since 2.0

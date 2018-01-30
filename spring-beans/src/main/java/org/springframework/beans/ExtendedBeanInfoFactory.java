@@ -31,6 +31,14 @@ import org.springframework.core.Ordered;
  * <p>Ordered at {@link Ordered#LOWEST_PRECEDENCE} to allow other user-defined
  * {@link BeanInfoFactory} types to take precedence.
  *
+ * <p>
+ *     BeanInfoFactory实现，用于评估bean类是否具有“非标准”JavaBeans设置器方法，因此是Spring（包可见）ExtendedBeanInfo实现的内省对象。
+ * </p>
+ *
+ * <p>
+ *     Ordered.LOWEST_PRECEDENCE命令允许其他用户定义的BeanInfoFactory类型优先。
+ * </p>
+ *
  * @author Chris Beams
  * @since 3.2
  * @see BeanInfoFactory

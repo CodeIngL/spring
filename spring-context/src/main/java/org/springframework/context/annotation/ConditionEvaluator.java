@@ -50,6 +50,10 @@ class ConditionEvaluator {
 
 	/**
 	 * Create a new {@link ConditionEvaluator} instance.
+	 *
+	 * <p>
+	 *     创建一个新的{@link ConditionEvaluator}实例。
+	 * </p>
 	 */
 	public ConditionEvaluator(BeanDefinitionRegistry registry, Environment environment, ResourceLoader resourceLoader) {
 		this.context = new ConditionContextImpl(registry, environment, resourceLoader);
@@ -60,6 +64,11 @@ class ConditionEvaluator {
 	 * Determine if an item should be skipped based on {@code @Conditional} annotations.
 	 * The {@link ConfigurationPhase} will be deduced from the type of item (i.e. a
 	 * {@code @Configuration} class will be {@link ConfigurationPhase#PARSE_CONFIGURATION})
+	 *
+	 * <p>
+	 *     根据@Conditional注解来确定是否应该跳过一个项。
+	 *     ConfigurationPhase将从项目的类型中推导出来（即@Configuration类将是ConfigurationCondition.ConfigurationPhase.PARSE_CONFIGURATION）
+	 * </p>
 	 * @param metadata the meta data
 	 * @return if the item should be skipped
 	 */
@@ -71,7 +80,7 @@ class ConditionEvaluator {
 	 * Determine if an item should be skipped based on {@code @Conditional} annotations.
 	 *
 	 * <p>
-	 *     根据@Conditional注释确定是否应该跳过一个项目。
+	 *     根据@Conditional注释确定是否应该跳过一个项。
 	 * </p>
 	 *
 	 * @param metadata the meta data
@@ -79,10 +88,12 @@ class ConditionEvaluator {
 	 * @return if the item should be skipped
 	 */
 	public boolean shouldSkip(AnnotatedTypeMetadata metadata, ConfigurationPhase phase) {
+		//参数为空，或者没有携带Conditional直接返回
 		if (metadata == null || !metadata.isAnnotated(Conditional.class.getName())) {
 			return false;
 		}
 
+		//phase没有进行推断，1.PARSE_CONFIGURATION，2.REGISTER_BEAN。
 		if (phase == null) {
 			if (metadata instanceof AnnotationMetadata &&
 					ConfigurationClassUtils.isConfigurationCandidate((AnnotationMetadata) metadata)) {
@@ -92,6 +103,7 @@ class ConditionEvaluator {
 		}
 
 		List<Condition> conditions = new ArrayList<Condition>();
+		//遍历
 		for (String[] conditionClasses : getConditionClasses(metadata)) {
 			for (String conditionClass : conditionClasses) {
 				Condition condition = getCondition(conditionClass, this.context.getClassLoader());
@@ -116,6 +128,11 @@ class ConditionEvaluator {
 		return false;
 	}
 
+	/**
+	 * 获得
+	 * @param metadata
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	private List<String[]> getConditionClasses(AnnotatedTypeMetadata metadata) {
 		MultiValueMap<String, Object> attributes = metadata.getAllAnnotationAttributes(Conditional.class.getName(), true);

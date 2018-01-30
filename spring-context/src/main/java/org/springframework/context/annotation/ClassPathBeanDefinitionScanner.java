@@ -53,10 +53,14 @@ import org.springframework.util.PatternMatchUtils;
  *     一个bean定义扫描程序，用于检测类路径上的bean候选项，并将相应的bean定义注册到给定的注册表（BeanFactory或ApplicationContext）。
  * </p>
  * <p>
- *     候选类通过可配置的类型过滤器进行检测。 默认过滤器包括用Spring的@Component，@Repository，@Service或@Controller构造型注解的类。
+ *     候选类通过可配置的过滤器类型进行检测。 默认过滤器类型包括Spring的
  * </p>
+ * {@link org.springframework.stereotype.Component @Component},
+ * {@link org.springframework.stereotype.Repository @Repository},
+ * {@link org.springframework.stereotype.Service @Service}, or
+ * {@link org.springframework.stereotype.Controller @Controller} stereotype.
  * <p>
- *     如果可用，还支持Java EE 6的javax.annotation.ManagedBean和JSR-330的javax.inject.Named注释。
+ *     如果可用，还支持Java EE 6的javax.annotation.ManagedBean和JSR-330的javax.inject.Named注解。
  * </p>
  *
  * @author Mark Fisher

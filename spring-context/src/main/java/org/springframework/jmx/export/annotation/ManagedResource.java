@@ -34,6 +34,13 @@ import org.springframework.core.annotation.AliasFor;
  * <i>not</i> specify an object name value since this would lead to naming
  * collisions in case of multiple subclasses getting registered.
  *
+ * <p>
+ *     表示向JMX服务器注册类的实例的类级注释，对应于ManagedResource属性。
+ * </p>
+ * <p>
+ *     注意：这个注解被标记为继承，允许通用的管理感知基类。 在这种情况下，建议不要指定对象名称值，因为这会导致在多个子类被注册的情况下命名冲突。
+ * </p>
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Sam Brannen

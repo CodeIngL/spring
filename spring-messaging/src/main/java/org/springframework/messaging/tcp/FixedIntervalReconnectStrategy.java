@@ -19,6 +19,10 @@ package org.springframework.messaging.tcp;
 /**
  * A simple strategy for making reconnect attempts at a fixed interval.
  *
+ * <p>
+ *     一个简单的策略，以固定的时间间隔重新连接尝试。
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @since 4.0
  */

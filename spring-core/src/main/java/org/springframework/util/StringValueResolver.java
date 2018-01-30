@@ -20,6 +20,10 @@ package org.springframework.util;
  * Simple strategy interface for resolving a String value.
  * Used by {@link org.springframework.beans.factory.config.ConfigurableBeanFactory}.
  *
+ * <p>
+ *     简单的策略接口来解析一个字符串值。 由org.springframework.beans.factory.config.ConfigurableBeanFactory使用。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.5
  * @see org.springframework.beans.factory.config.ConfigurableBeanFactory#resolveAliases
@@ -30,10 +34,16 @@ public interface StringValueResolver {
 
 	/**
 	 * Resolve the given String value, for example parsing placeholders.
+	 *
+	 * <p>
+	 *     解析给定的字符串值，例如解析占位符。
+	 * </p>
 	 * @param strVal the original String value (never {@code null})
 	 * @return the resolved String value (may be {@code null} when resolved to a null
 	 * value), possibly the original String value itself (in case of no placeholders
 	 * to resolve or when ignoring unresolvable placeholders)
+	 * <p>
+	 * 已解析的字符串值（解析为空值时可能为空），可能是原始字符串值本身（如果没有占位符来解析或忽略不可解析的占位符）
 	 * @throws IllegalArgumentException in case of an unresolvable String value
 	 */
 	String resolveStringValue(String strVal);

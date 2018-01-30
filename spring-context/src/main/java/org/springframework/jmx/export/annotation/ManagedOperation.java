@@ -27,6 +27,11 @@ import java.lang.annotation.Target;
  * JMX operation, corresponding to the {@code ManagedOperation} attribute.
  * Only valid when used on a method that is not a JavaBean getter or setter.
  *
+ * <p>
+ *     指示将给定的方法公开为JMX操作的方法级注解，对应于ManagedOperation属性。
+ *     只有在不是JavaBean getter或setter的方法上使用时才有效。
+ * </p>
+ *
  * @author Rob Harrop
  * @since 1.2
  * @see org.springframework.jmx.export.metadata.ManagedOperation

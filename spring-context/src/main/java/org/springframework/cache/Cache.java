@@ -25,6 +25,10 @@ import java.util.concurrent.Callable;
  * implementations allow storage of <tt>null</tt> values (for example to
  * cache methods that return {@code null}).
  *
+ * <p>
+ *     定义常用缓存操作的接口。
+ *     注意：由于一般使用缓存，建议实现允许存储空值（例如缓存返回null的方法）。
+ * </p>
  * @author Costin Leau
  * @author Juergen Hoeller
  * @author Stephane Nicoll
@@ -34,11 +38,17 @@ public interface Cache {
 
 	/**
 	 * Return the cache name.
+	 * <p>
+	 *     返回缓存名字
+	 * </p>
 	 */
 	String getName();
 
 	/**
 	 * Return the underlying native cache provider.
+	 * <p>
+	 *     返回底层本机缓存的提供者。
+	 * </p>
 	 */
 	Object getNativeCache();
 
@@ -47,6 +57,14 @@ public interface Cache {
 	 * <p>Returns {@code null} if the cache contains no mapping for this key;
 	 * otherwise, the cached value (which may be {@code null} itself) will
 	 * be returned in a {@link ValueWrapper}.
+	 *
+	 * <p>
+	 *     返回这个缓存映射指定键的值。
+	 * </p>
+	 * <p>
+	 *     如果缓存不包含此键的映射关系，则返回null;
+	 *     否则，缓存的值（可能是null本身）将在Cache.ValueWrapper中返回。
+	 * </p>
 	 * @param key the key whose associated value is to be returned
 	 * @return the value to which this cache maps the specified key,
 	 * contained within a {@link ValueWrapper} which may also hold

@@ -32,6 +32,13 @@ import org.apache.commons.logging.LogFactory;
  * and {@link #addLast}, this is with regard to the order in which property sources
  * will be searched when resolving a given property with a {@link PropertyResolver}.
  *
+ * <p>
+ *     PropertySources接口的默认实现。 允许对包含的属性源进行操作，并提供用于复制现有PropertySources实例的构造器。
+ * </p>
+ * <p>
+ *     在诸如addFirst和addLast之类的方法中提到了优先级，这是关于在用PropertyResolver解析给定属性时将搜索属性源的顺序
+ * </p>
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.1

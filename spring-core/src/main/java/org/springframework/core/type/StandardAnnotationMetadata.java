@@ -61,10 +61,15 @@ public class StandardAnnotationMetadata extends StandardClassMetadata implements
 	 * providing the option to return any nested annotations or annotation arrays in the
 	 * form of {@link org.springframework.core.annotation.AnnotationAttributes} instead
 	 * of actual {@link Annotation} instances.
+	 *
+	 * <p>
+	 *     为给定的类创建一个新的StandardAnnotationMetadata包装，
+	 *     提供选项以org.springframework.core.annotation.AnnotationAttributes的形式返回任何嵌套的注释或注解数组，而不是实际的Annotation实例。
+	 * </p>
 	 * @param introspectedClass the Class to introspect
 	 * @param nestedAnnotationsAsMap return nested annotations and annotation arrays as
 	 * {@link org.springframework.core.annotation.AnnotationAttributes} for compatibility
-	 * with ASM-based {@link AnnotationMetadata} implementations
+	 * with ASM-based {@link AnnotationMetadata} implementations(返回嵌套注释和注释数组作为org.springframework.core.annotation.AnnotationAttributes与基于ASM的AnnotationMetadata实现兼容)
 	 * @since 3.1.1
 	 */
 	public StandardAnnotationMetadata(Class<?> introspectedClass, boolean nestedAnnotationsAsMap) {
@@ -126,6 +131,7 @@ public class StandardAnnotationMetadata extends StandardClassMetadata implements
 	public MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationName) {
 		return getAllAnnotationAttributes(annotationName, false);
 	}
+
 
 	@Override
 	public MultiValueMap<String, Object> getAllAnnotationAttributes(String annotationName, boolean classValuesAsString) {

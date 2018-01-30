@@ -36,6 +36,22 @@ import java.beans.PropertyDescriptor;
  * is "false", to avoid side effects caused by getter method invocations.
  * Turn this to "true" to expose present property values to custom editors.
  *
+ * <p>
+ *     Spring的低级JavaBeans基础架构的中心接口。
+ * </p>
+ * <p>
+ *     通常不直接使用，而是通过org.springframework.beans.factory.BeanFactory或org.springframework.validation.DataBinder隐式使用。
+ * </p>
+ * <p>
+ *     提供分析和操作标准JavaBean的操作：获取和设置属性值（单独或批量），获取属性描述符以及查询属性的可读性/可写性的能力。
+ * </p>
+ * <p>
+ *     该接口支持嵌套属性，可以将子属性的属性设置为无限深度。
+ * </p>
+ * <p>
+ *     “extractOldValueForEditor”设置的BeanWrapper默认值为“false”，以避免由getter方法调用引起的副作用。
+ *     将其设置为“true”以将当前属性值展示给自定义编辑器。
+ * </p>
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 13 April 2001

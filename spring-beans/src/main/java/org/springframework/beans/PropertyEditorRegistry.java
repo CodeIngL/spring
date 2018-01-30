@@ -25,6 +25,12 @@ import java.beans.PropertyEditor;
  * <p>Extended by {@link BeanWrapper}; implemented by {@link BeanWrapperImpl}
  * and {@link org.springframework.validation.DataBinder}.
  *
+ * <p>
+ *     封装注册JavaBean PropertyEditors的方法。 这是PropertyEditorRegistrar操作的中心界面。
+ * </p>
+ * <p>
+ *     由BeanWrapper扩展; 由BeanWrapperImpl和org.springframework.validation.DataBinder实现。
+ * </p>
  * @author Juergen Hoeller
  * @since 1.2.6
  * @see java.beans.PropertyEditor

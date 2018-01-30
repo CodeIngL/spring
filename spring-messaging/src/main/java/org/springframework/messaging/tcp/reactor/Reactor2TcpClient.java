@@ -70,6 +70,13 @@ import org.springframework.util.concurrent.ListenableFuture;
  * <p>This implementation wraps N (Reactor) clients for N {@link #connect} calls,
  * i.e. a separate (Reactor) client instance for each connection.
  *
+ * <p>
+ *		基于Reactor项目的TCP客户端支持的TcpOperations实现。
+ * </p>
+ * <p>
+ *		这个实现为N个（反应器）客户端包装了N个连接调用，即每个连接都有一个单独的（Reactor）客户端实例。
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @author Stephane Maldini
  * @since 4.2

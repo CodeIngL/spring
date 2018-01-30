@@ -55,6 +55,15 @@ public interface ConfigurableListableBeanFactory
 	 * BeanFactoryAware or ApplicationContext through ApplicationContextAware.
 	 * <p>By default, only the BeanFactoryAware interface is ignored.
 	 * For further types to ignore, invoke this method for each type.
+	 * <p>
+	 *     忽略给定的依赖性接口进行自动装配。
+	 * </p>
+	 * <p>
+	 *     这通常会被应用程序上下文用来注册以其他方式解析的依赖项，比如BeanFactoryAware的BeanFactory或者ApplicationContextAware的ApplicationContext。
+	 * </p>
+	 * <p>
+	 *     默认情况下，只有BeanFactoryAware接口被忽略。 对于要忽略的其他类型，请为每种类型调用此方法。
+	 * </p>
 	 * @param ifc the dependency interface to ignore
 	 * @see org.springframework.beans.factory.BeanFactoryAware
 	 * @see org.springframework.context.ApplicationContextAware
@@ -69,13 +78,25 @@ public interface ConfigurableListableBeanFactory
 	 * ApplicationContext instance that the bean is living in.
 	 * <p>Note: There are no such default types registered in a plain BeanFactory,
 	 * not even for the BeanFactory interface itself.
+	 *
+	 * <p>
+	 *     用相应的自动装配值注册一个特殊的依赖关系类型。
+	 * </p>
+	 * <p>
+	 *     这适用于工厂/上下文引用，这些引用应该是可自动装配的，但不是在工厂中定义为bean： 将ApplicationContext类型的依赖项解析为Bean所在的ApplicationContext实例。
+	 * </p>
+	 * <p>
+	 *     注意：在纯BeanFactory中没有注册这样的默认类型，即使对于BeanFactory接口本身也是如此。
+	 * </p>
 	 * @param dependencyType the dependency type to register. This will typically
 	 * be a base interface such as BeanFactory, with extensions of it resolved
 	 * as well if declared as an autowiring dependency (e.g. ListableBeanFactory),
-	 * as long as the given value actually implements the extended interface.
+	 * as long as the given value actually implements the extended interface.(
+	 *                       依赖类型来注册。 这通常是一个基本接口，比如BeanFactory，如果声明为自动装配依赖项（例如ListableBeanFactory），那么它的扩展也会被解析，只要给定的值实际上实现了扩展接口。   )
 	 * @param autowiredValue the corresponding autowired value. This may also be an
 	 * implementation of the {@link org.springframework.beans.factory.ObjectFactory}
-	 * interface, which allows for lazy resolution of the actual target value.
+	 * interface, which allows for lazy resolution of the actual target value.(
+	 *                       相应的自动装配值。 这也可能是org.springframework.beans.factory.ObjectFactory接口的实现，它允许实际目标值的延迟解析。)
 	 */
 	void registerResolvableDependency(Class<?> dependencyType, Object autowiredValue);
 

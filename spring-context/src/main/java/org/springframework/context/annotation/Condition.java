@@ -32,6 +32,13 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
  * of conditions that interact with {@code @Configuration} beans consider the
  * {@link ConfigurationCondition} interface.
  *
+ * <p>
+ *     单个条件必须匹配以便组件注册。在bean定义应该被注册之前立即检查条件，并且可以根据当时可以确定的任何标准自由地否决注册。
+ * </p>
+ *
+ * <p>
+ *     条件必须遵循与BeanFactoryPostProcessor相同的限制，并小心不要与bean实例交互。 为了更细致地控制与@Configuration bean交互的条件，请考虑ConfigurationCondition接口。
+ * </p>
  * @author Phillip Webb
  * @since 4.0
  * @see ConfigurationCondition

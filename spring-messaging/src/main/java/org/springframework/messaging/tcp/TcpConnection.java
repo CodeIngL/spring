@@ -24,6 +24,9 @@ import org.springframework.util.concurrent.ListenableFuture;
 /**
  * A contract for sending messages and managing a TCP connection.
  *
+ * <p>
+ *     用于发送消息和管理TCP连接的合同。
+ * </p>
  * @author Rossen Stoyanchev
  * @since 4.0
  * @param <P> the type of payload for outbound {@link Message}s

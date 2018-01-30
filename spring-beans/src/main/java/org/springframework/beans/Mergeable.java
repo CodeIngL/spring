@@ -20,6 +20,10 @@ package org.springframework.beans;
  * Interface representing an object whose value set can be merged with
  * that of a parent object.
  *
+ * <p>
+ *     表示一个对象的接口，其值集合可以与父对象的集合合并。
+ * </p>
+ *
  * @author Rob Harrop
  * @since 2.0
  * @see org.springframework.beans.factory.support.ManagedSet

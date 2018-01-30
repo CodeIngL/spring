@@ -566,6 +566,19 @@ public class AnnotatedElementUtils {
 	 * this method does <em>not</em> support attribute overrides.
 	 * <p>This method follows <em>get semantics</em> as described in the
 	 * {@linkplain AnnotatedElementUtils class-level javadoc}.
+	 *
+	 * <p>
+	 *     在提供的AnnotatedElement上方的注解层次结构中获取指定的annotationName的所有注释的注释属性，并将结果存储在MultiValueMap中。
+	 * </p>
+	 * <p>
+	 *     	 注意：与getMergedAnnotationAttributes（AnnotatedElement，String）相比，此方法不支持属性重写。
+	 * </p>
+	 * <p>
+	 *     	 这个方法遵循在类级javadoc中描述的获取语义。
+	 * </p>
+	 * <p>
+	 *
+	 * </p>
 	 * @param element the annotated element
 	 * @param annotationName the fully qualified class name of the annotation type to find
 	 * @param classValuesAsString whether to convert Class references into Strings or to

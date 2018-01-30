@@ -26,6 +26,10 @@ import org.springframework.beans.Mergeable;
  * Tag collection class used to hold managed Set values, which may
  * include runtime bean references (to be resolved into bean objects).
  *
+ * <p>
+ *     标记集合类用于保存受管理的设置值，其中可能包含运行时bean引用（要解析为bean对象）。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @since 21.01.2004

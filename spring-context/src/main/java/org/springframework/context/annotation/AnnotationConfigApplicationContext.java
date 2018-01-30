@@ -107,6 +107,17 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * {@inheritDoc}
 	 * <p>Delegates given environment to underlying {@link AnnotatedBeanDefinitionReader}
 	 * and {@link ClassPathBeanDefinitionScanner} members.
+	 *
+	 * <p>
+	 *     为此应用程序上下文设置环境。
+	 * </p>
+	 * <p>
+	 *     默认值由createEnvironment（）确定。 用这个方法替换默认值是一个选项，但是也应该考虑通过getEnvironment（）进行配置。
+	 *     无论哪种情况，这些修改都应该在refresh（）之前执行。
+	 * </p>
+	 * <p>
+	 *     委托给定基础AnnotatedBeanDefinitionReader和ClassPathBeanDefinitionScanner成员的环境。
+	 * </p>
 	 */
 	@Override
 	public void setEnvironment(ConfigurableEnvironment environment) {
@@ -121,6 +132,16 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * <p>Default is {@link org.springframework.context.annotation.AnnotationBeanNameGenerator}.
 	 * <p>Any call to this method must occur prior to calls to {@link #register(Class...)}
 	 * and/or {@link #scan(String...)}.
+	 *
+	 * <p>
+	 *     提供一个用于AnnotatedBeanDefinitionReader和/或ClassPathBeanDefinitionScanner（如果有）的自定义BeanNameGenerator。
+	 * </p>
+	 * <p>
+	 *     默认是AnnotationBeanNameGenerator。
+	 * </p>
+	 * <p>
+	 *     任何对此方法的调用都必须在调用register（Class ...）和/或scan（String ...）之前进行。
+	 * </p>
 	 * @see AnnotatedBeanDefinitionReader#setBeanNameGenerator
 	 * @see ClassPathBeanDefinitionScanner#setBeanNameGenerator
 	 */
@@ -136,12 +157,25 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * <p>The default is an {@link AnnotationScopeMetadataResolver}.
 	 * <p>Any call to this method must occur prior to calls to {@link #register(Class...)}
 	 * and/or {@link #scan(String...)}.
+	 *
+	 * <p>
+	 *     将ScopeMetadataResolver设置为用于检测到的bean类。
+	 * </p>
+	 * <p>
+	 *     默认值是AnnotationScopeMetadataResolver。
+	 * </p>
+	 * <p>
+	 *     任何对此方法的调用都必须在调用register（Class ...）和/或scan（String ...）之前进行。
+	 * </p>
 	 */
 	public void setScopeMetadataResolver(ScopeMetadataResolver scopeMetadataResolver) {
 		this.reader.setScopeMetadataResolver(scopeMetadataResolver);
 		this.scanner.setScopeMetadataResolver(scopeMetadataResolver);
 	}
 
+	/**
+	 * ApplicationContext的生命模板方法的第1项
+	 */
 	@Override
 	protected void prepareRefresh() {
 		this.scanner.clearCache();
@@ -157,6 +191,13 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * Register one or more annotated classes to be processed.
 	 * <p>Note that {@link #refresh()} must be called in order for the context
 	 * to fully process the new classes.
+	 *
+	 * <p>
+	 *     注册一个或多个带注解的类来处理。
+	 * </p>
+	 * <p>
+	 *     请注意，必须调用refresh（）才能使上下文完全处理新的类。
+	 * </p>
 	 * @param annotatedClasses one or more annotated classes,
 	 * e.g. {@link Configuration @Configuration} classes
 	 * @see #scan(String...)
@@ -171,6 +212,13 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * Perform a scan within the specified base packages.
 	 * <p>Note that {@link #refresh()} must be called in order for the context
 	 * to fully process the new classes.
+	 *
+	 * <p>
+	 *     在指定的基准包中执行扫描。
+	 * </p>
+	 * <p>
+	 *     请注意，必须调用refresh（）才能使上下文完全处理新的类。
+	 * </p>
 	 * @param basePackages the packages to check for annotated classes
 	 * @see #register(Class...)
 	 * @see #refresh()

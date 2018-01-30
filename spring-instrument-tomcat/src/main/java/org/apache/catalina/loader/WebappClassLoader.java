@@ -20,6 +20,10 @@ package org.apache.catalina.loader;
  * A mock of Tomcat's {@code WebappClassLoader} just for Spring's compilation purposes.
  * Exposes both pre-7.0.63 as well as 7.0.63+ variants of {@code findResourceInternal}.
  *
+ * <p>
+ *     Tomcat的WebappClassLoader只是为了编译Spring的目的。 公开7.0.63以及7.0.63+变种的findResourceInternal。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 4.2
  */

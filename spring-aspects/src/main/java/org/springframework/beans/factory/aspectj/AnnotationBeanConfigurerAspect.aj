@@ -36,6 +36,13 @@ import org.springframework.beans.factory.wiring.BeanConfigurerSupport;
  * annotation if specified, otherwise the default bean name to look up will be
  * the fully qualified name of the class being configured.
  *
+ * <p>
+ *     使用可配置注释来标识哪些类需要自动装配的具体方面。
+ * </p>
+ * <p>
+ *     如果指定了要查找的bean名称，将从@Configurable注释中取出，否则，要查找的默认bean名称将是正在配置的类的全限定名称。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Ramnivas Laddad
  * @author Juergen Hoeller

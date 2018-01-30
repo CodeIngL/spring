@@ -48,6 +48,10 @@ import org.springframework.core.io.support.ResourcePatternResolver;
  * {@link ApplicationContextAware} beans as well as {@link ResourceLoaderAware},
  * {@link ApplicationEventPublisherAware} and {@link MessageSourceAware} beans.
  *
+ * <p>
+ *     中央接口为应用程序提供配置。 这在应用程序运行时是只读的，但是如果实现支持这个，可以重新加载。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see ConfigurableApplicationContext

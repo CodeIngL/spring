@@ -28,6 +28,12 @@ import org.springframework.core.MethodParameter;
  * {@link java.beans.PropertyEditor PropertyEditors} which aren't thread-safe,
  * TypeConverters themselves are <em>not</em> to be considered as thread-safe either.
  *
+ * <p>
+ *     定义类型转换方法的接口。 通常（但不一定）与PropertyEditorRegistry接口一起实现。
+ * </p>
+ * <p>
+ *     注意：由于TypeConverter实现通常基于不是线程安全的PropertyEditor，因此TypeConverters本身也不被视为线程安全的。
+ * </p>
  * @author Juergen Hoeller
  * @since 2.0
  * @see SimpleTypeConverter

@@ -355,6 +355,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * Specify the class for this bean.
+	 * <p>
+	 *     指定这个bean的类。
+	 * </p>
 	 */
 	public void setBeanClass(Class<?> beanClass) {
 		this.beanClass = beanClass;

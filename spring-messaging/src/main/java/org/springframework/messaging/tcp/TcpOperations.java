@@ -21,6 +21,10 @@ import org.springframework.util.concurrent.ListenableFuture;
 /**
  * A contract for establishing TCP connections.
  *
+ * <p>
+ *     A contract for establishing TCP connections.
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @since 4.0
  * @param <P> the type of payload for in and outbound messages

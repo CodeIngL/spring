@@ -69,6 +69,17 @@ public class StandardEnvironment extends AbstractEnvironment {
 	 * </ul>
 	 * <p>Properties present in {@value #SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME} will
 	 * take precedence over those in {@value #SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME}.
+	 *
+	 * <p>
+	 *     使用那些适用于任何标准Java环境的属性源自定义属性源：
+	 * </p>
+	 * <ul>
+	 * <li>{@value #SYSTEM_PROPERTIES_PROPERTY_SOURCE_NAME}
+	 * <li>{@value #SYSTEM_ENVIRONMENT_PROPERTY_SOURCE_NAME}
+	 * </ul>
+	 * <p>
+	 *     systemProperties中的属性优先于systemEnvironment中的属性。
+	 * </p>
 	 * @see AbstractEnvironment#customizePropertySources(MutablePropertySources)
 	 * @see #getSystemProperties()
 	 * @see #getSystemEnvironment()

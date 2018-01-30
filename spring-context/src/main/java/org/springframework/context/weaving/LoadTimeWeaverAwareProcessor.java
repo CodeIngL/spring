@@ -35,6 +35,16 @@ import org.springframework.util.Assert;
  *
  * <p>Applications should not use this class directly.
  *
+ * <p>
+ *     BeanPostProcessor实现将上下文的默认LoadTimeWeaver传递给实现LoadTimeWeaverAware接口的bean。
+ * </p>
+ * <p>
+ *	   如果默认的LoadTimeWeaver实际可用，应用程序上下文将自动将其注册到它们的基础Bean工厂。
+ * </p>
+ * <p>
+ *	  应用程序不应该直接使用这个类。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.5
  * @see LoadTimeWeaverAware
