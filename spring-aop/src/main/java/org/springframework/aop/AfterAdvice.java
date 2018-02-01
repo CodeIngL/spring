@@ -22,6 +22,10 @@ import org.aopalliance.aop.Advice;
  * Common marker interface for after advice,
  * such as {@link AfterReturningAdvice} and {@link ThrowsAdvice}.
  *
+ * <p>
+ *     常见的标记界面用于After之后的建议，比如AfterReturningAdvice和ThrowsAdvice。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.0.3
  * @see BeforeAdvice

@@ -23,6 +23,13 @@ package org.springframework.aop;
  * <p>Can be used as part of a {@link Pointcut} or for the entire
  * targeting of an {@link IntroductionAdvisor}.
  *
+ * <p>
+ *     筛选器限制切入点或引言与给定的一组目标类的匹配。
+ * </p>
+ * <p>
+ *     可以用作切入点的一部分或用于整个IntroductionAdvisor的目标。
+ * </p>
+ *
  * @author Rod Johnson
  * @see Pointcut
  * @see MethodMatcher

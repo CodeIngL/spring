@@ -22,6 +22,11 @@ import java.lang.reflect.Method;
  * After returning advice is invoked only on normal method return, not if an
  * exception is thrown. Such advice can see the return value, but cannot change it.
  *
+ * <p>
+ *     返回通知后，只有在普通的方法返回时才会调用，而不是在引发异常的情况下。
+ *     这样的建议可以看到返回值，但不能改变它。
+ * </p>
+ *
  * @author Rod Johnson
  * @see MethodBeforeAdvice
  * @see ThrowsAdvice

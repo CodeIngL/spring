@@ -22,6 +22,10 @@ import java.lang.instrument.Instrumentation;
  * Java agent that saves the {@link Instrumentation} interface from the JVM
  * for later use.
  *
+ * <p>
+ *     从JVM中保存Instrumentation接口供日后使用的Java代理。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0

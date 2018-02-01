@@ -23,6 +23,12 @@ import java.lang.reflect.Method;
  * when matching methods. If there are no introductions on the target class,
  * a method matcher may be able to optimize matching more effectively for example.
  *
+ * <p>
+ *     对于执行一个或多个AOP介绍的顾问的超级接口。
+ *     这个接口不能直接实现; 子接口必须提供实现引言的建议类型。
+ *     简介是通过AOP建议实现其他接口（不是由目标实现）。
+ * </p>
+ *
  * @author Adrian Colyer
  * @since 2.0
  */

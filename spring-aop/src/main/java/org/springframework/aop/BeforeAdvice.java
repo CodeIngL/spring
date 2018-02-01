@@ -24,6 +24,13 @@ import org.aopalliance.aop.Advice;
  * <p>Spring supports only method before advice. Although this is unlikely to change,
  * this API is designed to allow field advice in future if desired.
  *
+ * <p>
+ *    通知标记接口，用于提示建议，如MethodBeforeAdvice。
+ * </p>
+ * <p>
+ *    Spring在通知之前只支持方法。 虽然这不太可能改变，但是如果需要，此API旨在允许将来在现场提供建议。
+ * </p>
+ *
  * @author Rod Johnson
  * @see AfterAdvice
  */
