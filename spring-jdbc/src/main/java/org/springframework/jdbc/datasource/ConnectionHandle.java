@@ -22,6 +22,10 @@ import java.sql.Connection;
  * Simple interface to be implemented by handles for a JDBC Connection.
  * Used by JpaDialect and JdoDialect, for example.
  *
+ * <p>
+ *     简单的接口由JDBC连接的句柄来实现。 例如，由JpaDialect和JdoDialect使用。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.1
  * @see SimpleConnectionHandle
@@ -33,11 +37,17 @@ public interface ConnectionHandle {
 
 	/**
 	 * Fetch the JDBC Connection that this handle refers to.
+	 * <p>
+	 *     获取此句柄引用的JDBC连接。
+	 * </p>
 	 */
 	Connection getConnection();
 
 	/**
 	 * Release the JDBC Connection that this handle refers to.
+	 * <p>
+	 *     释放此句柄引用的JDBC连接。
+	 * </p>
 	 * @param con the JDBC Connection to release
 	 */
 	void releaseConnection(Connection con);

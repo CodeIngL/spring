@@ -43,11 +43,21 @@ public abstract class AopNamespaceUtils {
 
 	/**
 	 * The {@code proxy-target-class} attribute as found on AOP-related XML tags.
+	 * <p>
+	 *     在AOP相关的XML标签上找到的proxy-target-class属性。
+	 * </p>
 	 */
 	public static final String PROXY_TARGET_CLASS_ATTRIBUTE = "proxy-target-class";
 
 	/**
 	 * The {@code expose-proxy} attribute as found on AOP-related XML tags.
+	 * <p>
+	 *     在与AOP相关的XML标签上找到的expose-proxy属性。
+	 * </p>
+	 * <p>
+	 *     表明代理应该被AOP框架公开为用于通过AopContext类进行检索的ThreadLocal。
+	 *     默认情况下，即不保证AopContext访问将起作用。
+	 * </p>
 	 */
 	private static final String EXPOSE_PROXY_ATTRIBUTE = "expose-proxy";
 
@@ -70,6 +80,13 @@ public abstract class AopNamespaceUtils {
 		registerComponentIfNecessary(beanDefinition, parserContext);
 	}
 
+	/**
+	 *
+	 * 注册aspectj风格的字段代理，如果有必要的话
+	 *
+	 * @param parserContext
+	 * @param sourceElement
+	 */
 	public static void registerAspectJAnnotationAutoProxyCreatorIfNecessary(
 			ParserContext parserContext, Element sourceElement) {
 

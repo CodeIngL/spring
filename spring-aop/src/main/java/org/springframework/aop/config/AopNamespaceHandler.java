@@ -47,6 +47,14 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  *     pointcut-ref=&quot;getNameCalls&quot;
  *     advice-ref=&quot;getNameCounter&quot;/&gt;</pre>
  *
+ *
+ * <p>aop的命名空间</p>
+ * <p>
+ *     为<aop：config>标记提供一个BeanDefinitionParser。 配置标签可以包括嵌套的切入点，顾问和方面标签。
+ *     切入点标签允许使用简单的语法来创建名为AspectJExpressionPointcut的bean：
+ * </p>
+ * <p></p>
+ * <p></p>
  * @author Rob Harrop
  * @author Adrian Colyer
  * @author Juergen Hoeller

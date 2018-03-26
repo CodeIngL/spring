@@ -31,6 +31,11 @@ import org.springframework.beans.factory.xml.ParserContext;
  * enabling the automatic application of @AspectJ-style aspects found in
  * the {@link org.springframework.beans.factory.BeanFactory}.
  *
+ * <p>
+ *     用于aspectj-autoproxy标记的BeanDefinitionParser，
+ *     可以自动应用org.springframework.beans.factory.BeanFactory中的@AspectJ风格切面。
+ * </p>
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0
@@ -39,6 +44,7 @@ class AspectJAutoProxyBeanDefinitionParser implements BeanDefinitionParser {
 
 	@Override
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
+		//注册aspectj风格的字段代理，如果有必要的话
 		AopNamespaceUtils.registerAspectJAnnotationAutoProxyCreatorIfNecessary(parserContext, element);
 		extendBeanDefinition(element, parserContext);
 		return null;

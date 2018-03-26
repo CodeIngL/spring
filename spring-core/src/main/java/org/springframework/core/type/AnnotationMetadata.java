@@ -23,7 +23,7 @@ import java.util.Set;
  * class, in a form that does not require that class to be loaded yet.
  *
  * <p>
- *     定义对特定类的注释的抽象访问的接口，其形式不需要该类被加载。
+ *     定义对特定类的注解的抽象访问的接口，其形式不需要该类被加载。
  * </p>
  *
  * @author Juergen Hoeller

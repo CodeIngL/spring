@@ -20,6 +20,10 @@ package org.springframework.core.type;
  * Interface that defines abstract metadata of a specific class,
  * in a form that does not require that class to be loaded yet.
  *
+ * <p>
+ *     定义特定类的抽象元数据的接口，其形式不需要该类被加载。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.5
  * @see StandardClassMetadata
@@ -30,33 +34,51 @@ public interface ClassMetadata {
 
 	/**
 	 * Return the name of the underlying class.
+	 * <p>
+	 *     返回基础类的名称。
+	 * </p>
 	 */
 	String getClassName();
 
 	/**
 	 * Return whether the underlying class represents an interface.
+	 * <p>
+	 *     返回底层类是否表示一个接口。
+	 * </p>
 	 */
 	boolean isInterface();
 
 	/**
 	 * Return whether the underlying class represents an annotation.
+	 * <p>
+	 *     返回基础类是否代表注解
+	 * </p>
 	 * @since 4.1
 	 */
 	boolean isAnnotation();
 
 	/**
 	 * Return whether the underlying class is marked as abstract.
+	 * <p>
+	 *     返回底层类是否被标记为抽象。
+	 * </p>
 	 */
 	boolean isAbstract();
 
 	/**
 	 * Return whether the underlying class represents a concrete class,
 	 * i.e. neither an interface nor an abstract class.
+	 * <p>
+	 *     返回底层类是否代表具体类，即既不是接口也不是抽象类。
+	 * </p>
 	 */
 	boolean isConcrete();
 
 	/**
-	 * Return whether the underlying class is marked as 'final'.
+	 * Return whether the underlying class is marked as 'final'
+	 * <p>
+	 *     返回底层类是否被标记为“final”
+	 * </p>.
 	 */
 	boolean isFinal();
 
@@ -64,6 +86,9 @@ public interface ClassMetadata {
 	 * Determine whether the underlying class is independent, i.e. whether
 	 * it is a top-level class or a nested class (static inner class) that
 	 * can be constructed independently from an enclosing class.
+	 * <p>
+	 *     确定底层类是否是独立的，即它是一个顶级类还是一个嵌套类（静态内部类），它可以独立于一个封闭类构造。
+	 * </p>
 	 */
 	boolean isIndependent();
 
@@ -73,6 +98,10 @@ public interface ClassMetadata {
 	 * local class within a method).
 	 * <p>If this method returns {@code false}, then the underlying
 	 * class is a top-level class.
+	 * <p>
+	 *     返回底层类是否在封闭类中声明（即底层类是方法中的内部/嵌套类或本地类）。
+	 *     如果此方法返回false，则基础类是顶级类。
+	 * </p>
 	 */
 	boolean hasEnclosingClass();
 

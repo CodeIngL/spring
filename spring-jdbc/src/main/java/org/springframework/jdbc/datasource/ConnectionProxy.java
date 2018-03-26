@@ -29,6 +29,16 @@ import java.sql.Connection;
  * unwrapping for a specific connection pool. Alternatively, all such
  * connections also support JDBC 4.0's {@link Connection#unwrap}.
  *
+ *
+ * <p>
+ *     连接的子接口由连接代理实现。 允许访问底层的目标连接。
+ * </p>
+ * <p>
+ *     当需要转换为本地JDBC连接（如Oracle的OracleConnection）时，可以检查此接口。
+ *     Spring的org.springframework.jdbc.support.nativejdbc.NativeJdbcExtractorAdapter在委托给特定连接池的实际解包之前自动检测这样的代理。
+ *     或者，所有这样的连接也支持JDBC 4.0的Connection.unwrap。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.1
  * @see TransactionAwareDataSourceProxy
@@ -41,6 +51,11 @@ public interface ConnectionProxy extends Connection {
 	 * Return the target Connection of this proxy.
 	 * <p>This will typically be the native driver Connection
 	 * or a wrapper from a connection pool.
+	 *
+	 * <p>
+	 *     返回此代理的目标连接。
+	 *     这通常是本地驱动程序连接或来自连接池的包装器。
+	 * </p>
 	 * @return the underlying Connection (never {@code null})
 	 */
 	Connection getTargetConnection();

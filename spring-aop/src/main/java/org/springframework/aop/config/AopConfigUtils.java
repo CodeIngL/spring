@@ -37,6 +37,14 @@ import org.springframework.util.Assert;
  * that class, {@code or a subclass thereof}, will eventually be resident
  * in the application context.
  *
+ * <p>
+ *     用于处理AOP自动代理创建者注册的实用程序类。
+ * </p>
+ * <p>
+ *    只有一个自动代理创建者可以被注册，但有多个具体的实现可用。
+ *    因此，这个类包装了一个简单的升级协议，允许类请求特定的自动代理创建者，并知道类或其子类最终将驻留在应用程序上下文中。
+ * </p>
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Mark Fisher
@@ -47,17 +55,26 @@ public abstract class AopConfigUtils {
 
 	/**
 	 * The bean name of the internally managed auto-proxy creator.
+	 * <p>
+	 *     内部管理的自动代理创建者的bean名称。
+	 * </p>
 	 */
 	public static final String AUTO_PROXY_CREATOR_BEAN_NAME =
 			"org.springframework.aop.config.internalAutoProxyCreator";
 
 	/**
 	 * Stores the auto proxy creator classes in escalation order.
+	 * <p>
+	 *	  内部管理的自动代理创建者的bean名称。
+	 * </p>
 	 */
 	private static final List<Class<?>> APC_PRIORITY_LIST = new ArrayList<Class<?>>();
 
 	/**
 	 * Setup the escalation list.
+	 * <p>
+	 *    设置升级列表。
+	 * </p>
 	 */
 	static {
 		APC_PRIORITY_LIST.add(InfrastructureAdvisorAutoProxyCreator.class);
@@ -86,6 +103,14 @@ public abstract class AopConfigUtils {
 		return registerAspectJAnnotationAutoProxyCreatorIfNecessary(registry, null);
 	}
 
+	/**
+	 *
+	 * 注册aspectj风格的字段代理，如果有必要的话
+	 *
+	 * @param registry
+	 * @param source
+	 * @return
+	 */
 	public static BeanDefinition registerAspectJAnnotationAutoProxyCreatorIfNecessary(BeanDefinitionRegistry registry, Object source) {
 		return registerOrEscalateApcAsRequired(AnnotationAwareAspectJAutoProxyCreator.class, registry, source);
 	}
@@ -105,6 +130,15 @@ public abstract class AopConfigUtils {
 	}
 
 
+	/**
+	 * <p>
+	 *     根据需要注册或升级Apc auto_prox_creator
+	 * </p>
+	 * @param cls
+	 * @param registry
+	 * @param source
+	 * @return
+	 */
 	private static BeanDefinition registerOrEscalateApcAsRequired(Class<?> cls, BeanDefinitionRegistry registry, Object source) {
 		Assert.notNull(registry, "BeanDefinitionRegistry must not be null");
 		if (registry.containsBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME)) {
