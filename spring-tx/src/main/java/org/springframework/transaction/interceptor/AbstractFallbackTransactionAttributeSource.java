@@ -68,6 +68,13 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 	 * Cache of TransactionAttributes, keyed by method on a specific target class.
 	 * <p>As this base class is not marked Serializable, the cache will be recreated
 	 * after serialization - provided that the concrete subclass is Serializable.
+	 *
+	 * <p>
+	 *     TransactionAttributes的缓存，由特定目标类上的方法键控。
+	 * </p>
+	 * <p>
+	 *    由于此基类未标记为Serializable，因此在序列化后将重新创建缓存 - 前提是具体子类为Serializable。
+	 * </p>
 	 */
 	private final Map<Object, TransactionAttribute> attributeCache =
 			new ConcurrentHashMap<Object, TransactionAttribute>(1024);
@@ -76,6 +83,13 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 	/**
 	 * Determine the transaction attribute for this method invocation.
 	 * <p>Defaults to the class's transaction attribute if no method attribute is found.
+	 *
+	 * <p>
+	 *     确定此方法调用的事务属性。
+	 * </p>
+	 * <p>
+	 *     	 如果未找到方法属性，则默认为类的事务属性。
+	 * </p>
 	 * @param method the method for the current invocation (never {@code null})
 	 * @param targetClass the target class for this invocation (may be {@code null})
 	 * @return TransactionAttribute for this method, or {@code null} if the method
@@ -88,11 +102,13 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 		}
 
 		// First, see if we have a cached value.
+		// 查找缓存
 		Object cacheKey = getCacheKey(method, targetClass);
 		Object cached = this.attributeCache.get(cacheKey);
 		if (cached != null) {
 			// Value will either be canonical value indicating there is no transaction attribute,
 			// or an actual transaction attribute.
+			// 值将是指示没有事务属性的规范值或实际事务属性。
 			if (cached == NULL_TRANSACTION_ATTRIBUTE) {
 				return null;
 			}
@@ -137,6 +153,12 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 	 * Same signature as {@link #getTransactionAttribute}, but doesn't cache the result.
 	 * {@link #getTransactionAttribute} is effectively a caching decorator for this method.
 	 * <p>As of 4.1.8, this method can be overridden.
+	 * <p>
+	 *     与getTransactionAttribute相同的签名，但不缓存结果。 getTransactionAttribute实际上是此方法的缓存装饰器。
+	 * </p>
+	 * <p>
+	 *     从4.1.8开始，可以覆盖此方法。
+	 * </p>
 	 * @since 4.1.8
 	 * @see #getTransactionAttribute
 	 */
@@ -152,6 +174,7 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 		// If the target class is null, the method will be unchanged.
 		Method specificMethod = ClassUtils.getMostSpecificMethod(method, userClass);
 		// If we are dealing with method with generic parameters, find the original method.
+		// 如果我们使用泛型参数处理方法，请找到原始方法。
 		specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);
 
 		// First try is the method in the target class.

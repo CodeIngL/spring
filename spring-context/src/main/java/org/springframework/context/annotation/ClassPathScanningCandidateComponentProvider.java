@@ -60,6 +60,10 @@ import org.springframework.util.ClassUtils;
  * {@link org.springframework.core.type.classreading.MetadataReader MetadataReader}
  * facility, backed by an ASM {@link org.springframework.asm.ClassReader ClassReader}.
  *
+ * <P>
+ * 从基础包扫描类路径的组件提供者。 然后它应用排除或者包括filter应用于结果类以查找候选人。
+ * 该实现基于Spring的MetadataReader工具，由ASM ClassReader支持。
+ * </P>
  * @author Mark Fisher
  * @author Juergen Hoeller
  * @author Ramnivas Laddad
@@ -178,6 +182,10 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 	 * <p>Also supports Java EE 6's {@link javax.annotation.ManagedBean} and
 	 * JSR-330's {@link javax.inject.Named} annotations, if available.
 	 *
+	 * 注册@Component的默认过滤器。
+	 * 这将隐式注册具有@Component元注解的所有注解，包括@Repository，@Service和@Controller构造型注解。
+	 * 如果可用，还支持Java EE 6的javax.annotation.ManagedBean和JSR-330的javax.inject.Named注解。
+	 *
 	 */
 	@SuppressWarnings("unchecked")
 	protected void registerDefaultFilters() {
@@ -267,6 +275,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 
 	/**
 	 * Scan the class path for candidate components.
+	 * 扫描类路径寻找候选组件。
 	 * @param basePackage the package to check for annotated classes
 	 * @return a corresponding Set of autodetected bean definitions
 	 */

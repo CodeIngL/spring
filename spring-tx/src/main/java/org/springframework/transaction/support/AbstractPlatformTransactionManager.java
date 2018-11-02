@@ -72,6 +72,25 @@ import org.springframework.transaction.UnexpectedRollbackException;
  * that case, and potentially a private {@code readObject()} method (according
  * to Java serialization rules) if they need to restore any transient state.
  *
+ *
+ * <p>
+ *    实现Spring标准事务工作流的抽象基类，作为org.springframework.transaction.jta.JtaTransactionManager等具体平台事务管理器的基础。
+ *    应用适当的传播行为;
+ * </p>
+ * <p> 此基类提供以下工作流处理：</p>
+ * <ul>
+ * <li>确定是否存在现有事务;
+ * <li>应用适当的传播行为;
+ * <li>必要时暂停和恢复事务;
+ * <li>检查提交时的rollback-only标志;
+ * <li>在回滚时应用适当的修改（实际回滚或仅设置回滚）;
+ * <li>触发已注册的同步回调（如果事务同步处于活动状态）。
+ * </ul>
+ * <p> 子类必须为事务的特定状态实现特定的模板方法，例如：begin，suspend，resume，commit，rollback。
+ * 其中最重要的是抽象的，必须由具体实现提供;对于其余部分，提供了默认值，因此覆盖是可选的。</p>
+ * <p> 事务同步是一种通用机制，用于注册在事务完成时调用的回调。当在JTA事务中运行时，这主要由JDBC，Hibernate，JPA等的数据访问支持类在内部使用：它们注册在事务中打开的资源，以便在事务完成时关闭，允许例如在事务中重用相同的Hibernate会话。同样的机制也可以用于应用程序中的自定义同步需求。</p>
+ * <p> 此类的状态是可序列化的，以允许序列化事务策略以及携带事务拦截器的代理。如果他们希望使其状态也可序列化，则由子类决定。在这种情况下，它们应该实现java.io.Serializable标记接口，如果需要恢复任何瞬态，它们可能是私有的readObject()方法（根据Java序列化规则）。
+ </p>
  * @author Juergen Hoeller
  * @since 28.03.2003
  * @see #setTransactionSynchronization
@@ -692,6 +711,11 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	/**
 	 * This implementation of commit handles participating in existing
 	 * transactions and programmatic rollback requests.
+	 *
+	 * <p>
+	 *     此提交实现处理参与现有事务和编程回滚请求。
+	 *     代表isRollbackOnly，doCommit和rollback。
+	 * </p>
 	 * Delegates to {@code isRollbackOnly}, {@code doCommit}
 	 * and {@code rollback}.
 	 * @see org.springframework.transaction.TransactionStatus#isRollbackOnly()

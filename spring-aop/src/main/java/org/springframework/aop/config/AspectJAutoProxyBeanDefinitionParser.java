@@ -46,10 +46,16 @@ class AspectJAutoProxyBeanDefinitionParser implements BeanDefinitionParser {
 	public BeanDefinition parse(Element element, ParserContext parserContext) {
 		//注册aspectj风格的字段代理，如果有必要的话
 		AopNamespaceUtils.registerAspectJAnnotationAutoProxyCreatorIfNecessary(parserContext, element);
+		//扩展beanDefinition
 		extendBeanDefinition(element, parserContext);
 		return null;
 	}
 
+	/**
+	 * 也就是处理子节点，添加beandefinition的其他属性
+	 * @param element
+	 * @param parserContext
+	 */
 	private void extendBeanDefinition(Element element, ParserContext parserContext) {
 		BeanDefinition beanDef =
 				parserContext.getRegistry().getBeanDefinition(AopConfigUtils.AUTO_PROXY_CREATOR_BEAN_NAME);
@@ -58,6 +64,12 @@ class AspectJAutoProxyBeanDefinitionParser implements BeanDefinitionParser {
 		}
 	}
 
+	/**
+	 * 添加includePatterns路径,为ManagedList<TypedStringValue>
+	 * @param element
+	 * @param parserContext
+	 * @param beanDef
+	 */
 	private void addIncludePatterns(Element element, ParserContext parserContext, BeanDefinition beanDef) {
 		ManagedList<TypedStringValue> includePatterns = new ManagedList<TypedStringValue>();
 		NodeList childNodes = element.getChildNodes();

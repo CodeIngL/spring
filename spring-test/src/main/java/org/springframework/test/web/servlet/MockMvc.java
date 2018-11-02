@@ -53,6 +53,10 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  *     .andExpect(forwardedUrl("/WEB-INF/layouts/main.jsp"));
  * </pre>
  *
+ * <p>
+ *     服务器端Spring MVC测试支持的主要入口点。
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @author Rob Winch
  * @author Sam Brannen

@@ -65,7 +65,10 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 
 
 	/**
-	 * 获得名字
+	 * 为BeanDefinition生成名字，通常我们用于处理注解形式的bean,当然如果不是
+	 * 生成默认的的名字。
+	 *
+	 * @see #buildDefaultBeanName
 	 * @param definition the bean definition to generate a name for
 	 * @param registry the bean definition registry that the given definition
 	 * is supposed to be registered with
@@ -154,6 +157,13 @@ public class AnnotationBeanNameGenerator implements BeanNameGenerator {
 	 * <p>Note that inner classes will thus have names of the form
 	 * "outerClassName.InnerClassName", which because of the period in the
 	 * name may be an issue if you are autowiring by name.
+	 *
+	 * <p>
+	 *     默认实现只是构建短类名称的decapitalized版本：例如 “mypackage.MyJdbcDao” - >“myJdbcDao”。
+	 * </p>
+	 * <p>
+	 *     请注意，内部类将具有“outerClassName.InnerClassName”形式的名称，如果您按名称自动装配，则由于名称中的句点可能会出现问题。
+	 * </p>
 	 * @param definition the bean definition to build a bean name for
 	 * @return the default bean name (never {@code null})
 	 */

@@ -28,6 +28,13 @@ import org.springframework.util.Assert;
  * {@link org.springframework.aop.support.AopUtils AopUtils} and
  * {@link org.springframework.aop.framework.AopProxyUtils AopProxyUtils}.
  *
+ * <p>
+ *     AopTestUtils是AOP相关实用程序方法的集合，用于单元和集成测试场景。
+ * </p>
+ * <p>
+ *      对于Spring的核心AOP实用程序，请参阅AopUtils和AopProxyUtils。
+ * </p>
+ *
  * @author Sam Brannen
  * @since 4.2
  * @see org.springframework.aop.support.AopUtils

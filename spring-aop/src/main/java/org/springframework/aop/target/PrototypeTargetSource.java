@@ -26,6 +26,13 @@ import org.springframework.beans.BeansException;
  * <p>Obtains bean instances from its containing
  * {@link org.springframework.beans.factory.BeanFactory}.
  *
+ * <p>
+ *     org.springframework.aop.TargetSource实现，为每个请求创建目标bean的新实例，在发布时销毁每个实例（在每个请求之后）。
+ * </p>
+ * <p>
+ *      从包含org.springframework.beans.factory.BeanFactory的bean实例中获取bean实例。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see #setBeanFactory

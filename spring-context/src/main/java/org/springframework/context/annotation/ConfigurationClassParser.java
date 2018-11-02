@@ -630,6 +630,9 @@ class ConfigurationClassParser {
 		}
 	}
 
+	/**
+	 * 处理DeferredImportSelectorHolder
+	 */
 	private void processDeferredImportSelectors() {
 		List<DeferredImportSelectorHolder> deferredImports = this.deferredImportSelectors;
 		this.deferredImportSelectors = null;
@@ -638,6 +641,9 @@ class ConfigurationClassParser {
 		for (DeferredImportSelectorHolder deferredImport : deferredImports) {
 			ConfigurationClass configClass = deferredImport.getConfigurationClass();
 			try {
+				/**
+				 * 自动配置就发生在这个地方
+				 */
 				String[] imports = deferredImport.getImportSelector().selectImports(configClass.getMetadata());
 				processImports(configClass, asSourceClass(configClass), asSourceClasses(imports), false);
 			}

@@ -24,6 +24,10 @@ import org.springframework.http.client.ClientHttpResponse;
  * Strategy interface used by the {@link RestTemplate} to determine
  * whether a particular response has an error or not.
  *
+ * <p>
+ *     RestTemplate用于确定特定响应是否有错误的策略接口。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @since 3.0
  */

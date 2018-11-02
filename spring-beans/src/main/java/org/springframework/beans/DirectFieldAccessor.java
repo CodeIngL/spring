@@ -36,6 +36,16 @@ import org.springframework.util.ReflectionUtils;
  * <p>A DirectFieldAccessor's default for the "extractOldValueForEditor" setting
  * is "true", since a field can always be read without side effects.
  *
+ * <p>
+ *     ConfigurablePropertyAccessor实现，直接访问实例字段。 允许直接绑定到字段而不是通过JavaBean setter。
+ * </p>
+ * <p>
+ *      从Spring 4.2开始，绝大多数BeanWrapper功能已合并到AbstractPropertyAccessor，这意味着现在也支持属性遍历以及集合和映射访问。
+ * </p>
+ * <p>
+ *      DirectFieldAccessor的“extractOldValueForEditor”设置的默认值为“true”，因为始终可以在没有副作用的情况下读取字段。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Stephane Nicoll
  * @since 2.0

@@ -79,6 +79,40 @@ import org.springframework.util.StringValueResolver;
  *   <property name="url" value="jdbc:${dbname:defaultdb}"/>
  * </pre>
  *
+ *
+ *
+ *
+ * <p>属性资源配置器的抽象基类，用于解析bean定义属性值中的占位符。实现将值从属性文件或其他属性源拉入bean定义。
+ * 默认占位符语法遵循Ant / Log4J / JSP EL样式：
+ * <pre class="code">${...}</pre>
+ * <pre class="code">${...}</pre>
+ * 示例XML bean定义：
+ * <pre class="code">
+ * <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"/>
+ *   <property name="driverClassName" value="${driver}"/>
+ *   <property name="url" value="jdbc:${dbname}"/>
+ * </bean>
+ * </pre>
+ *
+ * 示例属性文件：
+ * <pre class="code">driver=com.mysql.jdbc.Driver
+ * dbname=mysql:mydb</pre>
+ *
+ * 带注释的bean定义可以使用@Value注释来利用属性替换：
+ * <pre class="code">@Value("${person.age}")</pre>
+ * 实现检查bean引用中的简单属性值，列表，映射，道具和bean名称。此外，占位符值还可以交叉引用其他占位符，例如：
+ * <pre class="code">rootPath=myrootdir
+ * subPath=${rootPath}/subdir</pre>
+ * 与PropertyOverrideConfigurer相比，此类型的子类允许在bean定义中填充显式占位符。
+ * 如果配置程序无法解析占位符，则将抛出BeanDefinitionStoreException。如果要检查多个属性文件，请通过locations属性指定多个资源。您还可以定义多个配置器，每个配置器都有自己的占位符语法。如果无法解析占位符，请使用{@link #ignoreUnresolvablePlaceholders}故意禁止抛出异常。
+ *
+ * 可以通过properties属性为每个configurer实例全局定义默认属性值，也可以使用默认值分隔符逐个属性地定义默认值，默认值为“:”并可通过setValueSeparator（String）自定义。
+ * 示例具有默认值的XML属性：</p>
+ *
+ * <pre class="code">
+ *   <property name="url" value="jdbc:${dbname:defaultdb}"/>
+ * </pre>
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.1

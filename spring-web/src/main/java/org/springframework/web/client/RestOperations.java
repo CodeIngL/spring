@@ -32,6 +32,11 @@ import org.springframework.http.ResponseEntity;
  * Implemented by {@link RestTemplate}. Not often used directly, but a useful
  * option to enhance testability, as it can easily be mocked or stubbed.
  *
+ * <p>
+ *     接口，指定一组基本的RESTful操作。
+ *     由RestTemplate实现。 不经常直接使用，但它是一个增强可测试性的有用选项，因为它很容易被模拟或存根。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @author Juergen Hoeller
  * @since 3.0

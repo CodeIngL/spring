@@ -45,6 +45,23 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
  *
  * <p>Compatible with Apache Commons Pool 2.4, as of Spring 4.2.
  *
+ * <p>
+ *     org.springframework.aop.TargetSource实现，用于在可配置的Apache Commons2池中保存对象。
+ * </p>
+ * <p>
+ *      默认情况下，会创建一个GenericObjectPool实例。 子类可以通过覆盖createObjectPool（）方法来更改所使用的ObjectPool的类型。
+ * </p>
+ * <p>
+ *      提供许多镜像Commons Pool GenericObjectPool类的配置属性; 这些属性在构造期间传递给GenericObjectPool。 如果要创建此类的子类以更改ObjectPool实现类型，请传入与所选实现相关的配置属性的值。
+ * </p>
+ * <p>
+ *      testOnBorrow，testOnReturn和testWhileIdle属性显式未镜像，因为此类使用的PoolableObjectFactory的实现未实现有意义的验证。 所有公开的Commons Pool属性都使用相应的Commons Pool默认值。
+ * </p>
+ *
+ * <p>
+ *      与Apache Commons Pool 2.4兼容，从Spring 4.2开始。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Rob Harrop
  * @author Juergen Hoeller

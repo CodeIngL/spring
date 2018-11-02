@@ -71,21 +71,24 @@ public class BeanNameAutoProxyCreator extends AbstractAutoProxyCreator {
 
 	/**
 	 * Identify as bean to proxy if the bean name is in the configured list of names.
+	 * <p>
+	 *     如果bean名称在配置的名称列表中，则标识为要代理的bean。
+	 * </p>
 	 */
 	@Override
 	protected Object[] getAdvicesAndAdvisorsForBean(Class<?> beanClass, String beanName, TargetSource targetSource) {
-		if (this.beanNames != null) {
-			for (String mappedName : this.beanNames) {
-				if (FactoryBean.class.isAssignableFrom(beanClass)) {
-					if (!mappedName.startsWith(BeanFactory.FACTORY_BEAN_PREFIX)) {
+		if (this.beanNames != null) { //配置了beanNames
+			for (String mappedName : this.beanNames) { //进行遍历
+				if (FactoryBean.class.isAssignableFrom(beanClass)) {//是factoryBean，
+					if (!mappedName.startsWith(BeanFactory.FACTORY_BEAN_PREFIX)) {//beanName并且不是factoryBean本身,跳过
 						continue;
 					}
-					mappedName = mappedName.substring(BeanFactory.FACTORY_BEAN_PREFIX.length());
+					mappedName = mappedName.substring(BeanFactory.FACTORY_BEAN_PREFIX.length()); //处理本身的factoryBean
 				}
-				if (isMatch(beanName, mappedName)) {
+				if (isMatch(beanName, mappedName)) { //能匹配上
 					return PROXY_WITHOUT_ADDITIONAL_INTERCEPTORS;
 				}
-				BeanFactory beanFactory = getBeanFactory();
+				BeanFactory beanFactory = getBeanFactory(); //尝试使用别名进行匹配
 				if (beanFactory != null) {
 					String[] aliases = beanFactory.getAliases(beanName);
 					for (String alias : aliases) {
@@ -96,7 +99,7 @@ public class BeanNameAutoProxyCreator extends AbstractAutoProxyCreator {
 				}
 			}
 		}
-		return DO_NOT_PROXY;
+		return DO_NOT_PROXY; //没找到，返回
 	}
 
 	/**

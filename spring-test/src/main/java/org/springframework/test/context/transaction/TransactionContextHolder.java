@@ -21,6 +21,10 @@ import org.springframework.core.NamedInheritableThreadLocal;
 /**
  * {@link InheritableThreadLocal}-based holder for the current {@link TransactionContext}.
  *
+ * <p>
+ *     当前TransactionContext的基于InheritableThreadLocal的持有者。
+ * </p>
+ *
  * @author Sam Brannen
  * @since 4.1
  */

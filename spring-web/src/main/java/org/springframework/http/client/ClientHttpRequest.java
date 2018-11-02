@@ -29,6 +29,13 @@ import org.springframework.http.HttpRequest;
  * <p>A {@code ClientHttpRequest} can be {@linkplain #execute() executed},
  * receiving a {@link ClientHttpResponse} which can be read from.
  *
+ * <p>
+ *     表示客户端HTTP请求。 通过ClientHttpRequestFactory的实现创建。
+ * </p>
+ * <p>
+ *     可以执行ClientHttpRequest，接收可以从中读取的ClientHttpResponse。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @since 3.0
  * @see ClientHttpRequestFactory#createRequest(java.net.URI, HttpMethod)
@@ -37,6 +44,9 @@ public interface ClientHttpRequest extends HttpRequest, HttpOutputMessage {
 
 	/**
 	 * Execute this request, resulting in a {@link ClientHttpResponse} that can be read.
+	 * <p>
+	 *     执行此请求，生成可以读取的ClientHttpResponse。
+	 * </p>
 	 * @return the response result of the execution
 	 * @throws IOException in case of I/O errors
 	 */

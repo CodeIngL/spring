@@ -75,6 +75,10 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * Return a URL handle for this resource.
+	 *
+	 * <p>
+	 *     返回此资源的URL句柄。
+	 * </p>
 	 * @throws IOException if the resource cannot be resolved as URL,
 	 * i.e. if the resource is not available as descriptor
 	 */
@@ -82,6 +86,9 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * Return a URI handle for this resource.
+	 * <p>
+	 *     返回此资源的URI句柄。
+	 * </p>
 	 * @throws IOException if the resource cannot be resolved as URI,
 	 * i.e. if the resource is not available as descriptor
 	 * @since 2.5
@@ -90,6 +97,9 @@ public interface Resource extends InputStreamSource {
 
 	/**
 	 * Return a File handle for this resource.
+	 * <p>
+	 *     返回此资源的File句柄。
+	 * </p>
 	 * @throws java.io.FileNotFoundException if the resource cannot be resolved as
 	 * absolute file path, i.e. if the resource is not available in a file system
 	 * @throws IOException in case of general resolution/reading failures

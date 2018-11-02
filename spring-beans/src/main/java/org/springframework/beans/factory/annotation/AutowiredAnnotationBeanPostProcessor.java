@@ -144,11 +144,14 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	 * Create a new AutowiredAnnotationBeanPostProcessor
 	 * for Spring's standard {@link Autowired} annotation.
 	 * <p>Also supports JSR-330's {@link javax.inject.Inject} annotation, if available.
+	 * <p>
+	 *     构建AutowiredAnnotationBeanPostProcessor来处理{@link Autowired}，如果可能的话也支持{@link javax.inject.Inject}
+	 * </p>
 	 */
 	@SuppressWarnings("unchecked")
 	public AutowiredAnnotationBeanPostProcessor() {
-		this.autowiredAnnotationTypes.add(Autowired.class);
-		this.autowiredAnnotationTypes.add(Value.class);
+		this.autowiredAnnotationTypes.add(Autowired.class); //Autowired
+		this.autowiredAnnotationTypes.add(Value.class); //Value
 		try {
 			this.autowiredAnnotationTypes.add((Class<? extends Annotation>)
 					ClassUtils.forName("javax.inject.Inject", AutowiredAnnotationBeanPostProcessor.class.getClassLoader()));

@@ -61,6 +61,13 @@ import org.springframework.web.client.support.RestGatewaySupport;
  * allows executing requests against an instance of
  * {@link org.springframework.test.web.servlet.MockMvc MockMvc}.
  *
+ * <p>
+ *     客户端REST测试的主要入口点。 用于涉及直接或间接使用RestTemplate的测试。 提供一种方法来设置将通过RestTemplate执行的预期请求以及模拟响应以发回，从而消除对实际服务器的需求。
+ * </p>
+ * <p>
+ *      下面是一个假设从MockRestRequestMatchers，MockRestResponseCreators和ExpectedCount进行静态导入的示例：
+ * </p>
+ *
  * @author Craig Walls
  * @author Rossen Stoyanchev
  * @since 3.2

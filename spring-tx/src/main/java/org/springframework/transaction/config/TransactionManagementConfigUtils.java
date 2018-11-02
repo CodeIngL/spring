@@ -19,6 +19,10 @@ package org.springframework.transaction.config;
 /**
  * Configuration constants for internal sharing across subpackages.
  *
+ * <p>
+ *     跨子包进行内部共享的配置常量。
+ * </p>
+ *
  * @author Chris Beams
  * @author Stephane Nicoll
  * @since 3.1

@@ -26,6 +26,9 @@ import org.springframework.http.MediaType;
 /**
  * Strategy interface that specifies a converter that can convert from and to HTTP requests and responses.
  *
+ * <p>
+ *     策略接口，指定可以从HTTP请求和响应转换的转换器。
+ * </p>
  * @author Arjen Poutsma
  * @author Juergen Hoeller
  * @since 3.0

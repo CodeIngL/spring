@@ -28,6 +28,13 @@ import org.springframework.http.client.ClientHttpResponse;
  *
  * <p>Used internally by the {@link RestTemplate}, but also useful for application code.
  *
+ * <p>
+ *     RestTemplate检索方法使用的通用回调接口此接口的实现执行从ClientHttpResponse提取数据的实际工作，但不需要担心异常处理或关闭资源。
+ * </p>
+ * <p>
+ *      由RestTemplate在内部使用，但对应用程序代码也很有用。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @since 3.0
  * @see RestTemplate#execute

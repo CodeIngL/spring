@@ -23,6 +23,10 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
  * Auto-proxy creator that considers infrastructure Advisor beans only,
  * ignoring any application-defined Advisors.
  *
+ * <p>
+ *     仅考虑基础架构(框架内部)Advisor的bean的auto-proxy创建者，忽略任何应用程序定义的Advisors。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.0.7
  */
@@ -38,6 +42,12 @@ public class InfrastructureAdvisorAutoProxyCreator extends AbstractAdvisorAutoPr
 		this.beanFactory = beanFactory;
 	}
 
+	/**
+	 * 该Aop组件通过bean的定义中role来区分bean是否为框架内部的bean。
+	 * @see BeanDefinition#ROLE_INFRASTRUCTURE
+	 * @param beanName the name of the Advisor bean
+	 * @return
+	 */
 	@Override
 	protected boolean isEligibleAdvisorBean(String beanName) {
 		return (this.beanFactory.containsBeanDefinition(beanName) &&

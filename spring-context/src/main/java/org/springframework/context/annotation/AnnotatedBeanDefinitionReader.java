@@ -35,8 +35,15 @@ import org.springframework.util.Assert;
  * the same resolution of annotations but for explicitly registered classes only.
  *
  * <p>
- *     方便注册bean注解类的程序的适配器。
- *     这是ClassPathBeanDefinitionScanner的替代方法，同样处理注解的解决方式，但仅用于显式注册的类。
+ *     方便注册bean注解类的编程形式的适配器。
+ *     这是ClassPathBeanDefinitionScanner的替代方法。
+ *     ClassPathBeanDefinitionScanner同样是处理注解的解决方式，但仅用于显式注册的类。
+ * </p>
+ *
+ * <p>
+ *     和其他reader存在重要的区别。
+ *     因此并没有继承BeanDefinitionReader接口，因为BeanDefinitionReader的接口语义不符合现在的语义
+ * </p>
  *
  * @author Juergen Hoeller
  * @author Chris Beams
@@ -47,12 +54,16 @@ import org.springframework.util.Assert;
  */
 public class AnnotatedBeanDefinitionReader {
 
+	//注册表
 	private final BeanDefinitionRegistry registry;
 
+	//名字生成器
 	private BeanNameGenerator beanNameGenerator = new AnnotationBeanNameGenerator();
 
+	//bean作用域解析器
 	private ScopeMetadataResolver scopeMetadataResolver = new AnnotationScopeMetadataResolver();
 
+	//Condition计算器
 	private ConditionEvaluator conditionEvaluator;
 
 
@@ -173,7 +184,7 @@ public class AnnotatedBeanDefinitionReader {
 	 * class-declared annotations.
 	 *
 	 * <p>
-	 *     从给定的bean类注册一个bean，从类声明的注释中派生它的元数据。
+	 *     从给定的bean类注册一个bean，从类声明的注解中派生它的元数据。
 	 * </p>
 	 * @param annotatedClass the class of the bean
 	 * @param name an explicit name for the bean
@@ -188,7 +199,7 @@ public class AnnotatedBeanDefinitionReader {
 			return;
 		}
 
-		//获得范围原信息
+		//获得scope原信息
 		ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(abd);
 		abd.setScope(scopeMetadata.getScopeName());
 		//获得bean名字

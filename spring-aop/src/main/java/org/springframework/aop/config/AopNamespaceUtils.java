@@ -33,6 +33,15 @@ import org.springframework.beans.factory.xml.ParserContext;
  * may request a particular auto-proxy creator and know that class, <i>or a subclass
  * thereof</i>, will eventually be resident in the application context.
  *
+ * <p>
+ *     用于处理“aop”命名空间标记内部使用的自动代理创建者注册的实用程序类。
+ * </p>
+ * <p>
+ *     只能注册一个自动代理创建者，并且多个标签可能希望注册不同的具体实现。
+ *     因此，这个类委托给AopConfigUtils，它包含一个简单的升级协议。
+ *     因此，类可以请求特定的自动代理创建者并且知道该类或其子类最终将驻留在应用程序上下文中。
+ * </p>
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Mark Fisher
@@ -96,12 +105,20 @@ public abstract class AopNamespaceUtils {
 		registerComponentIfNecessary(beanDefinition, parserContext);
 	}
 
+	/**
+	 * 提取proxy-target-class进行解析
+	 * 提取expose-proxy进行解析
+	 * @param registry
+	 * @param sourceElement
+	 */
 	private static void useClassProxyingIfNecessary(BeanDefinitionRegistry registry, Element sourceElement) {
 		if (sourceElement != null) {
+			//是否使用cglib代理
 			boolean proxyTargetClass = Boolean.valueOf(sourceElement.getAttribute(PROXY_TARGET_CLASS_ATTRIBUTE));
 			if (proxyTargetClass) {
 				AopConfigUtils.forceAutoProxyCreatorToUseClassProxying(registry);
 			}
+			// 是否暴露进上下文
 			boolean exposeProxy = Boolean.valueOf(sourceElement.getAttribute(EXPOSE_PROXY_ATTRIBUTE));
 			if (exposeProxy) {
 				AopConfigUtils.forceAutoProxyCreatorToExposeProxy(registry);

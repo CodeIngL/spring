@@ -29,6 +29,12 @@ import org.springframework.aop.TargetSource;
  * <p>Implements the {@link Refreshable} interface in order to allow for
  * explicit control over the refresh status.
  *
+ * <p>
+ *     包含可刷新目标对象的抽象TargetSource实现。 子类可以确定是否需要刷新，并且需要提供新的目标对象。
+ * </p>
+ * <p>
+ *      实现可刷新接口，以允许显式控制刷新状态。
+ * </p>
  * @author Rod Johnson
  * @author Rob Harrop
  * @author Juergen Hoeller

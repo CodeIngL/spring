@@ -38,6 +38,16 @@ import org.springframework.util.ObjectUtils;
  * <p>BeanFactory-based TargetSources are serializable. This involves
  * disconnecting the current target and turning into a {@link SingletonTargetSource}.
  *
+ * <p>
+ *     TargetSource实现的基类，它基于Spring BeanFactory，委托给Spring管理的bean实例。
+ * </p>
+ * <p>
+ *      例如，子类可以创建原型实例或懒惰地访问单例目标。 有关具体策略，请参阅LazyInitTargetSource和AbstractPrototypeBasedTargetSource的子类。
+ * </p>
+ * <p>
+ *      基于BeanFactory的TargetSources是可序列化的。 这涉及断开当前目标并转变为SingletonTargetSource。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Rod Johnson
  * @since 1.1.4

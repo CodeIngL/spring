@@ -53,6 +53,19 @@ public class AutoProxyRegistrar implements ImportBeanDefinitionRegistrar {
 	 * annotation it finds -- as long as it exposes the right {@code mode} and
 	 * {@code proxyTargetClass} attributes, the APC can be registered and configured all
 	 * the same.
+	 *
+	 * <p>
+	 *     针对给定的注册表注册，升级和配置标准自动代理创建器（APC）。
+	 *     通过查找在导入的@Configuration类上声明的具有mode和proxyTargetClass属性的最近注解来工作。
+	 *     如果mode设置为PROXY，则注册APC;
+	 *     如果proxyTargetClass设置为true，则强制APC使用子类代理（CGLIB）。
+	 * </p>
+	 * <p>
+	 *     几个@Enable* annotations暴露了mode和proxyTargetClass属性。
+	 *     值得注意的是，大多数这些功能最终都会共享一个APC。
+	 *     出于这个原因，这个实现并不“精确地”关注它找到的注解-
+	 *     只要它公开了正确的模式和proxyTargetClass属性，APC就可以注册和配置完全相同。
+	 * </p>
 	 */
 	@Override
 	public void registerBeanDefinitions(AnnotationMetadata importingClassMetadata, BeanDefinitionRegistry registry) {

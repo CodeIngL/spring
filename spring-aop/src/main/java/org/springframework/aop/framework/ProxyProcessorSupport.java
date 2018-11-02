@@ -30,6 +30,10 @@ import org.springframework.util.ObjectUtils;
  * Base class with common functionality for proxy processors, in particular
  * ClassLoader management and the {@link #evaluateProxyInterfaces} algorithm.
  *
+ * <p>
+ *     具有代理处理器通用功能的基类，特别是ClassLoader管理和evaluateProxyInterfaces算法
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 4.1
  * @see AbstractAdvisingBeanPostProcessor

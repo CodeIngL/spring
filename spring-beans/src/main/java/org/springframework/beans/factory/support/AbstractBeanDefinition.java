@@ -44,6 +44,13 @@ import org.springframework.util.StringUtils;
  * {@link org.springframework.beans.factory.config.AutowireCapableBeanFactory}
  * interface.
  *
+ * <p>
+ *     具体的，成熟的BeanDefinition类的基类，分解GenericBeanDefinition，RootBeanDefinition和ChildBeanDefinition的公共属性。
+ * </p>
+ * <p>
+ *     autowire常量与AutowireCapableBeanFactory接口中定义的常量匹配。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Rob Harrop
@@ -782,6 +789,12 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 * Return information about methods to be overridden by the IoC
 	 * container. This will be empty if there are no method overrides.
 	 * Never returns {@code null}.
+	 *
+	 * <p>
+	 *     返回有关IoC容器要覆盖的方法的信息。
+	 *     如果没有方法覆盖，则为空。
+	 *     永远不会返回null。
+	 * </p>
 	 */
 	public MethodOverrides getMethodOverrides() {
 		return this.methodOverrides;
@@ -951,6 +964,7 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	/**
 	 * Validate this bean definition.
+	 * 验证此bean定义。
 	 * @throws BeanDefinitionValidationException in case of validation failure
 	 */
 	public void validate() throws BeanDefinitionValidationException {
@@ -968,6 +982,10 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	/**
 	 * Validate and prepare the method overrides defined for this bean.
 	 * Checks for existence of a method with the specified name.
+	 *
+	 * <p>
+	 *     验证并准备为此bean定义的method overrides。 检查是否存在具有指定名称的方法。
+	 * </p>
 	 * @throws BeanDefinitionValidationException in case of validation failure
 	 */
 	public void prepareMethodOverrides() throws BeanDefinitionValidationException {
@@ -987,6 +1005,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 * Validate and prepare the given method override.
 	 * Checks for existence of a method with the specified name,
 	 * marking it as not overloaded if none found.
+	 * <p>
+	 *     验证并准备给定的method override。 检查是否存在具有指定名称的方法，如果没有找到则将其标记为未重载。
+	 * </p>
 	 * @param mo the MethodOverride object to validate
 	 * @throws BeanDefinitionValidationException in case of validation failure
 	 */

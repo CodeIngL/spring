@@ -28,6 +28,12 @@ import org.springframework.aop.target.ThreadLocalTargetSource;
  * <li>% ThreadLocalTargetSource
  * <li>! PrototypeTargetSource
  *
+ * <p>
+ *     方便的TargetSourceCreator使用bean名称前缀来创建三种众所周知的TargetSource类型之一：
+ * <li>: CommonsPool2TargetSource
+ * <li>% ThreadLocalTargetSource
+ * <li>! PrototypeTargetSource
+ *
  * @author Rod Johnson
  * @author Stephane Nicoll
  * @see org.springframework.aop.target.CommonsPool2TargetSource

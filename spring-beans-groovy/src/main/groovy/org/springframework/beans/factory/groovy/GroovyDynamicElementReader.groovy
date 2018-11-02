@@ -25,6 +25,9 @@ import org.w3c.dom.Element
  * Used by GroovyBeanDefinitionReader to read a Spring XML namespace expression
  * in the Groovy DSL.
  *
+ * <p>
+ *     由GroovyBeanDefinitionReader用于在Groovy DSL中读取Spring XML命名空间表达式。
+ *
  * @author Jeff Brown
  * @author Juergen Hoeller
  * @since 4.0

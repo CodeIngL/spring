@@ -32,6 +32,16 @@ import org.springframework.util.Assert;
  * <p>This TargetSource is serializable if the target is at the time
  * of serialization.
  *
+ * <p>
+ *     TargetSource实现，用于缓存本地目标对象，但允许在应用程序运行时交换目标。
+ * </p>
+ * <p>
+ *      如果在Spring IoC容器中配置此类的对象，请使用构造函数注入。
+ * </p>
+ * <p>
+ *      如果目标是在序列化时，则此TargetSource是可序列化的。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  */

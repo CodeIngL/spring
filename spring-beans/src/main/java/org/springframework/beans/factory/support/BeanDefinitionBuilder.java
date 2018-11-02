@@ -135,6 +135,9 @@ public class BeanDefinitionBuilder {
 
 	/**
 	 * Return the current BeanDefinition object in its raw (unvalidated) form.
+	 * <p>
+	 *     以原始（未经验证的）形式返回当前BeanDefinition对象。
+	 * </p>
 	 * @see #getBeanDefinition()
 	 */
 	public AbstractBeanDefinition getRawBeanDefinition() {
@@ -143,6 +146,9 @@ public class BeanDefinitionBuilder {
 
 	/**
 	 * Validate and return the created BeanDefinition object.
+	 * <p>
+	 *     验证并返回创建的BeanDefinition对象。
+	 * </p>
 	 */
 	public AbstractBeanDefinition getBeanDefinition() {
 		this.beanDefinition.validate();

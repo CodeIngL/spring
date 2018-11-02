@@ -33,6 +33,11 @@ import java.util.List;
  * <p>This class is normally used to verify performance during proof-of-concepts
  * and in development, rather than as part of production applications.
  *
+ * <p>简单的秒表，允许多项任务的计时，为每个指定任务提供总运行时间和运行时间。
+ * <p>隐藏了System.currentTimeMillis（）的使用，提高了应用程序代码的可读性并减少了计算错误的可能性。
+ * <p>请注意，此对象的设计不是线程安全的，也不使用同步。
+ * <p>此类通常用于验证概念验证和开发过程中的性能，而不是生产应用程序的一部分。
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Sam Brannen

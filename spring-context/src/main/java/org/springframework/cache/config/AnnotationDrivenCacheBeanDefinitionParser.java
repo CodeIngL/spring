@@ -48,6 +48,17 @@ import org.springframework.util.StringUtils;
  * with {@code CacheResult}, {@code CachePut}, {@code CacheRemove} or
  * {@code CacheRemoveAll} are also registered.
  *
+ * <p>
+ *     BeanDefinitionParser实现，允许用户轻松配置启用注释驱动的缓存划分所需的所有基础结构bean。
+ * </p>
+ * <p>
+ *      默认情况下，所有代理都创建为JDK代理。 如果将对象作为具体类而不是接口注入，则可能会导致一些问题。
+ *      要克服此限制，您可以将“proxy-target-class”属性设置为“true”，这将导致创建基于类的代理。
+ * </p>
+ * <p>
+ *      如果存在JSR-107 API和Spring的JCache实现，则还需要注册处理使用CacheResult，CachePut，CacheRemove或CacheRemoveAll注解的方法所需的基础结构bean。
+ * </p>
+ *
  * @author Costin Leau
  * @author Stephane Nicoll
  * @since 3.1

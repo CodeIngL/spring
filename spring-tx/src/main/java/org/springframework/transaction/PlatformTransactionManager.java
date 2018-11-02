@@ -34,6 +34,19 @@ package org.springframework.transaction;
  * {@link org.springframework.jdbc.datasource.DataSourceTransactionManager},
  * which can serve as an implementation guide for other transaction strategies.
  *
+ * <p>
+ *     这是Spring的事务基础结构的中心接口。
+ *     应用程序可以直接使用它，但它主要不是API：通常，应用程序可以使用TransactionTemplate或通过AOP进行声明式事务划分。
+ * </p>
+ * <p>
+ *      对于实现者，建议从提供的org.springframework.transaction.support.AbstractPlatformTransactionManager类派生，该类预先实现定义的传播行为并负责事务同步处理。
+ *      子类必须为底层事务的特定状态实现模板方法，例如：begin，suspend，resume，commit。
+ * </p>
+ * <p>
+ *      此策略接口的默认实现是org.springframework.transaction.jta.JtaTransactionManager和org.springframework.jdbc.datasource.DataSourceTransactionManager，
+ *      它可以作为其他事务策略的实现指南。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 16.05.2003
@@ -54,6 +67,13 @@ public interface PlatformTransactionManager {
 	 * <p>An exception to the above rule is the read-only flag, which should be
 	 * ignored if no explicit read-only mode is supported. Essentially, the
 	 * read-only flag is just a hint for potential optimization.
+	 *
+	 * <p>
+	 *     根据指定的传播行为，返回当前活动的事务或创建新事务。
+	 * </p>
+	 * <p>	 请注意，隔离级别或超时等参数仅适用于新事务，因此在参与活动事务时会被忽略。</p>
+	 * <p>	 此外，并非每个事务管理器都支持所有事务定义设置：正确的事务管理器实现应在遇到不支持的设置时抛出异常。</p>
+	 * <p>	 上述规则的一个例外是只读标志，如果不支持显式只读模式，则应忽略该标志。 从本质上讲，只读标志只是潜在优化的提示。</p>
 	 * @param definition TransactionDefinition instance (can be {@code null} for defaults),
 	 * describing propagation behavior, isolation level, timeout etc.
 	 * @return transaction status object representing the new or current transaction
@@ -84,6 +104,14 @@ public interface PlatformTransactionManager {
 	 * database right before commit, with the resulting DataAccessException
 	 * causing the transaction to fail. The original exception will be
 	 * propagated to the caller of this commit method in such a case.
+	 *
+	 * <p>
+	 *     就给定事务的状态提交给定事务。 如果事务已以编程方式标记为仅回滚，请执行回滚。
+	 * </p>
+	 * <p>	 如果事务不是新交易，则省略提交以正确参与周围事务。 如果先前的事务已被暂停以能够创建新事务，则在提交新事务后恢复上一个事务。 </p>
+	 * <p>	 请注意，当提交调用完成时，无论是正常还是抛出异常，都必须完全完成并清理事务。 在这种情况下，不应该预期回滚调用。 </p>
+	 * <p>	 如果此方法抛出除TransactionException之外的异常，则某些提前提交错误会导致提交尝试失败。 例如，O/R Mapping工具可能在提交之前尝试刷新对数据库的更改，结果是DataAccessException导致事务失败。
+	 * 在这种情况下，原始异常将传播到此提交方法的调用者。 </p>
 	 * @param status object returned by the {@code getTransaction} method
 	 * @throws UnexpectedRollbackException in case of an unexpected rollback
 	 * that the transaction coordinator initiated

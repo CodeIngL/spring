@@ -26,7 +26,7 @@ import org.springframework.util.MultiValueMap;
  * class-loading.
  *
  * <p>
- *     定义对特定类型（类或方法）的注解的访问，其格式不一定需要类加载。
+ *     定义对特定类型({@link AnnotationMetadata class}或 {@link MethodMetadata method}）的注解的访问，该形式不一定需要类加载。
  * </p>
  * @author Juergen Hoeller
  * @author Mark Fisher

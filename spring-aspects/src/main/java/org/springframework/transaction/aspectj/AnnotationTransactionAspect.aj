@@ -41,14 +41,17 @@ import org.springframework.transaction.annotation.Transactional;
  *     使用Spring的Transactional注解来具体AspectJ事务方面。
  * </p>
  * <p>
- *     当使用这个方面时，你必须注解实现类（和/或类中的方法），而不是类实现的接口（如果有的话）。 AspectJ遵循Java的规则，接口上的注解不被继承。
+ *     当使用这个aspect时，你必须注解实现类（和/或类中的方法），而不是类实现的接口（如果有的话）。
+ *     AspectJ遵循Java的规则，接口上的注解不被继承。
  * </p>
  * <p>
- *      类的@Transactional注释指定执行类中任何公共操作的默认事务语义。
+ *      类的@Transactional注解指定执行类中任何公共操作的默认事务语义。
  * </p>
  *
  * <p>
- *      类中的方法的@Transactional注释将覆盖由类注释给定的默认事务语义（如果存在）。 任何方法都可能被注释（不管能见度如何）。 直接注释非公开方法是获取执行这些操作的事务划分的唯一方法。
+ *      类中的方法的@Transactional注解将覆盖由类注解给定的默认事务语义（如果存在）。
+ *      任何方法都可能被注解（不管能见度如何）。
+ *      直接注解非公开方法是获取执行这些操作的事务划分的唯一方法。
  * </p>
  * @author Rod Johnson
  * @author Ramnivas Laddad

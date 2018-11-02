@@ -96,6 +96,15 @@ class BeanDefinitionValueResolver {
 	 * <li>A ManagedMap. In this case the value may be a RuntimeBeanReference
 	 * or Collection that will need to be resolved.
 	 * <li>An ordinary object or {@code null}, in which case it's left alone.
+	 *
+	 * <p>给定PropertyValue，返回一个值，必要时解析对factory中其他bean的任何引用。 值可能是：</p>
+	 * <li>	 BeanDefinition，它导致创建相应的新bean实例。 Singleton标志和这种“inner beans”的名称总是被忽略：inner beans是匿名原型。
+	 * <li>	 必须解析的RuntimeBeanReference。
+	 * <li>	 ManagedList。 这是一个特殊的集合，可能包含需要解析的RuntimeBeanReferences或Collections。
+	 * <li>	 一个ManagedSet。 也可能包含需要解析的RuntimeBeanReferences或Collections。
+	 * <li>	 一个ManagedMap。 在这种情况下，该值可能是需要解析的RuntimeBeanReference或Collection。
+	 * <li>  一个普通的对象或null，在这种情况下它是独立的。
+	 *
 	 * @param argName the name of the argument that the value is defined for
 	 * @param value the value object to resolve
 	 * @return the resolved object
@@ -103,6 +112,7 @@ class BeanDefinitionValueResolver {
 	public Object resolveValueIfNecessary(Object argName, Object value) {
 		// We must check each value to see whether it requires a runtime reference
 		// to another bean to be resolved.
+		// 我们必须检查每个值以查看是否需要对要解析的另一个bean的运行时引用。
 		if (value instanceof RuntimeBeanReference) {
 			RuntimeBeanReference ref = (RuntimeBeanReference) value;
 			return resolveReference(argName, ref);
@@ -118,11 +128,13 @@ class BeanDefinitionValueResolver {
 		}
 		else if (value instanceof BeanDefinitionHolder) {
 			// Resolve BeanDefinitionHolder: contains BeanDefinition with name and aliases.
+			// Resolve BeanDefinitionHolder：包含带名称和别名的BeanDefinition。
 			BeanDefinitionHolder bdHolder = (BeanDefinitionHolder) value;
 			return resolveInnerBean(argName, bdHolder.getBeanName(), bdHolder.getBeanDefinition());
 		}
 		else if (value instanceof BeanDefinition) {
 			// Resolve plain BeanDefinition, without contained name: use dummy name.
+			// 解析纯BeanDefinition，不包含名称：使用虚拟名称。
 			BeanDefinition bd = (BeanDefinition) value;
 			String innerBeanName = "(inner bean)" + BeanFactoryUtils.GENERATED_BEAN_NAME_SEPARATOR +
 					ObjectUtils.getIdentityHexString(bd);
@@ -130,6 +142,7 @@ class BeanDefinitionValueResolver {
 		}
 		else if (value instanceof ManagedArray) {
 			// May need to resolve contained runtime references.
+			// 可能需要解析包含的运行时引用。
 			ManagedArray array = (ManagedArray) value;
 			Class<?> elementType = array.resolvedElementType;
 			if (elementType == null) {
@@ -333,6 +346,9 @@ class BeanDefinitionValueResolver {
 
 	/**
 	 * Resolve a reference to another bean in the factory.
+	 * <p>
+	 *     解析对工厂中另一个bean的引用。
+	 * </p>
 	 */
 	private Object resolveReference(Object argName, RuntimeBeanReference ref) {
 		try {

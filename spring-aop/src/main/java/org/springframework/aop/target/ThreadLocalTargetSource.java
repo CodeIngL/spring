@@ -42,6 +42,19 @@ import org.springframework.core.NamedThreadLocal;
  * Be aware that many thread-bound objects can be around until the application
  * actually shuts down.
  *
+ * <p>
+ *     替代对象池。 这个org.springframework.aop.TargetSource使用一个线程模型，其中每个线程都有自己的目标副本。
+ *     目标没有争用。 在正在运行的服务器上将目标对象创建保持在最低限度。
+ * </p>
+ * <p>
+ *      应用程序代码写入普通池; 调用者不能假设他们将在不同线程的调用中处理相同的实例。
+ *      但是，在单个线程的操作期间可以依赖状态：例如，如果一个调用者在AOP代理上重复调用。
+ * </p>
+ * <p>
+ *      在BeanFactory销毁时执行线程绑定对象的清理，调用它们的DisposableBean.destroy()方法（如果可用）。
+ *      请注意，在应用程序实际关闭之前，许多线程绑定对象都可以存在。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Rob Harrop

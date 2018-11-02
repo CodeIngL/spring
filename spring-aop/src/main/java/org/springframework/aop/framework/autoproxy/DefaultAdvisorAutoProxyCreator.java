@@ -33,11 +33,11 @@ import org.springframework.beans.factory.BeanNameAware;
  *
  * <p>
  *     BeanPostProcessor实现，基于当前BeanFactory中的所有候选advisors创建AOP代理。
- *     这个类是完全通用的; 它不包含处理任何特定方面的特殊代码，例如汇总方面。
+ *     这个类是完全通用的; 它不包含处理任何特定切面的特殊代码，例如池化切面。
  * <p>
  * 	  可以过滤advisors - 例如，在同一工厂中使用这种类型的多个后置处理器 -
- * 	  通过将usePrefix属性设置为true，在这种情况下，只有以DefaultAdvisorAutoProxyCreator的bean名称开头的顾问后跟一个点（如“aapc 。“） 将会被使用。
- * 	  这个默认前缀可以通过设置advisorBeanNamePrefix属性从bean名称中更改。 分离器（。）也将在这种情况下使用。
+ * 	  通过将usePrefix属性设置为true，在这种情况下，只有以DefaultAdvisorAutoProxyCreator的bean名称开头的顾问后跟一个点（如"aapc."） 将会被使用。
+ * 	  这个默认前缀可以通过设置advisorBeanNamePrefix属性从bean名称中更改。 分隔符（.）也将在这种情况下使用。
  *
  * @author Rod Johnson
  * @author Rob Harrop

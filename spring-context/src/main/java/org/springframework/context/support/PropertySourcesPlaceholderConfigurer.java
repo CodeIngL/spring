@@ -156,6 +156,9 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 	/**
 	 * Visit each bean definition in the given bean factory and attempt to replace ${...} property
 	 * placeholders with values from the given properties.
+	 * <p>
+	 *     访问给定bean工厂中的每个bean定义，并尝试使用给定属性中的值替换${...}属性占位符。
+	 * </p>
 	 */
 	protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess,
 			final ConfigurablePropertyResolver propertyResolver) throws BeansException {

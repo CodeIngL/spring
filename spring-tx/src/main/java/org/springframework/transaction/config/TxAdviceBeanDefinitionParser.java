@@ -77,11 +77,13 @@ class TxAdviceBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
 		List<Element> txAttributes = DomUtils.getChildElementsByTagName(element, ATTRIBUTES_ELEMENT);
 		if (txAttributes.size() > 1) {
+			//attributes仅能出现一次
 			parserContext.getReaderContext().error(
 					"Element <attributes> is allowed at most once inside element <advice>", element);
 		}
 		else if (txAttributes.size() == 1) {
 			// Using attributes source.
+			// 获得txAttributes，构建attributes source.
 			Element attributeSourceElement = txAttributes.get(0);
 			RootBeanDefinition attributeSourceDefinition = parseAttributeSource(attributeSourceElement, parserContext);
 			builder.addPropertyValue("transactionAttributeSource", attributeSourceDefinition);
@@ -94,21 +96,22 @@ class TxAdviceBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 	}
 
 	private RootBeanDefinition parseAttributeSource(Element attrEle, ParserContext parserContext) {
+		//method
 		List<Element> methods = DomUtils.getChildElementsByTagName(attrEle, METHOD_ELEMENT);
 		ManagedMap<TypedStringValue, RuleBasedTransactionAttribute> transactionAttributeMap =
 			new ManagedMap<TypedStringValue, RuleBasedTransactionAttribute>(methods.size());
 		transactionAttributeMap.setSource(parserContext.extractSource(attrEle));
 
 		for (Element methodEle : methods) {
-			String name = methodEle.getAttribute(METHOD_NAME_ATTRIBUTE);
+			String name = methodEle.getAttribute(METHOD_NAME_ATTRIBUTE); //name
 			TypedStringValue nameHolder = new TypedStringValue(name);
 			nameHolder.setSource(parserContext.extractSource(methodEle));
 
 			RuleBasedTransactionAttribute attribute = new RuleBasedTransactionAttribute();
 			String propagation = methodEle.getAttribute(PROPAGATION_ATTRIBUTE);
 			String isolation = methodEle.getAttribute(ISOLATION_ATTRIBUTE);
-			String timeout = methodEle.getAttribute(TIMEOUT_ATTRIBUTE);
-			String readOnly = methodEle.getAttribute(READ_ONLY_ATTRIBUTE);
+			String timeout = methodEle.getAttribute(TIMEOUT_ATTRIBUTE); //timeout
+			String readOnly = methodEle.getAttribute(READ_ONLY_ATTRIBUTE); //readonly
 			if (StringUtils.hasText(propagation)) {
 				attribute.setPropagationBehaviorName(RuleBasedTransactionAttribute.PREFIX_PROPAGATION + propagation);
 			}

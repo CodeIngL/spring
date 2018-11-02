@@ -36,6 +36,20 @@ import org.springframework.aop.SpringProxy;
  * <p>In general, specify {@code proxyTargetClass} to enforce a CGLIB proxy,
  * or specify one or more interfaces to use a JDK dynamic proxy.
  *
+ * <p>
+ *     默认的AopProxyFactory实现，创建CGLIB代理或JDK动态代理。
+ *     </p>
+ *     <p>
+ *          如果对于给定的AdvisedSupport实例，如果满足以下条件，则创建CGLIB代理：
+ *     </p>
+ *     <p> 通常，指定proxyTargetClass以强制执行CGLIB代理，或指定一个或多个接口以使用JDK动态代理。
+ * <ul>
+ * <li>the {@code optimize} 标志已设置
+ * <li>the {@code proxyTargetClass} 标志已设置
+ * <li>没有指定代理接口
+ * </ul>
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 12.03.2004
@@ -54,7 +68,7 @@ public class DefaultAopProxyFactory implements AopProxyFactory, Serializable {
 				throw new AopConfigException("TargetSource cannot determine target class: " +
 						"Either an interface or a target is required for proxy creation.");
 			}
-			if (targetClass.isInterface() || Proxy.isProxyClass(targetClass)) {
+			if (targetClass.isInterface() || Proxy.isProxyClass(targetClass)) { //目标是接口，或者
 				return new JdkDynamicAopProxy(config);
 			}
 			return new ObjenesisCglibAopProxy(config);

@@ -26,6 +26,13 @@ import org.springframework.aop.TargetSource;
  * <p>AbstractAutoProxyCreator can support a number of TargetSourceCreators,
  * which will be applied in order.
  *
+ * <p>
+ *     实现可以为特定bean创建特殊target sources，例如池化target sources。 例如，他们可以根据目标类的属性（例如池属性）进行选择。
+ * </p>
+ * <p>
+ *     AbstractAutoProxyCreator可以支持许多TargetSourceCreators，它们将按顺序应用。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  */

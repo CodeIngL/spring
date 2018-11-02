@@ -63,6 +63,19 @@ import org.springframework.web.util.UriTemplateHandler;
  *
  * <p>For more information, please refer to the {@link RestTemplate} API documentation.
  *
+ * <p>
+ *     Spring的异步客户端HTTP访问的中心类。 公开与RestTemplate类似的方法，但返回ListenableFuture包装而不是具体结果。
+ * </p>
+ * <p>
+ *      AsyncRestTemplate通过getRestOperations()方法公开同步RestTemplate，并与RestTemplate共享其错误处理程序和消息转换器。
+ * </p>
+ * <p>
+ *      注意：默认情况下，AsyncRestTemplate依赖于标准JDK工具来建立HTTP连接。 您可以通过使用接受AsyncClientHttpRequestFactory的构造函数切换到使用不同的HTTP库，例如Apache HttpComponents，Netty和OkHttp。
+ * </p>
+ * <p>
+ *      有关更多信息，请参阅RestTemplate API文档。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @since 4.0
  * @see RestTemplate

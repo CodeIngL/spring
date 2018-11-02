@@ -35,6 +35,12 @@ public interface TransactionAttribute extends TransactionDefinition {
 	 * Return a qualifier value associated with this transaction attribute.
 	 * <p>This may be used for choosing a corresponding transaction manager
 	 * to process this specific transaction.
+	 * <p>
+	 *     返回与此事务属性关联的限定符值。
+	 * </p>
+	 * <p>
+	 *     	 这可以用于选择相应的事务管理器来处理该特定事务。
+	 * </p>
 	 */
 	String getQualifier();
 

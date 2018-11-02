@@ -38,6 +38,13 @@ import org.springframework.util.StringUtils;
  * code as well as convenience methods for looking up annotation attributes
  * in a type-safe fashion.
  *
+ * <p>
+ *     {@link LinkedHashMap}子类表示由{@link AnnotationUtils}, {@link AnnotatedElementUtils}和Spring的基于反射和基于ASM的{@link org.springframework.core.type.AnnotationMetadata}实现读取的注解属性键值对。
+ * </p>
+ * <p>
+ *      提供“伪设置”以避免调用代码中的噪声Map泛型以及以类型安全的方式查找注释属性的便捷方法。
+ * </p>
+ *
  * @author Chris Beams
  * @author Sam Brannen
  * @author Juergen Hoeller

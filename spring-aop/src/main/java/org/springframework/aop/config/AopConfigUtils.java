@@ -41,8 +41,8 @@ import org.springframework.util.Assert;
  *     用于处理AOP自动代理创建者注册的实用程序类。
  * </p>
  * <p>
- *    只有一个自动代理创建者可以被注册，但有多个具体的实现可用。
- *    因此，这个类包装了一个简单的升级协议，允许类请求特定的自动代理创建者，并知道类或其子类最终将驻留在应用程序上下文中。
+ *    只有一个auto-proxy创建者可以被注册，但有多个具体的实现可用。
+ *    因此，这个类包装了一个简单的升级协议，允许类请求特定的auto-proxy创建者，并知道类或其子类最终将驻留在应用程序上下文中。
  * </p>
  *
  * @author Rob Harrop
@@ -75,6 +75,9 @@ public abstract class AopConfigUtils {
 	 * <p>
 	 *    设置升级列表。
 	 * </p>
+	 * <p>
+	 *     AnnotationAwareAspectJAutoProxyCreator具有最高优先级
+	 * </p>
 	 */
 	static {
 		APC_PRIORITY_LIST.add(InfrastructureAdvisorAutoProxyCreator.class);
@@ -83,6 +86,11 @@ public abstract class AopConfigUtils {
 	}
 
 
+	/**
+	 * 与下面一组InfrastructureAdvisorAutoProxyCreator
+	 * @param registry
+	 * @return
+	 */
 	public static BeanDefinition registerAutoProxyCreatorIfNecessary(BeanDefinitionRegistry registry) {
 		return registerAutoProxyCreatorIfNecessary(registry, null);
 	}
@@ -90,7 +98,11 @@ public abstract class AopConfigUtils {
 	public static BeanDefinition registerAutoProxyCreatorIfNecessary(BeanDefinitionRegistry registry, Object source) {
 		return registerOrEscalateApcAsRequired(InfrastructureAdvisorAutoProxyCreator.class, registry, source);
 	}
-
+	/**
+	 * 与下面一组AspectJAwareAdvisorAutoProxyCreator
+	 * @param registry
+	 * @return
+	 */
 	public static BeanDefinition registerAspectJAutoProxyCreatorIfNecessary(BeanDefinitionRegistry registry) {
 		return registerAspectJAutoProxyCreatorIfNecessary(registry, null);
 	}
@@ -99,6 +111,11 @@ public abstract class AopConfigUtils {
 		return registerOrEscalateApcAsRequired(AspectJAwareAdvisorAutoProxyCreator.class, registry, source);
 	}
 
+	/**
+	 * 与下面一组，注册AnnotationAwareAspectJAutoProxyCreator
+	 * @param registry
+	 * @return
+	 */
 	public static BeanDefinition registerAspectJAnnotationAutoProxyCreatorIfNecessary(BeanDefinitionRegistry registry) {
 		return registerAspectJAnnotationAutoProxyCreatorIfNecessary(registry, null);
 	}
@@ -115,6 +132,10 @@ public abstract class AopConfigUtils {
 		return registerOrEscalateApcAsRequired(AnnotationAwareAspectJAutoProxyCreator.class, registry, source);
 	}
 
+	/**
+	 * 开启proxyTargetClass
+	 * @param registry
+	 */
 	public static void forceAutoProxyCreatorToUseClassProxying(BeanDefinitionRegistry registry) {
 		if (registry.containsBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME)) {
 			BeanDefinition definition = registry.getBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME);
@@ -122,6 +143,10 @@ public abstract class AopConfigUtils {
 		}
 	}
 
+	/**
+	 * 开启exposeProxy
+	 * @param registry
+	 */
 	public static void forceAutoProxyCreatorToExposeProxy(BeanDefinitionRegistry registry) {
 		if (registry.containsBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME)) {
 			BeanDefinition definition = registry.getBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME);
@@ -134,6 +159,9 @@ public abstract class AopConfigUtils {
 	 * <p>
 	 *     根据需要注册或升级Apc auto_prox_creator
 	 * </p>
+	 * <p>
+	 *     AnnotationAwareAspectJAutoProxyCreator具有最高优先级
+	 * </p>
 	 * @param cls
 	 * @param registry
 	 * @param source
@@ -141,8 +169,10 @@ public abstract class AopConfigUtils {
 	 */
 	private static BeanDefinition registerOrEscalateApcAsRequired(Class<?> cls, BeanDefinitionRegistry registry, Object source) {
 		Assert.notNull(registry, "BeanDefinitionRegistry must not be null");
+		//org.springframework.aop.config.internalAutoProxyCreator
 		if (registry.containsBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME)) {
 			BeanDefinition apcDefinition = registry.getBeanDefinition(AUTO_PROXY_CREATOR_BEAN_NAME);
+			//已存在，比较出优先级，使用最高优先级的进行处理
 			if (!cls.getName().equals(apcDefinition.getBeanClassName())) {
 				int currentPriority = findPriorityForClass(apcDefinition.getBeanClassName());
 				int requiredPriority = findPriorityForClass(cls);
@@ -152,6 +182,7 @@ public abstract class AopConfigUtils {
 			}
 			return null;
 		}
+		//注册内部的自动代理创建器，设置其source，order属性的，role规则。最后进行注册
 		RootBeanDefinition beanDefinition = new RootBeanDefinition(cls);
 		beanDefinition.setSource(source);
 		beanDefinition.getPropertyValues().add("order", Ordered.HIGHEST_PRECEDENCE);

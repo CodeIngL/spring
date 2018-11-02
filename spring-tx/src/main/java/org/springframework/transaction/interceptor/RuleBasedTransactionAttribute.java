@@ -32,6 +32,14 @@ import org.apache.commons.logging.LogFactory;
  *
  * <p>{@link TransactionAttributeEditor} creates objects of this class.
  *
+ * <p>
+ *     TransactionAttribute实现通过应用许多回滚规则（正面和负面）来确定给定异常是否应该导致事务回滚。
+ *     如果没有规则与异常相关，则其行为类似于DefaultTransactionAttribute（回滚运行时异常）。
+ * </p>
+ * <p>
+ *      TransactionAttributeEditor创建此类的对象。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 09.04.2003

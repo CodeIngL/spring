@@ -41,6 +41,17 @@ import org.springframework.transaction.PlatformTransactionManager;
  *
  * <p>TransactionInterceptors are thread-safe.
  *
+ * <p>
+ *     AOP Alliance MethodInterceptor，用于使用普通Spring事务基础结构（PlatformTransactionManager）进行声明式事务管理。
+ * </p>
+ * <p>
+ *      从TransactionAspectSupport类派生，其中包含与Spring基础事务API的集成。
+ *      TransactionInterceptor只是以正确的顺序调用相关的超类方法，例如invokeWithinTransaction。
+ * </p>
+ * <p>
+ *      TransactionInterceptors是线程安全的。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see TransactionProxyFactoryBean
@@ -90,9 +101,12 @@ public class TransactionInterceptor extends TransactionAspectSupport implements 
 		// Work out the target class: may be {@code null}.
 		// The TransactionAttributeSource should be passed the target class
 		// as well as the method, which may be from an interface.
+		// 找出目标类：可能是null。
+		// TransactionAttributeSource应该传递目标类以及可能来自接口的方法。
 		Class<?> targetClass = (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
 
 		// Adapt to TransactionAspectSupport's invokeWithinTransaction...
+		// 委托给TransactionAspectSupport处理
 		return invokeWithinTransaction(invocation.getMethod(), targetClass, new InvocationCallback() {
 			@Override
 			public Object proceedWithInvocation() throws Throwable {

@@ -26,6 +26,13 @@ import org.springframework.http.client.ClientHttpRequest;
  *
  * <p>Used internally by the {@link RestTemplate}, but also useful for application code.
  *
+ * <p>
+ *     用于在ClientHttpRequest上运行的代码的回调接口。 允许操作请求标头，并写入请求正文。
+ * </p>
+ * <p>
+ *      由RestTemplate在内部使用，但对应用程序代码也很有用。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @see RestTemplate#execute
  * @since 3.0

@@ -144,6 +144,14 @@ import org.springframework.web.util.WebUtils;
  * 3.0+ environments, which support programmatic registration of servlet instances.
  * See the {@link #DispatcherServlet(WebApplicationContext)} javadoc for details.
  *
+ *
+ * <p>
+ *     HTTP请求处理程序/控制器的中央调度程序.
+ *     例如， 用于Web UI控制器或基于HTTP的远程服务导出器。 调度到已注册的处理程序以处理Web请求，提供方便的映射和异常处理工具。
+ * </p>
+ * <p>
+ *      这个servlet非常灵活：它可以与几乎任何工作流一起使用，并安装适当的适配器类。 它提供以下功能，使其与其他请求驱动的Web MVC框架区别开来：
+ * </p>
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Rob Harrop

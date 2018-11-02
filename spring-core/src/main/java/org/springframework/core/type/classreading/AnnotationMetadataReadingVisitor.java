@@ -39,6 +39,10 @@ import org.springframework.util.MultiValueMap;
  * well as for the annotations defined on the class, exposing them through
  * the {@link org.springframework.core.type.AnnotationMetadata} interface.
  *
+ * <p>
+ *     ASM类访问者，它查找类名，实现类型以及在类上定义的注解，通过AnnotationMetadata接口公开它们。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Mark Fisher
  * @author Costin Leau
@@ -74,6 +78,7 @@ public class AnnotationMetadataReadingVisitor extends ClassMetadataReadingVisito
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 		// Skip bridge methods - we're only interested in original annotation-defining user methods.
 		// On JDK 8, we'd otherwise run into double detection of the same annotated method...
+		//跳过桥接方法 - 我们只对原始注解定义用户方法感兴趣。 在JDK 8上，我们否则会对同一个带注解的方法进行双重检测...
 		if ((access & Opcodes.ACC_BRIDGE) != 0) {
 			return super.visitMethod(access, name, desc, signature, exceptions);
 		}

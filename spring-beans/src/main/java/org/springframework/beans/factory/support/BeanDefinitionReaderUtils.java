@@ -89,12 +89,15 @@ public class BeanDefinitionReaderUtils {
 	/**
 	 * Generate a bean name for the given bean definition, unique within the
 	 * given bean factory.
+	 * <p>
+	 *     为给定的beanDefinition生成bean名称，在给定的bean factory中是唯一的。
+	 * </p>
 	 * @param definition the bean definition to generate a bean name for
 	 * @param registry the bean factory that the definition is going to be
 	 * registered with (to check for existing bean names)
 	 * @param isInnerBean whether the given bean definition will be registered
 	 * as inner bean or as top-level bean (allowing for special name generation
-	 * for inner beans versus top-level beans)
+	 * for inner beans versus top-level beans) 是否将给定的bean定义注册为内部bean或顶级bean（允许内部bean与顶级bean的特殊名称生成）
 	 * @return the generated bean name
 	 * @throws BeanDefinitionStoreException if no unique name can be generated
 	 * for the given bean definition
@@ -103,13 +106,13 @@ public class BeanDefinitionReaderUtils {
 			BeanDefinition definition, BeanDefinitionRegistry registry, boolean isInnerBean)
 			throws BeanDefinitionStoreException {
 
-		String generatedBeanName = definition.getBeanClassName();
+		String generatedBeanName = definition.getBeanClassName(); //class名字
 		if (generatedBeanName == null) {
-			if (definition.getParentName() != null) {
-				generatedBeanName = definition.getParentName() + "$child";
+			if (definition.getParentName() != null) { //parent是否存在
+				generatedBeanName = definition.getParentName() + "$child"; //parentName$child
 			}
 			else if (definition.getFactoryBeanName() != null) {
-				generatedBeanName = definition.getFactoryBeanName() + "$created";
+				generatedBeanName = definition.getFactoryBeanName() + "$created"; //factoryBeanName$created
 			}
 		}
 		if (!StringUtils.hasText(generatedBeanName)) {
@@ -117,10 +120,10 @@ public class BeanDefinitionReaderUtils {
 					"'class' nor 'parent' nor 'factory-bean' - can't generate bean name");
 		}
 
-		String id = generatedBeanName;
-		if (isInnerBean) {
+		String id = generatedBeanName; //id就是他
+		if (isInnerBean) { //内部
 			// Inner bean: generate identity hashcode suffix.
-			id = generatedBeanName + GENERATED_BEAN_NAME_SEPARATOR + ObjectUtils.getIdentityHexString(definition);
+			id = generatedBeanName + GENERATED_BEAN_NAME_SEPARATOR + ObjectUtils.getIdentityHexString(definition); //name#hashcode
 		}
 		else {
 			// Top-level bean: use plain class name.
@@ -128,7 +131,7 @@ public class BeanDefinitionReaderUtils {
 			int counter = -1;
 			while (counter == -1 || registry.containsBeanDefinition(id)) {
 				counter++;
-				id = generatedBeanName + GENERATED_BEAN_NAME_SEPARATOR + counter;
+				id = generatedBeanName + GENERATED_BEAN_NAME_SEPARATOR + counter; //name#数量
 			}
 		}
 		return id;

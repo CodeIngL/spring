@@ -32,6 +32,9 @@ public enum ScopedProxyMode {
 	/**
 	 * Default typically equals {@link #NO}, unless a different default
 	 * has been configured at the component-scan instruction level.
+	 * <p>
+	 *     除非在component-scan指令级别配置了不同的默认值，否则默认值通常等于NO。
+	 * </p>
 	 */
 	DEFAULT,
 
@@ -43,7 +46,8 @@ public enum ScopedProxyMode {
 	 * is to be used as a dependency.
 	 *
 	 * <p>
-	 *     这种代理模式在与非单例范围实例一起使用时通常不是很有用，如果它被用作依赖关系，它应该倾向于使用INTERFACES或TARGET_CLASS代理模式。
+	 *     不要创建范围代理。
+	 *     当与非单例作用域实例一起使用时，此代理模式通常不常用，如果要将其用作依赖项，则应优先使用INTERFACES或TARGET_CLASS代理模式。
 	 * </p>
 	 */
 	NO,

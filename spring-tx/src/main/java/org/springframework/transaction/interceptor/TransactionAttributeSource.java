@@ -24,6 +24,13 @@ import java.lang.reflect.Method;
  * <p>Implementations know how to source transaction attributes, whether from configuration,
  * metadata attributes at source level (such as Java 5 annotations), or anywhere else.
  *
+ * <p>
+ *     TransactionInterceptor用于元数据检索的策略接口。
+ * </p>
+ * <p>
+ *     实现知道如何从配置，源级别的元数据属性（例如Java 5注解）或其他任何地方获取事务属性。
+ * </p>
+ *
  * @author Rod Johnson
  * @since 15.04.2003
  * @see TransactionInterceptor#setTransactionAttributeSource
@@ -35,6 +42,11 @@ public interface TransactionAttributeSource {
 	/**
 	 * Return the transaction attribute for the given method,
 	 * or {@code null} if the method is non-transactional.
+	 *
+	 * <p>
+	 *     返回给定方法的transaction属性，如果该方法是非事务性的，则返回null。
+	 * </p>
+	 *
 	 * @param method the method to introspect
 	 * @param targetClass the target class. May be {@code null},
 	 * in which case the declaring class of the method must be used.

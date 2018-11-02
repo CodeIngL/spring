@@ -33,6 +33,10 @@ import org.springframework.util.MimeType.SpecificityComparator;
 /**
  * Miscellaneous {@link MimeType} utility methods.
  *
+ * <p>
+ *     其他MimeType实用程序方法。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @author Rossen Stoyanchev
  * @since 4.0

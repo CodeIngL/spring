@@ -128,6 +128,10 @@ class ConfigurationClassBeanDefinitionReader {
 	/**
 	 * Read a particular {@link ConfigurationClass}, registering bean definitions
 	 * for the class itself and all of its {@link Bean} methods.
+	 *
+	 * <p>
+	 *     read一个特定的ConfigurationClass，为类本身及其所有Bean方法注册bean定义。
+	 * </p>
 	 */
 	private void loadBeanDefinitionsForConfigurationClass(ConfigurationClass configClass,
 			TrackedConditionEvaluator trackedConditionEvaluator) {
@@ -317,6 +321,10 @@ class ConfigurationClassBeanDefinitionReader {
 		return true;
 	}
 
+	/**
+	 * 从ImportResource中加载bean定义
+	 * @param importedResources
+	 */
 	private void loadBeanDefinitionsFromImportedResources(
 			Map<String, Class<? extends BeanDefinitionReader>> importedResources) {
 
@@ -362,6 +370,10 @@ class ConfigurationClassBeanDefinitionReader {
 		}
 	}
 
+	/**
+	 * 从ImportBeanDefinitionRegistrar里面加载相应的bean定义
+	 * @param registrars
+	 */
 	private void loadBeanDefinitionsFromRegistrars(Map<ImportBeanDefinitionRegistrar, AnnotationMetadata> registrars) {
 		for (Map.Entry<ImportBeanDefinitionRegistrar, AnnotationMetadata> entry : registrars.entrySet()) {
 			entry.getKey().registerBeanDefinitions(entry.getValue(), this.registry);

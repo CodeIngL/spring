@@ -108,6 +108,45 @@ import org.springframework.web.util.UriTemplateHandler;
  * connections or handling HTTP errors, respectively. These defaults can be overridden
  * through {@link #setRequestFactory} and {@link #setErrorHandler} respectively.
  *
+ * <p>
+ *     Spring的同步客户端HTTP访问的中心类。 它简化了与HTTP服务器的通信，并实施了RESTful原则。 它处理HTTP连接，使应用程序代码提供URL（带有可能的模板变量）并提取结果。
+ * </p>
+ * <p>
+ *     注意：默认情况下，RestTemplate依赖于标准JDK工具来建立HTTP连接。 您可以通过setRequestFactory属性切换到使用不同的HTTP库，例如Apache HttpComponents，Netty和OkHttp。
+ * </p>
+ * <p>
+ *     此模板的主要入口点是以六种主要HTTP方法命名的方法：
+ * </p>
+ * <table>
+ * <tr><th>HTTP method</th><th>RestTemplate methods</th></tr>
+ * <tr><td>DELETE</td><td>{@link #delete}</td></tr>
+ * <tr><td>GET</td><td>{@link #getForObject}</td></tr>
+ * <tr><td></td><td>{@link #getForEntity}</td></tr>
+ * <tr><td>HEAD</td><td>{@link #headForHeaders}</td></tr>
+ * <tr><td>OPTIONS</td><td>{@link #optionsForAllow}</td></tr>
+ * <tr><td>POST</td><td>{@link #postForLocation}</td></tr>
+ * <tr><td></td><td>{@link #postForObject}</td></tr>
+ * <tr><td>PUT</td><td>{@link #put}</td></tr>
+ * <tr><td>any</td><td>{@link #exchange}</td></tr>
+ * <tr><td></td><td>{@link #execute}</td></tr> </table>
+ *
+ * <p>
+ *     另外，exchange和execute方法是上述方法的通用版本，并且可以用于支持附加的，较不频繁的组合（例如，HTTP PATCH，具有响应主体的HTTP PUT等）。但请注意，使用的基础HTTP库也必须支持所需的组合。
+ * </p>
+ * <p>
+ *      对于每个HTTP方法，有三种变体：两个接受URI模板String和URI变量（array或map），而第三个接受URI。注意，对于URI模板，假设编码是必要的，
+ *      例如， restTemplate.getForObject(“http://example.com/hotel list”）变为“http://example.com/hotel%20list”。
+ *      这也意味着如果URI模板或URI变量已经被编码，则将发生双重编码，例如， http://example.com/hotel%20list成为http://example.com/hotel%2520list）。
+ *      为避免这种情况，请使用URI方法变体来提供（或重用）先前编码的URI。要准备完全控制编码的URI，请考虑使用org.springframework.web.util.UriComponentsBuilder。
+ * </p>
+ * <p>
+ *      在内部，模板使用HttpMessageConverter实例将HTTP消息转换为POJO或从POJO转换HTTP消息。默认情况下会注册主mime类型的转换器，但您也可以通过setMessageConverters注册其他转换器。
+ * </p>
+ * <p>
+ *      此模板分别使用org.springframework.http.client.SimpleClientHttpRequestFactory和DefaultResponseErrorHandler作为创建HTTP连接或处理HTTP错误的默认策略。
+ *      可以分别通过setRequestFactory和setErrorHandler覆盖这些默认值。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @author Brian Clozel
  * @author Roy Clarkson
@@ -632,6 +671,13 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
 	 * Execute the given method on the provided URI.
 	 * <p>The {@link ClientHttpRequest} is processed using the {@link RequestCallback};
 	 * the response with the {@link ResponseExtractor}.
+	 *
+	 * <p>
+	 *     在提供的URI上执行给定的方法。
+	 * </p>
+	 * <p>
+	 *     	 使用RequestCallback处理ClientHttpRequest; ResponseExtractor的响应。
+	 * </p>
 	 * @param url the fully-expanded URL to connect to
 	 * @param method the HTTP method to execute (GET, POST, etc.)
 	 * @param requestCallback object that prepares the request (can be {@code null})

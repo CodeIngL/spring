@@ -37,6 +37,9 @@ import org.springframework.beans.PropertyValues;
  * {@link InstantiationAwareBeanPostProcessorAdapter} in order to be shielded
  * from extensions to this interface.
  *
+ * BeanPostProcessor的子接口，用于添加实例化前回调，实例化后但在显式属性设置或自动装配发生之前的回调。
+ * <p> 通常用于抑制特定目标bean的默认实例化，例如创建具有特殊TargetSource的代理（池化目标，延迟初始化目标等），或实现其他注入策略（如字段注入）。 </p>
+ * <p> 注意：此接口是一个专用接口，主要供框架内部使用。 建议尽可能实现普通的BeanPostProcessor接口，或者从InstantiationAwareBeanPostProcessorAdapter派生，以便屏蔽此接口的扩展。 </p>
  * @author Juergen Hoeller
  * @author Rod Johnson
  * @since 1.2
@@ -58,6 +61,21 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * <p>Post-processors may implement the extended
 	 * {@link SmartInstantiationAwareBeanPostProcessor} interface in order
 	 * to predict the type of the bean object that they are going to return here.
+	 *
+	 * <p>
+	 *     在实例化目标bean之前应用此BeanPostProcessor。 返回的bean对象可以是代替目标bean的代理，有效地抑制了目标bean的默认实例化。
+	 * </p>
+	 * <p>
+	 *     	如果此方法返回非null对象，则bean创建过程将被短路。
+	 *     	应用的唯一进一步处理是来自配置的BeanPostProcessors的postProcessAfterInitialization回调。
+	 * </p>
+	 * <p>
+	 *     	此回调仅适用于具有bean class的bean定义。
+	 *     	特别是，它不会应用于具有“factory-method”的bean。
+	 * </p>
+	 * <p>
+	 *     	BeanPostProcessor可以实现扩展的SmartInstantiationAwareBeanPostProcessor接口，以便预测它们将在此处返回的bean对象的类型。
+	 * </p>
 	 * @param beanClass the class of the bean to be instantiated
 	 * @param beanName the name of the bean
 	 * @return the bean object to expose instead of a default instance of the target bean,
@@ -90,6 +108,12 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * <p>Also allows for replacing the property values to apply, typically through
 	 * creating a new MutablePropertyValues instance based on the original PropertyValues,
 	 * adding or removing specific values.
+	 * <p>
+	 *     在工厂将它们应用于给定bean之前对给定属性值进行后处理。 允许检查是否已满足所有依赖项，例如，基于bean属性setter上的"Required"注解。
+	 * </p>
+	 * <p>
+	 *     还允许替换要应用的属性值，通常是通过基于原始PropertyValues创建新的MutablePropertyValues实例，添加或删除特定值。
+	 * </p>
 	 * @param pvs the property values that the factory is about to apply (never {@code null})
 	 * @param pds the relevant property descriptors for the target bean (with ignored
 	 * dependency types - which the factory handles specifically - already filtered out)

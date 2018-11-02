@@ -529,6 +529,9 @@ public class XmlBeanDefinitionReader extends AbstractBeanDefinitionReader {
 
 	/**
 	 * Lazily create a default NamespaceHandlerResolver, if not set before.
+	 * <p>
+	 *     懒惰地创建一个默认的NamespaceHandlerResolver，如果之前没有设置的话。
+	 * </p>
 	 * @see #createDefaultNamespaceHandlerResolver()
 	 */
 	public NamespaceHandlerResolver getNamespaceHandlerResolver() {

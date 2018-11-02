@@ -29,6 +29,13 @@ import org.springframework.http.HttpStatus;
  * <p>A {@code ClientHttpResponse} must be {@linkplain #close() closed},
  * typically in a {@code finally} block.
  *
+ * <p>
+ *     表示客户端HTTP响应。 通过调用ClientHttpRequest.execute（）获得。
+ * </p>
+ * <p>
+ *      必须关闭ClientHttpResponse，通常在finally块中。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @since 3.0
  */
@@ -62,6 +69,9 @@ public interface ClientHttpResponse extends HttpInputMessage, Closeable {
 
 	/**
 	 * Close this response, freeing any resources created.
+	 * <p>
+	 *     关闭此响应，释放所有创建的资源。
+	 * </p>
 	 */
 	@Override
 	void close();

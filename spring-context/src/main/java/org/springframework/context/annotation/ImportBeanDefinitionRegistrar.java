@@ -41,6 +41,13 @@ import org.springframework.core.type.AnnotationMetadata;
  *
  * <p>See implementations and associated unit tests for usage examples.
  *
+ * <p>
+ *     公共接口ImportBeanDefinitionRegistrar
+ *     接口由处理@Configuration类时注册附加bean定义的类型实现。 在bean定义级别（相对于@Bean方法/实例级别）操作时，这是有用或必要的。
+ *     与@Configuration和ImportSelector一起，可以将此类型的类提供给@Import注解（或者也可以从ImportSelector返回）。
+ *     ImportBeanDefinitionRegistrar可以实现以下Aware接口中的任何一个，并且它们各自的方法将在registerBeanDefinitions之前被调用：
+ * </p>
+ *
  * @author Chris Beams
  * @since 3.1
  * @see Import

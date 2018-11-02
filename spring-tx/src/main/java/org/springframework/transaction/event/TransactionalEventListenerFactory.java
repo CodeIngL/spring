@@ -27,6 +27,10 @@ import org.springframework.core.annotation.AnnotationUtils;
  * {@link EventListenerFactory} implementation that handles {@link TransactionalEventListener}
  * annotated method.
  *
+ * <p>
+ *     处理TransactionalEventListener带注解方法的EventListenerFactory实现。
+ * </p>
+ *
  * @author Stephane Nicoll
  * @since 4.2
  */

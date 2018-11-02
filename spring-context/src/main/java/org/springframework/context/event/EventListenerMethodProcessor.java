@@ -47,6 +47,10 @@ import org.springframework.util.CollectionUtils;
  * Register {@link EventListener} annotated method as individual {@link ApplicationListener}
  * instances.
  *
+ * <p>
+ *     将EventListener注解方法注册为单独的ApplicationListener实例。
+ * </p>
+ *
  * @author Stephane Nicoll
  * @author Juergen Hoeller
  * @since 4.2
@@ -72,6 +76,7 @@ public class EventListenerMethodProcessor implements SmartInitializingSingleton,
 
 	@Override
 	public void afterSingletonsInstantiated() {
+		//获得factory
 		List<EventListenerFactory> factories = getEventListenerFactories();
 		String[] beanNames = this.applicationContext.getBeanNamesForType(Object.class);
 		for (String beanName : beanNames) {
@@ -123,6 +128,12 @@ public class EventListenerMethodProcessor implements SmartInitializingSingleton,
 		return factories;
 	}
 
+    /**
+     * 处理bean
+     * @param factories
+     * @param beanName
+     * @param targetType
+     */
 	protected void processBean(final List<EventListenerFactory> factories, final String beanName, final Class<?> targetType) {
 		if (!this.nonAnnotatedClasses.contains(targetType)) {
 			Map<Method, EventListener> annotatedMethods = null;

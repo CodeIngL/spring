@@ -29,6 +29,13 @@ import org.springframework.util.ObjectUtils;
  * <p>This holder will just store the String value and the target type.
  * The actual conversion will be performed by the bean factory.
  *
+ * <p>
+ *     持有者为类型化的字符串值。 可以添加到bean定义中，以便为String值显式指定目标类型，例如为集合元素。
+ * </p>
+ * <p>
+ *     该持有者将只存储String值和目标类型。 实际的转换将由bean工厂执行。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.2
  * @see BeanDefinition#getPropertyValues
@@ -193,6 +200,9 @@ public class TypedStringValue implements BeanMetadataElement {
 	/**
 	 * Mark this value as dynamic, i.e. as containing an expression
 	 * and hence not being subject to caching.
+	 * <p>
+	 *     将此值标记为动态，即包含表达式，因此不受缓存限制。
+	 * </p>
 	 */
 	public void setDynamic() {
 		this.dynamic = true;

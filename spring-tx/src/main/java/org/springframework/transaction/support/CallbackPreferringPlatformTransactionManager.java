@@ -34,6 +34,17 @@ import org.springframework.transaction.TransactionException;
  * {@link org.springframework.transaction.interceptor.TransactionInterceptor}
  * detect and use this PlatformTransactionManager variant automatically.
  *
+ * <p>
+ *     PlatformTransactionManager接口的扩展，公开了在事务中执行给定回调的方法。
+ * </p>
+ * <p>
+ *      此接口的实现程序会自动表示对程序化getTransaction，commit和rollback调用的回调首选项。
+ *      调用代码可以检查给定的事务管理器是否实现此接口以选择准备回调而不是显式事务划分控制。
+ * </p>
+ * <p>
+ *      Spring的TransactionTemplate和org.springframework.transaction.interceptor.TransactionInterceptor会自动检测和使用这个PlatformTransactionManager变体。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.0
  * @see TransactionTemplate

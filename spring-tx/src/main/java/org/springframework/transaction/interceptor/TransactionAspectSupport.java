@@ -58,6 +58,24 @@ import org.springframework.util.StringUtils;
  * <p>A transaction aspect is serializable if its {@code PlatformTransactionManager}
  * and {@code TransactionAttributeSource} are serializable.
  *
+ * <p>
+ *     事务性方面的基类，例如TransactionInterceptor或AspectJ方面。
+ * </p>
+ * <p>
+ *     这使得底层Spring事务基础架构可以轻松用于实现任何方面系统的一个方面。
+ * </p>
+ * <p>
+ *      子类负责以正确的顺序调用此类中的方法。
+ * </p>
+ * <p>
+ *      如果在TransactionAttribute中没有指定事务名称，则显示的名称将是完全限定的类名称+“。”。 +方法名称（默认情况下）。
+ * </p>
+ * <p>
+ *      使用策略设计模式。 PlatformTransactionManager实现将执行实际的事务管理，并且使用TransactionAttributeSource来确定事务定义。
+ * </p>
+ * <p>
+ *      如果它的PlatformTransactionManager和TransactionAttributeSource是可序列化的，则事务方面是可序列化的。
+ * </p>
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Stéphane Nicoll
@@ -258,6 +276,10 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 	 * General delegate for around-advice-based subclasses, delegating to several other template
 	 * methods on this class. Able to handle {@link CallbackPreferringPlatformTransactionManager}
 	 * as well as regular {@link PlatformTransactionManager} implementations.
+	 * <p>
+	 *     一般代表基于around-advice的子类，委托给这个类的其他几个模板方法。
+	 *     能够处理CallbackPreferringPlatformTransactionManager以及常规的PlatformTransactionManager实现。
+	 * </p>
 	 * @param method the Method being invoked
 	 * @param targetClass the target class that we're invoking the method on
 	 * @param invocation the callback to use for proceeding with the target invocation
@@ -268,12 +290,18 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			throws Throwable {
 
 		// If the transaction attribute is null, the method is non-transactional.
-		final TransactionAttribute txAttr = getTransactionAttributeSource().getTransactionAttribute(method, targetClass);
-		final PlatformTransactionManager tm = determineTransactionManager(txAttr);
+		// 如果事务属性为空，则该方法是非事务性的。
+		final TransactionAttribute txAttr = getTransactionAttributeSource().getTransactionAttribute(method, targetClass);		// 获得事务属性
+
+		final PlatformTransactionManager tm = determineTransactionManager(txAttr);		// 获得事务管理器
+
 		final String joinpointIdentification = methodIdentification(method, targetClass, txAttr);
 
+		//事务属性为空，不是回调首选的管理器
 		if (txAttr == null || !(tm instanceof CallbackPreferringPlatformTransactionManager)) {
 			// Standard transaction demarcation with getTransaction and commit/rollback calls.
+			// 使用getTransaction和commit/rollback调用的标准事务划分。
+			// 创建事务
 			TransactionInfo txInfo = createTransactionIfNecessary(tm, txAttr, joinpointIdentification);
 			Object retVal = null;
 			try {
@@ -297,6 +325,7 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 			final ThrowableHolder throwableHolder = new ThrowableHolder();
 
 			// It's a CallbackPreferringPlatformTransactionManager: pass a TransactionCallback in.
+			// 它是一个CallbackPreferringPlatformTransactionManager：传递一个TransactionCallback。
 			try {
 				Object result = ((CallbackPreferringPlatformTransactionManager) tm).execute(txAttr,
 						new TransactionCallback<Object>() {
@@ -363,6 +392,9 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 
 	/**
 	 * Determine the specific transaction manager to use for the given transaction.
+	 * <p>
+	 *     确定要用于给定事务的特定事务管理器。
+	 * </p>
 	 */
 	protected PlatformTransactionManager determineTransactionManager(TransactionAttribute txAttr) {
 		// Do not attempt to lookup tx manager if no tx attributes are set
@@ -433,6 +465,13 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 	 * Create a transaction if necessary based on the given TransactionAttribute.
 	 * <p>Allows callers to perform custom TransactionAttribute lookups through
 	 * the TransactionAttributeSource.
+	 *
+	 * <p>
+	 *     根据给定的TransactionAttribute根据需要创建一个事务。
+	 * </p>
+	 * <p>
+	 *     允许调用者通过TransactionAttributeSource执行自定义的TransactionAttribute查找。
+	 * </p>
 	 * @param txAttr the TransactionAttribute (may be {@code null})
 	 * @param joinpointIdentification the fully qualified method name
 	 * (used for monitoring and logging purposes)
@@ -472,6 +511,9 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 
 	/**
 	 * Prepare a TransactionInfo for the given attribute and status object.
+	 * <p>
+	 *     为给定的属性和状态对象准备TransactionInfo。
+	 * </p>
 	 * @param txAttr the TransactionAttribute (may be {@code null})
 	 * @param joinpointIdentification the fully qualified method name
 	 * (used for monitoring and logging purposes)
@@ -508,6 +550,9 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 	/**
 	 * Execute after successful completion of call, but not after an exception was handled.
 	 * Do nothing if we didn't create a transaction.
+	 * <p>
+	 *     成功完成调用后执行，但在处理异常后不执行。 如果我们没有创建交易，则不执行任何操作。
+	 * </p>
 	 * @param txInfo information about the current transaction
 	 */
 	protected void commitTransactionAfterReturning(TransactionInfo txInfo) {

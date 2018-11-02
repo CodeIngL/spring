@@ -37,6 +37,19 @@ import org.springframework.util.ObjectUtils;
  * {@link GenericBeanDefinition#setParentName} method. This effectively
  * supersedes the ChildBeanDefinition class for most use cases.
  *
+ * <p>
+ *     bean的BeanDefinition，从父级继承设置。 ChildBeanDefinition对父BeanDefinition有固定依赖性。
+ * </p>
+ * <p>
+ *      ChildBeanDefinition将从父级继承构造函数参数值，属性值和方法覆盖，并具有添加新值的选项。
+ *      如果指定了init方法，destroy方法和/或static factory方法，它们将覆盖相应的父设置。
+ *      其余设置将始终从ChildBeanDefinition中获取：depends on，autowire mode，dependency check，singleton，lazy init。
+ * </p>
+ * <p>
+ *      注意：从Spring 2.5开始，以编程方式注册bean定义的首选方法是GenericBeanDefinition类，
+ *      它允许通过GenericBeanDefinition.setParentName方法动态定义父依赖项。 这有效地取代了大多数用例的ChildBeanDefinition类。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see GenericBeanDefinition

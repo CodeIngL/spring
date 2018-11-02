@@ -881,6 +881,9 @@ public class AnnotatedElementUtils {
 	 * Search for annotations of the specified {@code annotationName} or
 	 * {@code annotationType} on the specified {@code element}, following
 	 * <em>get semantics</em>.
+	 * <p>
+	 *     在获取语义之后，在指定元素上搜索指定annotationName或annotationType的注解。
+	 * </p>
 	 * @param element the annotated element
 	 * @param annotationType the annotation type to find
 	 * @param annotationName the fully qualified class name of the annotation

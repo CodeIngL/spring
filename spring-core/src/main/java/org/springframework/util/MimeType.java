@@ -40,6 +40,16 @@ import java.util.TreeSet;
  * Also has functionality to parse media types from a string using
  * {@link #valueOf(String)}. For more parsing options see {@link MimeTypeUtils}.
  *
+ * <p>
+ *     表示MIME类型，最初在RFC 2046中定义，随后用于其他Internet协议（包括HTTP）。
+ * </p>
+ * <p>
+ *      但是，此类不包含对HTTP内容协商中使用的q参数的支持。 这些可以在spring-web模块的子类org.springframework.http.MediaType中找到。
+ * </p>
+ * <p>
+ *      由类型和子类型组成。 还具有使用valueOf（String）从字符串解析媒体类型的功能。 有关更多解析选项，请参阅MimeTypeUtils。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @author Juergen Hoeller
  * @author Rossen Stoyanchev

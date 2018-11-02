@@ -25,6 +25,10 @@ import org.springframework.util.ObjectUtils;
  * including {@link #toString()} representation and {@link Comparable}
  * support (as suggested for custom {@code HashMap} keys as of Java 8).
  *
+ * <p>
+ *     针对特定目标类的方法的公共键类，包括toString（）表示和Comparable支持（如Java 8中自定义HashMap键的建议）。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 4.3
  */

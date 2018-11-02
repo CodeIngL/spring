@@ -21,7 +21,7 @@ package org.springframework.core.type;
  * in a form that does not require that class to be loaded yet.
  *
  * <p>
- *     定义特定类的抽象元数据的接口，其形式不需要该类被加载。
+ *     定义特定类的抽象元数据的接口，该形式不需要该类被加载。
  * </p>
  *
  * @author Juergen Hoeller

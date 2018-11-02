@@ -29,6 +29,15 @@ import org.springframework.aop.Pointcut;
  * with any pointcut and advice type, except for introductions. There is
  * normally no need to subclass this class, or to implement custom Advisors.
  *
+ * <p>
+ *     方便的Pointcut驱动的Advisor实现。
+ * </p>
+ * <p>
+ *      这是最常用的Advisor实现。
+ *      除引言外，它可以与任何切入点和建议类型一起使用。
+ *      通常不需要对此类进行子类化，也不需要实现自定义顾问。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see #setPointcut

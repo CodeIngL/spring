@@ -36,6 +36,18 @@ import org.springframework.core.io.support.PropertiesLoaderSupport;
  * <p>Can create a singleton or a new object on each request.
  * Default is a singleton.
  *
+ * <p>
+ *     允许从类路径位置创建属性文件作为Bean工厂中的Properties实例。
+ *     可用于通过bean引用填充Properties类型的任何bean属性。
+ * </p>
+ * <p>
+ *      支持从属性文件加载和/或在此FactoryBean上设置本地属性。
+ *      创建的Properties实例将从加载值和本地值合并。 如果既未设置位置也未设置本地属性，则初始化时将引发异常。
+ * </p>
+ * <p>
+ *     可以在每个请求上创建单个或新对象。 默认是单身。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @see #setLocation
  * @see #setProperties

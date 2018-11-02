@@ -24,6 +24,14 @@ import org.springframework.core.io.ResourceLoader;
 /**
  * Context information for use by {@link Condition}s.
  *
+ * <p>
+ *     Condition使用的上下文信息。
+ * </p>
+ *
+ * <p>
+ *     包括，BeanDefinition注册表，BeanFactory工厂(容器)，环境对象，资源加载器，类加载器
+ * </p>
+ *
  * @author Phillip Webb
  * @author Juergen Hoeller
  * @since 4.0

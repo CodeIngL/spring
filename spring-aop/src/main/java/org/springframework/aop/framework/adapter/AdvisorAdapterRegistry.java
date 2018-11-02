@@ -32,6 +32,9 @@ public interface AdvisorAdapterRegistry {
 
 	/**
 	 * Return an Advisor wrapping the given advice.
+	 * <p>
+	 *     根据给定的建议返回顾问。
+	 * </p>
 	 * <p>Should by default at least support
 	 * {@link org.aopalliance.intercept.MethodInterceptor},
 	 * {@link org.springframework.aop.MethodBeforeAdvice},

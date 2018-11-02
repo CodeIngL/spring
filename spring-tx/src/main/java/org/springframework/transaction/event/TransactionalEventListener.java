@@ -36,6 +36,17 @@ import org.springframework.core.annotation.AliasFor;
  * method allows you to prioritize that listener amongst other listeners running before
  * or after transaction completion.
  *
+ * <p>
+ *     根据TransactionPhase调用的EventListener。
+ * </p>
+ * <p>
+ *     如果事件未在托管事务的边界内发布，则除非显式设置fallbackExecution标志，否则将丢弃该事件。
+ *     如果事务正在运行，则根据其TransactionPhase处理事件。
+ * </p>
+ * <p>
+ *     将@Order添加到带注释的方法允许您在事务完成之前或之后运行的其他侦听器中优先处理该侦听器。
+ * </p>
+ *
  * @author Stephane Nicoll
  * @author Sam Brannen
  * @since 4.2
