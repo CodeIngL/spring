@@ -33,8 +33,8 @@ import org.springframework.http.ResponseEntity;
  * option to enhance testability, as it can easily be mocked or stubbed.
  *
  * <p>
- *     ½Ó¿Ú£¬Ö¸¶¨Ò»×é»ù±¾µÄRESTful²Ù×÷¡£
- *     ÓÉRestTemplateÊµÏÖ¡£ ²»¾­³£Ö±½ÓÊ¹ÓÃ£¬µ«ËüÊÇÒ»¸öÔöÇ¿¿É²âÊÔĞÔµÄÓĞÓÃÑ¡Ïî£¬ÒòÎªËüºÜÈİÒ×±»Ä£Äâ»ò´æ¸ù¡£
+ *     æ¥å£ï¼ŒæŒ‡å®šä¸€ç»„åŸºæœ¬çš„RESTfulæ“ä½œã€‚
+ *     ç”±RestTemplateå®ç°ã€‚ ä¸ç»å¸¸ç›´æ¥ä½¿ç”¨ï¼Œä½†å®ƒæ˜¯ä¸€ä¸ªå¢å¼ºå¯æµ‹è¯•æ€§çš„æœ‰ç”¨é€‰é¡¹ï¼Œå› ä¸ºå®ƒå¾ˆå®¹æ˜“è¢«æ¨¡æ‹Ÿæˆ–å­˜æ ¹ã€‚
  * </p>
  *
  * @author Arjen Poutsma

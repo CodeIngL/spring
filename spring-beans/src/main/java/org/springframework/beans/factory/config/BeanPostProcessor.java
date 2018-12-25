@@ -46,6 +46,12 @@ public interface BeanPostProcessor {
 	 * initialization callbacks (like InitializingBean's {@code afterPropertiesSet}
 	 * or a custom init-method). The bean will already be populated with property values.
 	 * The returned bean instance may be a wrapper around the original.
+	 * <p>
+	 *     在任何bean初始化回调之前将此BeanPostProcessor应用于给定的新bean实例（如InitializingBean的afterPropertiesSet或自定义init方法）。
+	 * </p>
+	 * <p>
+	 *     bean已经填充了属性值。 返回的bean实例可能是原始实例的包装器。
+	 * </p>
 	 * @param bean the new bean instance
 	 * @param beanName the name of the bean
 	 * @return the bean instance to use, either the original or a wrapped one;
@@ -67,6 +73,13 @@ public interface BeanPostProcessor {
 	 * <p>This callback will also be invoked after a short-circuiting triggered by a
 	 * {@link InstantiationAwareBeanPostProcessor#postProcessBeforeInstantiation} method,
 	 * in contrast to all other BeanPostProcessor callbacks.
+	 * <p>
+	 *     在任何bean初始化回调（如InitializingBean的afterPropertiesSet或自定义init方法）之后，将此BeanPostProcessor应用于给定的新bean实例。 bean已经填充了属性值。 返回的bean实例可能是原始实例的包装器。
+	 * </p>
+	 * <p>
+	 *    对于FactoryBean，将为FactoryBean实例和FactoryBean创建的对象（从Spring 2.0开始）调用此回调。 后处理器可以通过相应的Bean instanceof FactoryBean检查来决定是应用于FactoryBean还是应用于创建的对象。
+	 * </p>
+	 * 	 与所有其他BeanPostProcessor回调相比，在InstantiationAwareBeanPostProcessor.postProcessBeforeInstantiation方法触发的短路之后也将调用此回调。
 	 * @param bean the new bean instance
 	 * @param beanName the name of the bean
 	 * @return the bean instance to use, either the original or a wrapped one;

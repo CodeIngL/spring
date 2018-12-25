@@ -588,6 +588,14 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 * It does not affect explicit references by name, which will get resolved even
 	 * if the specified bean is not marked as an autowire candidate. As a consequence,
 	 * autowiring by name will nevertheless inject a bean if the name matches.
+	 * <p>
+	 *     设置此bean是否可以自动连接到其他bean。
+	 * </p>
+	 * <p>
+	 *     请注意，此标志旨在仅影响基于类型的自动装配。
+	 *     它不会影响名称的显式引用，即使指定的bean未标记为autowire候选，也会解析它。
+	 *     因此，如果名称匹配，按名称自动装配将注入bean。
+	 * </p>
 	 * @see #AUTOWIRE_BY_TYPE
 	 * @see #AUTOWIRE_BY_NAME
 	 */

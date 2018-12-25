@@ -159,7 +159,7 @@ public class ReaderContext {
 
 	/**
 	 * Fire an component-registered event.
-	 * ´¥·¢×é¼ş×¢²áÊÂ¼ş¡£
+	 * è§¦å‘ç»„ä»¶æ³¨å†Œäº‹ä»¶ã€‚
 	 */
 	public void fireComponentRegistered(ComponentDefinition componentDefinition) {
 		this.eventListener.componentRegistered(componentDefinition);

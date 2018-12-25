@@ -1383,7 +1383,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	protected Class<?> resolveBeanClass(final RootBeanDefinition mbd, String beanName, final Class<?>... typesToMatch)
 			throws CannotLoadBeanClassException {
 		try {
-			//存在属性说明，直接返回
+			//存在beanclass属性说明，直接返回
 			if (mbd.hasBeanClass()) {
 				return mbd.getBeanClass();
 			}
@@ -1411,6 +1411,15 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		}
 	}
 
+	/**
+	 *
+	 * 尝试去解析bean定义的所属类
+	 * 从字符串的名字中尝试去解析，支持动态解析
+	 * @param mbd
+	 * @param typesToMatch
+	 * @return
+	 * @throws ClassNotFoundException
+	 */
 	private Class<?> doResolveBeanClass(RootBeanDefinition mbd, Class<?>... typesToMatch)
 			throws ClassNotFoundException {
 

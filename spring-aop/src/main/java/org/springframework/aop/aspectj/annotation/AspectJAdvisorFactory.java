@@ -29,6 +29,10 @@ import org.springframework.aop.framework.AopConfigException;
  * Interface for factories that can create Spring AOP Advisors from classes
  * annotated with AspectJ annotation syntax.
  *
+ * <p>
+ *     可以使用AspectJ注解语法注解的类创建Spring AOP Advisors的工厂接口。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0

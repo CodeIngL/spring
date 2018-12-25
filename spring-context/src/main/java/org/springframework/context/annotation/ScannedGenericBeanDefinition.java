@@ -35,6 +35,16 @@ import org.springframework.util.Assert;
  * {@link AnnotatedGenericBeanDefinition#AnnotatedGenericBeanDefinition(AnnotationMetadata)}
  * but distinguishes by type beans that have been <em>scanned</em> vs those that have
  * been otherwise registered or detected by other means.
+ * <p>
+ *     GenericBeanDefinition类的扩展，基于ASM ClassReader，支持通过{@link AnnotatedBeanDefinition}接口公开的注解元数据。
+ * </p>
+ * <p>
+ *      这个类没有尽早加载bean类。 它更确切地从“.class”文件本身检索所有相关元数据，并使用ASM ClassReader进行解析。
+ * </p>
+ * <p>
+ *      它在功能上等同于{@link AnnotatedGenericBeanDefinition#AnnotatedGenericBeanDefinition(AnnotationMetadata)}，
+ *      但区别于已扫描的类型bean与已通过其他方式注册或检测的类型bean
+ * </p>
  *
  * @author Juergen Hoeller
  * @author Chris Beams

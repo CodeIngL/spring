@@ -117,6 +117,9 @@ class ConfigurationClassBeanDefinitionReader {
 	/**
 	 * Read {@code configurationModel}, registering bean definitions
 	 * with the registry based on its contents.
+	 * <p>
+	 *     读取configurationModel，根据其内容向注册表注册bean定义。
+	 * </p>
 	 */
 	public void loadBeanDefinitions(Set<ConfigurationClass> configurationModel) {
 		TrackedConditionEvaluator trackedConditionEvaluator = new TrackedConditionEvaluator();
@@ -288,6 +291,9 @@ class ConfigurationClassBeanDefinitionReader {
 		// -> allow the current bean method to override, since both are at second-pass level.
 		// However, if the bean method is an overloaded case on the same configuration class,
 		// preserve the existing bean definition.
+		// 现有的bean定义是从配置类创建的吗？
+		// - >允许当前bean方法覆盖，因为两者都处于second-pass级别。
+		// 但是，如果bean方法是同一配置类上的重载大小写，则保留现有的bean定义。
 		if (existingBeanDef instanceof ConfigurationClassBeanDefinition) {
 			ConfigurationClassBeanDefinition ccbd = (ConfigurationClassBeanDefinition) existingBeanDef;
 			return ccbd.getMetadata().getClassName().equals(
@@ -296,18 +302,22 @@ class ConfigurationClassBeanDefinitionReader {
 
 		// A bean definition resulting from a component scan can be silently overridden
 		// by an @Bean method, as of 4.2...
+		// 从4.2开始，@Bean方法可以静默覆盖由组件扫描产生的bean定义...
 		if (existingBeanDef instanceof ScannedGenericBeanDefinition) {
 			return false;
 		}
 
 		// Has the existing bean definition bean marked as a framework-generated bean?
 		// -> allow the current bean method to override it, since it is application-level
+		// 将现有的bean定义bean标记为框架生成的bean吗？
+		// - >允许当前的bean方法覆盖它，因为它是应用程序级别的
 		if (existingBeanDef.getRole() > BeanDefinition.ROLE_APPLICATION) {
 			return false;
 		}
 
 		// At this point, it's a top-level override (probably XML), just having been parsed
 		// before configuration class processing kicks in...
+		// 此时，它是一个顶级覆盖（可能是XML），只是在配置类处理开始之前解析了...
 		if (this.registry instanceof DefaultListableBeanFactory &&
 				!((DefaultListableBeanFactory) this.registry).isAllowBeanDefinitionOverriding()) {
 			throw new BeanDefinitionStoreException(beanMethod.getConfigurationClass().getResource().getDescription(),

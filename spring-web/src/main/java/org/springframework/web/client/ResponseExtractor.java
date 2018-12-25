@@ -29,10 +29,10 @@ import org.springframework.http.client.ClientHttpResponse;
  * <p>Used internally by the {@link RestTemplate}, but also useful for application code.
  *
  * <p>
- *     RestTemplate¼ìË÷·½·¨Ê¹ÓÃµÄÍ¨ÓÃ»Øµ÷½Ó¿Ú´Ë½Ó¿ÚµÄÊµÏÖÖ´ĞĞ´ÓClientHttpResponseÌáÈ¡Êı¾İµÄÊµ¼Ê¹¤×÷£¬µ«²»ĞèÒªµ£ĞÄÒì³£´¦Àí»ò¹Ø±Õ×ÊÔ´¡£
+ *     RestTemplateæ£€ç´¢æ–¹æ³•ä½¿ç”¨çš„é€šç”¨å›è°ƒæ¥å£æ­¤æ¥å£çš„å®ç°æ‰§è¡Œä»ClientHttpResponseæå–æ•°æ®çš„å®é™…å·¥ä½œï¼Œä½†ä¸éœ€è¦æ‹…å¿ƒå¼‚å¸¸å¤„ç†æˆ–å…³é—­èµ„æºã€‚
  * </p>
  * <p>
- *      ÓÉRestTemplateÔÚÄÚ²¿Ê¹ÓÃ£¬µ«¶ÔÓ¦ÓÃ³ÌĞò´úÂëÒ²ºÜÓĞÓÃ¡£
+ *      ç”±RestTemplateåœ¨å†…éƒ¨ä½¿ç”¨ï¼Œä½†å¯¹åº”ç”¨ç¨‹åºä»£ç ä¹Ÿå¾ˆæœ‰ç”¨ã€‚
  * </p>
  *
  * @author Arjen Poutsma

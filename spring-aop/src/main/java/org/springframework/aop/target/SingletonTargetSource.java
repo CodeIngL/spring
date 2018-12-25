@@ -31,6 +31,13 @@ import org.springframework.util.ObjectUtils;
  * <p>This class is serializable. However, the actual serializability of a
  * SingletonTargetSource will depend on whether the target is serializable.
  *
+ * <p>
+ *     实现包含给定对象的TargetSource接口。 这是Spring AOP框架使用的TargetSource接口的默认实现。 通常不需要在应用程序代码中创建此类的对象。
+ * </p>
+ * <p>
+ *     这个类是可序列化的。 但是，SingletonTargetSource的实际可序列化将取决于目标是否可序列化。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see org.springframework.aop.framework.AdvisedSupport#setTarget(Object)

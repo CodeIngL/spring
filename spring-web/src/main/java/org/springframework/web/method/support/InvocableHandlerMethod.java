@@ -198,6 +198,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 
 	/**
 	 * Invoke the handler method with the given argument values.
+	 * 使用给定的参数值调用处理程序方法。
 	 */
 	protected Object doInvoke(Object... args) throws Exception {
 		ReflectionUtils.makeAccessible(getBridgedMethod());

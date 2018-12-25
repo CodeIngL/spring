@@ -47,7 +47,7 @@ public abstract class AutoProxyUtils {
 	 * auto-proxied bean, e.g. to be used for the introspection of annotations
 	 * on the target class behind an interface-based proxy.
 	 * <p>
-	 *     Bean¶¨ÒåÊôĞÔ£¬Ö¸Ê¾×Ô¶¯´úÀíbeanµÄÔ­Ê¼Ä¿±êÀà£¬ÀıÈç ÓÃÓÚ¶Ô»ùÓÚ½Ó¿ÚµÄ´úÀíºóÃæµÄÄ¿±êÀàµÄ×¢½â½øĞĞÄÚÊ¡¡£
+	 *     Beanå®šä¹‰å±æ€§ï¼ŒæŒ‡ç¤ºè‡ªåŠ¨ä»£ç†beançš„åŸå§‹ç›®æ ‡ç±»ï¼Œä¾‹å¦‚ ç”¨äºå¯¹åŸºäºæ¥å£çš„ä»£ç†åé¢çš„ç›®æ ‡ç±»çš„æ³¨è§£è¿›è¡Œå†…çœã€‚
 	 * </p>
 	 * @since 4.2.3
 	 * @see #determineTargetClass
@@ -99,7 +99,7 @@ public abstract class AutoProxyUtils {
 	/**
 	 * Expose the given target class for the specified bean, if possible.
 	 * <p>
-	 *     Èç¹û¿ÉÄÜ£¬¹«¿ªÖ¸¶¨beanµÄ¸ø¶¨Ä¿±êÀà¡£
+	 *     å¦‚æœå¯èƒ½ï¼Œå…¬å¼€æŒ‡å®šbeançš„ç»™å®šç›®æ ‡ç±»ã€‚
 	 * </p>
 	 * @param beanFactory the containing ConfigurableListableBeanFactory
 	 * @param beanName the name of the bean

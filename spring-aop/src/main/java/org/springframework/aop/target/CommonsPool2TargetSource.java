@@ -46,20 +46,20 @@ import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
  * <p>Compatible with Apache Commons Pool 2.4, as of Spring 4.2.
  *
  * <p>
- *     org.springframework.aop.TargetSourceÊµÏÖ£¬ÓÃÓÚÔÚ¿ÉÅäÖÃµÄApache Commons2³ØÖĞ±£´æ¶ÔÏó¡£
+ *     org.springframework.aop.TargetSourceå®ç°ï¼Œç”¨äºåœ¨å¯é…ç½®çš„Apache Commons2æ± ä¸­ä¿å­˜å¯¹è±¡ã€‚
  * </p>
  * <p>
- *      Ä¬ÈÏÇé¿öÏÂ£¬»á´´½¨Ò»¸öGenericObjectPoolÊµÀı¡£ ×ÓÀà¿ÉÒÔÍ¨¹ı¸²¸ÇcreateObjectPool£¨£©·½·¨À´¸ü¸ÄËùÊ¹ÓÃµÄObjectPoolµÄÀàĞÍ¡£
+ *      é»˜è®¤æƒ…å†µä¸‹ï¼Œä¼šåˆ›å»ºä¸€ä¸ªGenericObjectPoolå®ä¾‹ã€‚ å­ç±»å¯ä»¥é€šè¿‡è¦†ç›–createObjectPoolï¼ˆï¼‰æ–¹æ³•æ¥æ›´æ”¹æ‰€ä½¿ç”¨çš„ObjectPoolçš„ç±»å‹ã€‚
  * </p>
  * <p>
- *      Ìá¹©Ğí¶à¾µÏñCommons Pool GenericObjectPoolÀàµÄÅäÖÃÊôĞÔ; ÕâĞ©ÊôĞÔÔÚ¹¹ÔìÆÚ¼ä´«µİ¸øGenericObjectPool¡£ Èç¹ûÒª´´½¨´ËÀàµÄ×ÓÀàÒÔ¸ü¸ÄObjectPoolÊµÏÖÀàĞÍ£¬Çë´«ÈëÓëËùÑ¡ÊµÏÖÏà¹ØµÄÅäÖÃÊôĞÔµÄÖµ¡£
+ *      æä¾›è®¸å¤šé•œåƒCommons Pool GenericObjectPoolç±»çš„é…ç½®å±æ€§; è¿™äº›å±æ€§åœ¨æ„é€ æœŸé—´ä¼ é€’ç»™GenericObjectPoolã€‚ å¦‚æœè¦åˆ›å»ºæ­¤ç±»çš„å­ç±»ä»¥æ›´æ”¹ObjectPoolå®ç°ç±»å‹ï¼Œè¯·ä¼ å…¥ä¸æ‰€é€‰å®ç°ç›¸å…³çš„é…ç½®å±æ€§çš„å€¼ã€‚
  * </p>
  * <p>
- *      testOnBorrow£¬testOnReturnºÍtestWhileIdleÊôĞÔÏÔÊ½Î´¾µÏñ£¬ÒòÎª´ËÀàÊ¹ÓÃµÄPoolableObjectFactoryµÄÊµÏÖÎ´ÊµÏÖÓĞÒâÒåµÄÑéÖ¤¡£ ËùÓĞ¹«¿ªµÄCommons PoolÊôĞÔ¶¼Ê¹ÓÃÏàÓ¦µÄCommons PoolÄ¬ÈÏÖµ¡£
+ *      testOnBorrowï¼ŒtestOnReturnå’ŒtestWhileIdleå±æ€§æ˜¾å¼æœªé•œåƒï¼Œå› ä¸ºæ­¤ç±»ä½¿ç”¨çš„PoolableObjectFactoryçš„å®ç°æœªå®ç°æœ‰æ„ä¹‰çš„éªŒè¯ã€‚ æ‰€æœ‰å…¬å¼€çš„Commons Poolå±æ€§éƒ½ä½¿ç”¨ç›¸åº”çš„Commons Poolé»˜è®¤å€¼ã€‚
  * </p>
  *
  * <p>
- *      ÓëApache Commons Pool 2.4¼æÈİ£¬´ÓSpring 4.2¿ªÊ¼¡£
+ *      ä¸Apache Commons Pool 2.4å…¼å®¹ï¼Œä»Spring 4.2å¼€å§‹ã€‚
  * </p>
  *
  * @author Rod Johnson

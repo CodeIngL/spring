@@ -31,7 +31,7 @@ import org.springframework.util.ObjectUtils;
  * ClassLoader management and the {@link #evaluateProxyInterfaces} algorithm.
  *
  * <p>
- *     ���д���������ͨ�ù��ܵĻ��࣬�ر���ClassLoader������evaluateProxyInterfaces�㷨
+ *     具有代理处理器通用功能的基类，特别是ClassLoader管理和evaluateProxyInterfaces算法
  * </p>
  *
  * @author Juergen Hoeller
@@ -99,6 +99,12 @@ public class ProxyProcessorSupport extends ProxyConfig implements Ordered, BeanC
 	 * if appropriate.
 	 * <p>Calls {@link #isConfigurationCallbackInterface} and {@link #isInternalLanguageInterface}
 	 * to filter for reasonable proxy interfaces, falling back to a target-class proxy otherwise.
+	 * <p>
+	 *     检查给定bean类的接口，并将其应用于ProxyFactory（如果适用）。
+	 * </p>
+	 * <p>
+	 *     调用isConfigurationCallbackInterface和isInternalLanguageInterface来过滤合理的代理接口，否则回退到目标类代理。
+	 * </p>
 	 * @param beanClass the class of the bean
 	 * @param proxyFactory the ProxyFactory for the bean
 	 */

@@ -28,6 +28,10 @@ import org.springframework.objenesis.SpringObjenesis;
  * Objenesis-based extension of {@link CglibAopProxy} to create proxy instances
  * without invoking the constructor of the class.
  *
+ * <p>
+ *     基于Objenesis的CglibAopProxy扩展，用于创建代理实例而无需调用类的构造函数。
+ * </p>
+ *
  * @author Oliver Gierke
  * @author Juergen Hoeller
  * @since 4.0

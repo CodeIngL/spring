@@ -35,6 +35,13 @@ import org.springframework.util.StringUtils;
  * {@link org.springframework.core.io.Resource#getFilename() getFilename()} method must
  * return a non-{@code null} value that ends in {@code ".xml"}.
  *
+ * <p>
+ *     PropertiesPropertySource的子类，它从给定的资源或资源位置加载Properties对象，例如“{@code "classpath:/com/myco/foo.properties"}”或“or {@code "file:/path/to/file.xml"}”。
+ * </p>
+ * <p>
+ *    支持传统和基于XML的属性文件格式; 但是，为了使XML处理生效，底层Resource的{@link org.springframework.core.io.Resource#getFilename() getFilename()} 方法必须返回以 {@code ".xml"}结尾的非null值
+ * </p>
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.1

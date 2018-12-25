@@ -22,6 +22,10 @@ import org.springframework.beans.BeansException;
  * A variant of {@link ObjectFactory} designed specifically for injection points,
  * allowing for programmatic optionality and lenient not-unique handling.
  *
+ * <p>
+ *     ObjectFactory的一个变体，专门为注入点设计，允许编程选项和宽松非唯一
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 4.3
  */

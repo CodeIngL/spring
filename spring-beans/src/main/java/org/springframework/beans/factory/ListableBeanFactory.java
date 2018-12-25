@@ -160,6 +160,25 @@ public interface ListableBeanFactory extends BeanFactory {
 	 * by other means than bean definitions.
 	 * <p>Bean names returned by this method should always return bean names <i>in the
 	 * order of definition</i> in the backend configuration, as far as possible.
+	 * <p>
+	 *     返回与给定类型（包括子类）匹配的bean的名称，从bean定义或FactoryBeans的getObjectType值判断。
+	 * </p>
+	 * <p>
+	 *     注意：此方法仅对顶级bean进行内省。它不会检查可能与指定类型匹配的嵌套bean
+	 * </p>
+	 * <p>
+	 *     如果设置了“allowEagerInit”标志，则考虑FactoryBeans创建的对象，这意味着将初始化FactoryBeans。
+	 *     如果FactoryBean创建的对象不匹配，则原始FactoryBean本身将与该类型匹配。如果未设置“allowEagerInit”，则仅检查原始FactoryBeans（不需要初始化每个FactoryBean）。
+	 * </p>
+	 * <p>
+	 *     不考虑此工厂可能参与的任何层次结构。使用BeanFactoryUtils的beanNamesForTypeIncludingAncestors也包括祖先工厂中的bean。
+	 * </p>
+	 * <p>
+	 *     注意：不要忽略通过bean定义之外的其他方式注册的单例bean。
+	 * </p>
+	 * <p>
+	 *     此方法返回的Bean名称应始终尽可能按后端配置中的定义顺序返回bean名称。
+	 * </p>
 	 * @param type the class or interface to match, or {@code null} for all bean names
 	 * @param includeNonSingletons whether to include prototype or scoped beans too
 	 * or just singletons (also applies to FactoryBeans)

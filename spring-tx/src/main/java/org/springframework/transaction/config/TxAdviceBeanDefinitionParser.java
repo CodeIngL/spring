@@ -77,13 +77,13 @@ class TxAdviceBeanDefinitionParser extends AbstractSingleBeanDefinitionParser {
 
 		List<Element> txAttributes = DomUtils.getChildElementsByTagName(element, ATTRIBUTES_ELEMENT);
 		if (txAttributes.size() > 1) {
-			//attributes½öÄÜ³öÏÖÒ»´Î
+			//attributesä»…èƒ½å‡ºçŽ°ä¸€æ¬¡
 			parserContext.getReaderContext().error(
 					"Element <attributes> is allowed at most once inside element <advice>", element);
 		}
 		else if (txAttributes.size() == 1) {
 			// Using attributes source.
-			// »ñµÃtxAttributes£¬¹¹½¨attributes source.
+			// èŽ·å¾—txAttributesï¼Œæž„å»ºattributes source.
 			Element attributeSourceElement = txAttributes.get(0);
 			RootBeanDefinition attributeSourceDefinition = parseAttributeSource(attributeSourceElement, parserContext);
 			builder.addPropertyValue("transactionAttributeSource", attributeSourceDefinition);

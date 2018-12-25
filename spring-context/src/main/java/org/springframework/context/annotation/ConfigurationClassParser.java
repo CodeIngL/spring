@@ -103,7 +103,7 @@ import org.springframework.util.StringUtils;
  * @author Juergen Hoeller
  * @author Phillip Webb
  * @author Sam Brannen
- * @since 3.0
+ * @since 3.0ConfigurationClassBeanDefinitionReader
  * @see ConfigurationClassBeanDefinitionReader
  */
 class ConfigurationClassParser {
@@ -177,30 +177,24 @@ class ConfigurationClassParser {
 
 
 	/**
-	 * 对外暴露的解析方法
+	 * 对外暴露的解析方法，总入口。
 	 * @param configCandidates
 	 */
 	public void parse(Set<BeanDefinitionHolder> configCandidates) {
 		this.deferredImportSelectors = new LinkedList<DeferredImportSelectorHolder>();
 
-		/**
-		 * 遍历处理bean定义
-		 */
+		// 遍历处理bean定义
 		for (BeanDefinitionHolder holder : configCandidates) {
-			//获得bean定义
-			BeanDefinition bd = holder.getBeanDefinition();
+			BeanDefinition bd = holder.getBeanDefinition();//获得bean定义
 			try {
 				if (bd instanceof AnnotatedBeanDefinition) {
-					//处理AnnotatedBeanDefinition定义
-					parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());
+					parse(((AnnotatedBeanDefinition) bd).getMetadata(), holder.getBeanName());//处理AnnotatedBeanDefinition定义
 				}
 				else if (bd instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) bd).hasBeanClass()) {
-					//有效的AbstractBeanDefinition
-					parse(((AbstractBeanDefinition) bd).getBeanClass(), holder.getBeanName());
+					parse(((AbstractBeanDefinition) bd).getBeanClass(), holder.getBeanName());//有效的AbstractBeanDefinition，并hasBeanClass为true
 				}
 				else {
-					//直接解析
-					parse(bd.getBeanClassName(), holder.getBeanName());
+					parse(bd.getBeanClassName(), holder.getBeanName());//有效的AbstractBeanDefinition
 				}
 			}
 			catch (BeanDefinitionStoreException ex) {
@@ -637,13 +631,11 @@ class ConfigurationClassParser {
 		List<DeferredImportSelectorHolder> deferredImports = this.deferredImportSelectors;
 		this.deferredImportSelectors = null;
 		Collections.sort(deferredImports, DEFERRED_IMPORT_COMPARATOR);
-
+		//处理延迟导入的相关信息
 		for (DeferredImportSelectorHolder deferredImport : deferredImports) {
 			ConfigurationClass configClass = deferredImport.getConfigurationClass();
 			try {
-				/**
-				 * 自动配置就发生在这个地方
-				 */
+				 //自动配置就发生在这个地方
 				String[] imports = deferredImport.getImportSelector().selectImports(configClass.getMetadata());
 				processImports(configClass, asSourceClass(configClass), asSourceClasses(imports), false);
 			}
@@ -659,7 +651,7 @@ class ConfigurationClassParser {
 	}
 
 	/**
-	 * 处理任何@Import注释
+	 * 处理任何@Import注解
 	 * @param configClass
 	 * @param currentSourceClass
 	 * @param importCandidates
@@ -682,6 +674,7 @@ class ConfigurationClassParser {
 				for (SourceClass candidate : importCandidates) {
 					if (candidate.isAssignable(ImportSelector.class)) {
 						// Candidate class is an ImportSelector -> delegate to it to determine imports
+						// 候选类是一个ImportSelector  - >委托它来确定导入
 						Class<?> candidateClass = candidate.loadClass();
 						ImportSelector selector = BeanUtils.instantiateClass(candidateClass, ImportSelector.class);
 						ParserStrategyUtils.invokeAwareMethods(
@@ -699,6 +692,7 @@ class ConfigurationClassParser {
 					else if (candidate.isAssignable(ImportBeanDefinitionRegistrar.class)) {
 						// Candidate class is an ImportBeanDefinitionRegistrar ->
 						// delegate to it to register additional bean definitions
+						// Candidate类是一个ImportBeanDefinitionRegistrar委托给它来注册其他bean定义
 						Class<?> candidateClass = candidate.loadClass();
 						ImportBeanDefinitionRegistrar registrar =
 								BeanUtils.instantiateClass(candidateClass, ImportBeanDefinitionRegistrar.class);

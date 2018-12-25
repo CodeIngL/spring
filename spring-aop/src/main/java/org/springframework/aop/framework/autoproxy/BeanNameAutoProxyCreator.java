@@ -72,23 +72,23 @@ public class BeanNameAutoProxyCreator extends AbstractAutoProxyCreator {
 	/**
 	 * Identify as bean to proxy if the bean name is in the configured list of names.
 	 * <p>
-	 *     Èç¹ûbeanÃû³ÆÔÚÅäÖÃµÄÃû³ÆÁĞ±íÖĞ£¬Ôò±êÊ¶ÎªÒª´úÀíµÄbean¡£
+	 *     å¦‚æœbeanåç§°åœ¨é…ç½®çš„åç§°åˆ—è¡¨ä¸­ï¼Œåˆ™æ ‡è¯†ä¸ºè¦ä»£ç†çš„beanã€‚
 	 * </p>
 	 */
 	@Override
 	protected Object[] getAdvicesAndAdvisorsForBean(Class<?> beanClass, String beanName, TargetSource targetSource) {
-		if (this.beanNames != null) { //ÅäÖÃÁËbeanNames
-			for (String mappedName : this.beanNames) { //½øĞĞ±éÀú
-				if (FactoryBean.class.isAssignableFrom(beanClass)) {//ÊÇfactoryBean£¬
-					if (!mappedName.startsWith(BeanFactory.FACTORY_BEAN_PREFIX)) {//beanName²¢ÇÒ²»ÊÇfactoryBean±¾Éí,Ìø¹ı
+		if (this.beanNames != null) { //é…ç½®äº†beanNames
+			for (String mappedName : this.beanNames) { //è¿›è¡Œéå†
+				if (FactoryBean.class.isAssignableFrom(beanClass)) {//æ˜¯factoryBeanï¼Œ
+					if (!mappedName.startsWith(BeanFactory.FACTORY_BEAN_PREFIX)) {//beanNameå¹¶ä¸”ä¸æ˜¯factoryBeanæœ¬èº«,è·³è¿‡
 						continue;
 					}
-					mappedName = mappedName.substring(BeanFactory.FACTORY_BEAN_PREFIX.length()); //´¦Àí±¾ÉíµÄfactoryBean
+					mappedName = mappedName.substring(BeanFactory.FACTORY_BEAN_PREFIX.length()); //å¤„ç†æœ¬èº«çš„factoryBean
 				}
-				if (isMatch(beanName, mappedName)) { //ÄÜÆ¥ÅäÉÏ
+				if (isMatch(beanName, mappedName)) { //èƒ½åŒ¹é…ä¸Š
 					return PROXY_WITHOUT_ADDITIONAL_INTERCEPTORS;
 				}
-				BeanFactory beanFactory = getBeanFactory(); //³¢ÊÔÊ¹ÓÃ±ğÃû½øĞĞÆ¥Åä
+				BeanFactory beanFactory = getBeanFactory(); //å°è¯•ä½¿ç”¨åˆ«åè¿›è¡ŒåŒ¹é…
 				if (beanFactory != null) {
 					String[] aliases = beanFactory.getAliases(beanName);
 					for (String alias : aliases) {
@@ -99,7 +99,7 @@ public class BeanNameAutoProxyCreator extends AbstractAutoProxyCreator {
 				}
 			}
 		}
-		return DO_NOT_PROXY; //Ã»ÕÒµ½£¬·µ»Ø
+		return DO_NOT_PROXY; //æ²¡æ‰¾åˆ°ï¼Œè¿”å›
 	}
 
 	/**

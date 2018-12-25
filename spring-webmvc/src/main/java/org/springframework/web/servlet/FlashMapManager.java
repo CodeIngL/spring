@@ -23,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  * A strategy interface for retrieving and saving FlashMap instances.
  * See {@link FlashMap} for a general overview of flash attributes.
  *
+ * 用于检索和保存FlashMap实例的策略界面。 有关Flash属性的一般概述，请参阅FlashMap。
+ *
  * @author Rossen Stoyanchev
  * @since 3.1
  * @see FlashMap

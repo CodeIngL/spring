@@ -41,12 +41,12 @@ import org.springframework.util.ClassUtils;
  * or get customized through {@link TransactionAnnotationParser} strategies.
  *
  * <p>
- *     org.springframework.transaction.interceptor.TransactionAttributeSource½Ó¿ÚµÄÊµÏÖ£¬ÓÃÓÚ´¦ÀíJDK 1.5+×¢ÊÍ¸ñÊ½µÄÊÂÎñÔªÊı¾İ¡£
+ *     org.springframework.transaction.interceptor.TransactionAttributeSourceæ¥å£çš„å®ç°ï¼Œç”¨äºå¤„ç†JDK 1.5+æ³¨é‡Šæ ¼å¼çš„äº‹åŠ¡å…ƒæ•°æ®ã€‚
  * </p>
  * <p>
- *      ¸ÃÀà¶ÁÈ¡SpringµÄJDK 1.5+ TransactionalÅú×¢£¬²¢ÏòSpringµÄÊÂÎñ»ù´¡½á¹¹¹«¿ªÏàÓ¦µÄÊÂÎñÊôĞÔ¡£
- *      »¹Ö§³ÖJTA 1.2µÄjavax.transaction.TransactionalºÍEJB3µÄjavax.ejb.TransactionAttribute×¢ÊÍ£¨Èç¹û´æÔÚ£©¡£
- *      ´ËÀà»¹¿ÉÒÔ×÷Îª×Ô¶¨ÒåTransactionAttributeSourceµÄ»ùÀà£¬»òÍ¨¹ıTransactionAnnotationParser²ßÂÔ½øĞĞ×Ô¶¨Òå¡£
+ *      è¯¥ç±»è¯»å–Springçš„JDK 1.5+ Transactionalæ‰¹æ³¨ï¼Œå¹¶å‘Springçš„äº‹åŠ¡åŸºç¡€ç»“æ„å…¬å¼€ç›¸åº”çš„äº‹åŠ¡å±æ€§ã€‚
+ *      è¿˜æ”¯æŒJTA 1.2çš„javax.transaction.Transactionalå’ŒEJB3çš„javax.ejb.TransactionAttributeæ³¨é‡Šï¼ˆå¦‚æœå­˜åœ¨ï¼‰ã€‚
+ *      æ­¤ç±»è¿˜å¯ä»¥ä½œä¸ºè‡ªå®šä¹‰TransactionAttributeSourceçš„åŸºç±»ï¼Œæˆ–é€šè¿‡TransactionAnnotationParserç­–ç•¥è¿›è¡Œè‡ªå®šä¹‰ã€‚
  * </p>
  *
  * @author Colin Sampaleanu

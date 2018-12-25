@@ -26,7 +26,7 @@ import org.springframework.http.HttpMethod;
  * Requests are created by the {@link #createRequest(URI, HttpMethod)} method.
  *
  * <p>
- *     ClientHttpRequest¶ÔÏóµÄ¹¤³§¡£ RequestsÓÉcreateRequest(URI, HttpMethod)·½·¨´´½¨¡£
+ *     ClientHttpRequestå¯¹è±¡çš„å·¥å‚ã€‚ Requestsç”±createRequest(URI, HttpMethod)æ–¹æ³•åˆ›å»ºã€‚
  * </p>
  *
  * @author Arjen Poutsma
@@ -40,10 +40,10 @@ public interface ClientHttpRequestFactory {
 	 * {@link ClientHttpRequest#execute()}.
 	 *
 	 * <p>
-	 *     ÎªÖ¸¶¨µÄURIºÍHTTP·½·¨´´½¨ĞÂµÄClientHttpRequest¡£
+	 *     ä¸ºæŒ‡å®šçš„URIå’ŒHTTPæ–¹æ³•åˆ›å»ºæ–°çš„ClientHttpRequestã€‚
 	 * </p>
 	 * <p>
-	 *     	 ¿ÉÒÔĞ´Èë·µ»ØµÄÇëÇó£¬È»ºóÍ¨¹ıµ÷ÓÃClientHttpRequest.execute£¨£©À´Ö´ĞĞ¡£
+	 *     	 å¯ä»¥å†™å…¥è¿”å›çš„è¯·æ±‚ï¼Œç„¶åé€šè¿‡è°ƒç”¨ClientHttpRequest.executeï¼ˆï¼‰æ¥æ‰§è¡Œã€‚
 	 * </p>
 	 * @param uri the URI to create a request for
 	 * @param httpMethod the HTTP method to execute

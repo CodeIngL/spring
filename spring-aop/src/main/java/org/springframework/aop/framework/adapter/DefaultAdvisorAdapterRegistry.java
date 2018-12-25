@@ -55,19 +55,19 @@ public class DefaultAdvisorAdapterRegistry implements AdvisorAdapterRegistry, Se
 
 	@Override
 	public Advisor wrap(Object adviceObject) throws UnknownAdviceTypeException {
-		if (adviceObject instanceof Advisor) {  //ÊÇAdvisor Ö±½Ó·µ»Ø
+		if (adviceObject instanceof Advisor) {  //æ˜¯Advisor ç›´æ¥è¿”å›
 			return (Advisor) adviceObject;
 		}
-		if (!(adviceObject instanceof Advice)) { //²»ÊÇAdvice¾ÍÊÇ·Ç·¨µÄ
+		if (!(adviceObject instanceof Advice)) { //ä¸æ˜¯Adviceå°±æ˜¯éæ³•çš„
 			throw new UnknownAdviceTypeException(adviceObject);
 		}
 		Advice advice = (Advice) adviceObject;
-		if (advice instanceof MethodInterceptor) { //ÊÇ·½·¨½Ó¿Ú
-			// So well-known it doesn't even need an adapter. //ÖÚËùÖÜÖªËüÉõÖÁ²»ĞèÒªÊÊÅäÆ÷¡£
+		if (advice instanceof MethodInterceptor) { //æ˜¯æ–¹æ³•æ¥å£
+			// So well-known it doesn't even need an adapter. //ä¼—æ‰€å‘¨çŸ¥å®ƒç”šè‡³ä¸éœ€è¦é€‚é…å™¨ã€‚
 			return new DefaultPointcutAdvisor(advice);
 		}
 		for (AdvisorAdapter adapter : this.adapters) {
-			// Check that it is supported. //ÄÚ²¿µÄÊÊÅäÆ÷ÊÇ·ñÖ§³ÖËû
+			// Check that it is supported. //å†…éƒ¨çš„é€‚é…å™¨æ˜¯å¦æ”¯æŒä»–
 			if (adapter.supportsAdvice(advice)) {
 				return new DefaultPointcutAdvisor(advice);
 			}

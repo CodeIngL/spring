@@ -91,16 +91,19 @@ abstract class ConfigurationClassUtils {
 		if (beanDef instanceof AnnotatedBeanDefinition &&
 				className.equals(((AnnotatedBeanDefinition) beanDef).getMetadata().getClassName())) {
 			// Can reuse the pre-parsed metadata from the given BeanDefinition...
+			// 可以重用给定BeanDefinition的预解析元数据...
 			metadata = ((AnnotatedBeanDefinition) beanDef).getMetadata();
 		}
 		else if (beanDef instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) beanDef).hasBeanClass()) {
 			// Check already loaded Class if present...
 			// since we possibly can't even load the class file for this Class.
+			// 检查已加载的类（如果存在）...因为我们甚至无法加载此类的类文件。
 			Class<?> beanClass = ((AbstractBeanDefinition) beanDef).getBeanClass();
 			metadata = new StandardAnnotationMetadata(beanClass, true);
 		}
 		else {
 			try {
+				//根据类名加载信息，通常使用asm，这样就能不触发类的加载，我们不需要类的加载
 				MetadataReader metadataReader = metadataReaderFactory.getMetadataReader(className);
 				metadata = metadataReader.getAnnotationMetadata();
 			}
@@ -158,6 +161,7 @@ abstract class ConfigurationClassUtils {
 	 * configuration class, including cross-method call interception
 	 */
 	public static boolean isFullConfigurationCandidate(AnnotationMetadata metadata) {
+		//直接带有注解@Configuration
 		return metadata.isAnnotated(Configuration.class.getName());
 	}
 
@@ -175,11 +179,13 @@ abstract class ConfigurationClassUtils {
 	 */
 	public static boolean isLiteConfigurationCandidate(AnnotationMetadata metadata) {
 		// Do not consider an interface or an annotation...
+		// 不要考虑接口或注解......
 		if (metadata.isInterface()) {
 			return false;
 		}
 
 		// Any of the typical annotations found?
+		// 发现了任何典型的注解？
 		for (String indicator : candidateIndicators) {
 			if (metadata.isAnnotated(indicator)) {
 				return true;
@@ -187,6 +193,7 @@ abstract class ConfigurationClassUtils {
 		}
 
 		// Finally, let's look for @Bean methods...
+		// 最后，让我们来看看@Bean方法......
 		try {
 			return metadata.hasAnnotatedMethods(Bean.class.getName());
 		}

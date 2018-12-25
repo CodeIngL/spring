@@ -43,14 +43,14 @@ import org.springframework.util.Assert;
  * parent dependencies, not 'hard-coding' the role as a root bean definition.
  *
  * <p>
- *     RootBeanDefinition±íÊ¾ºÏ²¢µÄbean¶¨Òå£¬¸Ã¶¨ÒåÔÚÔËĞĞÊ±Ö§³ÖSpring BeanFactoryÖĞµÄÌØ¶¨bean¡£
- *     Ëü¿ÉÄÜÊÇ´Ó¶à¸öÔ­Ê¼bean¶¨Òå´´½¨µÄ£¬ÕâĞ©¶¨ÒåÏà»¥¼Ì³Ğ£¬Í¨³£×¢²áÎªGenericBeanDefinitions¡£
- *     RootBeanDefinition±¾ÖÊÉÏÊÇÔËĞĞÊ±µÄ¡°Í³Ò»¡±bean¶¨ÒåÊÓÍ¼¡£
+ *     RootBeanDefinitionè¡¨ç¤ºåˆå¹¶çš„beanå®šä¹‰ï¼Œè¯¥å®šä¹‰åœ¨è¿è¡Œæ—¶æ”¯æŒSpring BeanFactoryä¸­çš„ç‰¹å®šbeanã€‚
+ *     å®ƒå¯èƒ½æ˜¯ä»å¤šä¸ªåŸå§‹beanå®šä¹‰åˆ›å»ºçš„ï¼Œè¿™äº›å®šä¹‰ç›¸äº’ç»§æ‰¿ï¼Œé€šå¸¸æ³¨å†Œä¸ºGenericBeanDefinitionsã€‚
+ *     RootBeanDefinitionæœ¬è´¨ä¸Šæ˜¯è¿è¡Œæ—¶çš„â€œç»Ÿä¸€â€beanå®šä¹‰è§†å›¾ã€‚
  * </p>
  * <p>
- *     RootBeanDefinitionÒ²¿ÉÓÃÓÚÔÚÅäÖÃ½×¶Î×¢²áµ¥¸öbean¶¨Òå¡£
- *     µ«ÊÇ£¬´ÓSpring 2.5¿ªÊ¼£¬ÒÔ±à³Ì·½Ê½×¢²ábean¶¨ÒåµÄÊ×Ñ¡·½·¨ÊÇGenericBeanDefinitionÀà¡£
- *     GenericBeanDefinitionµÄÓÅµãÊÇËüÔÊĞí¶¯Ì¬¶¨Òå¸¸ÒÀÀµ¹ØÏµ£¬¶ø²»ÊÇ½«½ÇÉ«¡°Ó²±àÂë¡±ÎªRootBeanDefinition¡£
+ *     RootBeanDefinitionä¹Ÿå¯ç”¨äºåœ¨é…ç½®é˜¶æ®µæ³¨å†Œå•ä¸ªbeanå®šä¹‰ã€‚
+ *     ä½†æ˜¯ï¼Œä»Spring 2.5å¼€å§‹ï¼Œä»¥ç¼–ç¨‹æ–¹å¼æ³¨å†Œbeanå®šä¹‰çš„é¦–é€‰æ–¹æ³•æ˜¯GenericBeanDefinitionç±»ã€‚
+ *     GenericBeanDefinitionçš„ä¼˜ç‚¹æ˜¯å®ƒå…è®¸åŠ¨æ€å®šä¹‰çˆ¶ä¾èµ–å…³ç³»ï¼Œè€Œä¸æ˜¯å°†è§’è‰²â€œç¡¬ç¼–ç â€ä¸ºRootBeanDefinitionã€‚
  * </p>
  *
  * @author Rod Johnson
@@ -80,24 +80,30 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 	/** Common lock for the four constructor fields below */
 	final Object constructorArgumentLock = new Object();
 
+	// åŒ… - å¯è§å­—æ®µï¼Œç”¨äºç¼“å­˜å·²è§£æçš„æ„é€ å‡½æ•°æˆ–å·¥å‚æ–¹æ³•
 	/** Package-visible field for caching the resolved constructor or factory method */
 	Object resolvedConstructorOrFactoryMethod;
 
+    // åŒ… - å¯è§å­—æ®µï¼Œç”¨äºå°†æ„é€ å‡½æ•°å‚æ•°æ ‡è®°ä¸ºå·²è§£æ
 	/** Package-visible field that marks the constructor arguments as resolved */
 	boolean constructorArgumentsResolved = false;
 
+	// ç”¨äºç¼“å­˜å®Œå…¨è§£æçš„æ„é€ å‡½æ•°å‚æ•°çš„åŒ…å¯è§å­—æ®µ
 	/** Package-visible field for caching fully resolved constructor arguments */
 	Object[] resolvedConstructorArguments;
 
+	// ç”¨äºç¼“å­˜éƒ¨åˆ†å‡†å¤‡çš„æ„é€ å‡½æ•°å‚æ•°çš„åŒ…å¯è§å­—æ®µ
 	/** Package-visible field for caching partly prepared constructor arguments */
 	Object[] preparedConstructorArguments;
 
 	/** Common lock for the two post-processing fields below */
 	final Object postProcessingLock = new Object();
 
+	// åŒ… - å¯è§å­—æ®µï¼ŒæŒ‡ç¤ºå·²åº”ç”¨MergedBeanDefinitionPostProcessor
 	/** Package-visible field that indicates MergedBeanDefinitionPostProcessor having been applied */
 	boolean postProcessed = false;
 
+	//åŒ… - å¯è§å­—æ®µï¼ŒæŒ‡ç¤ºå·²ç»å¯åŠ¨çš„å®ä¾‹åŒ–åå¤„ç†å™¨
 	/** Package-visible field that indicates a before-instantiation post-processor having kicked in */
 	volatile Boolean beforeInstantiationResolved;
 

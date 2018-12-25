@@ -20,7 +20,7 @@ package org.springframework.transaction.config;
  * Configuration constants for internal sharing across subpackages.
  *
  * <p>
- *     ¿ç×Ó°ü½øĞĞÄÚ²¿¹²ÏíµÄÅäÖÃ³£Á¿¡£
+ *     è·¨å­åŒ…è¿›è¡Œå†…éƒ¨å…±äº«çš„é…ç½®å¸¸é‡ã€‚
  * </p>
  *
  * @author Chris Beams

@@ -23,6 +23,13 @@ package org.springframework.context.annotation;
  * section of the Spring reference documentation entitled '<em>Scoped beans as
  * dependencies</em>'.
  *
+ * <p>
+ *     枚举各种范围代理选项。
+ * </p>
+ * <p>
+ *     有关stroped代理的确切内容的更完整讨论，请参阅名为“Scoped beans as dependencies”的Spring参考文档部分。
+ * </p>
+ *
  * @author Mark Fisher
  * @since 2.5
  * @see ScopeMetadata

@@ -68,6 +68,19 @@ import org.springframework.util.ObjectUtils;
  * <p>Proxies created using this class are thread-safe if the underlying
  * (target) class is thread-safe.
  *
+ * <p>
+ *     基于CGLIB的Spring AOP框架的AopProxy实现。
+ * </p>
+ * <p>
+ *     此类对象应通过代理工厂获取，由AdvisedSupport对象配置。 该类是Spring的AOP框架的内部，不需要由客户端代码直接使用。
+ * </p>
+ * <p>
+ *     如有必要，DefaultAopProxyFactory将自动创建基于CGLIB的代理，例如在代理目标类的情况下（有关详细信息，请参阅服务员javadoc）。
+ * </p>
+ * <p>
+ *     如果底层（目标）类是线程安全的，则使用此类创建的代理是线程安全的。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -98,7 +111,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 	private static final Map<Class<?>, Boolean> validatedClasses = new WeakHashMap<Class<?>, Boolean>();
 
 
-	/** The configuration used to configure this proxy */
+	/** The configuration used to configure this proxy  用于配置此代理的配置 */
 	protected final AdvisedSupport advised;
 
 	protected Object[] constructorArgs;
@@ -177,9 +190,11 @@ class CglibAopProxy implements AopProxy, Serializable {
 			}
 
 			// Validate the class, writing log messages as necessary.
+            // 验证类，根据需要编写日志消息。
 			validateClassIfNecessary(proxySuperClass, classLoader);
 
 			// Configure CGLIB Enhancer...
+            // 配置CGLIB Enhancer ......
 			Enhancer enhancer = createEnhancer();
 			if (classLoader != null) {
 				enhancer.setClassLoader(classLoader);
@@ -199,6 +214,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 				types[x] = callbacks[x].getClass();
 			}
 			// fixedInterceptorMap only populated at this point, after getCallbacks call above
+            // 在上面调用getCallbacks之后，此时仅填充fixedInterceptorMap
 			enhancer.setCallbackFilter(new ProxyCallbackFilter(
 					this.advised.getConfigurationOnlyCopy(), this.fixedInterceptorMap, this.fixedInterceptorOffset));
 			enhancer.setCallbackTypes(types);

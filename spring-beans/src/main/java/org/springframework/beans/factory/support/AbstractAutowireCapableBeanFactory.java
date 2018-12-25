@@ -280,14 +280,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 	//-------------------------------------------------------------------------
 	// Typical methods for creating and populating external bean instances
-	// ÓÃÓÚ´´½¨ºÍÌî³äÍâ²¿beanÊµÀıµÄµäĞÍ·½·¨
+	// ç”¨äºåˆ›å»ºå’Œå¡«å……å¤–éƒ¨beanå®ä¾‹çš„å…¸å‹æ–¹æ³•
 	//-------------------------------------------------------------------------
 
 	@Override
 	@SuppressWarnings("unchecked")
 	public <T> T createBean(Class<T> beanClass) throws BeansException {
 		// Use prototype bean definition, to avoid registering bean as dependent bean.
-		// Ê¹ÓÃprototype BeanDefinition£¬ÒÔ±ÜÃâ½«bean×¢²áÎªÒÀÀµbean¡£
+		// ä½¿ç”¨prototype BeanDefinitionï¼Œä»¥é¿å…å°†beanæ³¨å†Œä¸ºä¾èµ–beanã€‚
 		RootBeanDefinition bd = new RootBeanDefinition(beanClass);
 		bd.setScope(SCOPE_PROTOTYPE);
 		bd.allowCaching = ClassUtils.isCacheSafe(beanClass, getBeanClassLoader());
@@ -444,7 +444,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Central method of this class: creates a bean instance,
 	 * populates the bean instance, applies post-processors, etc.
 	 * <p>
-	 *     ¸ÃÀàµÄºËĞÄ·½·¨£º´´½¨beanÊµÀı£¬Ìî³äbeanÊµÀı£¬Ó¦ÓÃºó´¦ÀíÆ÷µÈ¡£
+	 *     è¯¥ç±»çš„æ ¸å¿ƒæ–¹æ³•ï¼šåˆ›å»ºbeanå®ä¾‹ï¼Œå¡«å……beanå®ä¾‹ï¼Œåº”ç”¨åå¤„ç†å™¨ç­‰ã€‚
 	 * </p>
 	 * @see #doCreateBean
 	 */
@@ -458,7 +458,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Make sure bean class is actually resolved at this point, and
 		// clone the bean definition in case of a dynamically resolved Class
 		// which cannot be stored in the shared merged bean definition.
-		// È·±£´ËÊ±Êµ¼Ê½âÎöÁËbeanÀà£¬²¢ÔÚ¶¯Ì¬½âÎöµÄClassµÄÇé¿öÏÂ¿ËÂ¡bean¶¨Òå£¬¸ÃÀàÎŞ·¨´æ´¢ÔÚ¹²ÏíµÄºÏ²¢bean¶¨ÒåÖĞ¡£
+		// ç¡®ä¿æ­¤æ—¶å®é™…è§£æäº†beanç±»ï¼Œå¹¶åœ¨åŠ¨æ€è§£æçš„Classçš„æƒ…å†µä¸‹å…‹éš†beanå®šä¹‰ï¼Œè¯¥ç±»æ— æ³•å­˜å‚¨åœ¨å…±äº«çš„åˆå¹¶beanå®šä¹‰ä¸­ã€‚
 		Class<?> resolvedClass = resolveBeanClass(mbd, beanName);
 		if (resolvedClass != null && !mbd.hasBeanClass() && mbd.getBeanClassName() != null) {
 			mbdToUse = new RootBeanDefinition(mbd);
@@ -466,7 +466,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		// Prepare method overrides.
-		// ×¼±¸·½·¨¸²¸Ç¡£
+		// å‡†å¤‡é‡è½½æ–¹æ³•è¦†ç›–ï¼Œæœ‰beandefineå®šä¹‰ã€‚
 		try {
 			mbdToUse.prepareMethodOverrides();
 		}
@@ -477,7 +477,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		try {
 			// Give BeanPostProcessors a chance to return a proxy instead of the target bean instance.
-			// ÎªBeanPostProcessorsÌá¹©·µ»Ø´úÀí¶ø²»ÊÇÄ¿±êbeanÊµÀıµÄ»ú»á¡£
+			// ä¸ºBeanPostProcessorsæä¾›è¿”å›ä»£ç†è€Œä¸æ˜¯ç›®æ ‡beanå®ä¾‹çš„æœºä¼šã€‚
 			Object bean = resolveBeforeInstantiation(beanName, mbdToUse);
 			if (bean != null) {
 				return bean;
@@ -500,6 +500,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * at this point, e.g. checking {@code postProcessBeforeInstantiation} callbacks.
 	 * <p>Differentiates between default bean instantiation, use of a
 	 * factory method, and autowiring a constructor.
+     *
+     * <p>
+     *      å®é™…ä¸Šåˆ›å»ºæŒ‡å®šçš„beanã€‚ æ­¤æ—¶å·²ç»å‘ç”Ÿäº†é¢„åˆ›å»ºå¤„ç†ï¼Œä¾‹å¦‚ æ£€æŸ¥postProcessBeforeInstantiationå›è°ƒã€‚
+     * </p>
+     * <p>
+     *      åŒºåˆ†é»˜è®¤beanå®ä¾‹åŒ–ï¼Œä½¿ç”¨å·¥å‚æ–¹æ³•å’Œè‡ªåŠ¨è£…é…æ„é€ å‡½æ•°ã€‚
+     * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the merged bean definition for the bean
 	 * @param args explicit arguments to use for constructor or factory method invocation
@@ -525,7 +532,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		mbd.resolvedTargetType = beanType;
 
 		// Allow post-processors to modify the merged bean definition.
-		// ÔÊĞíºó´¦ÀíÆ÷ĞŞ¸ÄºÏ²¢µÄbean¶¨Òå¡£
+		// å…è®¸åå¤„ç†å™¨ä¿®æ”¹åˆå¹¶çš„beanå®šä¹‰ã€‚
 		synchronized (mbd.postProcessingLock) {
 			if (!mbd.postProcessed) {
 				try {
@@ -541,6 +548,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Eagerly cache singletons to be able to resolve circular references
 		// even when triggered by lifecycle interfaces like BeanFactoryAware.
+        // å³ä½¿åœ¨åƒBeanFactoryAwareè¿™æ ·çš„ç”Ÿå‘½å‘¨æœŸæ¥å£è§¦å‘æ—¶ï¼Œä¹Ÿæ€¥åˆ‡åœ°ç¼“å­˜å•ä¾‹ä»¥ä¾¿èƒ½å¤Ÿè§£æå¾ªç¯å¼•ç”¨ã€‚
 		boolean earlySingletonExposure = (mbd.isSingleton() && this.allowCircularReferences &&
 				isSingletonCurrentlyInCreation(beanName));
 		if (earlySingletonExposure) {
@@ -619,7 +627,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Apply SmartInstantiationAwareBeanPostProcessors to predict the
 		// eventual type after a before-instantiation shortcut.
-		// Ó¦ÓÃSmartInstantiationAwareBeanPostProcessorsÀ´Ô¤²âÊµÀı»¯Ç°¿ì½İ·½Ê½Ö®ºóµÄ×îÖÕÀàĞÍ¡£
+		// åº”ç”¨SmartInstantiationAwareBeanPostProcessorsæ¥é¢„æµ‹å®ä¾‹åŒ–å‰å¿«æ·æ–¹å¼ä¹‹åçš„æœ€ç»ˆç±»å‹ã€‚
 		if (targetType != null && !mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 			for (BeanPostProcessor bp : getBeanPostProcessors()) {
 				if (bp instanceof SmartInstantiationAwareBeanPostProcessor) {
@@ -663,6 +671,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * <p>This implementation determines the type matching {@link #createBean}'s
 	 * different creation strategies. As far as possible, we'll perform static
 	 * type checking to avoid creation of the target bean.
+	 *
+	 * <p>
+	 *     ç¡®å®šç»™å®šbeanå®šä¹‰çš„ç›®æ ‡ç±»å‹ï¼Œè¯¥å®šä¹‰åŸºäºå·¥å‚æ–¹æ³•ã€‚ ä»…åœ¨æ²¡æœ‰ä¸ºç›®æ ‡beanæ³¨å†Œå•ä¾‹å®ä¾‹æ—¶æ‰è°ƒç”¨ã€‚
+	 * </p>
+	 * <p>
+	 *     æ­¤å®ç°ç¡®å®šåŒ¹é…createBeançš„ä¸åŒåˆ›å»ºç­–ç•¥çš„ç±»å‹ã€‚ æˆ‘ä»¬å°†å°½å¯èƒ½æ‰§è¡Œé™æ€ç±»å‹æ£€æŸ¥ä»¥é¿å…åˆ›å»ºç›®æ ‡beanã€‚
+	 * </p>
 	 * @param beanName the name of the bean (for error handling purposes)
 	 * @param mbd the merged bean definition for the bean
 	 * @param typesToMatch the types to match in case of internal type matching purposes
@@ -878,6 +893,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Obtain a reference for early access to the specified bean,
 	 * typically for the purpose of resolving a circular reference.
+	 * <p>
+	 *     è·å–æ—©æœŸè®¿é—®æŒ‡å®šbeançš„å¼•ç”¨ï¼Œé€šå¸¸ç”¨äºè§£æå¾ªç¯å¼•ç”¨ã€‚
+	 * </p>
 	 * @param beanName the name of the bean (for error handling purposes)
 	 * @param mbd the merged bean definition for the bean
 	 * @param bean the raw bean instance
@@ -990,6 +1008,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Apply MergedBeanDefinitionPostProcessors to the specified bean definition,
 	 * invoking their {@code postProcessMergedBeanDefinition} methods.
+     * <p>
+     *     å°†MergedBeanDefinitionPostProcessorsåº”ç”¨äºæŒ‡å®šçš„beanå®šä¹‰ï¼Œ
+     *     è°ƒç”¨å…¶postProcessMergedBeanDefinitionæ–¹æ³•
+     * </p>
 	 * @param mbd the merged bean definition for the bean
 	 * @param beanType the actual type of the managed bean instance
 	 * @param beanName the name of the bean
@@ -1008,7 +1030,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Apply before-instantiation post-processors, resolving whether there is a
 	 * before-instantiation shortcut for the specified bean.
 	 * <p>
-	 *     ÔÚÊµÀı»¯Ö®Ç°Ó¦ÓÃºó´¦ÀíÆ÷£¬½â¾öÊÇ·ñ´æÔÚÖ¸¶¨beanµÄÊµÀı»¯Ç°¿ì½İ·½Ê½¡£
+	 *     åœ¨å®ä¾‹åŒ–ä¹‹å‰åº”ç”¨åå¤„ç†å™¨ï¼Œè§£å†³æ˜¯å¦å­˜åœ¨æŒ‡å®šbeançš„å®ä¾‹åŒ–å‰å¿«æ·æ–¹å¼ã€‚
 	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the bean definition for the bean
@@ -1016,18 +1038,18 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	protected Object resolveBeforeInstantiation(String beanName, RootBeanDefinition mbd) {
 		Object bean = null;
-		//±ê¼ÇÉèÖÃ
+		//æ ‡è®°è®¾ç½®
 		if (!Boolean.FALSE.equals(mbd.beforeInstantiationResolved)) {
 			// Make sure bean class is actually resolved at this point.
-			// È·±£´ËÊ±Êµ¼Ê½âÎöÁËbeanÀà¡£
+			// ç¡®ä¿æ­¤æ—¶å®é™…è§£æäº†beanç±»ã€‚
 			if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
 				Class<?> targetType = determineTargetType(beanName, mbd);
 				if (targetType != null) {
-					//Ó¦ÓÃÊµÀı»¯³õÊ¼Ö®Ç°´¦Àí
-					//Çø±ğÓÚapplyBeanPostProcessorsBeforeInitialization
+					//åº”ç”¨å®ä¾‹åŒ–åˆå§‹ä¹‹å‰å¤„ç†
+					//åŒºåˆ«äºapplyBeanPostProcessorsBeforeInitialization
 					bean = applyBeanPostProcessorsBeforeInstantiation(targetType, beanName);
 					if (bean != null) {
-						//Ó¦ÓÃÊµÀı»¯Ö®ºó´¦Àí
+						//åº”ç”¨å®ä¾‹åŒ–ä¹‹åå¤„ç†
 						bean = applyBeanPostProcessorsAfterInitialization(bean, beanName);
 					}
 				}
@@ -1064,6 +1086,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Create a new instance for the specified bean, using an appropriate instantiation strategy:
 	 * factory method, constructor autowiring, or simple instantiation.
+     * <p>
+     *     ä½¿ç”¨é€‚å½“çš„å®ä¾‹åŒ–ç­–ç•¥ä¸ºæŒ‡å®šçš„beanåˆ›å»ºæ–°å®ä¾‹ï¼š
+     *     å·¥å‚æ–¹æ³•ï¼Œ
+     *     æ„é€ å‡½æ•°è‡ªåŠ¨è£…é…
+     *     æˆ–
+     *     ç®€å•å®ä¾‹åŒ–ã€‚
+     * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the bean definition for the bean
 	 * @param args explicit arguments to use for constructor or factory method invocation
@@ -1215,7 +1244,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Populate the bean instance in the given BeanWrapper with the property values
 	 * from the bean definition.
 	 * <p>
-	 *     Ê¹ÓÃbean¶¨ÒåÖĞµÄÊôĞÔÖµÌî³ä¸ø¶¨BeanWrapperÖĞµÄbeanÊµÀı¡£
+	 *     ä½¿ç”¨beanå®šä¹‰ä¸­çš„å±æ€§å€¼å¡«å……ç»™å®šBeanWrapperä¸­çš„beanå®ä¾‹ã€‚
 	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the bean definition for the bean
@@ -1238,7 +1267,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Give any InstantiationAwareBeanPostProcessors the opportunity to modify the
 		// state of the bean before properties are set. This can be used, for example,
 		// to support styles of field injection.
-		// ÎªÈÎºÎInstantiationAwareBeanPostProcessorsÌá¹©ÔÚÉèÖÃÊôĞÔÖ®Ç°ĞŞ¸Äbean×´Ì¬µÄ»ú»á¡£ ÀıÈç£¬Õâ¿ÉÒÔÓÃÓÚÖ§³Ö×Ö¶Î×¢ÈëµÄ·ç¸ñ¡£
+		// ä¸ºä»»ä½•InstantiationAwareBeanPostProcessorsæä¾›åœ¨è®¾ç½®å±æ€§ä¹‹å‰ä¿®æ”¹beançŠ¶æ€çš„æœºä¼šã€‚ ä¾‹å¦‚ï¼Œè¿™å¯ä»¥ç”¨äºæ”¯æŒå­—æ®µæ³¨å…¥çš„é£æ ¼ã€‚
 		boolean continueWithPropertyPopulation = true;
 
 		if (!mbd.isSynthetic() && hasInstantiationAwareBeanPostProcessors()) {
@@ -1639,7 +1668,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		Object wrappedBean = bean;
 		if (mbd == null || !mbd.isSynthetic()) {
-			//Ó¦ÓÃÊµÀı»¯Ö®Ç°ºóÖÃ´¦ÀíÆ÷
+			//åº”ç”¨å®ä¾‹åŒ–ä¹‹å‰åç½®å¤„ç†å™¨
 			wrappedBean = applyBeanPostProcessorsBeforeInitialization(wrappedBean, beanName);
 		}
 
@@ -1653,7 +1682,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		}
 
 		if (mbd == null || !mbd.isSynthetic()) {
-			//Ó¦ÓÃÊµÀı»¯Ö®ºóºóÖÃ´¦ÀíÆ÷
+			//åº”ç”¨å®ä¾‹åŒ–ä¹‹ååç½®å¤„ç†å™¨
 			wrappedBean = applyBeanPostProcessorsAfterInitialization(wrappedBean, beanName);
 		}
 		return wrappedBean;

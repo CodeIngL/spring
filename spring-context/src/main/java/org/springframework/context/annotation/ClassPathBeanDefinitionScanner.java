@@ -291,7 +291,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
      * but rather leaves this up to the caller.
      * <p>
      * <p>
-     * 在指定的基础包中执行扫描，返回注册的bean定义。此方法不注册annotation config processor，而是将其留给调用者。
+     *  在指定的基础包中执行扫描，返回注册的bean定义。此方法不注册annotation config processor，而是将其留给调用者。
      * </p>
      *
      * @param basePackages the packages to check for annotated classes
@@ -301,22 +301,30 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
         Assert.notEmpty(basePackages, "At least one base package must be specified");
         Set<BeanDefinitionHolder> beanDefinitions = new LinkedHashSet<BeanDefinitionHolder>();
         for (String basePackage : basePackages) {
+            //解析找到相关的bean
             Set<BeanDefinition> candidates = findCandidateComponents(basePackage);
             for (BeanDefinition candidate : candidates) {
+                //bean的范围作用域，单例还是其他
                 ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(candidate);
                 candidate.setScope(scopeMetadata.getScopeName());
+                //bean的名字
                 String beanName = this.beanNameGenerator.generateBeanName(candidate, this.registry);
+                //根据bean的类型进行不同的处理，
+                //1. 先处理
                 if (candidate instanceof AbstractBeanDefinition) {
                     postProcessBeanDefinition((AbstractBeanDefinition) candidate, beanName);
                 }
+                //2. 继续处理
                 if (candidate instanceof AnnotatedBeanDefinition) {
                     AnnotationConfigUtils.processCommonDefinitionAnnotations((AnnotatedBeanDefinition) candidate);
                 }
+                //检查这些后续的bean
                 if (checkCandidate(beanName, candidate)) {
                     BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(candidate, beanName);
                     definitionHolder =
                             AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
                     beanDefinitions.add(definitionHolder);
+                    //注册bean
                     registerBeanDefinition(definitionHolder, this.registry);
                 }
             }
@@ -354,6 +362,9 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
     /**
      * Check the given candidate's bean name, determining whether the corresponding
      * bean definition needs to be registered or conflicts with an existing definition.
+     * <p>
+     *     检查给定候选者的bean名称，确定是否需要注册相应的bean定义或与现有定义冲突。
+     * </p>
      *
      * @param beanName       the suggested name for the bean
      * @param beanDefinition the corresponding bean definition
@@ -367,12 +378,13 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
         if (!this.registry.containsBeanDefinition(beanName)) {
             return true;
         }
+        //已经存在的bean
         BeanDefinition existingDef = this.registry.getBeanDefinition(beanName);
         BeanDefinition originatingDef = existingDef.getOriginatingBeanDefinition();
         if (originatingDef != null) {
             existingDef = originatingDef;
         }
-        if (isCompatible(beanDefinition, existingDef)) {
+        if (isCompatible(beanDefinition, existingDef)) {//检查两者的兼容性。
             return false;
         }
         throw new ConflictingBeanDefinitionException("Annotation-specified bean name '" + beanName +
@@ -386,6 +398,11 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
      * <p>The default implementation considers them as compatible when the existing
      * bean definition comes from the same source or from a non-scanning source.
      *
+     * <p>
+     *     确定给定的新bean定义是否与给定的现有bean定义兼容。
+     *     当现有bean定义来自同一源或来自非扫描源时，默认实现将它们视为兼容。
+     * </p>
+     *
      * @param newDefinition      the new bean definition, originated from scanning
      * @param existingDefinition the existing bean definition, potentially an
      *                           explicitly defined one or a previously generated one from scanning
@@ -393,7 +410,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
      * new definition to be skipped in favor of the existing definition
      */
     protected boolean isCompatible(BeanDefinition newDefinition, BeanDefinition existingDefinition) {
-        return (!(existingDefinition instanceof ScannedGenericBeanDefinition) ||  // explicitly registered overriding bean
+        return (!(existingDefinition instanceof ScannedGenericBeanDefinition) ||  // explicitly registered overriding bean 显式注册覆盖bean
                 newDefinition.getSource().equals(existingDefinition.getSource()) ||  // scanned same file twice
                 newDefinition.equals(existingDefinition));  // scanned equivalent class twice
     }

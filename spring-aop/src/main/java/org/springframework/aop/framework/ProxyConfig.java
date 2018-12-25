@@ -55,6 +55,17 @@ public class ProxyConfig implements Serializable {
 	 * <p>Note: Depending on the configuration of the concrete proxy factory,
 	 * the proxy-target-class behavior will also be applied if no interfaces
 	 * have been specified (and no interface autodetection is activated).
+	 * <p>
+	 *     设置是否直接代理目标类，而不是仅代理特定的接口。 默认为“false”。
+	 * </p>
+	 * <p>
+	 *     将其设置为“true”以强制代理TargetSource的公开目标类。
+	 *     如果该目标类是接口，则将为给定接口创建JDK代理。
+	 *     如果该目标类是任何其他类，则将为给定类创建CGLIB代理。
+	 * </p>
+	 * <p>
+	 *     注意：根据具体代理工厂的配置，如果未指定任何接口，则也将应用proxy-target-class行为（并且未激活任何接口自动检测）
+	 * </p>
 	 * @see org.springframework.aop.TargetSource#getTargetClass()
 	 */
 	public void setProxyTargetClass(boolean proxyTargetClass) {

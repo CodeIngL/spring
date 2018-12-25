@@ -33,6 +33,10 @@ import org.springframework.util.Assert;
  * Helper for retrieving @AspectJ beans from a BeanFactory and building
  * Spring Advisors based on them, for use with auto-proxying.
  *
+ * <p>
+ *     Helper用于从BeanFactory检索@AspectJ bean并基于它们构建Spring Advisors，用于自动代理。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.0.2
  * @see AnnotationAwareAspectJAutoProxyCreator
@@ -76,6 +80,13 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 	 * Look for AspectJ-annotated aspect beans in the current bean factory,
 	 * and return to a list of Spring AOP Advisors representing them.
 	 * <p>Creates a Spring Advisor for each AspectJ advice method.
+	 *
+	 * <p>
+	 *     在当前bean工厂中查找AspectJ注解的切面bean，并返回表示它们的Spring AOP Advisors列表。
+	 * </p>
+	 * <p>
+	 *     为每个AspectJ建议方法创建一个Spring Advisor。
+	 * </p>
 	 * @return the list of {@link org.springframework.aop.Advisor} beans
 	 * @see #isEligibleBean
 	 */
@@ -96,6 +107,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 						}
 						// We must be careful not to instantiate beans eagerly as in this case they
 						// would be cached by the Spring container but would not have been weaved.
+						// 我们必须小心不要急切地实例化bean，因为在这种情况下，它们将被Spring容器缓存但不会被织入。
 						Class<?> beanType = this.beanFactory.getType(beanName);
 						if (beanType == null) {
 							continue;
@@ -153,6 +165,9 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 
 	/**
 	 * Return whether the aspect bean with the given name is eligible.
+	 * <p>
+	 *     返回具有给定名称的方面bean是否符合条件。
+	 * </p>
 	 * @param beanName the name of the aspect bean
 	 * @return whether the bean is eligible
 	 */

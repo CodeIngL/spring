@@ -46,10 +46,10 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
  * &lt;/bean&gt;</pre>
  *
  * <p>
- *     TargetSourceCreatorÎªÃ¿¸ö¶¨ÒåÎª¡°lazy-init¡±µÄbeanÇ¿ÖÆÖ´ĞĞLazyInitTargetSource¡£ Õâ½«µ¼ÖÂÎªÃ¿¸öbean´´½¨Ò»¸ö´úÀí£¬ÔÊĞíÔÚ²»Êµ¼Ê³õÊ¼»¯Ä¿±êbeanÊµÀıµÄÇé¿öÏÂ»ñÈ¡¶ÔÕâÑùµÄbeanµÄÒıÓÃ¡£
+ *     TargetSourceCreatorä¸ºæ¯ä¸ªå®šä¹‰ä¸ºâ€œlazy-initâ€çš„beanå¼ºåˆ¶æ‰§è¡ŒLazyInitTargetSourceã€‚ è¿™å°†å¯¼è‡´ä¸ºæ¯ä¸ªbeanåˆ›å»ºä¸€ä¸ªä»£ç†ï¼Œå…è®¸åœ¨ä¸å®é™…åˆå§‹åŒ–ç›®æ ‡beanå®ä¾‹çš„æƒ…å†µä¸‹è·å–å¯¹è¿™æ ·çš„beançš„å¼•ç”¨ã€‚
  * </p>
  * <p>
- *     ÒªÎª×Ô¶¯´úÀí´´½¨Õß×¢²áÎª×Ô¶¨ÒåTargetSourceCreator£¬Çë½«ÆäÓëÌØ¶¨beanµÄ×Ô¶¨ÒåÀ¹½ØÆ÷Ò»Æğ×¢²á£¬»ò½öÓÃÓÚ´´½¨lazy-init´úÀí¡£ ÀıÈç£¬×÷ÎªXMLÓ¦ÓÃ³ÌĞòÉÏÏÂÎÄ¶¨ÒåÖĞµÄ×Ô¶¯¼ì²â»ù´¡½á¹¹bean£º
+ *     è¦ä¸ºè‡ªåŠ¨ä»£ç†åˆ›å»ºè€…æ³¨å†Œä¸ºè‡ªå®šä¹‰TargetSourceCreatorï¼Œè¯·å°†å…¶ä¸ç‰¹å®šbeançš„è‡ªå®šä¹‰æ‹¦æˆªå™¨ä¸€èµ·æ³¨å†Œï¼Œæˆ–ä»…ç”¨äºåˆ›å»ºlazy-initä»£ç†ã€‚ ä¾‹å¦‚ï¼Œä½œä¸ºXMLåº”ç”¨ç¨‹åºä¸Šä¸‹æ–‡å®šä¹‰ä¸­çš„è‡ªåŠ¨æ£€æµ‹åŸºç¡€ç»“æ„beanï¼š
  * </p>
  *
  * @author Juergen Hoeller

@@ -290,6 +290,13 @@ public class AnnotationConfigUtils {
 		}
 	}
 
+	/**
+	 * 应用相关的代理模式，如果被代理的类有着注解@Scope的话
+	 * @param metadata
+	 * @param definition
+	 * @param registry
+	 * @return
+	 */
 	static BeanDefinitionHolder applyScopedProxyMode(
 			ScopeMetadata metadata, BeanDefinitionHolder definition, BeanDefinitionRegistry registry) {
 

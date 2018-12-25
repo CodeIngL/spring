@@ -79,19 +79,19 @@ import org.springframework.util.StringUtils;
  * or if none matches, a {@link org.springframework.aop.target.SingletonTargetSource}
  * will be used by default to wrap the target bean instance.
  *
- * <p>org.springframework.beans.factory.config.BeanPostProcessorÊµÏÖ£¬ËüÊ¹ÓÃAOP´úÀí°ü×°Ã¿¸ö·ûºÏÌõ¼şµÄbean£¬ÔÚµ÷ÓÃbean±¾ÉíÖ®Ç°Î¯ÍĞ¸øÖ¸¶¨µÄÀ¹½ØÆ÷¡£
- * <p> ´ËÀàÇø·Ö¡°common¡±À¹½ØÆ÷£ºÎªÆä´´½¨µÄËùÓĞ´úÀí¹²Ïí£¬ÒÔ¼°¡°specific¡±À¹½ØÆ÷£ºÃ¿¸öbeanÊµÀıÎ¨Ò»¡£²»ĞèÒªÈÎºÎcommonµÄÀ¹½ØÆ÷¡£
- * Èç¹ûÓĞ£¬ÔòÊ¹ÓÃinterceptorNamesÊôĞÔÉèÖÃËüÃÇ¡£
- * Óëorg.springframework.aop.framework.ProxyFactoryBeanÒ»Ñù£¬Ê¹ÓÃµ±Ç°¹¤³§ÖĞµÄÀ¹½ØÆ÷Ãû³Æ¶ø²»ÊÇbeanÒıÓÃÀ´ÔÊĞíÕıÈ·´¦ÀíÔ­ĞÍ¹ËÎÊ³ÌĞòºÍÀ¹½ØÆ÷£ºÀıÈç£¬Ö§³ÖÓĞ×´Ì¬µÄmixin¡£
- * ¡°interceptorNames¡±ÊôĞÔÖ§³ÖÈÎºÎ½¨ÒéÀàĞÍ¡£ </p>
- * <p> Èç¹û´æÔÚ´óÁ¿ĞèÒªÓÃÀàËÆ´úÀí°ü×°µÄbean£¬¼´Î¯ÍĞ¸øÏàÍ¬µÄÀ¹½ØÆ÷£¬ÔòÕâÖÖ×Ô¶¯´úÀíÌØ±ğÓĞÓÃ¡£
- * ¶ø²»ÊÇxÄ¿±êbeanµÄxÖØ¸´´úÀí¶¨Òå£¬Äú¿ÉÒÔÊ¹ÓÃbean¹¤³§×¢²áÒ»¸öÕâÑùµÄºó´¦ÀíÆ÷ÒÔÊµÏÖÏàÍ¬µÄĞ§¹û¡£ </p>
- * <p> ×ÓÀà¿ÉÒÔÓ¦ÓÃÈÎºÎ²ßÂÔÀ´¾ö¶¨ÊÇ·ñÒª´úÀíbean£¬ÀıÈç°´ÀàĞÍ£¬°´Ãû³Æ£¬°´¶¨ÒåÏ¸½ÚµÈ¡£
- * ËüÃÇ»¹¿ÉÒÔ·µ»ØÓ¦¸ÃÖ»Ó¦ÓÃÓÚÌØ¶¨beanÊµÀıµÄÆäËûÀ¹½ØÆ÷¡£
- * Ò»¸ö¼òµ¥µÄ¾ßÌåÊµÏÖÊÇBeanNameAutoProxyCreator£¬Í¨¹ı¸ø¶¨µÄÃû³Æ±êÊ¶Òª´úÀíµÄbean¡£ </p>
+ * <p>org.springframework.beans.factory.config.BeanPostProcessorå®ç°ï¼Œå®ƒä½¿ç”¨AOPä»£ç†åŒ…è£…æ¯ä¸ªç¬¦åˆæ¡ä»¶çš„beanï¼Œåœ¨è°ƒç”¨beanæœ¬èº«ä¹‹å‰å§”æ‰˜ç»™æŒ‡å®šçš„æ‹¦æˆªå™¨ã€‚
+ * <p> æ­¤ç±»åŒºåˆ†â€œcommonâ€æ‹¦æˆªå™¨ï¼šä¸ºå…¶åˆ›å»ºçš„æ‰€æœ‰ä»£ç†å…±äº«ï¼Œä»¥åŠâ€œspecificâ€æ‹¦æˆªå™¨ï¼šæ¯ä¸ªbeanå®ä¾‹å”¯ä¸€ã€‚ä¸éœ€è¦ä»»ä½•commonçš„æ‹¦æˆªå™¨ã€‚
+ * å¦‚æœæœ‰ï¼Œåˆ™ä½¿ç”¨interceptorNameså±æ€§è®¾ç½®å®ƒä»¬ã€‚
+ * ä¸org.springframework.aop.framework.ProxyFactoryBeanä¸€æ ·ï¼Œä½¿ç”¨å½“å‰å·¥å‚ä¸­çš„æ‹¦æˆªå™¨åç§°è€Œä¸æ˜¯beanå¼•ç”¨æ¥å…è®¸æ­£ç¡®å¤„ç†åŸå‹é¡¾é—®ç¨‹åºå’Œæ‹¦æˆªå™¨ï¼šä¾‹å¦‚ï¼Œæ”¯æŒæœ‰çŠ¶æ€çš„mixinã€‚
+ * â€œinterceptorNamesâ€å±æ€§æ”¯æŒä»»ä½•å»ºè®®ç±»å‹ã€‚ </p>
+ * <p> å¦‚æœå­˜åœ¨å¤§é‡éœ€è¦ç”¨ç±»ä¼¼ä»£ç†åŒ…è£…çš„beanï¼Œå³å§”æ‰˜ç»™ç›¸åŒçš„æ‹¦æˆªå™¨ï¼Œåˆ™è¿™ç§è‡ªåŠ¨ä»£ç†ç‰¹åˆ«æœ‰ç”¨ã€‚
+ * è€Œä¸æ˜¯xç›®æ ‡beançš„xé‡å¤ä»£ç†å®šä¹‰ï¼Œæ‚¨å¯ä»¥ä½¿ç”¨beanå·¥å‚æ³¨å†Œä¸€ä¸ªè¿™æ ·çš„åå¤„ç†å™¨ä»¥å®ç°ç›¸åŒçš„æ•ˆæœã€‚ </p>
+ * <p> å­ç±»å¯ä»¥åº”ç”¨ä»»ä½•ç­–ç•¥æ¥å†³å®šæ˜¯å¦è¦ä»£ç†beanï¼Œä¾‹å¦‚æŒ‰ç±»å‹ï¼ŒæŒ‰åç§°ï¼ŒæŒ‰å®šä¹‰ç»†èŠ‚ç­‰ã€‚
+ * å®ƒä»¬è¿˜å¯ä»¥è¿”å›åº”è¯¥åªåº”ç”¨äºç‰¹å®šbeanå®ä¾‹çš„å…¶ä»–æ‹¦æˆªå™¨ã€‚
+ * ä¸€ä¸ªç®€å•çš„å…·ä½“å®ç°æ˜¯BeanNameAutoProxyCreatorï¼Œé€šè¿‡ç»™å®šçš„åç§°æ ‡è¯†è¦ä»£ç†çš„beanã€‚ </p>
  *
- * <p> ¿ÉÒÔÊ¹ÓÃÈÎÒâÊıÁ¿µÄTargetSourceCreatorÊµÏÖÀ´´´½¨×Ô¶¨ÒåÄ¿±êÔ´£ºÀıÈç£¬³Ø»¯Ô­ĞÍ¶ÔÏó¡£Ö»ÒªTargetSourceCreatorÖ¸¶¨×Ô¶¨ÒåTargetSource£¬¼´Ê¹Ã»ÓĞ½¨Òé£¬Ò²»á·¢Éú×Ô¶¯´úÀí¡£
- * Èç¹ûÃ»ÓĞÉèÖÃTargetSourceCreators£¬»òÕßÈç¹ûÃ»ÓĞÆ¥Åä£¬ÔòÄ¬ÈÏÇé¿öÏÂ½«Ê¹ÓÃSingletonTargetSourceÀ´°ü×°Ä¿±êbeanÊµÀı¡£</p> </p>
+ * <p> å¯ä»¥ä½¿ç”¨ä»»æ„æ•°é‡çš„TargetSourceCreatorå®ç°æ¥åˆ›å»ºè‡ªå®šä¹‰ç›®æ ‡æºï¼šä¾‹å¦‚ï¼Œæ± åŒ–åŸå‹å¯¹è±¡ã€‚åªè¦TargetSourceCreatoræŒ‡å®šè‡ªå®šä¹‰TargetSourceï¼Œå³ä½¿æ²¡æœ‰å»ºè®®ï¼Œä¹Ÿä¼šå‘ç”Ÿè‡ªåŠ¨ä»£ç†ã€‚
+ * å¦‚æœæ²¡æœ‰è®¾ç½®TargetSourceCreatorsï¼Œæˆ–è€…å¦‚æœæ²¡æœ‰åŒ¹é…ï¼Œåˆ™é»˜è®¤æƒ…å†µä¸‹å°†ä½¿ç”¨SingletonTargetSourceæ¥åŒ…è£…ç›®æ ‡beanå®ä¾‹ã€‚</p> </p>
  *
  * @author Juergen Hoeller
  * @author Rod Johnson
@@ -109,7 +109,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	/**
 	 * Convenience constant for subclasses: Return value for "do not proxy".
 	 * <p>
-	 *     ×ÓÀàµÄ±ã½İ³£Á¿£º¡°²»´úÀí¡±µÄ·µ»ØÖµ¡£
+	 *     å­ç±»çš„ä¾¿æ·å¸¸é‡ï¼šâ€œä¸ä»£ç†â€çš„è¿”å›å€¼ã€‚
 	 * </p>
 	 * @see #getAdvicesAndAdvisorsForBean
 	 */
@@ -119,7 +119,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * Convenience constant for subclasses: Return value for
 	 * "proxy without additional interceptors, just the common ones".
 	 * <p>
-	 *     ×ÓÀàµÄ±ã½İ³£Á¿£º¡°Ã»ÓĞ¶îÍâÀ¹½ØÆ÷µÄ´úÀí£¬Ö»ÊÇcommonµÄÀ¹½ØÆ÷¡±µÄ·µ»ØÖµ¡£
+	 *     å­ç±»çš„ä¾¿æ·å¸¸é‡ï¼šâ€œæ²¡æœ‰é¢å¤–æ‹¦æˆªå™¨çš„ä»£ç†ï¼Œåªæ˜¯commonçš„æ‹¦æˆªå™¨â€çš„è¿”å›å€¼ã€‚
 	 * </p>
 	 * @see #getAdvicesAndAdvisorsForBean
 	 */
@@ -130,20 +130,20 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	protected final Log logger = LogFactory.getLog(getClass());
 
 	/** Default is global AdvisorAdapterRegistry */
-	/*Ä¬ÈÏÎªÈ«¾ÖAdvisorAdapterRegistry*/
+	/*é»˜è®¤ä¸ºå…¨å±€AdvisorAdapterRegistry*/
 	private AdvisorAdapterRegistry advisorAdapterRegistry = GlobalAdvisorAdapterRegistry.getInstance();
 
 	/**
 	 * Indicates whether or not the proxy should be frozen. Overridden from super
 	 * to prevent the configuration from becoming frozen too early.
 	 * <p>
-	 *     Ö¸Ê¾ÊÇ·ñÓ¦¶³½á´úÀí¡£ ´Ósupper¸²¸ÇÒÔ·ÀÖ¹ÅäÖÃ¹ıÔç¶³½á¡£
+	 *     æŒ‡ç¤ºæ˜¯å¦åº”å†»ç»“ä»£ç†ã€‚ ä»supperè¦†ç›–ä»¥é˜²æ­¢é…ç½®è¿‡æ—©å†»ç»“ã€‚
 	 * </p>
 	 */
 	private boolean freezeProxy = false;
 
 	/** Default is no common interceptors */
-	/*Ä¬ÈÏÊÇÃ»ÓĞ³£¼ûµÄÀ¹½ØÆ÷*/
+	/*é»˜è®¤æ˜¯æ²¡æœ‰å¸¸è§çš„æ‹¦æˆªå™¨*/
 	private String[] interceptorNames = new String[0];
 
 	private boolean applyCommonInterceptorsFirst = true;
@@ -254,7 +254,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	}
 
 	/**
-	 * ÔçÆÚµÄBeanReference
+	 * æ—©æœŸçš„BeanReference
 	 * @param bean the raw bean instance
 	 * @param beanName the name of the bean
 	 * @return
@@ -286,8 +286,8 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		// Create proxy here if we have a custom TargetSource.
 		// Suppresses unnecessary default instantiation of the target bean:
 		// The TargetSource will handle target instances in a custom fashion.
-		// Èç¹ûÎÒÃÇÓĞ×Ô¶¨ÒåTargetSource£¬ÇëÔÚ´Ë´¦´´½¨´úÀí¡£
-		// ½ûÖ¹Ä¿±êbeanµÄ²»±ØÒªµÄÄ¬ÈÏÊµÀı»¯£ºTargetSource½«ÒÔ×Ô¶¨Òå·½Ê½´¦ÀíÄ¿±êÊµÀı¡£
+		// å¦‚æœæˆ‘ä»¬æœ‰è‡ªå®šä¹‰TargetSourceï¼Œè¯·åœ¨æ­¤å¤„åˆ›å»ºä»£ç†ã€‚
+		// ç¦æ­¢ç›®æ ‡beançš„ä¸å¿…è¦çš„é»˜è®¤å®ä¾‹åŒ–ï¼šTargetSourceå°†ä»¥è‡ªå®šä¹‰æ–¹å¼å¤„ç†ç›®æ ‡å®ä¾‹ã€‚
 		if (beanName != null) {
 			TargetSource targetSource = getCustomTargetSource(beanClass, beanName);
 			if (targetSource != null) {
@@ -323,7 +323,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * Create a proxy with the configured interceptors if the bean is
 	 * identified as one to proxy by the subclass.
 	 * <p>
-	 *     Èç¹ûbean±»±êÊ¶ÎªÒªÓÉ×ÓÀà´úÀíµÄ´úÀí£¬ÔòÊ¹ÓÃÅäÖÃµÄÀ¹½ØÆ÷´´½¨´úÀí¡£
+	 *     å¦‚æœbeanè¢«æ ‡è¯†ä¸ºè¦ç”±å­ç±»ä»£ç†çš„ä»£ç†ï¼Œåˆ™ä½¿ç”¨é…ç½®çš„æ‹¦æˆªå™¨åˆ›å»ºä»£ç†ã€‚
 	 * </p>
 	 * @see #getAdvicesAndAdvisorsForBean
 	 */
@@ -348,15 +348,15 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * given bean {@code Class} as-is.
 	 *
 	 * <p>
-	 *     Îª¸ø¶¨µÄbeanÀàºÍbeanÃû³Æ¹¹½¨»º´æ¼ü¡£
-	 *     ×¢Òâ£º´Ó4.2.3¿ªÊ¼£¬´ËÊµÏÖ²»ÔÙ·µ»Ø´®ÁªÀà/Ãû³ÆString£¬
-	 *     ¶øÊÇ·µ»Ø×îÓĞĞ§µÄ»º´æ¼ü£ºÆÕÍ¨beanÃû³Æ£¬Èç¹ûÊÇFactoryBean£¬ÔòÇ°×ºÎªBeanFactory.FACTORY_BEAN_PREFIX;
-	 *     »òÕßÈç¹ûÃ»ÓĞÖ¸¶¨beanÃû³Æ£¬Ôò¸ø¶¨µÄbeanÀàÎªas-is¡£
+	 *     ä¸ºç»™å®šçš„beanç±»å’Œbeanåç§°æ„å»ºç¼“å­˜é”®ã€‚
+	 *     æ³¨æ„ï¼šä»4.2.3å¼€å§‹ï¼Œæ­¤å®ç°ä¸å†è¿”å›ä¸²è”ç±»/åç§°Stringï¼Œ
+	 *     è€Œæ˜¯è¿”å›æœ€æœ‰æ•ˆçš„ç¼“å­˜é”®ï¼šæ™®é€šbeanåç§°ï¼Œå¦‚æœæ˜¯FactoryBeanï¼Œåˆ™å‰ç¼€ä¸ºBeanFactory.FACTORY_BEAN_PREFIX;
+	 *     æˆ–è€…å¦‚æœæ²¡æœ‰æŒ‡å®šbeanåç§°ï¼Œåˆ™ç»™å®šçš„beanç±»ä¸ºas-isã€‚
 	 * </p>
 	 *
 	 * @param beanClass the bean class
 	 * @param beanName the bean name
-	 * @return the cache key for the given class and name £¨beanÃû³Æ»òÕßbeanµÄÀàÃû£©
+	 * @return the cache key for the given class and name ï¼ˆbeanåç§°æˆ–è€…beançš„ç±»åï¼‰
 	 */
 	protected Object getCacheKey(Class<?> beanClass, String beanName) {
 		if (StringUtils.hasLength(beanName)) {
@@ -371,7 +371,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	/**
 	 * Wrap the given bean if necessary, i.e. if it is eligible for being proxied.
 	 * <p>
-	 *     ÈçÓĞ±ØÒª£¬°ü×°¸ø¶¨µÄbean£¬¼´Èç¹ûËüÓĞ×Ê¸ñ±»´úÀí¡£
+	 *     å¦‚æœ‰å¿…è¦ï¼ŒåŒ…è£…ç»™å®šçš„beanï¼Œå³å¦‚æœå®ƒæœ‰èµ„æ ¼è¢«ä»£ç†ã€‚
 	 * </p>
 	 * @param bean the raw bean instance
 	 * @param beanName the name of the bean
@@ -391,6 +391,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		}
 
 		// Create proxy if we have advice.
+		// å¦‚æœæˆ‘ä»¬æœ‰adviceï¼Œè¯·åˆ›å»ºä»£ç†ã€‚specificInterceptorså¯ä»¥åŒ…å«Adviceï¼Œäº¦å¯ä»¥æ˜¯Advisor
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
 		if (specificInterceptors != DO_NOT_PROXY) {
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);
@@ -447,11 +448,11 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * Subclasses can override this method to use a different mechanism.
 	 *
 	 * <p>
-	 *     ÎªbeanÊµÀı´´½¨Ä¿±êÔ´¡£ Èç¹ûÉèÖÃ£¬ÔòÊ¹ÓÃÈÎºÎTargetSourceCreators¡£
-	 *     Èç¹û²»Ó¦Ê¹ÓÃ×Ô¶¨ÒåTargetSource£¬Ôò·µ»Ønull¡£
+	 *     ä¸ºbeanå®ä¾‹åˆ›å»ºç›®æ ‡æºã€‚ å¦‚æœè®¾ç½®ï¼Œåˆ™ä½¿ç”¨ä»»ä½•TargetSourceCreatorsã€‚
+	 *     å¦‚æœä¸åº”ä½¿ç”¨è‡ªå®šä¹‰TargetSourceï¼Œåˆ™è¿”å›nullã€‚
 	 * </p>
 	 * <p>
-	 *     ´ËÊµÏÖÊ¹ÓÃ¡°customTargetSourceCreators¡±ÊôĞÔ¡£ ×ÓÀà¿ÉÒÔÖØĞ´´Ë·½·¨ÒÔÊ¹ÓÃ²»Í¬µÄ»úÖÆ¡£
+	 *     æ­¤å®ç°ä½¿ç”¨â€œcustomTargetSourceCreatorsâ€å±æ€§ã€‚ å­ç±»å¯ä»¥é‡å†™æ­¤æ–¹æ³•ä»¥ä½¿ç”¨ä¸åŒçš„æœºåˆ¶ã€‚
 	 * </p>
 	 *
 	 * @param beanClass the class of the bean to create a TargetSource for
@@ -461,13 +462,14 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 */
 	protected TargetSource getCustomTargetSource(Class<?> beanClass, String beanName) {
 		// We can't create fancy target sources for directly registered singletons.
-		// ÎÒÃÇÎŞ·¨ÎªÖ±½Ó×¢²áµÄµ¥Àıbean´´½¨ÆæÌØµÄÄ¿±êÀ´Ô´¡£
+		// æˆ‘ä»¬æ— æ³•ä¸ºç›´æ¥æ³¨å†Œçš„å•ä¾‹beanåˆ›å»ºå¥‡ç‰¹çš„ç›®æ ‡æ¥æºã€‚
 		if (this.customTargetSourceCreators != null &&
 				this.beanFactory != null && this.beanFactory.containsBean(beanName)) {
 			for (TargetSourceCreator tsc : this.customTargetSourceCreators) {
 				TargetSource ts = tsc.getTargetSource(beanClass, beanName);
 				if (ts != null) {
 					// Found a matching TargetSource.
+					// æ‰¾åˆ°äº†åŒ¹é…çš„TargetSourceã€‚
 					if (logger.isDebugEnabled()) {
 						logger.debug("TargetSourceCreator [" + tsc +
 								" found custom TargetSource for bean with name '" + beanName + "'");
@@ -484,22 +486,22 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	/**
 	 * Create an AOP proxy for the given bean.
 	 * <p>
-	 *     Îª¸ø¶¨µÄbean´´½¨Ò»¸öAOP´úÀí¡£
+	 *     ä¸ºç»™å®šçš„beanåˆ›å»ºä¸€ä¸ªAOPä»£ç†ã€‚
 	 * </p>
-	 * @param beanClass the class of the bean beanµÄÀà
-	 * @param beanName the name of the bean beanµÄÃû×Ö
+	 * @param beanClass the class of the bean beançš„ç±»
+	 * @param beanName the name of the bean beançš„åå­—
 	 * @param specificInterceptors the set of interceptors that is
-	 * specific to this bean (may be empty, but not null) ÌØ¶¨ÓÚ´ËbeanµÄÀ¹½ØÆ÷¼¯£¨¿ÉÄÜÎª¿Õ£¬µ«²»Îªnull£©
+	 * specific to this bean (may be empty, but not null) ç‰¹å®šäºæ­¤beançš„æ‹¦æˆªå™¨é›†ï¼ˆå¯èƒ½ä¸ºç©ºï¼Œä½†ä¸ä¸ºnullï¼‰
 	 * @param targetSource the TargetSource for the proxy,
-	 * already pre-configured to access the bean ´úÀíµÄTargetSourceÒÑ¾­Ô¤ÏÈÅäÖÃÎª·ÃÎÊ¸ÃBean
-	 * @return the AOP proxy for the bean ¸ÃbeanµÄAOP´úÀí
+	 * already pre-configured to access the bean ä»£ç†çš„TargetSourceå·²ç»é¢„å…ˆé…ç½®ä¸ºè®¿é—®è¯¥Bean
+	 * @return the AOP proxy for the bean è¯¥beançš„AOPä»£ç†
 	 * @see #buildAdvisors
 	 */
 	protected Object createProxy(
 			Class<?> beanClass, String beanName, Object[] specificInterceptors, TargetSource targetSource) {
 
 		if (this.beanFactory instanceof ConfigurableListableBeanFactory) {
-			//±©Â¶µ½beandefinitionÖĞµÄÊôĞÔÖĞAutoProxyUtils.originalTargetClass---->±»´úÀíµÄÄ¿±êÀà
+			//æš´éœ²åˆ°beandefinitionä¸­çš„å±æ€§ä¸­AutoProxyUtils.originalTargetClass---->è¢«ä»£ç†çš„ç›®æ ‡ç±»
 			AutoProxyUtils.exposeTargetClass((ConfigurableListableBeanFactory) this.beanFactory, beanName, beanClass);
 		}
 
@@ -532,6 +534,10 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * Determine whether the given bean should be proxied with its target class rather than its interfaces.
 	 * <p>Checks the {@link AutoProxyUtils#PRESERVE_TARGET_CLASS_ATTRIBUTE "preserveTargetClass" attribute}
 	 * of the corresponding bean definition.
+	 * <p>
+	 *     ç¡®å®šç»™å®šçš„beanæ˜¯å¦åº”è¯¥ä½¿ç”¨å…¶ç›®æ ‡ç±»è€Œä¸æ˜¯å…¶æ¥å£è¿›è¡Œä»£ç†ã€‚
+	 *     æ£€æŸ¥ç›¸åº”beanå®šä¹‰çš„â€œpreserveTargetClassâ€å±æ€§
+	 * </p>
 	 * @param beanClass the class of the bean
 	 * @param beanName the name of the bean
 	 * @return whether the given bean should be proxied with its target class
@@ -548,6 +554,13 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * to be skipped when building advisors chains for AOP invocations.
 	 * <p>Default is {@code false}. Subclasses may override this if they
 	 * will always return pre-filtered Advisors.
+	 *
+	 * <p>
+	 *     è¿”å›å­ç±»è¿”å›çš„Advisorsæ˜¯å¦å·²ç»è¿‡é¢„è¿‡æ»¤ä»¥åŒ¹é…beançš„ç›®æ ‡ç±»ï¼Œå…è®¸åœ¨æ„å»ºAOPè°ƒç”¨çš„é¡¾é—®ç¨‹åºé“¾æ—¶è·³è¿‡ClassFilteræ£€æŸ¥ã€‚
+	 * </p>
+	 * <p>
+	 *     é»˜è®¤å€¼ä¸ºfalseã€‚ å¦‚æœå­ç±»å§‹ç»ˆè¿”å›é¢„è¿‡æ»¤çš„Advisorï¼Œåˆ™å­ç±»å¯ä»¥è¦†ç›–å®ƒ
+	 * </p>
 	 * @return whether the Advisors are pre-filtered
 	 * @see #getAdvicesAndAdvisorsForBean
 	 * @see org.springframework.aop.framework.Advised#setPreFiltered
@@ -560,7 +573,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * Determine the advisors for the given bean, including the specific interceptors
 	 * as well as the common interceptor, all adapted to the Advisor interface.
 	 * <p>
-	 *     È·¶¨¸ø¶¨beanµÄadvisors£¬°üÀ¨ÌØ¶¨µÄÀ¹½ØÆ÷ÒÔ¼°Í¨ÓÃÀ¹½ØÆ÷£¬ËùÓĞÕâĞ©¶¼ÊÊÓ¦Advisor½Ó¿Ú¡£
+	 *     ç¡®å®šç»™å®šbeançš„advisorsï¼ŒåŒ…æ‹¬ç‰¹å®šçš„æ‹¦æˆªå™¨ä»¥åŠé€šç”¨æ‹¦æˆªå™¨ï¼Œæ‰€æœ‰è¿™äº›éƒ½é€‚åº”Advisoræ¥å£ã€‚
 	 * </p>
 	 * @param beanName the name of the bean
 	 * @param specificInterceptors the set of interceptors that is
@@ -569,29 +582,29 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 */
 	protected Advisor[] buildAdvisors(String beanName, Object[] specificInterceptors) {
 		// Handle prototypes correctly...
-		// ÕıÈ·´¦Àíprototypes.. ÓÉinterceptorNamesÖ¸¶¨µÄ
+		// æ­£ç¡®å¤„ç†prototypes.. ç”±interceptorNamesæŒ‡å®šçš„
 		Advisor[] commonInterceptors = resolveInterceptorNames();
 
 		List<Object> allInterceptors = new ArrayList<Object>();
-		if (specificInterceptors != null) { //Ö¸¶¨µÄÀ¹½ØÆ÷²»Îª¿Õ
-			allInterceptors.addAll(Arrays.asList(specificInterceptors)); //¼ÓÈë
+		if (specificInterceptors != null) { //æŒ‡å®šçš„æ‹¦æˆªå™¨ä¸ä¸ºç©º
+			allInterceptors.addAll(Arrays.asList(specificInterceptors)); //åŠ å…¥
 			if (commonInterceptors.length > 0) {
-				if (this.applyCommonInterceptorsFirst) {  //Ê×ÏÈÓ¦ÓÃÖ¸¶¨µÄ¼ÓÔÚÍ·²¿Ç°
+				if (this.applyCommonInterceptorsFirst) {  //é¦–å…ˆåº”ç”¨æŒ‡å®šçš„åŠ åœ¨å¤´éƒ¨å‰
 					allInterceptors.addAll(0, Arrays.asList(commonInterceptors));
 				}
-				else {	//¼ÓÔÚÍ·²¿ºó
+				else {	//åŠ åœ¨å¤´éƒ¨å
 					allInterceptors.addAll(Arrays.asList(commonInterceptors));
 				}
 			}
 		}
-		if (logger.isDebugEnabled()) { //ÈÕÖ¾Êä³öÇé¿ö
+		if (logger.isDebugEnabled()) { //æ—¥å¿—è¾“å‡ºæƒ…å†µ
 			int nrOfCommonInterceptors = commonInterceptors.length;
 			int nrOfSpecificInterceptors = (specificInterceptors != null ? specificInterceptors.length : 0);
 			logger.debug("Creating implicit proxy for bean '" + beanName + "' with " + nrOfCommonInterceptors +
 					" common interceptors and " + nrOfSpecificInterceptors + " specific interceptors");
 		}
 
-		//¹¹½¨
+		//æ„å»º
 		Advisor[] advisors = new Advisor[allInterceptors.size()];
 		for (int i = 0; i < allInterceptors.size(); i++) {
 			advisors[i] = this.advisorAdapterRegistry.wrap(allInterceptors.get(i));
@@ -602,7 +615,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	/**
 	 * Resolves the specified interceptor names to Advisor objects.
 	 * <p>
-	 *     ½«Ö¸¶¨µÄÀ¹½ØÆ÷Ãû³Æ½âÎöÎªAdvisor¶ÔÏó¡£
+	 *     å°†æŒ‡å®šçš„æ‹¦æˆªå™¨åç§°è§£æä¸ºAdvisorå¯¹è±¡ã€‚
 	 * </p>
 	 * @see #setInterceptorNames
 	 */
@@ -625,10 +638,10 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * <p>The default implementation is empty.
 	 *
 	 * <p>
-	 *     ×ÓÀà¿ÉÒÔÑ¡ÔñÊµÏÖ´ËÄ¿µÄ£ºÀıÈç£¬¸ü¸ÄexposedµÄ½Ó¿Ú¡£
+	 *     å­ç±»å¯ä»¥é€‰æ‹©å®ç°æ­¤ç›®çš„ï¼šä¾‹å¦‚ï¼Œæ›´æ”¹exposedçš„æ¥å£ã€‚
 	 * </p>
 	 * <p>
-	 *     	 Ä¬ÈÏÊµÏÖÎª¿Õ¡£
+	 *     	 é»˜è®¤å®ç°ä¸ºç©ºã€‚
 	 * </p>
 	 * @param proxyFactory ProxyFactory that is already configured with
 	 * TargetSource and interfaces and will be used to create the proxy
@@ -643,7 +656,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * advices (e.g. AOP Alliance interceptors) and advisors to apply.
 	 *
 	 * <p>
-	 *     ·µ»ØÊÇ·ñÒª´úÀí¸ø¶¨µÄbean£¬ÒªÓ¦ÓÃµÄÆäËûadvices£¨ÀıÈçAOPÁªÃËÀ¹½ØÆ÷£©ºÍadvisors¡£
+	 *     è¿”å›æ˜¯å¦è¦ä»£ç†ç»™å®šçš„beanï¼Œè¦åº”ç”¨çš„å…¶ä»–advicesï¼ˆä¾‹å¦‚AOPè”ç›Ÿæ‹¦æˆªå™¨ï¼‰å’Œadvisorsã€‚
 	 * </p>
 	 * @param beanClass the class of the bean to advise
 	 * @param beanName the name of the bean

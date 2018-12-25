@@ -62,6 +62,16 @@ public interface Ordered {
 	 * analogous to Servlet {@code load-on-startup} values).
 	 * <p>Same order values will result in arbitrary sort positions for the
 	 * affected objects.
+	 *
+	 * <p>
+	 *     获取此对象的排序值。
+	 * </p>
+	 * <p>
+	 *     较高的值被解释为较低的优先级。 因此，具有最低值的对象具有最高优先级（有点类似于Servlet加载启动值）
+	 * </p>
+	 * <p>
+	 *     相同的排序值将导致受影响对象的任意排序位置
+	 * </p>
 	 * @return the order value
 	 * @see #HIGHEST_PRECEDENCE
 	 * @see #LOWEST_PRECEDENCE

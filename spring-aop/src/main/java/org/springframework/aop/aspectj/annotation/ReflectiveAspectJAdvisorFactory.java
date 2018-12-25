@@ -60,6 +60,10 @@ import org.springframework.util.comparator.InstanceComparator;
  * classes honoring the AspectJ 5 annotation syntax, using reflection to
  * invoke the corresponding advice methods.
  *
+ * <p>
+ *     工厂可以创建Spring AOP Advisors，从AspectJ类注解语法的类中获取AspectJ类，使用反射来调用相应的通知方法。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Adrian Colyer
  * @author Juergen Hoeller
@@ -110,6 +114,9 @@ public class ReflectiveAspectJAdvisorFactory extends AbstractAspectJAdvisorFacto
 	 * Create a new {@code ReflectiveAspectJAdvisorFactory}, propagating the given
 	 * {@link BeanFactory} to the created {@link AspectJExpressionPointcut} instances,
 	 * for bean pointcut handling as well as consistent {@link ClassLoader} resolution.
+	 * <p>
+	 *     创建一个新的ReflectiveAspectJAdvisorFactory，将给定的BeanFactory传播到创建的AspectJExpressionPointcut实例，用于bean切入点处理以及一致的ClassLoader解析
+	 * </p>
 	 * @param beanFactory the BeanFactory to propagate (may be {@code null}}
 	 * @since 4.3.6
 	 * @see AspectJExpressionPointcut#setBeanFactory

@@ -71,7 +71,7 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * </p>
 	 * <p>
 	 *     	此回调仅适用于具有bean class的bean定义。
-	 *     	特别是，它不会应用于具有“factory-method”的bean。
+	 *     	特别是，它不会应用于具有“factory-method”的bean。(已经支持不再不支持)
 	 * </p>
 	 * <p>
 	 *     	BeanPostProcessor可以实现扩展的SmartInstantiationAwareBeanPostProcessor接口，以便预测它们将在此处返回的bean对象的类型。
@@ -91,6 +91,12 @@ public interface InstantiationAwareBeanPostProcessor extends BeanPostProcessor {
 	 * but before Spring property population (from explicit properties or autowiring) occurs.
 	 * <p>This is the ideal callback for performing custom field injection on the given bean
 	 * instance, right before Spring's autowiring kicks in.
+	 * <p>
+	 *     在bean实例化之后，通过构造函数或工厂方法，但在Spring属性填充（来自显式属性或自动装配）之前执行操作。
+	 * </p>
+	 * <p>
+	 *     这是在Spring的自动装配开始之前在给定的bean实例上执行自定义字段注入的理想回调
+	 * </p>
 	 * @param bean the bean instance created, with properties not having been set yet
 	 * @param beanName the name of the bean
 	 * @return {@code true} if properties should be set on the bean; {@code false}

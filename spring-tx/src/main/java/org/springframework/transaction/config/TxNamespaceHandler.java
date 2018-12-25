@@ -35,12 +35,12 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  *
  *
  * <p>
- * <p>
  *     NamespaceHandler允许使用XML或使用注解来配置声明式事务管理。
  * <p>
  *     这个命名空间处理程序是Spring事务管理工具中的核心功能，提供了两种声明式管理事务的方法。
+ *  <p>
  * <p>
- *	   一种方法使用<tx：advice>元素使用XML中定义的事务语义，另一种方法使用注释与<tx：annotation-driven>元素结合使用。 在Spring参考手册中详细介绍了这两者。
+ *	   一种方法使用{@code <tx：advice>}元素使用XML中定义的事务语义，另一种方法使用注释与{@code <tx：annotation-driven>}元素结合使用。 在Spring参考手册中详细介绍了这两者。
  *
  * @author Rob Harrop
  * @author Juergen Hoeller

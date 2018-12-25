@@ -38,6 +38,13 @@ import org.springframework.aop.support.MethodMatchers;
  * given an {@link Advised} object. Always rebuilds each advice chain;
  * caching can be provided by subclasses.
  *
+ * <p>
+ *     在给定Advised对象的情况下，为Method制定建议链的简单但明确的方法。
+ * </p>
+ * <p>
+ *     始终重建每个建议链; 缓存可以由子类提供
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Rod Johnson
  * @author Adrian Colyer
