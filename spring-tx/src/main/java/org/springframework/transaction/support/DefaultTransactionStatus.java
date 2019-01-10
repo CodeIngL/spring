@@ -36,6 +36,13 @@ import org.springframework.transaction.SavepointManager;
  * Use the alternative {@link SimpleTransactionStatus} class or a mock for the plain
  * {@link org.springframework.transaction.TransactionStatus} interface instead.
  *
+ * <p>
+ *     由AbstractPlatformTransactionManager使用的org.springframework.transaction.TransactionStatus接口的默认实现。 基于底层“交易对象”的概念。
+ * 保存AbstractPlatformTransactionManager内部需要的所有状态信息，包括由具体事务管理器实现确定的通用事务对象。
+ * 支持将与保存点相关的方法委派给实现SavepointManager接口的事务对象。
+ * 注意：这不适用于其他PlatformTransactionManager实现，特别是不适用于测试环境中的模拟事务管理器。 请使用替代的SimpleTransactionStatus类或简单的org.springframework.transaction.TransactionStatus接口的模拟。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 19.01.2004
  * @see AbstractPlatformTransactionManager
@@ -48,16 +55,34 @@ import org.springframework.transaction.SavepointManager;
  */
 public class DefaultTransactionStatus extends AbstractTransactionStatus {
 
+	/**
+	 * 标识了当前事务的对象
+	 */
 	private final Object transaction;
 
+	/**
+	 * 是否是一个新事务
+	 */
 	private final boolean newTransaction;
 
+	/**
+	 * 是否是一个新同步
+	 */
 	private final boolean newSynchronization;
 
+	/**
+	 * 只读选项
+	 */
 	private final boolean readOnly;
 
+	/**
+	 * 日志是否答应
+	 */
 	private final boolean debug;
 
+	/**
+	 * 被挂起的资源持有者
+	 */
 	private final Object suspendedResources;
 
 

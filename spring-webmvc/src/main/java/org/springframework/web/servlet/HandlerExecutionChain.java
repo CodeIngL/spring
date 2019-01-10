@@ -132,16 +132,16 @@ public class HandlerExecutionChain {
 	 * 如果执行链应继续执行下一个拦截器或处理程序本身，则为true。 否则，DispatcherServlet假定这个拦截器已经处理了响应本身。
 	 */
 	boolean applyPreHandle(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HandlerInterceptor[] interceptors = getInterceptors();
+		HandlerInterceptor[] interceptors = getInterceptors(); //获得拦截器
 		if (!ObjectUtils.isEmpty(interceptors)) {
 			for (int i = 0; i < interceptors.length; i++) {
-				HandlerInterceptor interceptor = interceptors[i];
+				HandlerInterceptor interceptor = interceptors[i]; //每次进行调用
 				//调用拦截器的preHandle方法，如果中间返回相应，则回调之前的所有的已经调用过preHandle方法的拦截器
 				if (!interceptor.preHandle(request, response, this.handler)) {
 					triggerAfterCompletion(request, response, null);
 					return false;
 				}
-				this.interceptorIndex = i;
+				this.interceptorIndex = i; //更新变量，以便回调，这是线程安全的变量
 			}
 		}
 		return true;
@@ -171,7 +171,7 @@ public class HandlerExecutionChain {
 	 */
 	void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse response, Exception ex)
 			throws Exception {
-
+		//已经被调用过的需要被调用回来
 		HandlerInterceptor[] interceptors = getInterceptors();
 		if (!ObjectUtils.isEmpty(interceptors)) {
 			for (int i = this.interceptorIndex; i >= 0; i--) {

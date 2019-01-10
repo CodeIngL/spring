@@ -29,6 +29,16 @@ import java.io.Flushable;
  * to savepoint management facilities. Note that savepoint management
  * is only available if supported by the underlying transaction manager.
  *
+ * <p>
+ *     表示事务状态。
+ * </p>
+ * <p>
+ *     事务代码可以使用它来获得状态信息，并以编程方式请求回滚（而不是抛出导致隐式回滚的异常）。
+ * </p>
+ * <p>
+ *     从SavepointManager接口派生，以提供对安全点管理工具的访问。 请注意，只有在基础事务管理器支持的情况下，安全点管理才可用。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 27.03.2003
  * @see #setRollbackOnly()

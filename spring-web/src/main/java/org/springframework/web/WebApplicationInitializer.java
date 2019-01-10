@@ -168,6 +168,72 @@ import javax.servlet.ServletException;
  * 7.0.15 fixes this issue. Overriding the "/" servlet mapping has also been tested
  * successfully under GlassFish 3.1.<p>
  *
+ *
+ * <p>
+ *   要在Servlet 3.0+环境中实现的接口，以便以编程方式配置ServletContext  - 而不是（或可能与传统的基于web.xml的方法相结合）。
+ * </p>
+ * <p>
+ *     SpringServletContainerInitializer将自动检测此SPI的实现，它本身由任何Servlet 3.0容器自动引导。 有关此引导机制的详细信息，请参阅其Javadoc。
+ * </p>
+ *
+ * <h2>例</h2>
+ * <h3>传统的基于XML的方法</h3>
+ * <p>
+ * 构建Web应用程序的大多数Spring用户都需要注册Spring的DispatcherServlet。 作为参考，在WEB-INF/web.xml中，通常如下所示：
+ * </p>
+ * <pre class="code">
+ * {@code
+ * <servlet>
+ *   <servlet-name>dispatcher</servlet-name>
+ *   <servlet-class>
+ *     org.springframework.web.servlet.DispatcherServlet
+ *   </servlet-class>
+ *   <init-param>
+ *     <param-name>contextConfigLocation</param-name>
+ *     <param-value>/WEB-INF/spring/dispatcher-config.xml</param-value>
+ *   </init-param>
+ *   <load-on-startup>1</load-on-startup>
+ * </servlet>
+ *
+ * <servlet-mapping>
+ *   <servlet-name>dispatcher</servlet-name>
+ *   <url-pattern>/</url-pattern>
+ * </servlet-mapping>}</pre>
+ *
+ * <h3>使用WebApplicationInitializer的基于代码的方法</h3>
+ * <p>
+ * 这是等效的DispatcherServlet注册逻辑，WebApplicationInitializer样式：
+ *</p>
+ * <pre class="code">
+ * public class MyWebAppInitializer implements WebApplicationInitializer {
+ *
+ *    &#064;Override
+ *    public void onStartup(ServletContext container) {
+ *      XmlWebApplicationContext appContext = new XmlWebApplicationContext();
+ *      appContext.setConfigLocation("/WEB-INF/spring/dispatcher-config.xml");
+ *
+ *      ServletRegistration.Dynamic dispatcher =
+ *        container.addServlet("dispatcher", new DispatcherServlet(appContext));
+ *      dispatcher.setLoadOnStartup(1);
+ *      dispatcher.addMapping("/");
+ *    }
+ *
+ * }</pre>
+ *
+ * <p>
+ * 作为上述的替代方法，您还可以从org.springframework.web.servlet.support.AbstractDispatcherServletInitializer扩展。
+ * </p>
+ * <p>
+ * 正如您所看到的，由于Servlet 3.0的新ServletContext.addServlet方法，我们实际上正在注册DispatcherServlet的一个实例，这意味着DispatcherServlet现在可以像任何其他对象一样对待 - 接收构造函数注入其应用程序上下文在这种情况下。
+ * </p>
+ * <p>
+ * 这种风格既简单又简洁。处理init-params等无关紧要，只需要普通的JavaBean样式属性和构造函数参数。在将它们注入DispatcherServlet之前，您可以根据需要自由创建和使用Spring应用程序上下文。
+ * </p>
+ * <p>
+ * 大多数主要的Spring Web组件都已更新，以支持这种注册方式。您会发现DispatcherServlet，FrameworkServlet，ContextLoaderListener和DelegatingFilterProxy现在都支持构造函数参数。即使组件（例如非Spring，其他第三方）尚未在WebApplicationInitializers中进行专门更新，它们仍然可以在任何情况下使用。 Servlet 3.0 ServletContext API允许以编程方式设置init-params，context-params等。
+ * </p>
+ *
+ *
  * @author Chris Beams
  * @since 3.1
  * @see SpringServletContainerInitializer

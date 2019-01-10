@@ -87,6 +87,32 @@ public abstract class AbstractNamedValueMethodArgumentResolver implements Handle
 	}
 
 
+	/**
+	 * 基于名字的解析总是从MethodParameter中获取名字，也就是NamedValueInfo
+	 * <p>
+	 *    然后去解析这个这个名字
+	 * </p>
+	 * <p>
+	 *     子类将处理确切的绑定过程。
+	 * </p>
+	 * <p>
+	 *     没有值的时候，就会绑定尝试使用默认的值
+	 * </p>
+     * <p>
+     *     并且还支持initbinder的绑定，这里完成相关的类型转换，记得是类型的转换
+     * </p>
+     * <p>
+     *    最后子类还可以继续处理已经被解析成功的类了。
+     * </p>
+	 * @param parameter     the method parameter to resolve. This parameter must
+	 *                      have previously been passed to {@link #supportsParameter} which must
+	 *                      have returned {@code true}.
+	 * @param mavContainer  the ModelAndViewContainer for the current request
+	 * @param webRequest    the current request
+	 * @param binderFactory a factory for creating {@link WebDataBinder} instances
+	 * @return
+	 * @throws Exception
+	 */
 	@Override
 	public final Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {

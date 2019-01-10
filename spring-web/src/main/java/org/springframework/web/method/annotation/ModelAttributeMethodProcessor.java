@@ -76,6 +76,9 @@ public class ModelAttributeMethodProcessor implements HandlerMethodArgumentResol
 	 * Returns {@code true} if the parameter is annotated with
 	 * {@link ModelAttribute} or, if in default resolution mode, for any
 	 * method parameter that is not a simple type.
+	 * <p>
+	 *     如果参数使用ModelAttribute注释，则返回true;如果是默认解析模式，则返回非简单类型的任何方法参数。
+	 * </p>
 	 */
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {

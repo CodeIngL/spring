@@ -145,6 +145,9 @@ public class DefaultNamespaceHandlerResolver implements NamespaceHandlerResolver
 
 	/**
 	 * Load the specified NamespaceHandler mappings lazily.
+	 * <p>
+	 *     懒惰地加载指定的NamespaceHandler映射。而不是一开始就加载
+	 * </p>
 	 */
 	private Map<String, Object> getHandlerMappings() {
 		if (this.handlerMappings == null) {

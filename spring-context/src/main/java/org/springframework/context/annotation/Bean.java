@@ -218,6 +218,15 @@ public @interface Bean {
 	 * <p>The default mode does allow for annotation-driven autowiring. "no" refers to
 	 * externally driven autowiring only, not affecting any autowiring demands that the
 	 * bean class itself expresses through annotations.
+	 * <p>
+	 *     是否通过名称或类型通过基于约定的自动装配注入依赖项？
+	 * </p>
+	 * <p>
+	 *     请注意，此autowire模式只是基于外部驱动的自动装配，基于bean属性setter方法，类似于XML bean定义。
+	 * </p>
+	 * <p>
+	 *     默认模式允许注释驱动的自动装配。 “no”仅指外部驱动的自动装配，不影响bean类本身通过注释表达的任何自动装配要求。
+	 * </p>
 	 * @see Autowire#BY_NAME
 	 * @see Autowire#BY_TYPE
 	 */

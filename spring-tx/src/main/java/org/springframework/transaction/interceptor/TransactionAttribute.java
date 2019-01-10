@@ -23,6 +23,10 @@ import org.springframework.transaction.TransactionDefinition;
  * As custom {@code rollbackOn} is only possible with AOP, this class resides
  * in the AOP transaction package.
  *
+ * <p>
+ *     此接口向{@link TransactionDefinition}添加{@code rollbackOn} 规范。 由于自定义{@code rollbackOn} 仅适用于AOP，因此该类驻留在AOP事务包中
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 16.03.2003

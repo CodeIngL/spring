@@ -63,6 +63,27 @@ import org.springframework.util.Assert;
  * within a JTA transaction, e.g. a JDBC Connection or a Hibernate Session for
  * any given DataSource or SessionFactory, respectively.
  *
+ * <p>
+ *     管理每个线程的资源和事务同步的中央委托。由资源管理代码使用，但不是由典型的应用程序代码使用。
+ * </p>
+ * <p>
+ *     每个key支持一个资源而不覆盖，也就是说，在为同一个key设置新资源之前需要删除资源。如果同步处于活动状态，则支持事务同步列表。
+ * </p>
+ * <p>
+ *     资源管理代码应检查线程绑定资源，例如JDBC连接或Hibernate会话，通过getResource。这样的代码通常不应该将资源绑定到线程，因为这是事务管理器的责任。另一个选择是，如果事务同步处于活动状态，则在首次使用时延迟绑定，以执行跨越任意数量资源的事务。
+ * </p>
+ * <p>
+ *     事务管理器必须通过initSynchronization（）和clearSynchronization（）激活和取消激活事务同步。这由AbstractPlatformTransactionManager自动支持，
+ *     因此由所有标准的Spring事务管理器支持，例如org.springframework.transaction.jta.JtaTransactionManager和org.springframework.jdbc.datasource.DataSourceTransactionManager。
+ * </p>
+ * <p>
+ *     资源管理代码只应在此管理器处于活动状态时注册同步，这可以通过isSynchronizationActive进行检查;它应该立即执行资源清理。
+ *     如果事务同步未处于活动状态，则表示没有当前事务，或者事务管理器不支持事务同步。
+ * </p>
+ * <p>
+ *     例如，同步用于始终在JTA事务中返回相同的资源，例如，分别针对任何给定的DataSource或SessionFactory的JDBC连接或Hibernate会话。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 02.06.2003
  * @see #isSynchronizationActive

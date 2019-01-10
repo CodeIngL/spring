@@ -32,6 +32,16 @@ import org.springframework.core.io.ResourceLoader;
  * this interface. It only serves as suggestion for bean definition
  * readers that want to follow standard naming conventions.
  *
+ * <p>
+ *   	beanDefinition reader的简单接口。 使用Resource和String位置参数指定加载方法。
+ * </p>
+ * <p>
+ *  具体的beanDefinition reader当然可以为beanDefinition添加额外的load和register方法，特定于bean定义格式。
+ * </p>
+ * <p>
+ *  请注意，bean定义读取器不必实现此接口。 它仅作为想要遵循标准命名约定的beanDefinition reader的建议。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.1
  * @see org.springframework.core.io.Resource

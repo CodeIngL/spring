@@ -224,6 +224,13 @@ public class GroovyBeanDefinitionReader extends AbstractBeanDefinitionReader imp
 	 * Load bean definitions from the specified Groovy script or XML file.
 	 * <p>Note that {@code ".xml"} files will be parsed as XML content; all other kinds
 	 * of resources will be parsed as Groovy scripts.
+	 *
+	 * <p>
+	 *     从指定的Groovy脚本或XML文件加载bean定义。
+	 * </p>
+	 * <p>
+	 *     请注意，".xml"文件将被解析为XML内容; 所有其他类型的资源将被解析为Groovy脚本。
+	 * </p>
 	 * @param encodedResource the resource descriptor for the Groovy script or XML file,
 	 * allowing specification of an encoding to use for parsing the file
 	 * @return the number of bean definitions found

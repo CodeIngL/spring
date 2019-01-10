@@ -33,6 +33,13 @@ import org.springframework.core.type.ClassMetadata;
  * <p>Package-visible in order to allow for repackaging the ASM library
  * without effect on users of the {@code core.type} package.
  *
+ * <p>
+ *     基于ASM ClassReader的MetadataReader实现。
+ * </p>
+ * <p>
+ *    包可见，以便允许重新打包ASM库而不影响{@code core.type}包的用户
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Costin Leau
  * @since 2.5
@@ -65,6 +72,7 @@ final class SimpleMetadataReader implements MetadataReader {
 
 		this.annotationMetadata = visitor;
 		// (since AnnotationMetadataReadingVisitor extends ClassMetadataReadingVisitor)
+		// （因为AnnotationMetadataReadingVisitor扩展了ClassMetadataReadingVisitor）
 		this.classMetadata = visitor;
 		this.resource = resource;
 	}

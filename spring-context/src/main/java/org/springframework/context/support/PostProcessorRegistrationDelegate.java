@@ -55,6 +55,7 @@ class PostProcessorRegistrationDelegate {
 			ConfigurableListableBeanFactory beanFactory, List<BeanFactoryPostProcessor> beanFactoryPostProcessors) {
 
 		// Invoke BeanDefinitionRegistryPostProcessors first, if any.
+		// 首先调用BeanDefinitionRegistryPostProcessors，如果有的话。
 
 		Set<String> processedBeans = new HashSet<String>();
 

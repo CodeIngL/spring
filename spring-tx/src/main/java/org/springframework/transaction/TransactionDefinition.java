@@ -35,6 +35,16 @@ import java.sql.Connection;
  * at the resource level. In the latter case, the flag will only apply to managed
  * resources within the application, such as a Hibernate {@code Session}.
  *
+ * <p>
+ *     定义符合Spring的事务属性的接口。 基于类似于EJB CMT属性的传播行为定义。
+ * </p>
+ * <P>
+ *  请注意，除非启动实际的新事务，否则不会应用隔离级别和超时设置。 由于只有PROPAGATION_REQUIRED，PROPAGATION_REQUIRES_NEW和PROPAGATION_NESTED会导致这种情况，因此在其他情况下指定这些设置通常没有意义。
+ *  此外，请注意，并非所有事务管理器都支持这些高级功能，因此在给定非默认值时可能会抛出相应的异常。
+ *</P>
+ * <p>
+ *     只读标志适用于任何事务上下文，无论是由实际资源事务支持还是在资源级别以非事务方式操作。 在后一种情况下，该标志仅适用于应用程序内的受管资源，例如Hibernate会话。
+ * </p>
  * @author Juergen Hoeller
  * @since 08.05.2003
  * @see PlatformTransactionManager#getTransaction(TransactionDefinition)

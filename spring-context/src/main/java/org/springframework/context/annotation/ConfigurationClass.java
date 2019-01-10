@@ -59,11 +59,14 @@ final class ConfigurationClass {
 
 	private final Set<ConfigurationClass> importedBy = new LinkedHashSet<ConfigurationClass>(1);
 
+	//有该ConfigurationClass解析@bean出来的beanMethods
 	private final Set<BeanMethod> beanMethods = new LinkedHashSet<BeanMethod>();
 
+	//有该ConfigurationClass解析@importresource出来的beanMethods
 	private final Map<String, Class<? extends BeanDefinitionReader>> importedResources =
 			new LinkedHashMap<String, Class<? extends BeanDefinitionReader>>();
 
+	//有该ConfigurationClass解析@import出来的beanMethods
 	private final Map<ImportBeanDefinitionRegistrar, AnnotationMetadata> importBeanDefinitionRegistrars =
 			new LinkedHashMap<ImportBeanDefinitionRegistrar, AnnotationMetadata>();
 
@@ -87,6 +90,9 @@ final class ConfigurationClass {
 	 * Create a new {@link ConfigurationClass} representing a class that was imported
 	 * using the {@link Import} annotation or automatically processed as a nested
 	 * configuration class (if importedBy is not {@code null}).
+	 * <p>
+	 *     创建一个新的ConfigurationClass，表示使用Import annotation导入的类或自动处理为嵌套配置类（如果importedBy不为null）。
+	 * </p>
 	 * @param metadataReader reader used to parse the underlying {@link Class}
 	 * @param importedBy the configuration class importing this one or {@code null}
 	 * @since 3.1.1
@@ -114,6 +120,9 @@ final class ConfigurationClass {
 	 * Create a new {@link ConfigurationClass} representing a class that was imported
 	 * using the {@link Import} annotation or automatically processed as a nested
 	 * configuration class (if imported is {@code true}).
+	 * <p>
+	 *     创建一个新的ConfigurationClass，表示使用Import annotation导入的类或自动处理为嵌套配置类（如果导入为true）。
+	 * </p>
 	 * @param clazz the underlying {@link Class} to represent
 	 * @param importedBy the configuration class importing this one or {@code null}
 	 * @since 3.1.1

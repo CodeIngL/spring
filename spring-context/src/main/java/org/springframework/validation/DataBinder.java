@@ -95,6 +95,41 @@ import org.springframework.util.StringUtils;
  * subclasses {@link org.springframework.web.bind.ServletRequestDataBinder}
  * and {@link org.springframework.web.portlet.bind.PortletRequestDataBinder}.
  *
+ * <p>
+ * 允许将属性值设置到目标对象上的Binder，包括对验证和绑定结果分析的支持。
+ * 可以通过指定允许的字段，必填字段，自定义编辑器等来自定义绑定过程。
+ *
+ *
+ *
+ * </p>
+ * <p>请注意，如果未设置允许字段数组，则可能存在安全隐患。
+ * 例如，在HTTP表单POST数据的情况下，恶意客户端可以通过提供表单上不存在的字段或属性的值来尝试破坏应用程序。在某些情况下，这可能导致在命令对象或其嵌套对象上设置非法数据。
+ * </p>
+ * <p>
+ *     因此，强烈建议在DataBinder上指定allowedFields属性。
+ * </p>
+ * <p>
+ *      可以通过BindingResult接口检查绑定结果，扩展Errors接口：请参阅getBindingResult（）方法。缺少字段和属性访问异常将转换为在Errors实例中收集的FieldErrors，使用以下错误代码：
+ * </p>
+ * <ul>
+ * <li>Missing field error: "required"
+ * <li>Type mismatch error: "typeMismatch"
+ * <li>Method invocation error: "methodInvocation"
+ * </ul>
+ * <p>
+ *     默认情况下，绑定错误通过BindingErrorProcessor策略解决，处理缺少的字段和属性访问异常：请参阅setBindingErrorProcessor方法。您可以根据需要覆盖默认策略，例如生成不同的错误代码。
+ * </p>
+ * <p>
+ * 之后可以添加自定义验证错误
+ * 。您通常希望将此类错误代码解析为正确的用户可见错误消息;这可以通过org.springframework.context.MessageSource解决每个错误来实现，
+ * 它可以通过org.springframework.context.MessageSource.getMessage解析ObjectError / FieldError（org.springframework.context.MessageSourceResolvable，java.util .Locale）方法。可以通过MessageCodesResolver策略自定义消息代码列表：请参阅setMessageCodesResolver方法。 DefaultMessageCodesResolver的javadoc说明了默认解析规则的详细信息。
+ * </p>
+ * <p>
+ * 此通用数据绑定器可用于任何类型的环境。
+ * 它通常由Spring Web MVC控制器使用，
+ * 通过特定于Web的子类org.springframework.web.bind.ServletRequestDataBinder和org.springframework.web.portlet.bind.PortletRequestDataBinder。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Rob Harrop
@@ -218,6 +253,16 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 	 * when accessing an out-of-bounds index.
 	 * <p>Default is "true" on a standard DataBinder. Note that since Spring 4.1 this feature is supported
 	 * for bean property access (DataBinder's default mode) and field access.
+	 *
+	 * <p>
+	 *     	 * 如果为“true”，则将使用默认对象值填充空路径位置并遍历，而不是导致异常。 此标志还允许在访问越界索引时自动增长集合元素。
+	 * </p>
+	 * <p>
+	 *     设置此绑定程序是否应尝试“自动增长”包含空值的嵌套路径。
+	 * </p>
+	 * <p>
+	 *     	 * 标准DataBinder上的默认值为“true”。 请注意，自Spring 4.1以来，此属性支持bean属性访问（DataBinder的默认模式）和字段访问。
+	 * </p>
 	 * @see #initBeanPropertyAccess()
 	 * @see org.springframework.beans.BeanWrapper#setAutoGrowNestedPaths
 	 */
@@ -743,6 +788,10 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 	/**
 	 * Actual implementation of the binding process, working with the
 	 * passed-in MutablePropertyValues instance.
+	 *
+	 * <p>
+	 *     绑定过程的实际实现，使用传入的MutablePropertyValues实例。
+	 * </p>
 	 * @param mpvs the property values to bind,
 	 * as MutablePropertyValues instance
 	 * @see #checkAllowedFields
@@ -846,6 +895,13 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 	 * <p>Default implementation applies all of the supplied property
 	 * values as bean property values. By default, unknown fields will
 	 * be ignored.
+	 *
+	 * <p>
+	 *     将给定的属性值应用于目标对象。
+	 * </p>
+	 * <p>
+	 *     默认实现将所有提供的属性值应用为bean属性值。 默认情况下，将忽略未知字段。
+	 * </p>
 	 * @param mpvs the property values to be bound (can be modified)
 	 * @see #getTarget
 	 * @see #getPropertyAccessor
@@ -856,10 +912,12 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 	protected void applyPropertyValues(MutablePropertyValues mpvs) {
 		try {
 			// Bind request parameters onto target object.
+			// 将请求参数绑定到目标对象上。
 			getPropertyAccessor().setPropertyValues(mpvs, isIgnoreUnknownFields(), isIgnoreInvalidFields());
 		}
 		catch (PropertyBatchUpdateException ex) {
 			// Use bind error processor to create FieldErrors.
+			// 使用绑定错误处理器创建FieldErrors。
 			for (PropertyAccessException pae : ex.getPropertyAccessExceptions()) {
 				getBindingErrorProcessor().processPropertyAccessException(pae, getInternalBindingResult());
 			}

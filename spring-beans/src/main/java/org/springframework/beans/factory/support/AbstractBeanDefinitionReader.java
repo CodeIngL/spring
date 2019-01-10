@@ -192,11 +192,18 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 	 * Load bean definitions from the specified resource location.
 	 * <p>The location can also be a location pattern, provided that the
 	 * ResourceLoader of this bean definition reader is a ResourcePatternResolver.
+	 *
+	 * <p>
+	 *     从指定的资源位置加载bean定义。
+	 * </p>
+	 * <p>
+	 *     该位置也可以是位置模式，前提是此bean定义读取器的ResourceLoader是ResourcePatternResolver。
+	 * </p>
 	 * @param location the resource location, to be loaded with the ResourceLoader
-	 * (or ResourcePatternResolver) of this bean definition reader
+	 * (or ResourcePatternResolver) of this bean definition reader  要使用此bean定义读取器的ResourceLoader（或ResourcePatternResolver）加载的资源位置
 	 * @param actualResources a Set to be filled with the actual Resource objects
 	 * that have been resolved during the loading process. May be {@code null}
-	 * to indicate that the caller is not interested in those Resource objects.
+	 * to indicate that the caller is not interested in those Resource objects. 一个Set，用于填充在加载过程中已解析的实际Resource对象。 可以为null以指示调用者对这些Resource对象不感兴趣
 	 * @return the number of bean definitions found
 	 * @throws BeanDefinitionStoreException in case of loading or parsing errors
 	 * @see #getResourceLoader()
@@ -204,13 +211,18 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 	 * @see #loadBeanDefinitions(org.springframework.core.io.Resource[])
 	 */
 	public int loadBeanDefinitions(String location, Set<Resource> actualResources) throws BeanDefinitionStoreException {
+		// actualResources 代表了已经在之前解析过的资源。
+
+		//因此这里解析的就是location代表的资源，然后通过解析后获得Resource，将Resouce添加到第2个参数之中。由于第二个参数是调用者传递的引用，因此该方法
+		//返回之后，就能拿到实际的Resource资源
 		ResourceLoader resourceLoader = getResourceLoader();
 		if (resourceLoader == null) {
 			throw new BeanDefinitionStoreException(
 					"Cannot import bean definitions from location [" + location + "]: no ResourceLoader available");
 		}
 
-		if (resourceLoader instanceof ResourcePatternResolver) {
+		//需要使用ResourceLoader去解析这个字符串，根据不同的实现，能够承担的是不同的处理，
+		if (resourceLoader instanceof ResourcePatternResolver) { //可能的多个资源，通过ResourcePatternResolver解析
 			// Resource pattern matching available.
 			try {
 				Resource[] resources = ((ResourcePatternResolver) resourceLoader).getResources(location);
@@ -231,7 +243,9 @@ public abstract class AbstractBeanDefinitionReader implements EnvironmentCapable
 			}
 		}
 		else {
+			// 只能进行的单个解析
 			// Can only load single resources by absolute URL.
+			// 只能通过绝对URL加载单个资源。
 			Resource resource = resourceLoader.getResource(location);
 			int loadCount = loadBeanDefinitions(resource);
 			if (actualResources != null) {

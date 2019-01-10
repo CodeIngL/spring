@@ -65,6 +65,19 @@ import org.springframework.web.util.WebUtils;
  * <p>A {@link WebDataBinder} is invoked to apply type conversion to resolved request
  * header values that don't yet match the method parameter type.
  *
+ * <p>
+ *     解析使用@RequestParam注解的方法参数，类型为MultipartFile的参数以及Spring的MultipartResolver，以及类型为javax.servlet.http.Part的参数以及Servlet 3.0多部分请求。
+ *     此解析程序也可以在默认解析模式下创建，其中未使用@RequestParam注释的简单类型（int，long等）也被视为请求参数，参数名称从参数名称派生。
+ * </p>
+ * <p>
+ *      如果方法参数类型为Map，则注解中指定的名称用于解析请求参数String值。
+ *      然后，假设已注册了合适的Converter或PropertyEditor，则通过类型转换将该值转换为Map。
+ *      或者，如果未指定请求参数名称，则使用RequestParamMapMethodArgumentResolver来提供对map形式的所有请求参数的访问。
+ * </p>
+ * <p>
+ *      * 调用WebDataBinder以将类型转换应用于尚未与方法参数类型匹配的已解析请求标头值
+ * </p>
+ *
  * @author Arjen Poutsma
  * @author Rossen Stoyanchev
  * @author Brian Clozel

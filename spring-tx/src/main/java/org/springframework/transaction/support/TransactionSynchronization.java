@@ -29,6 +29,15 @@ import java.io.Flushable;
  * <p>System synchronizations performed by Spring itself use specific order values,
  * allowing for fine-grained interaction with their execution order (if necessary).
  *
+ * <p>
+ *     事务同步回调的接口。 由AbstractPlatformTransactionManager支持。
+ * </p>
+ * <p>
+ * 	 TransactionSynchronization实现可以实现Ordered接口来影响它们的执行顺序。 未实现Ordered接口的同步将附加到同步链的末尾。
+ * </p>
+ * <p>
+ *     Spring执行的系统同步使用特定的顺序值，允许与其执行顺序（如果需要）进行细粒度的交互。
+ * </p>
  * @author Juergen Hoeller
  * @since 02.06.2003
  * @see TransactionSynchronizationManager

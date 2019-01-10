@@ -87,14 +87,15 @@ abstract class ConfigurationClassUtils {
 			return false;
 		}
 
+		//根据beanDefine来确定解析方式.
 		AnnotationMetadata metadata;
 		if (beanDef instanceof AnnotatedBeanDefinition &&
-				className.equals(((AnnotatedBeanDefinition) beanDef).getMetadata().getClassName())) {
+				className.equals(((AnnotatedBeanDefinition) beanDef).getMetadata().getClassName())) { //beanDefine本来就是注解，并可以获得相应信息
 			// Can reuse the pre-parsed metadata from the given BeanDefinition...
 			// 可以重用给定BeanDefinition的预解析元数据...
 			metadata = ((AnnotatedBeanDefinition) beanDef).getMetadata();
 		}
-		else if (beanDef instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) beanDef).hasBeanClass()) {
+		else if (beanDef instanceof AbstractBeanDefinition && ((AbstractBeanDefinition) beanDef).hasBeanClass()) { //已经显式指定其类，不需要asm解析，构造一个标准
 			// Check already loaded Class if present...
 			// since we possibly can't even load the class file for this Class.
 			// 检查已加载的类（如果存在）...因为我们甚至无法加载此类的类文件。
@@ -115,10 +116,10 @@ abstract class ConfigurationClassUtils {
 			}
 		}
 
-		if (isFullConfigurationCandidate(metadata)) {
+		if (isFullConfigurationCandidate(metadata)) { // 带有注解信息的Configuration
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_FULL);
 		}
-		else if (isLiteConfigurationCandidate(metadata)) {
+		else if (isLiteConfigurationCandidate(metadata)) { //带有@Component，@ComponentScan，@Import，@ImportResource，相关的注解，或者带有@bean注解的方法
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_LITE);
 		}
 		else {
@@ -126,6 +127,7 @@ abstract class ConfigurationClassUtils {
 		}
 
 		// It's a full or lite configuration candidate... Let's determine the order value, if any.
+		// 它是一个完整的或精简的配置候选者...让我们确定排序值，如果有的话。
 		Map<String, Object> orderAttributes = metadata.getAnnotationAttributes(Order.class.getName());
 		if (orderAttributes != null) {
 			beanDef.setAttribute(ORDER_ATTRIBUTE, orderAttributes.get(AnnotationUtils.VALUE));

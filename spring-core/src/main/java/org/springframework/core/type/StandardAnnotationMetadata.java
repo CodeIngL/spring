@@ -42,6 +42,9 @@ import org.springframework.util.MultiValueMap;
  */
 public class StandardAnnotationMetadata extends StandardClassMetadata implements AnnotationMetadata {
 
+	/**
+	 * 通过创建的时候构造相关的注解减少相应的反射
+	 */
 	private final Annotation[] annotations;
 
 	private final boolean nestedAnnotationsAsMap;

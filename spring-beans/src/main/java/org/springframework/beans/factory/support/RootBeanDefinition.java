@@ -288,6 +288,9 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Specify a factory method name that refers to a non-overloaded method.
+	 * <p>
+	 *     指定引用非重载方法的工厂方法名称。
+	 * </p>
 	 */
 	public void setUniqueFactoryMethodName(String name) {
 		Assert.hasText(name, "Factory method name must not be empty");

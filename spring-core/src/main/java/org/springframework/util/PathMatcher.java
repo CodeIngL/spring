@@ -30,6 +30,10 @@ import java.util.Map;
  * <p>The default implementation is {@link AntPathMatcher}, supporting the
  * Ant-style pattern syntax.
  *
+ * <p>
+ *      对基于String类型的模式匹配。用于匹配
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.2
  * @see AntPathMatcher

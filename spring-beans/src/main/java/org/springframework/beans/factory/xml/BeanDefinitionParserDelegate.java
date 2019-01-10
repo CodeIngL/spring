@@ -73,6 +73,10 @@ import org.springframework.util.xml.DomUtils;
  * {@link BeanDefinitionParser BeanDefinitionParsers} or
  * {@link BeanDefinitionDecorator BeanDefinitionDecorators}.
  *
+ * <p>
+ *     用于解析XML bean定义的有状态委托类。 旨在供主解析器和任何扩展BeanDefinitionParsers或BeanDefinitionDecorators使用。
+ * </p>
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Rod Johnson
@@ -321,6 +325,10 @@ public class BeanDefinitionParserDelegate {
 	 * init-method, destroy-method and merge settings. Support nested 'beans'
 	 * element use cases by falling back to the given parent in case the
 	 * defaults are not explicitly set locally.
+	 * <p>
+	 * 初始化默认的lazy-init，autowire，dependency检查设置，init-method，destroy-method和merge设置。
+	 * 如果未在本地显式设置默认值，则通过回退到给定父级来支持嵌套的“beans”元素用例。
+	 * </p>
 	 * @see #populateDefaults(DocumentDefaultsDefinition, DocumentDefaultsDefinition, org.w3c.dom.Element)
 	 * @see #getDefaults()
 	 */
@@ -334,6 +342,10 @@ public class BeanDefinitionParserDelegate {
 	 * autowire, dependency check settings, init-method, destroy-method and merge settings.
 	 * Support nested 'beans' element use cases by falling back to <literal>parentDefaults</literal>
 	 * in case the defaults are not explicitly set locally.
+	 * <p>
+	 *     使用默认的lazy-init，autowire，依赖性检查设置，init-method，destroy-method和合并设置填充给定的DocumentDefaultsDefinition实例。
+	 *     如果未在本地显式设置默认值，则通过回退到parentDefaults来支持嵌套的“beans”元素用例。
+	 * </p>
 	 * @param defaults the defaults to populate
 	 * @param parentDefaults the parent BeanDefinitionParserDelegate (if any) defaults to fall back to
 	 * @param root the root element of the current bean definition document (or nested beans element)

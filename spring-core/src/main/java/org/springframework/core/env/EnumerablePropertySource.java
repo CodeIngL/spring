@@ -37,6 +37,18 @@ import org.springframework.util.ObjectUtils;
  * (via {@link #getProperty(String)}) in order to evaluate whether it is present
  * or not.
  *
+ * <p>
+ *     一个PropertySource实现，能够询问其底层源对象以枚举所有可能的属性名称/值对。
+ *     公开{@link #getPropertyNames()}方法以允许调用者检查可用属性，而无需访问底层源对象。这也有助于更有效地实现{@link #containsProperty(String)}，
+ *     因为它可以调用{@link #getPropertyNames()}并遍历返回的数组，而不是尝试调用可能更昂贵的{@link #getProperty(String)}。
+ *     实现可以考虑缓存{@link #getPropertyNames()}的结果以充分利用此性能机会。
+ * </p>
+ * <p>
+ *    大多数框架提供的PropertySource实现都是可枚举的;
+ *    反例是{@code JndiPropertySource}，由于JNDI的性质，在任何给定时间都无法确定所有可能的属性名称;
+ *    相反，它只能尝试访问属性{@link #getProperty(String)}) ），以评估它是否存在
+ * </p>
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.1

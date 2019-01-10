@@ -39,6 +39,9 @@ import org.springframework.util.StringUtils;
  * {@link org.springframework.web.servlet.mvc.multiaction.AbstractUrlMethodNameResolver}
  * and {@link org.springframework.web.servlet.support.RequestContext} for path matching
  * and/or URI determination.
+ * <p>
+ *     URL路径匹配的助手类。 在RequestDispatcher中提供对URL路径的支持，包括并支持一致的URL解码
+ * </p>
  *
  * @author Juergen Hoeller
  * @author Rob Harrop

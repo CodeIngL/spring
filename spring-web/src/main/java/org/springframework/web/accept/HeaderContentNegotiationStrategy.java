@@ -28,6 +28,9 @@ import org.springframework.web.context.request.NativeWebRequest;
 
 /**
  * A {@code ContentNegotiationStrategy} that checks the 'Accept' request header.
+ * <p>
+ *     内容协商策略，通过处理用户请求的头部来说实现，返回相应的支持的媒体类型
+ * </p>
  *
  * @author Rossen Stoyanchev
  * @author Juergen Hoeller

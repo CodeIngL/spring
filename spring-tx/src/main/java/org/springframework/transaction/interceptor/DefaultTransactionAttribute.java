@@ -22,6 +22,10 @@ import org.springframework.transaction.support.DefaultTransactionDefinition;
  * Spring's common transaction attribute implementation.
  * Rolls back on runtime, but not checked, exceptions by default.
  *
+ * <p>
+ *     spring的常见事务属性实现。 在运行时回滚，但默认情况下不检查异常。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 16.03.2003

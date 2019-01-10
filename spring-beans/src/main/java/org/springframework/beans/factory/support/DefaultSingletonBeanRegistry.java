@@ -192,16 +192,16 @@ public class DefaultSingletonBeanRegistry extends SimpleAliasRegistry implements
 	 * @return the registered singleton object, or {@code null} if none found
 	 */
 	protected Object getSingleton(String beanName, boolean allowEarlyReference) {
-		Object singletonObject = this.singletonObjects.get(beanName);
-		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) {
+		Object singletonObject = this.singletonObjects.get(beanName); //最终的bean对象，存储在singletonObjects中，已注册的注册在另一map中
+		if (singletonObject == null && isSingletonCurrentlyInCreation(beanName)) { //没有，但是在创建中，说明遭遇到了循环引用的问题。
 			synchronized (this.singletonObjects) {
-				singletonObject = this.earlySingletonObjects.get(beanName);
-				if (singletonObject == null && allowEarlyReference) {
-					ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName);
+				singletonObject = this.earlySingletonObjects.get(beanName); //早期暴露的可以有，
+				if (singletonObject == null && allowEarlyReference) {//没有，但是运行循环引用，只能提前暴露了
+					ObjectFactory<?> singletonFactory = this.singletonFactories.get(beanName); //singletonFactories工厂已经提前注册了ObjectFactory
 					if (singletonFactory != null) {
-						singletonObject = singletonFactory.getObject();
+						singletonObject = singletonFactory.getObject(); //暴露的东西放到早期的earlySingletonObjects中，
 						this.earlySingletonObjects.put(beanName, singletonObject);
-						this.singletonFactories.remove(beanName);
+						this.singletonFactories.remove(beanName); //从原先的工厂进行删除，不需要再次调用getObject了
 					}
 				}
 			}
