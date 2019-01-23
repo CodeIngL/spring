@@ -45,7 +45,7 @@ import org.springframework.util.StringUtils;
  * interface.
  *
  * <p>
- *     具体的，成熟的BeanDefinition类的基类，分解GenericBeanDefinition，RootBeanDefinition和ChildBeanDefinition的公共属性。
+ *     具体的，成熟的{@link BeanDefinition}类的基类，分解{@link GenericBeanDefinition}，{@link RootBeanDefinition}和{@link ChildBeanDefinition}的公共属性。
  * </p>
  * <p>
  *     autowire常量与AutowireCapableBeanFactory接口中定义的常量匹配。
@@ -148,6 +148,9 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 
 	private boolean abstractFlag = false;
 
+	/**
+	 * 延迟加载
+	 */
 	private boolean lazyInit = false;
 
 	private int autowireMode = AUTOWIRE_NO;

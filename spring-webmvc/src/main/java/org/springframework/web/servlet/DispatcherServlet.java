@@ -647,6 +647,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		// default HandlerAdapters if no other adapters are found.
 		if (this.handlerAdapters == null) {
 			this.handlerAdapters = getDefaultStrategies(context, HandlerAdapter.class);
+			this.handlerAdapters = getDefaultStrategies(context, HandlerAdapter.class);
 			if (logger.isDebugEnabled()) {
 				logger.debug("No HandlerAdapters found in servlet '" + getServletName() + "': using default");
 			}
@@ -902,9 +903,9 @@ public class DispatcherServlet extends FrameworkServlet {
 
 		// Make framework objects available to handlers and view objects.
 		// 使框架对象可供处理程序和视图对象使用。
-		request.setAttribute(WEB_APPLICATION_CONTEXT_ATTRIBUTE, getWebApplicationContext());
-		request.setAttribute(LOCALE_RESOLVER_ATTRIBUTE, this.localeResolver);
-		request.setAttribute(THEME_RESOLVER_ATTRIBUTE, this.themeResolver);
+		request.setAttribute(WEB_APPLICATION_CONTEXT_ATTRIBUTE, getWebApplicationContext()); //应用工厂
+		request.setAttribute(LOCALE_RESOLVER_ATTRIBUTE, this.localeResolver); //本地化解析
+		request.setAttribute(THEME_RESOLVER_ATTRIBUTE, this.themeResolver); //主题解析
 		request.setAttribute(THEME_SOURCE_ATTRIBUTE, getThemeSource());
 
 		FlashMap inputFlashMap = this.flashMapManager.retrieveAndUpdate(request, response);
@@ -1123,6 +1124,9 @@ public class DispatcherServlet extends FrameworkServlet {
 	/**
 	 * Convert the request into a multipart request, and make multipart resolver available.
 	 * <p>If no multipart resolver is set, simply use the existing request.
+	 * <p>
+	 *     将请求转换为多部分请求，并使多部分解析器可用。 如果未设置多部分解析程序，只需使用现有请求。
+	 * </p>
 	 * @param request current HTTP request
 	 * @return the processed request (multipart wrapper if necessary)
 	 * @see MultipartResolver#resolveMultipart
@@ -1186,6 +1190,12 @@ public class DispatcherServlet extends FrameworkServlet {
 	/**
 	 * Return the HandlerExecutionChain for this request.
 	 * <p>Tries all handler mappings in order.
+	 * <p>
+	 *     返回此请求的HandlerExecutionChain。
+	 * </p>
+	 * <p>
+	 *     按顺序尝试所有处理程序映射
+	 * </p>
 	 * @param request current HTTP request
 	 * @return the HandlerExecutionChain, or {@code null} if no handler could be found
 	 */

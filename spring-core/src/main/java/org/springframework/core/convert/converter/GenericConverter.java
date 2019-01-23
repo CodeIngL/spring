@@ -36,6 +36,21 @@ import org.springframework.util.Assert;
  *
  * <p>Implementations may additionally implement {@link ConditionalConverter}.
  *
+ * <p>
+ *     用于在两种或更多种类型之间转换的通用转换器接口。
+ * </p>
+ * <p>
+ *    这是Converter SPI接口中最灵活的，也是最复杂的。
+ *    它的灵活性在于GenericConverter可以支持在多个源/目标类型对之间进行转换（请参阅{@link #getConvertibleTypes()}。
+ *    此外，GenericConverter实现可以在类型转换过程中访问源/目标字段上下文。这样可以解析源和目标字段 注解和泛型信息等元数据，可用于影响转换逻辑。
+ * </p>
+ * <p>
+ *     当更简单的{@link Converter}或{@link ConverterFactory}接口足够时，通常不应使用此接口。
+ * </p>
+ * <p>
+ *     实现可以另外实现ConditionalConverter
+ * </p>
+ *
  * @author Keith Donald
  * @author Juergen Hoeller
  * @since 3.0

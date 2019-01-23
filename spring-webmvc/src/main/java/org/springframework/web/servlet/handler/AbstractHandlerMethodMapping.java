@@ -310,12 +310,15 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 */
 	@Override
 	protected HandlerMethod getHandlerInternal(HttpServletRequest request) throws Exception {
+		//从请求中获得相关路由的路径
 		String lookupPath = getUrlPathHelper().getLookupPathForRequest(request);
 		if (logger.isDebugEnabled()) {
 			logger.debug("Looking up handler method for path " + lookupPath);
 		}
+		//开启路由
 		this.mappingRegistry.acquireReadLock();
 		try {
+			//找到相应的HandlerMethod
 			HandlerMethod handlerMethod = lookupHandlerMethod(lookupPath, request);
 			if (logger.isDebugEnabled()) {
 				if (handlerMethod != null) {
@@ -345,15 +348,20 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 */
 	protected HandlerMethod lookupHandlerMethod(String lookupPath, HttpServletRequest request) throws Exception {
 		List<Match> matches = new ArrayList<Match>();
+
+		//从缓存中获得直接的对应
 		List<T> directPathMatches = this.mappingRegistry.getMappingsByUrl(lookupPath);
 		if (directPathMatches != null) {
+			//不为空就直接进行映射
 			addMatchingMappings(directPathMatches, matches, request);
 		}
 		if (matches.isEmpty()) {
 			// No choice but to go through all mappings...
+			// 别无选择，只能通过所有映射......
 			addMatchingMappings(this.mappingRegistry.getMappings().keySet(), matches, request);
 		}
 
+		//不为空说明存在匹配。
 		if (!matches.isEmpty()) {
 			Comparator<Match> comparator = new MatchComparator(getMappingComparator(request));
 			Collections.sort(matches, comparator);
@@ -361,10 +369,10 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 				logger.trace("Found " + matches.size() + " matching mapping(s) for [" +
 						lookupPath + "] : " + matches);
 			}
-			Match bestMatch = matches.get(0);
-			if (matches.size() > 1) {
+			Match bestMatch = matches.get(0); //最佳匹配
+			if (matches.size() > 1) {	//多个匹配
 				if (CorsUtils.isPreFlightRequest(request)) {
-					return PREFLIGHT_AMBIGUOUS_MATCH;
+					return PREFLIGHT_AMBIGUOUS_MATCH; //如果请求是有效的CORS前飞行，则返回true。
 				}
 				Match secondBestMatch = matches.get(1);
 				if (comparator.compare(bestMatch, secondBestMatch) == 0) {
@@ -374,6 +382,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 							request.getRequestURL() + "': {" + m1 + ", " + m2 + "}");
 				}
 			}
+			//设置到匹配
 			handleMatch(bestMatch.mapping, lookupPath, request);
 			return bestMatch.handlerMethod;
 		}

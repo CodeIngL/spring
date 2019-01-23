@@ -54,6 +54,29 @@ import org.springframework.util.StringValueResolver;
  * registration of {@code PropertyPlaceholderConfigurer} through the namespace, even if using Spring 3.1;
  * simply do not update your {@code xsi:schemaLocation} and continue using the 3.0 XSD.
  *
+ * <p>
+ *     {@link PlaceholderConfigurerSupport}子类，用于根据{@link #setLocation local},{@link #setProperties properties}和/或系统属性和环境变量解析$ {...}占位符。
+ * </p>
+ * <p>
+ *     从Spring 3.1开始，PropertySourcesPlaceholderConfigurer应优先用于此实现;通过利用Spring 3.1中提供的Environment和PropertySource机制，它更加灵活。
+ * </p>
+ * <p>
+ *     {@link PropertyPlaceholderConfigurer} 仍然适合在以下情况下使用：
+ *     <ul>
+ *         <li>
+ *             spring-context模块不可用（即，一个使用Spring的{@code BeanFactory} API而不是ApplicationContext）。
+ *         </li>
+ *         <li>
+ *             现有配置使用“systemPropertiesMode”和/或“systemPropertiesModeName”属性。鼓励用户不再使用这些设置，而是通过容器的环境配置属性源搜索顺序;但是，通过继续使用PropertyPlaceholderConfigurer可以保持功能的精确保留。
+ *         </li>
+ *         <li></li>
+ *     </ul>
+ * </p>
+ * <p>
+ *     在Spring 3.1之前，<context：property-placeholder /> namespace元素注册了PropertyPlaceholderConfigurer的一个实例。如果使用命名空间的spring-context-3.0.xsd定义，它仍然会这样做。
+ *     也就是说，即使使用Spring 3.1，也可以通过命名空间保留PropertyPlaceholderConfigurer的注册;只是不要更新你的xsi：schemaLocation并继续使用3.0 XSD
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 02.10.2003

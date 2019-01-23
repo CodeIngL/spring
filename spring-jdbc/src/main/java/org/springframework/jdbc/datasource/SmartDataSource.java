@@ -28,6 +28,13 @@ import javax.sql.DataSource;
  * should be closed after an operation. Spring's DataSourceUtils and
  * JdbcTemplate classes automatically perform such a check.
  *
+ * <p>
+ *    {@code javax.sql.DataSource} 接口的扩展，由以解包方式返回JDBC Connections的特殊DataSource实现。
+ * </p>
+ * <p>
+ *    使用此接口的类可以查询操作后是否应关闭Connection。 Spring的DataSourceUtils和JdbcTemplate类自动执行这样的检查。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see SingleConnectionDataSource#shouldClose

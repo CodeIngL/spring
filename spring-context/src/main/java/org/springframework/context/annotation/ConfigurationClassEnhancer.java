@@ -66,9 +66,9 @@ import org.springframework.util.ReflectionUtils;
  * reference back to the container, obtaining the corresponding bean by name.
  *
  * <p>
- * 		通过生成与Spring容器交互的CGLIB子类来增强配置类，以尊重@Bean方法的bean范围的语义。
- * 		每个这样的@Bean方法将在生成的子类中被覆盖，如果容器实际上请求构造一个新的实例，则只委托给实际的@Bean方法实现。
- * 		否则，调用这样一个@Bean方法作为对容器的引用，通过名称获得相应的bean。
+ * 		通过生成与Spring容器交互的CGLIB子类来增强{@link Configuration}，以尊重{@code @Bean} 方法的bean范围的语义。
+ * 		每个这样的{@code @Bean}方法将在生成的子类中被覆盖，如果容器实际上请求构造一个新的实例，则只委托给实际的{@code @Bean} 方法实现。
+ * 		否则，调用这样一个{@code @Bean} 方法作为对容器的引用，通过名称获得相应的bean。
  * </p>
  * @author Chris Beams
  * @author Juergen Hoeller
@@ -308,6 +308,9 @@ class ConfigurationClassEnhancer {
 		/**
 		 * Enhance a {@link Bean @Bean} method to check the supplied BeanFactory for the
 		 * existence of this bean object.
+		 * <p>
+		 *     增强@Bean方法以检查提供的BeanFactory是否存在此bean对象。
+		 * </p>
 		 * @throws Throwable as a catch-all for any exception that may be thrown when invoking the
 		 * super implementation of the proxied method i.e., the actual {@code @Bean} method
 		 */
@@ -315,10 +318,13 @@ class ConfigurationClassEnhancer {
 		public Object intercept(Object enhancedConfigInstance, Method beanMethod, Object[] beanMethodArgs,
 					MethodProxy cglibMethodProxy) throws Throwable {
 
+			//获得bean工厂
 			ConfigurableBeanFactory beanFactory = getBeanFactory(enhancedConfigInstance);
+			//获得名字
 			String beanName = BeanAnnotationHelper.determineBeanNameFor(beanMethod);
 
 			// Determine whether this bean is a scoped-proxy
+			// 确定此bean是否为范围代理
 			Scope scope = AnnotatedElementUtils.findMergedAnnotation(beanMethod, Scope.class);
 			if (scope != null && scope.proxyMode() != ScopedProxyMode.NO) {
 				String scopedBeanName = ScopedProxyCreator.getTargetBeanName(beanName);
@@ -334,6 +340,10 @@ class ConfigurationClassEnhancer {
 			// proxy that intercepts calls to getObject() and returns any cached bean instance.
 			// This ensures that the semantics of calling a FactoryBean from within @Bean methods
 			// is the same as that of referring to a FactoryBean within XML. See SPR-6602.
+			// 要处理bean间方法引用的情况，我们必须显式检查已缓存实例的容器。
+			// 首先，检查请求的bean是否是FactoryBean。
+			// 如果是这样，创建一个子类代理，拦截对getObject() 的调用并返回任何缓存的bean实例。
+			// 这确保了从@Bean方法中调用FactoryBean的语义与在XML中引用FactoryBean的语义相同。 见SPR-6602。
 			if (factoryContainsBean(beanFactory, BeanFactory.FACTORY_BEAN_PREFIX + beanName) &&
 					factoryContainsBean(beanFactory, beanName)) {
 				Object factoryBean = beanFactory.getBean(BeanFactory.FACTORY_BEAN_PREFIX + beanName);

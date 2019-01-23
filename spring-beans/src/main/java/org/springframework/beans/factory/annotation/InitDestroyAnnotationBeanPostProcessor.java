@@ -83,6 +83,10 @@ public class InitDestroyAnnotationBeanPostProcessor
 
 	private int order = Ordered.LOWEST_PRECEDENCE;
 
+	/**
+	 * 关于class和init和destory方法的映射关系
+	 *
+	 */
 	private transient final Map<Class<?>, LifecycleMetadata> lifecycleMetadataCache =
 			new ConcurrentHashMap<Class<?>, LifecycleMetadata>(256);
 
@@ -193,6 +197,11 @@ public class InitDestroyAnnotationBeanPostProcessor
 		return metadata;
 	}
 
+	/**
+	 * 构建关于init和destory相关的信息
+	 * @param clazz
+	 * @return
+	 */
 	private LifecycleMetadata buildLifecycleMetadata(final Class<?> clazz) {
 		final boolean debug = logger.isDebugEnabled();
 		LinkedList<LifecycleElement> initMethods = new LinkedList<LifecycleElement>();
@@ -203,9 +212,11 @@ public class InitDestroyAnnotationBeanPostProcessor
 			final LinkedList<LifecycleElement> currInitMethods = new LinkedList<LifecycleElement>();
 			final LinkedList<LifecycleElement> currDestroyMethods = new LinkedList<LifecycleElement>();
 
+			//找到目标方法上带有相关注解的
 			ReflectionUtils.doWithLocalMethods(targetClass, new ReflectionUtils.MethodCallback() {
 				@Override
 				public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
+					//init相关的
 					if (initAnnotationType != null) {
 						if (method.getAnnotation(initAnnotationType) != null) {
 							LifecycleElement element = new LifecycleElement(method);
@@ -215,6 +226,7 @@ public class InitDestroyAnnotationBeanPostProcessor
 							}
 						}
 					}
+					//destroy相关的
 					if (destroyAnnotationType != null) {
 						if (method.getAnnotation(destroyAnnotationType) != null) {
 							currDestroyMethods.add(new LifecycleElement(method));
@@ -226,11 +238,13 @@ public class InitDestroyAnnotationBeanPostProcessor
 				}
 			});
 
+			//加入，父类优先
 			initMethods.addAll(0, currInitMethods);
 			destroyMethods.addAll(currDestroyMethods);
+			//获得父类
 			targetClass = targetClass.getSuperclass();
 		}
-		while (targetClass != null && targetClass != Object.class);
+		while (targetClass != null && targetClass != Object.class); //排除掉相关Object的类
 
 		return new LifecycleMetadata(clazz, initMethods, destroyMethods);
 	}
@@ -251,6 +265,9 @@ public class InitDestroyAnnotationBeanPostProcessor
 
 	/**
 	 * Class representing information about annotated init and destroy methods.
+	 * <p>
+	 *     表示有关带注解的init和destroy方法的信息的类。
+	 * </p>
 	 */
 	private class LifecycleMetadata {
 

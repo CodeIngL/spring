@@ -49,6 +49,13 @@ import org.springframework.web.util.UrlPathHelper;
  * result can be accessed via {@link #getConcurrentResult()} or its presence
  * detected via {@link #hasConcurrentResult()}.
  *
+ * <p>
+ *     用于管理异步请求处理的中心类，主要用作SPI，通常不由应用程序类直接使用。
+ * </p>
+ * <p>
+ *     异步方案通常在线程（T1）中的请求处理开始。 可以通过调用startCallableProcessing或startDeferredResultProcessing来启动并发请求处理，这两者都在单独的线程（T2）中生成结果。 保存结果并将请求分派给容器，以便在第三个线程（T3）中恢复已保存结果的处理。 在调度线程（T3）中，可以通过getConcurrentResult（）访问保存的结果，或通过hasConcurrentResult（）检测其存在。
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @since 3.2
  * @see org.springframework.web.context.request.AsyncWebRequestInterceptor

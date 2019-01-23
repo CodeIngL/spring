@@ -77,6 +77,13 @@ public abstract class AbstractTransactionStatus implements TransactionStatus {
 	 * Determine the rollback-only flag via checking this TransactionStatus.
 	 * <p>Will only return "true" if the application called {@code setRollbackOnly}
 	 * on this TransactionStatus object.
+	 *
+	 * <p>
+	 *     通过检查此TransactionStatus确定仅回滚标志。
+	 * </p>
+	 * <p>
+	 *  如果应用程序在此TransactionStatus对象上调用setRollbackOnly，则仅返回“true”
+	 * </p>
 	 */
 	public boolean isLocalRollbackOnly() {
 		return this.rollbackOnly;

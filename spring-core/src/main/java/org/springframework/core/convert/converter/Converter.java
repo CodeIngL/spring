@@ -23,6 +23,16 @@ package org.springframework.core.convert.converter;
  *
  * <p>Implementations may additionally implement {@link ConditionalConverter}.
  *
+ * <p>
+ *     转换器将类型S的源对象转换为类型为T的目标。
+ * </p>
+ * <p>
+ * 此接口的实现是线程安全的，可以共享。
+ * </p>
+ * <p>
+ * 实现可以另外实现{@link ConditionalConverter}
+ * </p>
+ *
  * @author Keith Donald
  * @since 3.0
  * @param <S> the source type

@@ -438,6 +438,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 
 	/**
 	 * Create a TransactionStatus for an existing transaction.
+	 * 根据已经存在的事务，构建一个的事务状态
 	 */
 	private TransactionStatus handleExistingTransaction(
 			TransactionDefinition definition, Object transaction, boolean debugEnabled)
@@ -546,6 +547,9 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	/**
 	 * Create a new TransactionStatus for the given arguments,
 	 * also initializing transaction synchronization as appropriate.
+	 * <p>
+	 *     使用指定的参数构建一个事务状态，当然会初始化合适的事务同步，如果可能的话，
+	 * </p>
 	 * @see #newTransactionStatus
 	 * @see #prepareTransactionStatus
 	 */
@@ -574,7 +578,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 		//是否是真实需要同步
 		boolean actualNewSynchronization = newSynchronization &&
 				!TransactionSynchronizationManager.isSynchronizationActive();
-		//构建事务状体
+		//构建事务状态
 		return new DefaultTransactionStatus(
 				transaction, newTransaction, actualNewSynchronization,
 				definition.isReadOnly(), debug, suspendedResources);
@@ -618,7 +622,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * then delegates to the {@code doSuspend} template method.
      *
      * <p>
-     *     Suspend给定的交易。 首先Suspends事务同步，然后委托给{@code doSuspend}模板方法。
+     *     Suspend给定的事务。 首先Suspends，事务同步，然后委托给{@code doSuspend}模板方法。
      * </p>
 	 * @param transaction the current transaction object
 	 * (or {@code null} to just suspend active synchronizations, if any)
@@ -1113,6 +1117,9 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	/**
 	 * Clean up after completion, clearing synchronization if necessary,
 	 * and invoking doCleanupAfterCompletion.
+	 * <p>
+	 *     完成后清理，必要时清除同步，并调用doCleanupAfterCompletion。
+	 * </p>
 	 * @param status object representing the transaction
 	 * @see #doCleanupAfterCompletion
 	 */
@@ -1306,6 +1313,12 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * {@code beforeCommit} synchronization callbacks occur.
 	 * <p>Note that exceptions will get propagated to the commit caller
 	 * and cause a rollback of the transaction.
+	 * <p>
+	 *     准备提交，在beforeCommit同步回调发生之前执行。
+	 * </p>
+	 * <p>
+	 * 请注意，异常将传播到提交调用方并导致事务回滚
+	 * </p>
 	 * @param status the status representation of the transaction
 	 * @throws RuntimeException in case of errors; will be <b>propagated to the caller</b>
 	 * (note: do not throw TransactionException subclasses here!)

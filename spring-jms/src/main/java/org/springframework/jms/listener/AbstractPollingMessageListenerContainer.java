@@ -66,6 +66,22 @@ import org.springframework.transaction.support.TransactionSynchronizationUtils;
  * {@link org.springframework.core.task.TaskExecutor} abstraction,
  * including dynamic scaling of concurrent consumers and automatic self recovery.
  *
+ * <p>
+ *     侦听器容器实现的基类，它基于轮询。为基于{@link javax.jms.MessageConsumer}的侦听器处理提供支持，可选择参与外部管理的事务。
+ * </p>
+ * <p>
+ *     此侦听器容器变体是为重复轮询尝试而构建的，每次调用都会调用receiveAndExecute方法。所使用的MessageConsumer可以重新获得以达到尝试或在尝试之间缓存;这取决于具体的实施。可以通过“receiveTimeout”属性配置每次尝试的接收超时。
+ * </p>
+ * <p>
+ *    底层机制基于标准JMS MessageConsumer处理，它与Java EE环境中的本机JMS和JMS完全兼容。 JMS MessageConsumer.setMessageListener工具和JMS ServerSessionPool工具都不是必需的。这种方法的另一个优点是可以完全控制监听过程，允许自定义缩放和限制以及并发消息处理（这取决于具体的子类）。
+ * </p>
+ * <p>
+ * 通过将Spring PlatformTransactionManager传递到“transactionManager”属性，消息接收和侦听器执行可以自动包含在事务中。这通常是Java EE环境中的org.springframework.transaction.jta.JtaTransactionManager，以及从JNDI获取的JTA感知JMS ConnectionFactory（请查看应用程序服务器的文档）。
+ * </p>
+ * <p>
+ * 此基类不假定用于轮询调用程序的异步执行的任何特定机制。查看DefaultMessageListenerContainer，了解基于Spring的org.springframework.core.task.TaskExecutor抽象的具体实现，包括并发消费者的动态扩展和自动自我恢复
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.0.3
  * @see #createListenerConsumer

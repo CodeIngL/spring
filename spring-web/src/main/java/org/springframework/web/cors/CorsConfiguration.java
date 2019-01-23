@@ -40,6 +40,17 @@ import org.springframework.util.StringUtils;
  * to start with open defaults that permit all cross-origin requests for GET,
  * HEAD, and POST requests.
  *
+ * <p>
+ *     用于CORS配置的容器以及检查给定请求的实际来源，HTTP方法和标头的方法。
+ * </p>
+ * <p>
+ *     默认情况下，新创建的{@code CorsConfiguration}不允许任何跨源请求，必须明确配置以指示应允许的内容。
+ * </p>
+ * <p>
+ *     使用{@link #applyPermitDefaultValues()}将初始化模型翻转为以允许所有跨GET，HEAD和POST请求的跨源请求的打开默认值开始。
+ * </p>
+ *
+ *
  * @author Sebastien Deleuze
  * @author Rossen Stoyanchev
  * @author Juergen Hoeller

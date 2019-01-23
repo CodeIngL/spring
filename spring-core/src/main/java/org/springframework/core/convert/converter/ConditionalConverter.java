@@ -32,6 +32,17 @@ import org.springframework.core.convert.TypeDescriptor;
  * an implementation might return {@code true} if the target Account class defines a
  * {@code public static findAccount(String)} method.
  *
+ * <p>
+ *     允许{@link Converter}, {@link GenericConverter}或{@link ConverterFactory} 根据{@code source} 和{@code target}{@link TypeDescriptor}.的属性有条件地执行。
+ * </p>
+ * <p>
+ *     通常用于基于字段或类级特征（例如注解或方法）的存在来选择性地匹配自定义转换逻辑。
+ *     例如，当从String字段转换为Date字段时，如果目标字段也已使用@DateTimeFormat注解，则实现可能返回true。
+ * </p>
+ * <p>
+ *     作为另一个示例，当从String字段转换为{@code Account} 字段时，如果目标Account类定义了{@code public static findAccount(String)}方法，则实现可能返回true。
+ * </p>
+ *
  * @author Phillip Webb
  * @author Keith Donald
  * @since 3.2

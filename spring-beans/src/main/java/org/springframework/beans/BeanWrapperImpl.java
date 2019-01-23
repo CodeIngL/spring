@@ -48,15 +48,18 @@ import org.springframework.util.Assert;
  * {@link PropertyAccessorFactory#forBeanPropertyAccess} factory method instead.
  *
  * <p>
- *     默认的BeanWrapper实现应该足以满足所有典型用例。 自我缓存并提高效率。
+ *     默认的{@link BeanWrapper}实现应该足以满足所有典型用例。
+ *     自我缓存并提高效率。
  * </p>
  * <p>
- *      注意：自动注册org.springframework.beans.propertyeditors包中的默认属性编辑器，除了JDK的标准PropertyEditors之外，它还适用。
- *      应用程序可以调用registerCustomEditor（Class，java.beans.PropertyEditor）方法来注册特定实例的编辑器（即它们不在应用程序中共享）。 有关详细信息，请参阅基类PropertyEditorRegistrySupport。
+ *      注意：自动注册{@code org.springframework.beans.propertyeditors} 包中的默认属性编辑器，除了JDK的标准PropertyEditors之外，它还适用。
+ *      应用程序可以调用{@link #registerCustomEditor(Class, java.beans.PropertyEditor)}方法来注册特定实例的编辑器（即它们不在应用程序中共享）。
+ *      有关详细信息，请参阅{@link PropertyEditorRegistrySupport}。
  * </p>
- * <p> 注意：从Spring 2.5开始，对于几乎所有目的而言，这是一个内部类。
+ * <p>
+ *     注意：从Spring 2.5开始，对于几乎所有目的而言，这是一个内部类。
  * 它只是公开的，以允许从其他框架包访问。 对于标准应用程序访问目的，
- * 请改用PropertyAccessorFactory.forBeanPropertyAccess工厂方法。</p> </p>
+ * 请改用{@link PropertyAccessorFactory#forBeanPropertyAccess}工厂方法。</p> </p>
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -76,6 +79,7 @@ public class BeanWrapperImpl extends AbstractNestablePropertyAccessor implements
 	/**
 	 * Cached introspections results for this object, to prevent encountering
 	 * the cost of JavaBeans introspection every time.
+	 * <p>此对象的缓存内部检查结果，以防止每次都遇到JavaBeans内省的代价。</p>
 	 */
 	private CachedIntrospectionResults cachedIntrospectionResults;
 

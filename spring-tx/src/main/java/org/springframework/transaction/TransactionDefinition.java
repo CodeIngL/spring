@@ -125,6 +125,12 @@ public interface TransactionDefinition {
 	 * exists. Analogous to the EJB transaction attribute of the same name.
 	 * <p>Note that transaction synchronization is <i>not</i> available within a
 	 * {@code PROPAGATION_NEVER} scope.
+	 * <p>
+	 *     不支持当前交易; 如果存在当前事务，则抛出异常。 类似于同名的EJB事务属性。
+	 * </p>
+	 * <p>
+	 *     	 * 请注意，PROPAGATION_NEVER范围内的事务同步不可用
+	 * </p>
 	 */
 	int PROPAGATION_NEVER = 5;
 
@@ -137,6 +143,15 @@ public interface TransactionDefinition {
 	 * {@link org.springframework.jdbc.datasource.DataSourceTransactionManager}
 	 * when working on a JDBC 3.0 driver. Some JTA providers might support
 	 * nested transactions as well.
+	 *
+	 * <p>
+	 *     如果当前事务存在，则在嵌套事务中执行，其行为类似于PROPAGATION_REQUIRED else。 EJB中没有类似的功能。
+	 * </p>
+	 * <p>
+	 *     注意意：实际创建嵌套事务仅适用于特定事务管理器。
+	 *     开箱即用，这仅适用于处理JDBC 3.0驱动程序时的JDBC org.springframework.jdbc.datasource.DataSourceTransactionManager。
+	 *     一些JTA提供程序也可能支持嵌套事务
+	 * </p>
 	 * @see org.springframework.jdbc.datasource.DataSourceTransactionManager
 	 */
 	int PROPAGATION_NESTED = 6;
@@ -197,6 +212,9 @@ public interface TransactionDefinition {
 	/**
 	 * Use the default timeout of the underlying transaction system,
 	 * or none if timeouts are not supported.
+	 * <p>
+	 *     使用基础事务系统的默认超时，如果不支持超时，则使用none。
+	 * </p>
 	 */
 	int TIMEOUT_DEFAULT = -1;
 
@@ -230,6 +248,18 @@ public interface TransactionDefinition {
 	 * or {@link #PROPAGATION_REQUIRES_NEW}.
 	 * <p>Note that a transaction manager that does not support timeouts will throw
 	 * an exception when given any other timeout than {@link #TIMEOUT_DEFAULT}.
+	 *
+	 * <p>
+	 * 返回事务超时。
+	 * </p>
+	 * <p> 必须返回几秒或TIMEOUT_DEFAULT。
+	 * </p>
+	 * <p>
+	 *     	 只有与PROPAGATION_REQUIRED或PROPAGATION_REQUIRES_NEW结合才有意义。
+	 * </p>
+	 * <p>
+	 *     	 请注意，在给定除TIMEOUT_DEFAULT之外的任何其他超时时，不支持超时的事务管理器将引发异常。
+	 * </p>
 	 * @return the transaction timeout
 	 */
 	int getTimeout();

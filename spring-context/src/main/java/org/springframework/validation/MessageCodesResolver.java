@@ -23,6 +23,13 @@ package org.springframework.validation;
  * <p>The resulting message codes correspond to the codes of a
  * MessageSourceResolvable (as implemented by ObjectError and FieldError).
  *
+ * <p>
+ *    用于根据验证错误代码构建消息代码的策略接口。 由DataBinder用于构建ObjectErrors和FieldErrors的代码列表。
+ * </p>
+ * <p>
+ *   生成的消息代码对应于MessageSourceResolvable的代码（由ObjectError和FieldError实现）。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.0.1
  * @see DataBinder#setMessageCodesResolver

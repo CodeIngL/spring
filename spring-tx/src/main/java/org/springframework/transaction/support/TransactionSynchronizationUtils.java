@@ -56,6 +56,9 @@ public abstract class TransactionSynchronizationUtils {
 	/**
 	 * Unwrap the given resource handle if necessary; otherwise return
 	 * the given handle as-is.
+	 * <p>
+	 *     必要时展开给定的资源句柄; 否则按原样返回给定的句柄。
+	 * </p>
 	 * @see org.springframework.core.InfrastructureProxy#getWrappedObject()
 	 */
 	static Object unwrapResourceIfNecessary(Object resource) {

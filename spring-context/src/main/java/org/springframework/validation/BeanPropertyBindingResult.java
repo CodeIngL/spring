@@ -84,10 +84,14 @@ public class BeanPropertyBindingResult extends AbstractPropertyBindingResult imp
 	/**
 	 * Returns the {@link BeanWrapper} that this instance uses.
 	 * Creates a new one if none existed before.
+	 * <p>
+	 *     返回此实例使用的BeanWrapper。 如果之前不存在，则创建一个新的。
+	 * </p>
 	 * @see #createBeanWrapper()
 	 */
 	@Override
 	public final ConfigurablePropertyAccessor getPropertyAccessor() {
+		//简单的进行相关的构建
 		if (this.beanWrapper == null) {
 			this.beanWrapper = createBeanWrapper();
 			this.beanWrapper.setExtractOldValueForEditor(true);

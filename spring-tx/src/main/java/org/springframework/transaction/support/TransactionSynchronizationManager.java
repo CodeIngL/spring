@@ -64,16 +64,17 @@ import org.springframework.util.Assert;
  * any given DataSource or SessionFactory, respectively.
  *
  * <p>
- *     管理每个线程的资源和事务同步的中央委托。由资源管理代码使用，但不是由典型的应用程序代码使用。
+ *     管理每个线程的资源和事务同步的中央委托。由资源管理器的相关代码使用，但不是由典型的应用程序代码使用。
  * </p>
  * <p>
  *     每个key支持一个资源而不覆盖，也就是说，在为同一个key设置新资源之前需要删除资源。如果同步处于活动状态，则支持事务同步列表。
  * </p>
  * <p>
- *     资源管理代码应检查线程绑定资源，例如JDBC连接或Hibernate会话，通过getResource。这样的代码通常不应该将资源绑定到线程，因为这是事务管理器的责任。另一个选择是，如果事务同步处于活动状态，则在首次使用时延迟绑定，以执行跨越任意数量资源的事务。
+ *     资源管理器代码应检查线程绑定资源，例如通过{@code getResource}获得JDBC连接或Hibernate会话。这样的代码通常不应该将资源绑定到线程，因为这是事务管理器的责任。
+ *     另一个选择是，如果事务同步处于活动状态，则在首次使用时延迟绑定，以执行跨越任意数量资源的事务。
  * </p>
  * <p>
- *     事务管理器必须通过initSynchronization（）和clearSynchronization（）激活和取消激活事务同步。这由AbstractPlatformTransactionManager自动支持，
+ *     事务管理器必须通过{@link #initSynchronization()}和{@link #clearSynchronization()}激活和取消激活事务同步。这由AbstractPlatformTransactionManager自动支持，
  *     因此由所有标准的Spring事务管理器支持，例如org.springframework.transaction.jta.JtaTransactionManager和org.springframework.jdbc.datasource.DataSourceTransactionManager。
  * </p>
  * <p>
@@ -218,6 +219,9 @@ public abstract class TransactionSynchronizationManager {
 
 	/**
 	 * Unbind a resource for the given key from the current thread.
+	 * <p>
+	 *     解除当前线程中给定键的资源绑定。
+	 * </p>
 	 * @param key the key to unbind (usually the resource factory)
 	 * @return the previously bound value (usually the active resource object)
 	 * @throws IllegalStateException if there is no value bound to the thread
@@ -275,6 +279,9 @@ public abstract class TransactionSynchronizationManager {
 	/**
 	 * Return if transaction synchronization is active for the current thread.
 	 * Can be called before register to avoid unnecessary instance creation.
+	 * <p>
+	 *     如果当前线程的事务同步处于活动状态，则返回。 可以在注册前调用以避免不必要的实例创建
+	 * </p>
 	 * @see #registerSynchronization
 	 */
 	public static boolean isSynchronizationActive() {
@@ -317,6 +324,9 @@ public abstract class TransactionSynchronizationManager {
 	/**
 	 * Return an unmodifiable snapshot list of all registered synchronizations
 	 * for the current thread.
+	 * <p>
+	 *     返回当前线程的所有已注册同步的不可修改的快照列表。
+	 * </p>
 	 * @return unmodifiable List of TransactionSynchronization instances
 	 * @throws IllegalStateException if synchronization is not active
 	 * @see TransactionSynchronization
@@ -334,6 +344,7 @@ public abstract class TransactionSynchronizationManager {
 		}
 		else {
 			// Sort lazily here, not in registerSynchronization.
+			// 这里懒惰地排序，而不是在registerSynchronization中。
 			List<TransactionSynchronization> sortedSynchs = new ArrayList<TransactionSynchronization>(synchs);
 			AnnotationAwareOrderComparator.sort(sortedSynchs);
 			return Collections.unmodifiableList(sortedSynchs);

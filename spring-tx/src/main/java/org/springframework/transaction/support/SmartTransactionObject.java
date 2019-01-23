@@ -27,6 +27,13 @@ import java.io.Flushable;
  * current rollbackOnly flag even if not resulting from the current
  * TransactionStatus.
  *
+ * <p>
+ *     由能够返回内部回滚标记的事务对象实现的接口，通常来自已参与并将其标记为仅回滚的另一个事务。
+ * </p>
+ * <p>
+ *     由DefaultTransactionStatus自动检测，即使不是由当前TransactionStatus产生，也始终返回当前的rollbackOnly标志
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.1
  * @see DefaultTransactionStatus#isRollbackOnly

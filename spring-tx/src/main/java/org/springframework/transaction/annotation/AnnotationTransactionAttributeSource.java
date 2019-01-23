@@ -44,8 +44,8 @@ import org.springframework.util.ClassUtils;
  *     org.springframework.transaction.interceptor.TransactionAttributeSource接口的实现，用于处理JDK 1.5+注释格式的事务元数据。
  * </p>
  * <p>
- *      该类读取Spring的JDK 1.5+ Transactional批注，并向Spring的事务基础结构公开相应的事务属性。
- *      还支持JTA 1.2的javax.transaction.Transactional和EJB3的javax.ejb.TransactionAttribute注释（如果存在）。
+ *      该类读取Spring的JDK 1.5+ {@link Transactional} 注解，并向Spring的事务基础结构公开相应的事务属性。
+ *      还支持JTA 1.2的{@link javax.transaction.Transactional}和EJB3的{@link javax.ejb.TransactionAttribute}注解（如果存在）。
  *      此类还可以作为自定义TransactionAttributeSource的基类，或通过TransactionAnnotationParser策略进行自定义。
  * </p>
  *

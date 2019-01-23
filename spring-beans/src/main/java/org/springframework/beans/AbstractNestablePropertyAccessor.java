@@ -55,6 +55,14 @@ import org.springframework.util.StringUtils;
  * as String arrays are converted in such a format if the array itself is not
  * assignable.
  *
+ * <p>一个基本的ConfigurablePropertyAccessor，为所有典型用例提供必要的基础结构。
+ * </p>
+ * <p>
+ * 如有必要，此访问器将集合和数组值转换为相应的目标集合或数组。
+ * 处理集合或数组的自定义属性编辑器可以通过PropertyEditor的setValue写入，也可以通过setAsText写入逗号分隔的String，因为如果数组本身不可分配，
+ * 则String数组将以这种格式转换。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Stephane Nicoll
  * @author Rod Johnson
@@ -799,6 +807,9 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 
 	/**
 	 * Get the last component of the path. Also works if not nested.
+	 * <p>
+	 *     获取路径的最后一个组件。 如果没有嵌套也可以工作。
+	 * </p>
 	 * @param pa property accessor to work on
 	 * @param nestedPath property path we know is nested
 	 * @return last component of the path (the property on the target bean)
@@ -934,6 +945,9 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 
 	/**
 	 * Parse the given property name into the corresponding property name tokens.
+	 * <p>
+	 *     将给定的属性名称解析为相应的属性名称标记。
+	 * </p>
 	 * @param propertyName the property name to parse
 	 * @return representation of the parsed property tokens
 	 */
@@ -943,15 +957,20 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 		List<String> keys = new ArrayList<String>(2);
 		int searchIndex = 0;
 		while (searchIndex != -1) {
+			// [位置
 			int keyStart = propertyName.indexOf(PROPERTY_KEY_PREFIX, searchIndex);
 			searchIndex = -1;
 			if (keyStart != -1) {
+				// ]位置
 				int keyEnd = propertyName.indexOf(PROPERTY_KEY_SUFFIX, keyStart + PROPERTY_KEY_PREFIX.length());
 				if (keyEnd != -1) {
 					if (actualName == null) {
+						//实际的名字
 						actualName = propertyName.substring(0, keyStart);
 					}
+					//[]中间的值
 					String key = propertyName.substring(keyStart + PROPERTY_KEY_PREFIX.length(), keyEnd);
+					//被''或者""包裹
 					if (key.length() > 1 && (key.startsWith("'") && key.endsWith("'")) ||
 							(key.startsWith("\"") && key.endsWith("\""))) {
 						key = key.substring(1, key.length() - 1);
@@ -961,12 +980,16 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 				}
 			}
 		}
+		//获得实际的名字
 		tokens.actualName = (actualName != null ? actualName : propertyName);
+		//获得规范的名字
 		tokens.canonicalName = tokens.actualName;
 		if (!keys.isEmpty()) {
+			//继续拼接
 			tokens.canonicalName += PROPERTY_KEY_PREFIX +
 					StringUtils.collectionToDelimitedString(keys, PROPERTY_KEY_SUFFIX + PROPERTY_KEY_PREFIX) +
 					PROPERTY_KEY_SUFFIX;
+			//关键key
 			tokens.keys = StringUtils.toStringArray(keys);
 		}
 		return tokens;
@@ -1037,8 +1060,14 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 
 	protected static class PropertyTokenHolder {
 
+		/**
+		 * 规范名称
+		 */
 		public String canonicalName;
 
+		/**
+		 * 事件名称
+		 */
 		public String actualName;
 
 		public String[] keys;

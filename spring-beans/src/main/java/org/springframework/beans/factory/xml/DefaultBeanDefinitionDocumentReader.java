@@ -181,17 +181,22 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 	}
 
+    /**
+     * 处理默认的节点
+     * @param ele
+     * @param delegate
+     */
 	private void parseDefaultElement(Element ele, BeanDefinitionParserDelegate delegate) {
-		if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) { //import
+		if (delegate.nodeNameEquals(ele, IMPORT_ELEMENT)) { //import节点处理
 			importBeanDefinitionResource(ele);
 		}
-		else if (delegate.nodeNameEquals(ele, ALIAS_ELEMENT)) { //alias
+		else if (delegate.nodeNameEquals(ele, ALIAS_ELEMENT)) { //alias节点处理
 			processAliasRegistration(ele);
 		}
-		else if (delegate.nodeNameEquals(ele, BEAN_ELEMENT)) { //bean
+		else if (delegate.nodeNameEquals(ele, BEAN_ELEMENT)) { //bean节点处理
 			processBeanDefinition(ele, delegate);
 		}
-		else if (delegate.nodeNameEquals(ele, NESTED_BEANS_ELEMENT)) { //beans
+		else if (delegate.nodeNameEquals(ele, NESTED_BEANS_ELEMENT)) { //beans节点处理
 			// recurse
 			doRegisterBeanDefinitions(ele);
 		}
@@ -200,6 +205,11 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	/**
 	 * Parse an "import" element and load the bean definitions
 	 * from the given resource into the bean factory.
+     *
+     * <p>
+     *     解析“import”元素并将bean定义从给定资源加载到bean工厂中。
+     * </p>
+     * import 特别的简单，因为会只是指定资源重新触发相关的解析
 	 */
 	protected void importBeanDefinitionResource(Element ele) {
 		String location = ele.getAttribute(RESOURCE_ATTRIBUTE);
@@ -209,11 +219,13 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 
 		// Resolve system properties: e.g. "${user.dir}"
+        // 可以通过上下文中的环境去解析，比如"${user.dir}"系统属性
 		location = getReaderContext().getEnvironment().resolveRequiredPlaceholders(location);
 
 		Set<Resource> actualResources = new LinkedHashSet<Resource>(4);
 
 		// Discover whether the location is an absolute or relative URI
+        // 发现目标是绝对URI还是相对URI
 		boolean absoluteLocation = false;
 		try {
 			absoluteLocation = ResourcePatternUtils.isUrl(location) || ResourceUtils.toURI(location).isAbsolute();
@@ -238,6 +250,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		}
 		else {
 			// No URL -> considering resource location as relative to the current file.
+            // 没有URL -> 将资源位置视为相对于当前文件。
 			try {
 				int importCount;
 				Resource relativeResource = getReaderContext().getResource().createRelative(location);

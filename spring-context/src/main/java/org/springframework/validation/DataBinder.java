@@ -96,11 +96,8 @@ import org.springframework.util.StringUtils;
  * and {@link org.springframework.web.portlet.bind.PortletRequestDataBinder}.
  *
  * <p>
- * 允许将属性值设置到目标对象上的Binder，包括对验证和绑定结果分析的支持。
- * 可以通过指定允许的字段，必填字段，自定义编辑器等来自定义绑定过程。
- *
- *
- *
+ *  Binder的功能允许将属性值设置到目标对象上，包括对验证和绑定结果分析的支持。
+ *  可以通过指定允许的字段，必填字段，自定义编辑器等来自定义绑定过程。
  * </p>
  * <p>请注意，如果未设置允许字段数组，则可能存在安全隐患。
  * 例如，在HTTP表单POST数据的情况下，恶意客户端可以通过提供表单上不存在的字段或属性的值来尝试破坏应用程序。在某些情况下，这可能导致在命令对象或其嵌套对象上设置非法数据。
@@ -314,15 +311,21 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 	/**
 	 * Create the {@link AbstractPropertyBindingResult} instance using standard
 	 * JavaBean property access.
+	 * <p>
+	 *     使用标准JavaBean属性访问创建AbstractPropertyBindingResult实例。
+	 * </p>
 	 * @since 4.2.1
 	 */
 	protected AbstractPropertyBindingResult createBeanPropertyBindingResult() {
+		//构建
 		BeanPropertyBindingResult result = new BeanPropertyBindingResult(getTarget(),
 				getObjectName(), isAutoGrowNestedPaths(), getAutoGrowCollectionLimit());
 
+		//设置转换服务
 		if (this.conversionService != null) {
 			result.initConversion(this.conversionService);
 		}
+		//设置消息转换服务
 		if (this.messageCodesResolver != null) {
 			result.setMessageCodesResolver(this.messageCodesResolver);
 		}
@@ -364,8 +367,10 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 	/**
 	 * Return the internal BindingResult held by this DataBinder,
 	 * as an AbstractPropertyBindingResult.
+	 * 返回此DataBinder持有的内部BindingResult，作为AbstractPropertyBindingResult。
 	 */
 	protected AbstractPropertyBindingResult getInternalBindingResult() {
+		//不存在，进行初始化
 		if (this.bindingResult == null) {
 			initBeanPropertyAccess();
 		}
@@ -807,17 +812,22 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 	/**
 	 * Check the given property values against the allowed fields,
 	 * removing values for fields that are not allowed.
+	 * <p>
+	 *     根据允许的字段检查给定的属性值，删除不允许的字段的值。
+	 * </p>
 	 * @param mpvs the property values to be bound (can be modified)
 	 * @see #getAllowedFields
 	 * @see #isAllowed(String)
 	 */
 	protected void checkAllowedFields(MutablePropertyValues mpvs) {
+		//遍历属性值
 		PropertyValue[] pvs = mpvs.getPropertyValues();
 		for (PropertyValue pv : pvs) {
+			//获得属性值对应的字段
 			String field = PropertyAccessorUtils.canonicalPropertyName(pv.getName());
-			if (!isAllowed(field)) {
+			if (!isAllowed(field)) {// 不允许就删除他
 				mpvs.removePropertyValue(pv);
-				getBindingResult().recordSuppressedField(field);
+				getBindingResult().recordSuppressedField(field);//进行记录一次
 				if (logger.isDebugEnabled()) {
 					logger.debug("Field [" + field + "] has been removed from PropertyValues " +
 							"and will not be bound, because it has not been found in the list of allowed fields");
@@ -850,24 +860,33 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 	/**
 	 * Check the given property values against the required fields,
 	 * generating missing field errors where appropriate.
+	 * <p>
+	 *     根据所需字段检查给定的属性值，并在适当的位置生成缺少的字段错误
+	 * </p>
 	 * @param mpvs the property values to be bound (can be modified)
 	 * @see #getRequiredFields
 	 * @see #getBindingErrorProcessor
 	 * @see BindingErrorProcessor#processMissingFieldError
 	 */
 	protected void checkRequiredFields(MutablePropertyValues mpvs) {
+		//获得必须要求的字段
 		String[] requiredFields = getRequiredFields();
-		if (!ObjectUtils.isEmpty(requiredFields)) {
+		if (!ObjectUtils.isEmpty(requiredFields)) {//含有要求的字段
+			//list转map
 			Map<String, PropertyValue> propertyValues = new HashMap<String, PropertyValue>();
 			PropertyValue[] pvs = mpvs.getPropertyValues();
 			for (PropertyValue pv : pvs) {
 				String canonicalName = PropertyAccessorUtils.canonicalPropertyName(pv.getName());
 				propertyValues.put(canonicalName, pv);
 			}
+			//遍历要求的字段
 			for (String field : requiredFields) {
+				//从map中获取
 				PropertyValue pv = propertyValues.get(field);
+				//不为空
 				boolean empty = (pv == null || pv.getValue() == null);
 				if (!empty) {
+					//进行相关的处理，对于字符串或者字符串数组，提早进行相关的处理
 					if (pv.getValue() instanceof String) {
 						empty = !StringUtils.hasText((String) pv.getValue());
 					}
@@ -877,11 +896,13 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 					}
 				}
 				if (empty) {
+					//为空
+					//记录相关的错
 					// Use bind error processor to create FieldError.
 					getBindingErrorProcessor().processMissingFieldError(field, getInternalBindingResult());
 					// Remove property from property values to bind:
 					// It has already caused a field error with a rejected value.
-					if (pv != null) {
+					if (pv != null) {//存在也是不合法的，但是还是要删除他先
 						mpvs.removePropertyValue(pv);
 						propertyValues.remove(field);
 					}
@@ -913,6 +934,7 @@ public class DataBinder implements PropertyEditorRegistry, TypeConverter {
 		try {
 			// Bind request parameters onto target object.
 			// 将请求参数绑定到目标对象上。
+			// 获得属性的访问者
 			getPropertyAccessor().setPropertyValues(mpvs, isIgnoreUnknownFields(), isIgnoreInvalidFields());
 		}
 		catch (PropertyBatchUpdateException ex) {

@@ -367,6 +367,7 @@ public abstract class AbstractHandlerMapping extends WebApplicationObjectSupport
 		Object handler = getHandlerInternal(request);
 		//没有处理器，返回一个默认的处理器
 		if (handler == null) {
+			//默认的处理器，可以为空
 			handler = getDefaultHandler();
 		}
 		//都没有直接返回空

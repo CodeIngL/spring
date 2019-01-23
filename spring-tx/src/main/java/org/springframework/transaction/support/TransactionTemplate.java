@@ -85,6 +85,9 @@ public class TransactionTemplate extends DefaultTransactionDefinition
 	/** Logger available to subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	/**
+	 * 事务管理器
+	 */
 	private PlatformTransactionManager transactionManager;
 
 

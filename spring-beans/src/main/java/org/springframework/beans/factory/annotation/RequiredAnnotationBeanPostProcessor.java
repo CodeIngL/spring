@@ -78,6 +78,9 @@ public class RequiredAnnotationBeanPostProcessor extends InstantiationAwareBeanP
 	/**
 	 * Bean definition attribute that may indicate whether a given bean is supposed
 	 * to be skipped when performing this post-processor's required property check.
+	 * <p>
+	 *     Bean定义属性，可以指示在执行此后处理器的必需属性检查时是否应该跳过给定的bean。
+	 * </p>
 	 * @see #shouldSkip
 	 */
 	public static final String SKIP_REQUIRED_CHECK_ATTRIBUTE =

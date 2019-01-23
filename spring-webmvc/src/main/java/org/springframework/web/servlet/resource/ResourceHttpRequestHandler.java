@@ -80,6 +80,20 @@ import org.springframework.web.servlet.support.WebContentGenerator;
  * present) so that a {@code 304} status code will be returned as appropriate,
  * avoiding unnecessary overhead for resources that are already cached by the
  * client.
+ * <p>
+ *     HttpRequestHandler根据Page Speed，YSlow等指南以优化的方式提供静态资源。
+ * </p>
+ * <p>
+ *  “locations”属性采用Spring资源位置列表，此处理程序允许从中提供静态资源。资源可以从类路径位置提供，例如“classpath：/ META-INF / public-web-resources /”，允许在jar文件中方便地打包和提供诸如.js，.css等资源。
+ * </p>
+ * <p>
+ *  此请求处理程序还可以配置resourceResolver和resourceTransformer链，以支持任意解析和转换所服务的资源。默认情况下，PathResourceResolver只根据配置的“位置”查找资源。应用程序可以配置其他解析程序和转换程序，例如VersionResourceResolver，它可以解析和准备URL中具有版本的资源的URL。
+ * </p>
+ * <p>
+ * 此处理程序还可以正确评估Last-Modified标头（如果存在），以便在适当时返回304状态代码，从而避免客户端已缓存的资源的不必要开销。
+ * </p>
+ * <p></p>
+ * <p></p>
  *
  * @author Keith Donald
  * @author Jeremy Grelle

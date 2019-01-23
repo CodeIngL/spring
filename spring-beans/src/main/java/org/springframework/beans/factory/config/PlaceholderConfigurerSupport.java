@@ -141,10 +141,16 @@ public abstract class PlaceholderConfigurerSupport extends PropertyResourceConfi
 	/** Defaults to {@value #DEFAULT_VALUE_SEPARATOR} */
 	protected String valueSeparator = DEFAULT_VALUE_SEPARATOR;
 
+	/**
+	 * 是否去掉两边的空格
+	 */
 	protected boolean trimValues = false;
 
 	protected String nullValue;
 
+	/**
+	 * 是否忽略未解析的值
+	 */
 	protected boolean ignoreUnresolvablePlaceholders = false;
 
 	private String beanName;
@@ -239,15 +245,24 @@ public abstract class PlaceholderConfigurerSupport extends PropertyResourceConfi
 	}
 
 
+	/**
+	 * 处理属性值
+	 * @param beanFactoryToProcess
+	 * @param valueResolver
+	 */
 	protected void doProcessProperties(ConfigurableListableBeanFactory beanFactoryToProcess,
 			StringValueResolver valueResolver) {
 
+		//
 		BeanDefinitionVisitor visitor = new BeanDefinitionVisitor(valueResolver);
 
 		String[] beanNames = beanFactoryToProcess.getBeanDefinitionNames();
+
+		//遍历处理
 		for (String curName : beanNames) {
 			// Check that we're not parsing our own bean definition,
 			// to avoid failing on unresolvable placeholders in properties file locations.
+			// 检查我们是否正在解析自己的bean定义，以避免在属性文件位置中无法解析的占位符失败。
 			if (!(curName.equals(this.beanName) && beanFactoryToProcess.equals(this.beanFactory))) {
 				BeanDefinition bd = beanFactoryToProcess.getBeanDefinition(curName);
 				try {
@@ -260,9 +275,11 @@ public abstract class PlaceholderConfigurerSupport extends PropertyResourceConfi
 		}
 
 		// New in Spring 2.5: resolve placeholders in alias target names and aliases as well.
+		// Spring 2.5中的新功能：解析别名目标名称和别名中的占位符。
 		beanFactoryToProcess.resolveAliases(valueResolver);
 
 		// New in Spring 3.0: resolve placeholders in embedded values such as annotation attributes.
+		// Spring 3.0中的新功能：解析嵌入值（如注解属性）中的占位符。
 		beanFactoryToProcess.addEmbeddedValueResolver(valueResolver);
 	}
 

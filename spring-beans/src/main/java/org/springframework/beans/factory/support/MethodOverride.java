@@ -28,6 +28,12 @@ import org.springframework.util.ObjectUtils;
  *
  * <p>Note that the override mechanism is <em>not</em> intended as a generic
  * means of inserting crosscutting code: use AOP for that.
+ * <p>
+ *     对象表示IoC容器对托管对象的方法的覆盖。
+ * </p>
+ * <p>
+ *  请注意，覆盖机制不是插入横切代码的通用方法：使用AOP
+ * </p>
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
