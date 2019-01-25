@@ -34,6 +34,16 @@ import org.springframework.web.method.HandlerMethod;
  * MvcUriComponentsBuilder#fromMappingName} or in JSPs through the "mvcUrl"
  * function registered by the Spring tag library.
  *
+ * <p>
+ * 为处理程序方法的映射指定名称的策略。
+ * </p>
+ * <p>
+ *      可以在AbstractHandlerMethodMapping上配置策略。 它用于为每个已注册的处理程序方法的映射指定名称。 然后可以通过AbstractHandlerMethodMapping＃getHandlerMethodsForMappingName查询名称。
+ * </p>
+ * <p>
+ *      应用程序可以借助静态方法MvcUriComponentsBuilder＃fromMappingName或JSP中的Spring标记库注册的“mvcUrl”函数，按名称构建控制器方法的URL
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @since 4.1
  */

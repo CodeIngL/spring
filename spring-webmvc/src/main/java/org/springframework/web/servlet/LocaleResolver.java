@@ -41,6 +41,19 @@ import javax.servlet.http.HttpServletResponse;
  * provided resolver implementations implement the extended
  * {@link LocaleContextResolver} interface wherever appropriate.
  *
+ * <p>
+ *     基于Web的区域设置解析策略的接口，允许通过请求进行区域设置解析，并通过请求和响应修改区域设置。
+ * </p>
+ * <p>
+ * 此接口允许基于请求，会话，cookie等实现。默认实现是org.springframework.web.servlet.i18n.AcceptHeaderLocaleResolver，只需使用相应HTTP头提供的请求的语言环境。
+ * </p>
+ * <p>
+ * 使用org.springframework.web.servlet.support.RequestContext.getLocale（）来检索控制器或视图中的当前区域设置，与实际的解析策略无关。
+ * </p>
+ * <p>
+ * 注意：从Spring 4.0开始，有一个名为LocaleContextResolver的扩展策略接口，允许解析org.springframework.context.i18n.LocaleContext对象，可能包括相关的时区信息。 Spring提供的解析器实现在适当的地方实现扩展的LocaleContextResolver接口
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 27.02.2003
  * @see LocaleContextResolver

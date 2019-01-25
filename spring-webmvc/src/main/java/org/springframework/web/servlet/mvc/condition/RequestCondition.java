@@ -26,6 +26,13 @@ import javax.servlet.http.HttpServletRequest;
  * to each other via {@link #compareTo(Object, HttpServletRequest)} to determine
  * which is a closer match for a given request.
  *
+ * <p>
+ *     请求映射条件的合同。
+ * </p>
+ * <p>
+ *     请求条件可以通过combine（Object）组合，通过getMatchingCondition（HttpServletRequest）与请求匹配，并通过compareTo（Object，HttpServletRequest）相互比较，以确定哪个是给定请求的更接近匹配。
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @author Arjen Poutsma
  * @since 3.1
@@ -53,6 +60,13 @@ public interface RequestCondition<T> {
 	 * from the "Access-Control-Request-Method" header). If a condition cannot
 	 * be matched to a pre-flight request it should return an instance with
 	 * empty content thus not causing a failure to match.
+	 *
+	 * <p>
+	 *     检查条件是否与返回为当前请求创建的潜在新实例的请求匹配。 例如，具有多个URL模式的条件可能仅返回与该请求匹配的那些模式的新实例。
+	 * </p>
+	 * <p>
+	 * 对于CORS飞行前请求，条件应与可能的实际请求（例如，URL模式，查询参数和来自“Access-Control-Request-Method”标头的HTTP方法）匹配。 如果条件无法与飞行前请求匹配，则应返回具有空内容的实例，从而不会导致匹配失败
+	 * </p>
 	 * @return a condition instance in case of a match or {@code null} otherwise.
 	 */
 	T getMatchingCondition(HttpServletRequest request);

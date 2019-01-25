@@ -23,6 +23,8 @@ import org.springframework.core.annotation.AnnotatedElementUtils;
 /**
  * Utilities for processing {@link Bean}-annotated methods.
  *
+ * <p>用于处理{@link Bean}注解方法的工具类。</p>
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.1
@@ -35,9 +37,11 @@ class BeanAnnotationHelper {
 
 	public static String determineBeanNameFor(Method beanMethod) {
 		// By default, the bean name is the name of the @Bean-annotated method
+		// 默认情况下使用@Bean方法名作为bean的名字
 		String beanName = beanMethod.getName();
 
 		// Check to see if the user has explicitly set a custom bean name...
+		// 如果显式指定的话则是使用注解的名字
 		Bean bean = AnnotatedElementUtils.findMergedAnnotation(beanMethod, Bean.class);
 		if (bean != null && bean.name().length > 0) {
 			beanName = bean.name()[0];

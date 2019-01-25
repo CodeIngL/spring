@@ -23,6 +23,10 @@ import org.springframework.web.context.request.WebRequest;
  * Callback interface for initializing a {@link org.springframework.web.bind.WebDataBinder}
  * for performing data binding in the context of a specific web request.
  *
+ * <p>
+ *     用于初始化{@link org.springframework.web.bind.WebDataBinder}以在特定Web请求的上下文中执行数据绑定的回调接口。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.5
  */

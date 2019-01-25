@@ -59,6 +59,9 @@ public abstract class PropertyAccessorUtils {
 	/**
 	 * Determine the first nested property separator in the
 	 * given property path, ignoring dots in keys (like "map[my.key]").
+	 * <p>
+	 *     确定给定属性路径中的第一个嵌套属性分隔符，忽略键中的点（如“map [my.key]”）。
+	 * </p>
 	 * @param propertyPath the property path to check
 	 * @return the index of the nested property separator, or -1 if none
 	 */
@@ -79,6 +82,9 @@ public abstract class PropertyAccessorUtils {
 	/**
 	 * Determine the first (or last) nested property separator in the
 	 * given property path, ignoring dots in keys (like "map[my.key]").
+	 * <p>
+	 *     确定给定属性路径中的第一个（或最后一个）嵌套属性分隔符，忽略键中的点（如“map [my.key]”）。
+	 * </p>
 	 * @param propertyPath the property path to check
 	 * @param last whether to return the last separator rather than the first
 	 * @return the index of the nested property separator, or -1 if none

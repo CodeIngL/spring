@@ -29,6 +29,10 @@ import org.springframework.web.servlet.support.WebContentGenerator;
  * Abstract base class for {@link HandlerAdapter} implementations that support
  * handlers of type {@link HandlerMethod}.
  *
+ * <p>
+ *     HandlerAdapter实现的抽象基类，支持HandlerMethod类型的处理程序。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @since 3.1
  */

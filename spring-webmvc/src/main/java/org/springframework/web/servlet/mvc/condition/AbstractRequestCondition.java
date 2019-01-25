@@ -23,6 +23,8 @@ import java.util.Iterator;
  * A base class for {@link RequestCondition} types providing implementations of
  * {@link #equals(Object)}, {@link #hashCode()}, and {@link #toString()}.
  *
+ * <p>RequestCondition类型的基类，提供{@link #equals(Object)}, {@link #hashCode()}和{@link #toString()}的实现。</p>
+ *
  * @author Rossen Stoyanchev
  * @since 3.1
  */

@@ -29,6 +29,15 @@ import org.springframework.web.servlet.handler.HandlerMethodMappingNamingStrateg
  * followed by "#" as a separator, and the method name. For example "TC#getFoo"
  * for a class named TestController with method getFoo.
  *
+ * <p>
+ * {@link org.springframework.web.servlet.handler.HandlerMethodMappingNamingStrategy HandlerMethodMappingNamingStrategy}用于基于RequestMappingInfo的处理程序方法映射。
+ * </p>
+ * <p>
+ *  如果设置了{@code RequestMappingInfo} name属性，则使用其值。
+ *  否则，名称基于类名的大写字母，后跟"#"作为分隔符，方法名称。 例如，对于名为TestController的类，使用方法getFoo的"TC#getFoo"
+ * </p>
+ * <p></p>
+ *
  * @author Rossen Stoyanchev
  * @since 4.1
  */

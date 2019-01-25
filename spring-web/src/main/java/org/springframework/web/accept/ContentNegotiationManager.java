@@ -106,6 +106,9 @@ public class ContentNegotiationManager implements ContentNegotiationStrategy, Me
 
     /**
      * Find a {@code ContentNegotiationStrategy} of the given type.
+     * <p>
+     *     找到给定类型的{@code ContentNegotiationStrategy}。
+     * </p>
      *
      * @param strategyType the strategy type
      * @return the first matching strategy, or {@code null} if none
@@ -131,6 +134,12 @@ public class ContentNegotiationManager implements ContentNegotiationStrategy, Me
         this.resolvers.addAll(Arrays.asList(resolvers));
     }
 
+    /**
+     * 从请求中解析出媒体类型
+     * @param request
+     * @return
+     * @throws HttpMediaTypeNotAcceptableException
+     */
     @Override
     public List<MediaType> resolveMediaTypes(NativeWebRequest request) throws HttpMediaTypeNotAcceptableException {
         for (ContentNegotiationStrategy strategy : this.strategies) {
@@ -143,6 +152,12 @@ public class ContentNegotiationManager implements ContentNegotiationStrategy, Me
         return Collections.emptyList();
     }
 
+    /**
+     *
+     * 从媒体类型转换为文件扩展名
+     * @param mediaType the media type to resolve
+     * @return
+     */
     @Override
     public List<String> resolveFileExtensions(MediaType mediaType) {
         Set<String> result = new LinkedHashSet<String>();
@@ -161,6 +176,12 @@ public class ContentNegotiationManager implements ContentNegotiationStrategy, Me
      * {@link PathExtensionContentNegotiationStrategy#setUseJaf(boolean)
      * useJaf} property is set to "true", the list of extensions may
      * increase as file extensions are resolved via JAF and cached.
+     *
+     * <p>
+     * 返回所有注册文件扩展名。
+     * 在启动时，此方法返回使用PathExtensionContentNegotiationStrategy或ParameterContentNegotiationStrategy显式注册的扩展。
+     * 在运行时，如果{@link PathExtensionContentNegotiationStrategy#setUseJaf(boolean) useJaf}设置为“true”，则扩展列表可能会随着文件扩展名通过JAF解析并缓存而增加。
+     * </p>
      */
     @Override
     public List<String> getAllFileExtensions() {

@@ -69,6 +69,16 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	 * reasons, while still expecting the bean to be eligible for handler methods.
 	 * <p>Originally defined in {@link org.springframework.aop.scope.ScopedProxyUtils}
 	 * but duplicated here to avoid a hard dependency on the spring-aop module.
+	 *
+	 * <p> 作用域代理后面的目标bean的Bean名称前缀。 用于从处理程序方法检测中排除这些目标，以支持相应的代理。
+	 *
+	 * </p>
+	 * <p>
+	 *     	 我们没有在这里检查autowire候选状态，这是在自动装配级别处理代理目标过滤问题的方式，因为autowire-candidate可能由于其他原因而被转为false，同时仍然期望该bean符合条件 处理程序方法。
+	 * </p>
+	 * <p>
+	 *     	 最初在{@link org.springframework.aop.scope.ScopedProxyUtils}中定义但在此复制以避免对spring-aop模块的硬依赖
+	 * </p>
 	 */
 	private static final String SCOPED_TARGET_NAME_PREFIX = "scopedTarget.";
 
@@ -190,7 +200,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 	/**
 	 * Scan beans in the ApplicationContext, detect and register handler methods.
 	 *
-	 * 扫描bean在上下文中，检测并主持handler方法
+	 * 扫描bean在上下文中，检测并注册 handler methods
 	 * @see #isHandler(Class)
 	 * @see #getMappingForMethod(Method, Class)
 	 * @see #handlerMethodsInitialized(Map)
@@ -199,11 +209,14 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		if (logger.isDebugEnabled()) {
 			logger.debug("Looking for request mappings in application context: " + getApplicationContext());
 		}
+		//找到所用的bean，是否在父类中找，当然不父容器中找了
 		String[] beanNames = (this.detectHandlerMethodsInAncestorContexts ?
 				BeanFactoryUtils.beanNamesForTypeIncludingAncestors(getApplicationContext(), Object.class) :
 				getApplicationContext().getBeanNamesForType(Object.class));
 
+		//
 		for (String beanName : beanNames) {
+			//排除带有前缀scopedTarget.
 			if (!beanName.startsWith(SCOPED_TARGET_NAME_PREFIX)) {
 				Class<?> beanType = null;
 				try {
@@ -215,6 +228,7 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 						logger.debug("Could not resolve target class for bean with name '" + beanName + "'", ex);
 					}
 				}
+				//这个bean能是一个Handler
 				if (beanType != null && isHandler(beanType)) {
 					detectHandlerMethods(beanName);
 				}
@@ -225,13 +239,20 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 	/**
 	 * Look for handler methods in a handler.
+	 *
+	 * <p>
+	 *     在handler中查找 handler methods。
+	 * </p>
 	 * @param handler the bean name of a handler or a handler instance
 	 */
 	protected void detectHandlerMethods(final Object handler) {
+		//获得handler的类型
 		Class<?> handlerType = (handler instanceof String ?
 				getApplicationContext().getType((String) handler) : handler.getClass());
+		//获得用户实际类型
 		final Class<?> userType = ClassUtils.getUserClass(handlerType);
 
+		//筛选相关的handler Methods方法
 		Map<Method, T> methods = MethodIntrospector.selectMethods(userType,
 				new MethodIntrospector.MetadataLookup<T>() {
 					@Override
@@ -249,6 +270,8 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 		if (logger.isDebugEnabled()) {
 			logger.debug(methods.size() + " request handler methods found on " + userType + ": " + methods);
 		}
+
+		//
 		for (Map.Entry<Method, T> entry : methods.entrySet()) {
 			Method invocableMethod = AopUtils.selectInvocableMethod(entry.getKey(), userType);
 			T mapping = entry.getValue();
@@ -271,18 +294,21 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 	/**
 	 * Create the HandlerMethod instance.
+	 * 构建HandlerMethod实例
 	 * @param handler either a bean name or an actual handler instance
 	 * @param method the target method
 	 * @return the created HandlerMethod
 	 */
 	protected HandlerMethod createHandlerMethod(Object handler, Method method) {
 		HandlerMethod handlerMethod;
+		//handler只是String 需要工厂，这样才能找
 		if (handler instanceof String) {
 			String beanName = (String) handler;
 			handlerMethod = new HandlerMethod(beanName,
 					getApplicationContext().getAutowireCapableBeanFactory(), method);
 		}
 		else {
+			//否则就直接构建吧
 			handlerMethod = new HandlerMethod(handler, method);
 		}
 		return handlerMethod;
@@ -297,6 +323,9 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 
 	/**
 	 * Invoked after all handler methods have been detected.
+	 * <p>
+	 *     检测到所有处理程序方法后调用。
+	 * </p>
 	 * @param handlerMethods a read-only map with handler methods and mappings.
 	 */
 	protected void handlerMethodsInitialized(Map<T, HandlerMethod> handlerMethods) {
@@ -559,24 +588,30 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 				if (logger.isInfoEnabled()) {
 					logger.info("Mapped \"" + mapping + "\" onto " + handlerMethod);
 				}
+				//缓存
 				this.mappingLookup.put(mapping, handlerMethod);
 
+				//缓存
 				List<String> directUrls = getDirectUrls(mapping);
 				for (String url : directUrls) {
 					this.urlLookup.add(url, mapping);
 				}
 
+				//添加名字相关缓存
 				String name = null;
 				if (getNamingStrategy() != null) {
 					name = getNamingStrategy().getName(handlerMethod, mapping);
 					addMappingName(name, handlerMethod);
 				}
 
+				//添加该Handle Method的跨域设置
+				//添加进缓存
 				CorsConfiguration corsConfig = initCorsConfiguration(handler, method, mapping);
 				if (corsConfig != null) {
 					this.corsLookup.put(handlerMethod, corsConfig);
 				}
 
+				//注册表放入
 				this.registry.put(mapping, new MappingRegistration<T>(mapping, handlerMethod, directUrls, name));
 			}
 			finally {
@@ -584,6 +619,11 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			}
 		}
 
+		/**
+		 * 判断，不能映射出现重复的
+		 * @param newHandlerMethod
+		 * @param mapping
+		 */
 		private void assertUniqueMethodMapping(HandlerMethod newHandlerMethod, T mapping) {
 			HandlerMethod handlerMethod = this.mappingLookup.get(mapping);
 			if (handlerMethod != null && !handlerMethod.equals(newHandlerMethod)) {
@@ -594,6 +634,11 @@ public abstract class AbstractHandlerMethodMapping<T> extends AbstractHandlerMap
 			}
 		}
 
+		/**
+		 * 直接匹配的信息
+		 * @param mapping
+		 * @return
+		 */
 		private List<String> getDirectUrls(T mapping) {
 			List<String> urls = new ArrayList<String>(1);
 			for (String path : getMappingPathPatterns(mapping)) {

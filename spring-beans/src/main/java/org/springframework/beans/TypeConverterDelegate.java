@@ -43,6 +43,13 @@ import org.springframework.util.StringUtils;
  * <p>Works on a given {@link PropertyEditorRegistrySupport} instance.
  * Used as a delegate by {@link BeanWrapperImpl} and {@link SimpleTypeConverter}.
  *
+ * <p>
+ *     用于将属性值转换为目标类型的内部帮助器类。
+ * </p>
+ * <p>
+ *    适用于给定的PropertyEditorRegistrySupport实例。 由BeanWrapperImpl和SimpleTypeConverter用作委托。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @author Dave Syer
@@ -160,17 +167,19 @@ class TypeConverterDelegate {
 			Class<T> requiredType, TypeDescriptor typeDescriptor) throws IllegalArgumentException {
 
 		// Custom editor for this type?
+		//找到自定义的属性编辑器
 		PropertyEditor editor = this.propertyEditorRegistry.findCustomEditor(requiredType, propertyName);
 
 		ConversionFailedException conversionAttemptEx = null;
 
 		// No custom editor but custom ConversionService specified?
+		// 存在转换服务？
 		ConversionService conversionService = this.propertyEditorRegistry.getConversionService();
 		if (editor == null && conversionService != null && newValue != null && typeDescriptor != null) {
 			TypeDescriptor sourceTypeDesc = TypeDescriptor.forObject(newValue);
-			if (conversionService.canConvert(sourceTypeDesc, typeDescriptor)) {
+			if (conversionService.canConvert(sourceTypeDesc, typeDescriptor)) { //是否支持转换
 				try {
-					return (T) conversionService.convert(newValue, sourceTypeDesc, typeDescriptor);
+					return (T) conversionService.convert(newValue, sourceTypeDesc, typeDescriptor); //进行转换
 				}
 				catch (ConversionFailedException ex) {
 					// fallback to default conversion logic below
@@ -194,6 +203,7 @@ class TypeConverterDelegate {
 				}
 			}
 			if (editor == null) {
+				//找到默认的属性转换器
 				editor = findDefaultEditor(requiredType);
 			}
 			convertedValue = doConvertValue(oldValue, convertedValue, requiredType, editor);
@@ -201,45 +211,46 @@ class TypeConverterDelegate {
 
 		boolean standardConversion = false;
 
-		if (requiredType != null) {
+		if (requiredType != null) { //要求的类型
 			// Try to apply some standard type conversion rules if appropriate.
 
-			if (convertedValue != null) {
+			if (convertedValue != null) {//
 				if (Object.class == requiredType) {
 					return (T) convertedValue;
 				}
-				else if (requiredType.isArray()) {
+				else if (requiredType.isArray()) { //数组
 					// Array required -> apply appropriate conversion of elements.
 					if (convertedValue instanceof String && Enum.class.isAssignableFrom(requiredType.getComponentType())) {
 						convertedValue = StringUtils.commaDelimitedListToStringArray((String) convertedValue);
 					}
+					//继续转换
 					return (T) convertToTypedArray(convertedValue, propertyName, requiredType.getComponentType());
 				}
-				else if (convertedValue instanceof Collection) {
+				else if (convertedValue instanceof Collection) { //集合
 					// Convert elements to target type, if determined.
 					convertedValue = convertToTypedCollection(
 							(Collection<?>) convertedValue, propertyName, requiredType, typeDescriptor);
 					standardConversion = true;
 				}
-				else if (convertedValue instanceof Map) {
+				else if (convertedValue instanceof Map) { //map
 					// Convert keys and values to respective target type, if determined.
 					convertedValue = convertToTypedMap(
 							(Map<?, ?>) convertedValue, propertyName, requiredType, typeDescriptor);
 					standardConversion = true;
 				}
-				if (convertedValue.getClass().isArray() && Array.getLength(convertedValue) == 1) {
+				if (convertedValue.getClass().isArray() && Array.getLength(convertedValue) == 1) {//长度1
 					convertedValue = Array.get(convertedValue, 0);
 					standardConversion = true;
 				}
-				if (String.class == requiredType && ClassUtils.isPrimitiveOrWrapper(convertedValue.getClass())) {
+				if (String.class == requiredType && ClassUtils.isPrimitiveOrWrapper(convertedValue.getClass())) { //基本类型转
 					// We can stringify any primitive value...
 					return (T) convertedValue.toString();
 				}
-				else if (convertedValue instanceof String && !requiredType.isInstance(convertedValue)) {
+				else if (convertedValue instanceof String && !requiredType.isInstance(convertedValue)) { //
 					if (conversionAttemptEx == null && !requiredType.isInterface() && !requiredType.isEnum()) {
 						try {
 							Constructor<T> strCtor = requiredType.getConstructor(String.class);
-							return BeanUtils.instantiateClass(strCtor, convertedValue);
+							return BeanUtils.instantiateClass(strCtor, convertedValue); //尝试构造函数
 						}
 						catch (NoSuchMethodException ex) {
 							// proceed with field lookup
@@ -261,7 +272,7 @@ class TypeConverterDelegate {
 					convertedValue = attemptToConvertStringToEnum(requiredType, trimmedValue, convertedValue);
 					standardConversion = true;
 				}
-				else if (convertedValue instanceof Number && Number.class.isAssignableFrom(requiredType)) {
+				else if (convertedValue instanceof Number && Number.class.isAssignableFrom(requiredType)) { //Number类型
 					convertedValue = NumberUtils.convertNumberToTargetClass(
 							(Number) convertedValue, (Class<Number>) requiredType);
 					standardConversion = true;
@@ -288,6 +299,7 @@ class TypeConverterDelegate {
 					}
 				}
 
+				//无法转换
 				// Definitely doesn't match: throw IllegalArgumentException/IllegalStateException
 				StringBuilder msg = new StringBuilder();
 				msg.append("Cannot convert value of type '").append(ClassUtils.getDescriptiveType(newValue));

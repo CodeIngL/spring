@@ -171,6 +171,7 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 	/**
 	 * {@inheritDoc}
 	 * Expects a handler to have a type-level @{@link Controller} annotation.
+	 * 能成为一个Handler非常简单，只要类型上存在{@link Controller}或者{@link RequestMapping}
 	 */
 	@Override
 	protected boolean isHandler(Class<?> beanType) {
@@ -293,6 +294,17 @@ public class RequestMappingHandlerMapping extends RequestMappingInfoHandlerMappi
 		return new RequestMatchResult(patterns.iterator().next(), lookupPath, getPathMatcher());
 	}
 
+	/**
+	 *
+	 * 设置跨域设置
+	 *
+	 * 类型上查找
+	 * 方法级别上查找
+	 * @param handler
+	 * @param method
+	 * @param mappingInfo
+	 * @return
+	 */
 	@Override
 	protected CorsConfiguration initCorsConfiguration(Object handler, Method method, RequestMappingInfo mappingInfo) {
 		HandlerMethod handlerMethod = createHandlerMethod(handler, method);

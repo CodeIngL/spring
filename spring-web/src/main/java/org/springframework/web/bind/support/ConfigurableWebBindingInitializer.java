@@ -28,6 +28,10 @@ import org.springframework.web.context.request.WebRequest;
  * Convenient {@link WebBindingInitializer} for declarative configuration
  * in a Spring application context. Allows for reusing pre-configured
  * initializers with multiple controller/handlers.
+ * <p>
+ *     方便的{@link WebBindingInitializer}，用于Spring应用程序上下文中的声明性配置。
+ *     允许使用多个控制器/处理程序重用预配置的初始化程序。
+ * </p>
  *
  * @author Juergen Hoeller
  * @since 2.5

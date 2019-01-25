@@ -965,25 +965,23 @@ public class DispatcherServlet extends FrameworkServlet {
 				processedRequest = checkMultipart(request);
 				multipartRequestParsed = (processedRequest != request);
 
-				// Determine handler for the current request.
-				// 为当前的请求定位处理的handler（确切的说是HandlerExecutionChain）
+				// HandlerMapping路由用户编写的处理器（确切的说是HandlerExecutionChain）
 				mappedHandler = getHandler(processedRequest);
+
+				// 路由发现找不到相关的处理器，写入404。用户也可以配置扔出异常
 				if (mappedHandler == null || mappedHandler.getHandler() == null) {
 					noHandlerFound(processedRequest, response);
 					return;
 				}
 
-				// Determine handler adapter for the current request.
-				// 为当前的请求定位处理的handler的适配器
+				// 为用户的处理器匹配一个HandlerAdapter（协处理器）
 				HandlerAdapter ha = getHandlerAdapter(mappedHandler.getHandler());
 
-				// Process last-modified header, if supported by the handler.
-				// 处理最后修改的头部（如果处理程序支持）
+				// 处理http的头部last-modified（如果处理程序支持）
 				String method = request.getMethod();
 
-				//无关紧要的事情
 				boolean isGet = "GET".equals(method);
-				if (isGet || "HEAD".equals(method)) {
+				if (isGet || "HEAD".equals(method)) { //GET或者HEAD
 					long lastModified = ha.getLastModified(request, mappedHandler.getHandler());
 					if (logger.isDebugEnabled()) {
 						logger.debug("Last-Modified value for [" + getRequestUri(request) + "] is: " + lastModified);
@@ -1006,7 +1004,9 @@ public class DispatcherServlet extends FrameworkServlet {
 					return;
 				}
 
+				//一旦mv有值，如果没有v，那么会设置默认的v的名字
 				applyDefaultViewName(processedRequest, mv);
+				//
 				mappedHandler.applyPostHandle(processedRequest, response, mv);
 			}
 			catch (Exception ex) {
@@ -1379,6 +1379,15 @@ public class DispatcherServlet extends FrameworkServlet {
 		return null;
 	}
 
+	/**
+	 *
+	 * 触发完成操作，之前调用过的拦截器必须重新被调用
+	 * @param request
+	 * @param response
+	 * @param mappedHandler
+	 * @param ex
+	 * @throws Exception
+	 */
 	private void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse response,
 			HandlerExecutionChain mappedHandler, Exception ex) throws Exception {
 

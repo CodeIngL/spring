@@ -42,6 +42,13 @@ import org.springframework.web.context.request.WebRequest;
  * are saved in the HTTP session and remain there until the controller calls
  * {@link SessionStatus#setComplete()}.
  *
+ * <p>
+ *     管理通过@SessionAttributes声明的特定于控制器的会话属性。 实际存储委托给SessionAttributeStore实例。
+ * </p>
+ * <p>
+ *     当使用@SessionAttributes注释的控制器向其模型添加属性时，将根据通过@SessionAttributes指定的名称和类型检查这些属性。 匹配的模型属性保存在HTTP会话中并保持不变，直到控制器调用SessionStatus.setComplete（）
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @author Juergen Hoeller
  * @since 3.1

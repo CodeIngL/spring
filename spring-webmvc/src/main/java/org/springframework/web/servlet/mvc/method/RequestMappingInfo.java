@@ -168,6 +168,12 @@ public final class RequestMappingInfo implements RequestCondition<RequestMapping
 	/**
 	 * Combine "this" request mapping info (i.e. the current instance) with another request mapping info instance.
 	 * <p>Example: combine type- and method-level request mappings.
+     * <p>
+     *    将"this"请求映射信息（即当前实例）与另一个请求映射信息实例相结合。
+     * </p>
+     * <p>
+     *    示例：组合类型和方法级别的请求映射。
+     * </p>
 	 * @return a new request mapping info instance; never {@code null}
 	 */
 	@Override
@@ -596,6 +602,11 @@ public final class RequestMappingInfo implements RequestCondition<RequestMapping
 		 * {@code suffixPatternMatch=true} and requires that a
 		 * {@link #setContentNegotiationManager} is also configured in order to
 		 * obtain the registered file extensions.
+		 *
+		 * <p>
+		 *     设置后缀模式匹配是否应仅限于已注册的文件扩展名。
+		 *     设置此属性还会设置suffixPatternMatch = true并要求还配置setContentNegotiationManager以获取已注册的文件扩展名
+		 * </p>
 		 */
 		public void setRegisteredSuffixPatternMatch(boolean registeredSuffixPatternMatch) {
 			this.registeredSuffixPatternMatch = registeredSuffixPatternMatch;

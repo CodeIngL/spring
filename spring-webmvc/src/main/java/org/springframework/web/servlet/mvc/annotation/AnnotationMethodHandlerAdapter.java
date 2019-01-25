@@ -127,6 +127,20 @@ import org.springframework.web.util.WebUtils;
  * A common use case is to apply shared binder initialization logic through
  * a custom {@link #setWebBindingInitializer WebBindingInitializer}.
  *
+ * <p>
+ *     {@link org.springframework.web.servlet.HandlerAdapter} 接口的实现，
+ *     该接口基于通过{@link RequestMapping} 注解表示的HTTP路径，HTTP方法和请求参数来映射处理程序方法。
+ * </p>
+ * <p>
+ *      通过{@link RequestParam}注解支持请求参数绑定。
+ *      还支持{@link ModelAttribute}注解，用于向view公开模型属性值，
+ *      以及用于绑定器初始化方法的{@link InitBinder}和用于特定属性的自动会话管理的{@link SessionAttributes}。
+ * </p>
+ * <p>
+ *      可以通过各种bean属性自定义此适配器。
+ *      一个常见的用例是通过自定义{@link #setWebBindingInitializer WebBindingInitializer}.应用共享绑定器初始化逻辑
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Arjen Poutsma
  * @author Sam Brannen
@@ -401,6 +415,7 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator
 			throws Exception {
 
 		Class<?> clazz = ClassUtils.getUserClass(handler);
+		//SessionAttributes缓存操作
 		Boolean annotatedWithSessionAttributes = this.sessionAnnotatedClassesCache.get(clazz);
 		if (annotatedWithSessionAttributes == null) {
 			annotatedWithSessionAttributes = (AnnotationUtils.findAnnotation(clazz, SessionAttributes.class) != null);
@@ -428,6 +443,15 @@ public class AnnotationMethodHandlerAdapter extends WebContentGenerator
 		return invokeHandlerMethod(request, response, handler);
 	}
 
+	/**
+	 *
+	 * 执行相关的方法
+	 * @param request
+	 * @param response
+	 * @param handler
+	 * @return
+	 * @throws Exception
+	 */
 	protected ModelAndView invokeHandlerMethod(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 

@@ -171,8 +171,7 @@ public class HandlerExecutionChain {
 	 */
 	void triggerAfterCompletion(HttpServletRequest request, HttpServletResponse response, Exception ex)
 			throws Exception {
-		//已经被调用过的需要被调用回来
-		HandlerInterceptor[] interceptors = getInterceptors();
+		HandlerInterceptor[] interceptors = getInterceptors();//已经被调用过的需要被调用回来
 		if (!ObjectUtils.isEmpty(interceptors)) {
 			for (int i = this.interceptorIndex; i >= 0; i--) {
 				HandlerInterceptor interceptor = interceptors[i];

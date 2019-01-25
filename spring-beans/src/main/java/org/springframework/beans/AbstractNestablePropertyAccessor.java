@@ -55,11 +55,11 @@ import org.springframework.util.StringUtils;
  * as String arrays are converted in such a format if the array itself is not
  * assignable.
  *
- * <p>一个基本的ConfigurablePropertyAccessor，为所有典型用例提供必要的基础结构。
+ * <p>一个基本的{@link ConfigurablePropertyAccessor} ，为所有典型用例提供必要的基础结构。
  * </p>
  * <p>
- * 如有必要，此访问器将集合和数组值转换为相应的目标集合或数组。
- * 处理集合或数组的自定义属性编辑器可以通过PropertyEditor的setValue写入，也可以通过setAsText写入逗号分隔的String，因为如果数组本身不可分配，
+ *  如有必要，此访问器将集合和数组值转换为相应的目标集合或数组。
+ *  处理集合或数组的自定义属性编辑器可以通过PropertyEditor的{@code setValue}写入，也可以通过{@code setAsText}写入逗号分隔的String，因为如果数组本身不可分配，
  * 则String数组将以这种格式转换。
  * </p>
  *
@@ -104,7 +104,10 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 
 	Object rootObject;
 
-	/** Map with cached nested Accessors: nested path -> Accessor instance */
+	/** Map with cached nested Accessors: nested path -> Accessor instance
+	 *
+	 * 使用缓存的嵌套访问器映射：嵌套路径 - >访问者实例
+	 * */
 	private Map<String, AbstractNestablePropertyAccessor> nestedPropertyAccessors;
 
 
@@ -203,9 +206,9 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 	/**
 	 * Switch the target object, replacing the cached introspection results only
 	 * if the class of the new object is different to that of the replaced object.
-	 * @param object the new target object
-	 * @param nestedPath the nested path of the object
-	 * @param rootObject the root object at the top of the path
+	 * @param object the new target object 目标对象
+	 * @param nestedPath the nested path of the object 对象的嵌套路径
+	 * @param rootObject the root object at the top of the path 路径顶部的根对象
 	 */
 	public void setWrappedInstance(Object object, String nestedPath, Object rootObject) {
 		Assert.notNull(object, "Target object must not be null");
@@ -266,11 +269,18 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 		nestedPa.setPropertyValue(tokens, new PropertyValue(propertyName, value));
 	}
 
+	/**
+	 * 设置属性值
+	 * @param pv
+	 * @throws BeansException
+	 */
 	@Override
 	public void setPropertyValue(PropertyValue pv) throws BeansException {
 		PropertyTokenHolder tokens = (PropertyTokenHolder) pv.resolvedTokens;
-		if (tokens == null) {
+		if (tokens == null) {//尚未解析
+			//获得名字
 			String propertyName = pv.getName();
+			//
 			AbstractNestablePropertyAccessor nestedPa;
 			try {
 				nestedPa = getPropertyAccessorForPropertyPath(propertyName);
@@ -632,13 +642,17 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 
 	@SuppressWarnings("unchecked")
 	protected Object getPropertyValue(PropertyTokenHolder tokens) throws BeansException {
+		//属性名
 		String propertyName = tokens.canonicalName;
+		//实际名
 		String actualName = tokens.actualName;
+		//获得属性处理器
 		PropertyHandler ph = getLocalPropertyHandler(actualName);
 		if (ph == null || !ph.isReadable()) {
 			throw new NotReadablePropertyException(getRootClass(), this.nestedPath + propertyName);
 		}
 		try {
+			//获得值
 			Object value = ph.getValue();
 			if (tokens.keys != null) {
 				if (value == null) {
@@ -823,15 +837,20 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 
 	/**
 	 * Recursively navigate to return a property accessor for the nested property path.
+	 * <p>
+	 *     递归导航以返回嵌套属性路径的属性访问器。
+	 * </p>
 	 * @param propertyPath property path, which may be nested
 	 * @return a property accessor for the target bean
 	 */
-	@SuppressWarnings("unchecked")  // avoid nested generic
+	@SuppressWarnings("unchecked")  // avoid nested generic // 避免嵌套泛型
 	protected AbstractNestablePropertyAccessor getPropertyAccessorForPropertyPath(String propertyPath) {
 		int pos = PropertyAccessorUtils.getFirstNestedPropertySeparatorIndex(propertyPath);
-		// Handle nested properties recursively.
+		// Handle nested properties recursively.  递归处理嵌套属性。
 		if (pos > -1) {
+			//前面的属性
 			String nestedProperty = propertyPath.substring(0, pos);
+			//后面的路劲
 			String nestedPath = propertyPath.substring(pos + 1);
 			AbstractNestablePropertyAccessor nestedPa = getNestedPropertyAccessor(nestedProperty);
 			return nestedPa.getPropertyAccessorForPropertyPath(nestedPath);
@@ -846,6 +865,13 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 	 * Create a new one if not found in the cache.
 	 * <p>Note: Caching nested PropertyAccessors is necessary now,
 	 * to keep registered custom editors for nested properties.
+	 *
+	 * <p>
+	 *     检索给定嵌套属性的Property访问器。 如果在缓存中找不到，则创建一个新的。
+	 * </p>
+	 * <p>
+	 *     注意：现在需要缓存嵌套的PropertyAccessors，以保留嵌套属性的已注册自定义编辑器
+	 * </p>
 	 * @param nestedProperty property to create the PropertyAccessor for
 	 * @return the PropertyAccessor instance, either cached or newly created
 	 */
@@ -854,7 +880,9 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 			this.nestedPropertyAccessors = new HashMap<String, AbstractNestablePropertyAccessor>();
 		}
 		// Get value of bean property.
+		// 获取bean属性的值。
 		PropertyTokenHolder tokens = getPropertyNameTokens(nestedProperty);
+		//规范的名字
 		String canonicalName = tokens.canonicalName;
 		Object value = getPropertyValue(tokens);
 		if (value == null || (value.getClass() == javaUtilOptionalClass && OptionalUnwrapper.isEmpty(value))) {

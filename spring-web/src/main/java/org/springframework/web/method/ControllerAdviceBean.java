@@ -149,31 +149,40 @@ public class ControllerAdviceBean implements Ordered {
 	/**
 	 * Check whether the given bean type should be assisted by this
 	 * {@code @ControllerAdvice} instance.
+	 *
+	 * <p>
+	 *     检查这个@ControllerAdvice实例是否应该辅助给定的bean类型。
+	 * </p>
 	 * @param beanType the type of the bean to check
 	 * @see org.springframework.web.bind.annotation.ControllerAdvice
 	 * @since 4.0
 	 */
 	public boolean isApplicableToBeanType(Class<?> beanType) {
+		//没打任何标记，全部支持
 		if (!hasSelectors()) {
 			return true;
 		}
 		else if (beanType != null) {
+			//在指定的basePackages下
 			for (String basePackage : this.basePackages) {
 				if (beanType.getName().startsWith(basePackage)) {
 					return true;
 				}
 			}
+			//在指定的类型中
 			for (Class<?> clazz : this.assignableTypes) {
 				if (ClassUtils.isAssignable(clazz, beanType)) {
 					return true;
 				}
 			}
+			//有着共同的注解
 			for (Class<? extends Annotation> annotationClass : this.annotations) {
 				if (AnnotationUtils.findAnnotation(beanType, annotationClass) != null) {
 					return true;
 				}
 			}
 		}
+		//不支持
 		return false;
 	}
 

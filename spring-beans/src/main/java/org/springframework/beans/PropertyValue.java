@@ -31,6 +31,14 @@ import org.springframework.util.ObjectUtils;
  * A {@link BeanWrapper} implementation should handle any necessary conversion,
  * as this object doesn't know anything about the objects it will be applied to.
  *
+ * <p>
+ * 用于保存单个bean属性的信息和值的对象。
+ * 在此处使用对象，而不是仅将所有属性存储在由属性名称键入的映射中，允许更灵活，并且能够以优化的方式处理索引属性等。
+ * </p>
+ * <p>
+ *     请注意，该值不需要是最终所需的类型：BeanWrapper实现应该处理任何必要的转换，因为此对象不知道它将应用于哪些对象
+ * </p>
+ *
  * @author Rod Johnson
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -41,8 +49,14 @@ import org.springframework.util.ObjectUtils;
 @SuppressWarnings("serial")
 public class PropertyValue extends BeanMetadataAttributeAccessor implements Serializable {
 
+	/**
+	 * 对象名
+	 */
 	private final String name;
 
+	/**
+	 * 对象值
+	 */
 	private final Object value;
 
 	private boolean optional = false;
@@ -54,7 +68,8 @@ public class PropertyValue extends BeanMetadataAttributeAccessor implements Seri
 	/** Package-visible field that indicates whether conversion is necessary */
 	volatile Boolean conversionNecessary;
 
-	/** Package-visible field for caching the resolved property path tokens */
+	/** Package-visible field for caching the resolved property path tokens
+	 * 包可见字段，用于缓存已解析的属性路径Token */
 	transient volatile Object resolvedTokens;
 
 

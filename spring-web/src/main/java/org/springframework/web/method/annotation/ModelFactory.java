@@ -96,6 +96,14 @@ public final class ModelFactory {
 	 * {@code @SessionAttributes} and ensure they're present in the model raising
 	 * an exception if necessary.
 	 * </ol>
+	 * <p>
+	 *     按以下顺序填充模型：
+	 * </p>
+	 * <ol>
+	 * <li>检索列为@SessionAttributes的“已知”会话属性。
+	 * <li>调用@ModelAttribute方法
+	 * <li>查找也列为@SessionAttributes的@ModelAttribute方法参数，并确保它们存在于模型中，如有必要，会引发异常。
+	 * </ol>
 	 * @param request the current request
 	 * @param container a container with the model to be initialized
 	 * @param handlerMethod the method for which the model is initialized

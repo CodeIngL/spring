@@ -39,6 +39,9 @@ public abstract class CorsUtils {
 
 	/**
 	 * Returns {@code true} if the request is a valid CORS pre-flight one.
+	 * <p>
+	 *     如果请求是有效的CORS飞行前请求，则返回{@code true}。
+	 * </p>
 	 */
 	public static boolean isPreFlightRequest(HttpServletRequest request) {
 		return (isCorsRequest(request) && HttpMethod.OPTIONS.matches(request.getMethod()) &&

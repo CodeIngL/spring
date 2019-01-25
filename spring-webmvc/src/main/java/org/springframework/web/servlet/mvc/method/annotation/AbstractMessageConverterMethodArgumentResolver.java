@@ -148,6 +148,10 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 	/**
 	 * Create the method argument value of the expected parameter type by reading
 	 * from the given HttpInputMessage.
+	 *
+	 * <P>
+	 *     通过读取给定的HttpInputMessage来创建期望参数类型的方法参数值。
+	 * </P>
 	 * @param <T> the expected type of the argument value to be created
 	 * @param inputMessage the HTTP input message representing the current request
 	 * @param parameter the method parameter descriptor (may be {@code null})
@@ -161,6 +165,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 	protected <T> Object readWithMessageConverters(HttpInputMessage inputMessage, MethodParameter parameter,
 			Type targetType) throws IOException, HttpMediaTypeNotSupportedException, HttpMessageNotReadableException {
 
+		//媒体类型
 		MediaType contentType;
 		boolean noContentType = false;
 		try {
@@ -171,34 +176,44 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 		}
 		if (contentType == null) {
 			noContentType = true;
+			//没有媒体类型默认是{@code application/octet-stream}
 			contentType = MediaType.APPLICATION_OCTET_STREAM;
 		}
 
+		//类型
 		Class<?> contextClass = (parameter != null ? parameter.getContainingClass() : null);
+		//目标类型
 		Class<T> targetClass = (targetType instanceof Class ? (Class<T>) targetType : null);
+		//未指定，尝试解析出来
 		if (targetClass == null) {
 			ResolvableType resolvableType = (parameter != null ?
 					ResolvableType.forMethodParameter(parameter) : ResolvableType.forType(targetType));
 			targetClass = (Class<T>) resolvableType.resolve();
 		}
 
+		//方式
 		HttpMethod httpMethod = ((HttpRequest) inputMessage).getMethod();
+		//无值
 		Object body = NO_VALUE;
 
 		try {
 			inputMessage = new EmptyBodyCheckingHttpInputMessage(inputMessage);
 
+			//遍历处理
 			for (HttpMessageConverter<?> converter : this.messageConverters) {
 				Class<HttpMessageConverter<?>> converterType = (Class<HttpMessageConverter<?>>) converter.getClass();
 				if (converter instanceof GenericHttpMessageConverter) {
 					GenericHttpMessageConverter<?> genericConverter = (GenericHttpMessageConverter<?>) converter;
-					if (genericConverter.canRead(targetType, contextClass, contentType)) {
+					if (genericConverter.canRead(targetType, contextClass, contentType)) {//是否支持
 						if (logger.isDebugEnabled()) {
 							logger.debug("Read [" + targetType + "] as \"" + contentType + "\" with [" + converter + "]");
 						}
 						if (inputMessage.getBody() != null) {
+							//在之前处理
 							inputMessage = getAdvice().beforeBodyRead(inputMessage, parameter, targetType, converterType);
+							//正式
 							body = genericConverter.read(targetType, contextClass, inputMessage);
+							//在之后处理
 							body = getAdvice().afterBodyRead(body, inputMessage, parameter, targetType, converterType);
 						}
 						else {
@@ -208,7 +223,7 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 					}
 				}
 				else if (targetClass != null) {
-					if (converter.canRead(targetClass, contentType)) {
+					if (converter.canRead(targetClass, contentType)) { //普通的处理
 						if (logger.isDebugEnabled()) {
 							logger.debug("Read [" + targetType + "] as \"" + contentType + "\" with [" + converter + "]");
 						}
@@ -229,11 +244,13 @@ public abstract class AbstractMessageConverterMethodArgumentResolver implements 
 			throw new HttpMessageNotReadableException("I/O error while reading input message", ex);
 		}
 
+		//空
 		if (body == NO_VALUE) {
 			if (httpMethod == null || !SUPPORTED_METHODS.contains(httpMethod) ||
 					(noContentType && inputMessage.getBody() == null)) {
 				return null;
 			}
+			//不支持的媒体类型
 			throw new HttpMediaTypeNotSupportedException(contentType, this.allSupportedMediaTypes);
 		}
 

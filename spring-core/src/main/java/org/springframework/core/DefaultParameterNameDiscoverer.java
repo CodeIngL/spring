@@ -26,6 +26,13 @@ import org.springframework.util.ClassUtils;
  *
  * <p>Further discoverers may be added through {@link #addDiscoverer(ParameterNameDiscoverer)}.
  *
+ * <p>
+ *     ParameterNameDiscoverer策略接口的默认实现，使用Java 8标准反射机制（如果可用），并回退到基于ASM的LocalVariableTableParameterNameDiscoverer，以检查类文件中的调试信息。
+ * </p>
+ * <p>
+ *      * 可以通过{@link #addDiscoverer(ParameterNameDiscoverer)}添加更多发现者。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 4.0
  * @see StandardReflectionParameterNameDiscoverer

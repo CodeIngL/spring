@@ -882,6 +882,9 @@ class CglibAopProxy implements AopProxy, Serializable {
 				// If the proxy is being exposed, then must use the interceptor the correct one is already
 				// configured. If the target is not static, then we cannot use a dispatcher because the
 				// target needs to be explicitly released after the invocation.
+				// 查看方法的返回类型是否在目标类型的类层次结构之外。 如果是这样，我们知道它永远不需要返回式按摩，可以使用调度员。
+				// 如果代理被暴露，那么必须使用已经配置了正确的拦截器。
+				// 如果目标不是静态的，那么我们就不能使用调度程序，因为在调用之后需要显式释放目标。
 				if (exposeProxy || !isStatic) {
 					return INVOKE_TARGET;
 				}

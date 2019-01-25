@@ -367,6 +367,10 @@ public abstract class WebContentGenerator extends WebApplicationObjectSupport {
 
 	/**
 	 * Check the given request for supported methods and a required session, if any.
+	 *
+	 * <p>
+	 *     检查给定的请求以获取支持的方法和必需的会话（如果有）。
+	 * </p>
 	 * @param request current HTTP request
 	 * @throws ServletException if the request cannot be handled because a check failed
 	 * @since 4.2

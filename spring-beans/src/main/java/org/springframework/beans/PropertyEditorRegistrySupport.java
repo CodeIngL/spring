@@ -151,6 +151,9 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 	/**
 	 * Activate the default editors for this registry instance,
 	 * allowing for lazily registering default editors when needed.
+	 * <p>
+	 *     激活此注册表实例的默认编辑器，允许在需要时懒惰地注册默认编辑器。
+	 * </p>
 	 */
 	protected void registerDefaultEditors() {
 		this.defaultEditorsActive = true;
@@ -325,6 +328,14 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 		}
 	}
 
+	/**
+	 * 查找自定义的属性编辑器
+	 * @param requiredType the type of the property (can be {@code null} if a property
+	 *                     is given but should be specified in any case for consistency checking)
+	 * @param propertyPath the path of the property (name or nested path), or
+	 *                     {@code null} if looking for an editor for all properties of the given type
+	 * @return
+	 */
 	@Override
 	public PropertyEditor findCustomEditor(Class<?> requiredType, String propertyPath) {
 		Class<?> requiredTypeToUse = requiredType;

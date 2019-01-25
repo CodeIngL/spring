@@ -41,6 +41,16 @@ import org.springframework.web.method.HandlerMethod;
  *
  * <p>Use {@link #setHandlerMethodArgumentResolvers} to customize the list of argument resolvers.
  *
+ * <p>
+ *     提供一种方法，用于在通过已注册的HandlerMethodArgumentResolvers解析其方法参数值后为给定请求调用处理程序方法。
+ * </p>
+ * <p>
+ * 参数解析通常需要WebDataBinder进行数据绑定或类型转换。 使用setDataBinderFactory（WebDataBinderFactory）属性提供绑定器工厂以传递给参数解析器。
+ * </p>
+ * <p>
+ * 使用setHandlerMethodArgumentResolvers自定义参数解析器列表
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @author Juergen Hoeller
  * @since 3.1
@@ -125,11 +135,13 @@ public class InvocableHandlerMethod extends HandlerMethod {
 	public Object invokeForRequest(NativeWebRequest request, ModelAndViewContainer mavContainer,
 			Object... providedArgs) throws Exception {
 
+		//获得参数值
 		Object[] args = getMethodArgumentValues(request, mavContainer, providedArgs);
 		if (logger.isTraceEnabled()) {
 			logger.trace("Invoking '" + ClassUtils.getQualifiedMethodName(getMethod(), getBeanType()) +
 					"' with arguments " + Arrays.toString(args));
 		}
+		//调用获得返回值
 		Object returnValue = doInvoke(args);
 		if (logger.isTraceEnabled()) {
 			logger.trace("Method [" + ClassUtils.getQualifiedMethodName(getMethod(), getBeanType()) +
@@ -140,21 +152,31 @@ public class InvocableHandlerMethod extends HandlerMethod {
 
 	/**
 	 * Get the method argument values for the current request.
+	 * <p>
+	 *     为当前请求获得方法参数值
+	 * </p>
 	 */
 	private Object[] getMethodArgumentValues(NativeWebRequest request, ModelAndViewContainer mavContainer,
 			Object... providedArgs) throws Exception {
 
+		//获得方法的参数值
 		MethodParameter[] parameters = getMethodParameters();
 		Object[] args = new Object[parameters.length];
+
+		//进行处理
 		for (int i = 0; i < parameters.length; i++) {
 			MethodParameter parameter = parameters[i];
+			//构建参数名发现服务
 			parameter.initParameterNameDiscovery(this.parameterNameDiscoverer);
+			//根据多于提供的进行解析参数
 			args[i] = resolveProvidedArgument(parameter, providedArgs);
 			if (args[i] != null) {
 				continue;
 			}
+			//参数解析器支持
 			if (this.argumentResolvers.supportsParameter(parameter)) {
 				try {
+					//进行解析
 					args[i] = this.argumentResolvers.resolveArgument(
 							parameter, mavContainer, request, this.dataBinderFactory);
 					continue;
@@ -166,6 +188,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 					throw ex;
 				}
 			}
+			//无法解析直接出错
 			if (args[i] == null) {
 				throw new IllegalStateException("Could not resolve method parameter at index " +
 						parameter.getParameterIndex() + " in " + parameter.getMethod().toGenericString() +
@@ -188,6 +211,7 @@ public class InvocableHandlerMethod extends HandlerMethod {
 			return null;
 		}
 		for (Object providedArg : providedArgs) {
+			//类型匹配就直接放上
 			if (parameter.getParameterType().isInstance(providedArg)) {
 				return providedArg;
 			}

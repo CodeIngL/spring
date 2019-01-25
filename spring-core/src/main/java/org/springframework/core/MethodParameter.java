@@ -38,6 +38,14 @@ import org.springframework.util.ClassUtils;
  * subclass available which synthesizes annotations with attribute aliases. That subclass is used
  * for web and message endpoint processing, in particular.
  *
+ * <p>
+ *     Helper类，它封装了方法参数的规范，即Method或Constructor加上参数索引和声明的泛型类型的嵌套类型索引。 可用作传递的规范对象。
+ * </p>
+ * <p>
+ *   从4.2开始，有一个{@link org.springframework.core.annotation.SynthesizingMethodParameter}子类可用，它合成带有属性别名的注释。 该子类特别用于Web和消息endpoint处理
+ * </p>
+ * <p></p>
+ *
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @author Andy Clement
@@ -431,6 +439,10 @@ public class MethodParameter {
 
 	/**
 	 * Return the nested generic type of the method/constructor parameter.
+	 *
+	 * <p>
+	 *     返回方法/构造函数参数的嵌套泛型类型。
+	 * </p>
 	 * @return the parameter type (never {@code null})
 	 * @since 4.2
 	 * @see #getNestingLevel()

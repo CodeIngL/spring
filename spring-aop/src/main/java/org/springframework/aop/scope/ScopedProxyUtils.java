@@ -95,6 +95,9 @@ public abstract class ScopedProxyUtils {
 
 	/**
 	 * Generate the bean name that is used within the scoped proxy to reference the target bean.
+	 * <p>
+	 *     生成在作用域代理中使用的bean名称以引用目标bean。
+	 * </p>
 	 * @param originalBeanName the original name of bean
 	 * @return the generated bean to be used to reference the target bean
 	 */

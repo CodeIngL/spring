@@ -52,6 +52,15 @@ import org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolv
  * {@link MethodArgumentNotValidException} is raised and results in an HTTP 400
  * response status code if {@link DefaultHandlerExceptionResolver} is configured.
  *
+ * <p>
+ * 解析使用{@code @RequestBody}注解的方法参数，并通过使用{@link HttpMessageConverter}读取和写入请求或响应的主体来处理使用{@code @ResponseBody}注解的方法的返回值。
+ * </p>
+ * <p>
+ *      如果使用{@code @javax.validation.Valid}注解{@code @RequestBody} 方法参数，也会对其进行验证。
+ *      如果验证失败，则会引发{@link MethodArgumentNotValidException}，如果配置了{@link DefaultHandlerExceptionResolver}，则会生成HTTP 400响应状态代码
+ * </p>
+ * <p></p>
+ *
  * @author Arjen Poutsma
  * @author Rossen Stoyanchev
  * @author Juergen Hoeller
@@ -103,11 +112,21 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 	}
 
 
+	/**
+	 * 参数解析时支持
+	 * @param parameter the method parameter to check
+	 * @return
+	 */
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {
 		return parameter.hasParameterAnnotation(RequestBody.class);
 	}
 
+	/**
+	 * 返回时结果解析支持
+	 * @param returnType the method return type to check
+	 * @return
+	 */
 	@Override
 	public boolean supportsReturnType(MethodParameter returnType) {
 		return (AnnotatedElementUtils.hasAnnotation(returnType.getContainingClass(), ResponseBody.class) ||
@@ -125,8 +144,11 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 			NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
 
 		parameter = parameter.nestedIfOptional();
+		//
 		Object arg = readWithMessageConverters(webRequest, parameter, parameter.getNestedGenericParameterType());
+		//
 		String name = Conventions.getVariableNameForParameter(parameter);
+
 
 		WebDataBinder binder = binderFactory.createBinder(webRequest, arg, name);
 		if (arg != null) {
@@ -135,18 +157,34 @@ public class RequestResponseBodyMethodProcessor extends AbstractMessageConverter
 				throw new MethodArgumentNotValidException(parameter, binder.getBindingResult());
 			}
 		}
+		//设置绑定的结果
 		mavContainer.addAttribute(BindingResult.MODEL_KEY_PREFIX + name, binder.getBindingResult());
 
 		return adaptArgumentIfNecessary(arg, parameter);
 	}
 
+	/**
+	 *
+	 * 通过消息转换器读取
+	 * @param webRequest the current request
+	 * @param parameter  the method parameter descriptor (may be {@code null})
+	 * @param paramType  the type of the argument value to be created
+	 * @param <T>
+	 * @return
+	 * @throws IOException
+	 * @throws HttpMediaTypeNotSupportedException
+	 * @throws HttpMessageNotReadableException
+	 */
 	@Override
 	protected <T> Object readWithMessageConverters(NativeWebRequest webRequest, MethodParameter parameter,
 			Type paramType) throws IOException, HttpMediaTypeNotSupportedException, HttpMessageNotReadableException {
 
+		//
 		HttpServletRequest servletRequest = webRequest.getNativeRequest(HttpServletRequest.class);
+		//输入源
 		ServletServerHttpRequest inputMessage = new ServletServerHttpRequest(servletRequest);
 
+		//
 		Object arg = readWithMessageConverters(inputMessage, parameter, paramType);
 		if (arg == null) {
 			if (checkRequired(parameter)) {

@@ -300,6 +300,10 @@ class ConfigurationClassEnhancer {
 	/**
 	 * Intercepts the invocation of any {@link Bean}-annotated methods in order to ensure proper
 	 * handling of bean semantics such as scoping and AOP proxying.
+	 *
+	 * <p>
+	 *     拦截任何{@link Bean}注解方法的调用，以确保正确处理bean语义，例如作用域和AOP代理
+	 * </p>
 	 * @see Bean
 	 * @see ConfigurationClassEnhancer
 	 */
