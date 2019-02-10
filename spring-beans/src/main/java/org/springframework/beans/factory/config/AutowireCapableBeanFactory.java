@@ -119,6 +119,17 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	 * fields and methods as well as applying all standard bean initialization callbacks.
 	 * It does <i>not</> imply traditional by-name or by-type autowiring of properties;
 	 * use {@link #createBean(Class, int, boolean)} for those purposes.
+	 *
+	 * <p>
+	 *     完全创建给定类的新bean实例。
+	 * </p>
+	 * <p>
+	 *     	 执行bean的完全初始化，包括所有适用的{@link BeanPostProcessor BeanPostProcessors}。
+	 * </p>
+	 * <p>
+	 *     注意：这用于创建新实例，填充带注解的字段和方法以及应用所有标准bean初始化回调。
+	 *     它并不意味着<暗示传by-name 或者 by-type自动装配属性; 使用{@link #createBean(Class, int, boolean)}
+	 * </p>
 	 * @param beanClass the class of the bean to create
 	 * @return the new bean instance
 	 * @throws BeansException if instantiation or wiring failed
@@ -132,6 +143,12 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	 * methods, either for new instances or for deserialized instances. It does
 	 * <i>not</i> imply traditional by-name or by-type autowiring of properties;
 	 * use {@link #autowireBeanProperties} for those purposes.
+	 * <p>
+	 *     通过应用后实例化回调和bean属性后处理（例如，用于注释驱动的注入）来填充给定的bean实例。
+	 * </p>
+	 * <p>
+	 *    注意：这主要用于（重新）填充带注解字段和方法，用于新实例或反序列化实例。 它并不意味着by-name or by-type自动装配属性; 出于这些目的使用{@link #autowireBeanProperties} 。
+	 * </p>
 	 * @param existingBean the existing bean instance
 	 * @throws BeansException if wiring failed
 	 */
@@ -145,6 +162,14 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 	 * <p>This is effectively a superset of what {@link #initializeBean} provides,
 	 * fully applying the configuration specified by the corresponding bean definition.
 	 * <b>Note: This method requires a bean definition for the given name!</b>
+	 * <p>
+	 *     配置给定的原始bean：autowiring bean属性，应用bean属性值，
+	 *     应用工厂回调（如setBeanName和setBeanFactory），
+	 *     还应用所有bean后处理器（包括可能包装给定原始bean的bean）。
+	 * </p>
+	 * <p>
+	 *     这实际上是initializeBean提供的超集，完全应用相应bean定义指定的配置。 注意：此方法需要给定的bean定义
+	 * </p>
 	 * @param existingBean the existing bean instance
 	 * @param beanName the name of the bean, to be passed to it if necessary
 	 * (a bean definition of that name has to be available)
@@ -341,6 +366,10 @@ public interface AutowireCapableBeanFactory extends BeanFactory {
 
 	/**
 	 * Resolve the specified dependency against the beans defined in this factory.
+	 *
+	 * <p>
+	 *     针对此工厂中定义的bean解析指定的依赖项。
+	 * </p>
 	 * @param descriptor the descriptor for the dependency (field/method/constructor)
 	 * @param requestingBeanName the name of the bean which declares the given dependency
 	 * @param autowiredBeanNames a Set that all names of autowired beans (used for

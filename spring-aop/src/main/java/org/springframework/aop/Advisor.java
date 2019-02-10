@@ -31,8 +31,12 @@ import org.aopalliance.aop.Advice;
  * implemented using interception.
  *
  * <p>
- *     基本接口持有AOP通知（在连接点采取的动作）和一个决定通知（如切入点）适用性的过滤器。 这个接口不是供Spring用户使用的，而是为了支持不同类型的通知。
- *     Spring AOP基于通过拦截方法提供的建议，符合AOP Alliance拦截API。 顾问界面允许支持不同类型的建议，如建议之前和之后，这些建议不需要使用拦截来实现。
+ *     基本接口持有AOP <b>advice</b>（在连接点采取的动作）和一个决定advice（如切入点）适用性的过滤器。
+ *     这个接口不是供Spring用户使用的，而是为了支持不同类型的advice。
+ * </p>
+ * <p>
+ *     Spring AOP基于通过拦截方法提供的<b>around advice</b> ，符合AOP Alliance拦截API。
+ *     Advisor接口允许支持不同类型的建议，如  <b>before</b> and <b>after</b> advice，这些建议不需要使用interception来实现。
  * </p>
  * @author Rod Johnson
  */

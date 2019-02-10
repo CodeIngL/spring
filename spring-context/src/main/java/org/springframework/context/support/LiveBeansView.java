@@ -43,6 +43,13 @@ import org.springframework.util.StringUtils;
  * <p>Note: This feature is still in beta and primarily designed for use with
  * Spring Tool Suite 3.1 and higher.
  *
+ * <p>
+ *     用于实时bean视图暴露的适配器，从本地ApplicationContext（具有本地LiveBeansView bean定义）或所有已注册的ApplicationContexts（由“spring.liveBeansView.mbeanDomain”环境属性驱动）构建当前bean及其依赖项的快照。
+ * </p>
+ * <p>
+ *      注意：此功能仍处于测试阶段，主要用于Spring Tool Suite 3.1及更高版本
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Stephane Nicoll
  * @since 3.2

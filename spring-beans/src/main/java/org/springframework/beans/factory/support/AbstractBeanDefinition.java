@@ -142,10 +142,19 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	public static final String INFER_METHOD = "(inferred)";
 
 
+	/**
+	 * 实例类
+	 */
 	private volatile Object beanClass;
 
+	/**
+	 * 作用域
+	 */
 	private String scope = SCOPE_DEFAULT;
 
+	/**
+	 * 是否是抽象的
+	 */
 	private boolean abstractFlag = false;
 
 	/**
@@ -153,21 +162,42 @@ public abstract class AbstractBeanDefinition extends BeanMetadataAttributeAccess
 	 */
 	private boolean lazyInit = false;
 
+	/**
+	 * 注入模式
+	 */
 	private int autowireMode = AUTOWIRE_NO;
 
+	/**
+	 * 依赖检查
+	 */
 	private int dependencyCheck = DEPENDENCY_CHECK_NONE;
 
+	/**
+	 * 显式依赖
+	 */
 	private String[] dependsOn;
 
+	/**
+	 * 自动注入
+	 */
 	private boolean autowireCandidate = true;
 
+	/**
+	 * 是否是首选的
+	 */
 	private boolean primary = false;
 
+	/**
+	 * 可选的
+	 */
 	private final Map<String, AutowireCandidateQualifier> qualifiers =
 			new LinkedHashMap<String, AutowireCandidateQualifier>(0);
 
 	private boolean nonPublicAccessAllowed = true;
 
+	/**
+	 * 是否是宽松的解决策略
+	 */
 	private boolean lenientConstructorResolution = true;
 
 	private String factoryBeanName;

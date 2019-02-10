@@ -304,17 +304,30 @@ class CglibAopProxy implements AopProxy, Serializable {
 		}
 	}
 
+	/**
+	 *
+	 * 根据class获得相关的回调
+	 * @param rootClass
+	 * @return
+	 * @throws Exception
+	 */
 	private Callback[] getCallbacks(Class<?> rootClass) throws Exception {
 		// Parameters used for optimization choices...
+		// 首先是配置信息
+		//是否保留
 		boolean exposeProxy = this.advised.isExposeProxy();
+		//是否冻结
 		boolean isFrozen = this.advised.isFrozen();
+		//是否是static
 		boolean isStatic = this.advised.getTargetSource().isStatic();
 
 		// Choose an "aop" interceptor (used for AOP calls).
+		// 选择“aop”拦截器（用于AOP调用）。
 		Callback aopInterceptor = new DynamicAdvisedInterceptor(this.advised);
 
 		// Choose a "straight to target" interceptor. (used for calls that are
 		// unadvised but can return this). May be required to expose the proxy.
+		// 选择“直接目标”拦截器。 （用于未经修改的调用但可以返回this）。 可能需要公开代理。
 		Callback targetInterceptor;
 		if (exposeProxy) {
 			targetInterceptor = isStatic ?
@@ -329,16 +342,17 @@ class CglibAopProxy implements AopProxy, Serializable {
 
 		// Choose a "direct to target" dispatcher (used for
 		// unadvised calls to static targets that cannot return this).
+		// 选择“直接到目标”调度程序（用于对无法返回此静态目标的未经修改的调用）。
 		Callback targetDispatcher = isStatic ?
 				new StaticDispatcher(this.advised.getTargetSource().getTarget()) : new SerializableNoOp();
 
 		Callback[] mainCallbacks = new Callback[] {
-				aopInterceptor,  // for normal advice
-				targetInterceptor,  // invoke target without considering advice, if optimized
-				new SerializableNoOp(),  // no override for methods mapped to this
-				targetDispatcher, this.advisedDispatcher,
-				new EqualsInterceptor(this.advised),
-				new HashCodeInterceptor(this.advised)
+				aopInterceptor,  // for normal advice 通常的aop拦截器
+				targetInterceptor,  // invoke target without considering advice, if optimized 调用但是不需要考虑的advice
+				new SerializableNoOp(),  // no override for methods mapped to this //没有被重载的但映射到this上
+				targetDispatcher, this.advisedDispatcher, //
+				new EqualsInterceptor(this.advised), //equal
+				new HashCodeInterceptor(this.advised) //hashcode
 		};
 
 		Callback[] callbacks;
@@ -346,12 +360,17 @@ class CglibAopProxy implements AopProxy, Serializable {
 		// If the target is a static one and the advice chain is frozen,
 		// then we can make some optimizations by sending the AOP calls
 		// direct to the target using the fixed chain for that method.
-		if (isStatic && isFrozen) {
+		// 如果目标是静态目标并且建议链被冻结，那么我们可以通过使用该方法的固定链将AOP调用直接发送到目标来进行一些优化。
+		if (isStatic && isFrozen) { //性能优化
+			//所有方法的长度
 			Method[] methods = rootClass.getMethods();
+			//固定的长度
 			Callback[] fixedCallbacks = new Callback[methods.length];
+			//固定的拦截映射
 			this.fixedInterceptorMap = new HashMap<String, Integer>(methods.length);
 
 			// TODO: small memory optimization here (can skip creation for methods with no advice)
+			// TODO：这里的小内存优化（可以跳过创建没有建议的方法）
 			for (int x = 0; x < methods.length; x++) {
 				List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(methods[x], rootClass);
 				fixedCallbacks[x] = new FixedChainStaticTargetInterceptor(
@@ -361,6 +380,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 
 			// Now copy both the callbacks from mainCallbacks
 			// and fixedCallbacks into the callbacks array.
+			// 现在将mainCallbacks和fixedCallbacks的回调复制到回调数组中。
 			callbacks = new Callback[mainCallbacks.length + fixedCallbacks.length];
 			System.arraycopy(mainCallbacks, 0, callbacks, 0, mainCallbacks.length);
 			System.arraycopy(fixedCallbacks, 0, callbacks, mainCallbacks.length, fixedCallbacks.length);
@@ -622,6 +642,9 @@ class CglibAopProxy implements AopProxy, Serializable {
 
 	/**
 	 * Interceptor used specifically for advised methods on a frozen, static proxy.
+	 * <p>
+	 *     Interceptor专门用于冻结的静态代理上的建议方法。
+	 * </p>
 	 */
 	private static class FixedChainStaticTargetInterceptor implements MethodInterceptor, Serializable {
 

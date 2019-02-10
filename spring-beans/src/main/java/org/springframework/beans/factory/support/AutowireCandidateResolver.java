@@ -50,6 +50,9 @@ public interface AutowireCandidateResolver {
 	/**
 	 * Build a proxy for lazy resolution of the actual dependency target,
 	 * if demanded by the injection point.
+	 * <p>
+	 *     如果注入点需要，为实际依赖关系目标的延迟解析构建代理。
+	 * </p>
 	 * @param descriptor the descriptor for the target method parameter or field
 	 * @param beanName the name of the bean that contains the injection point
 	 * @return the lazy resolution proxy for the actual dependency target,

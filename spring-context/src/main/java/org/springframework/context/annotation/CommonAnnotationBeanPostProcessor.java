@@ -440,6 +440,10 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 	/**
 	 * Obtain a lazily resolving resource proxy for the given name and type,
 	 * delegating to {@link #getResource} on demand once a method call comes in.
+	 *
+	 * <p>
+	 *     获取给定名称和类型的延迟解析资源代理，一旦方法调用进入，就按需委托给getResource。
+	 * </p>
 	 * @param element the descriptor for the annotated field/method
 	 * @param requestingBeanName the name of the requesting bean
 	 * @return the resource object (never {@code null})

@@ -51,6 +51,16 @@ import org.springframework.web.servlet.support.RequestContext;
  * <p>Extends {@link WebApplicationObjectSupport}, which will be helpful to
  * some views. Subclasses just need to implement the actual rendering.
  *
+ * <p>
+ *     {@link org.springframework.web.servlet.View}实现的抽象基类。 子类应该是JavaBeans，以便于配置为Spring管理的bean实例。
+ * </p>
+ * <p>
+ *   通过各种方式指定静态属性，为视图提供静态属性支持。 静态属性将与每个渲染操作的给定动态属性（控制器返回的模型）合并。
+ * </p>
+ * <p>
+ *     扩展{@link WebApplicationObjectSupport}，这对某些视图很有帮助。 子类只需要实现实际渲染。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see #setAttributes
@@ -289,6 +299,10 @@ public abstract class AbstractView extends WebApplicationObjectSupport implement
 	 * Prepares the view given the specified model, merging it with static
 	 * attributes and a RequestContext attribute, if necessary.
 	 * Delegates to renderMergedOutputModel for the actual rendering.
+	 *
+	 * <p>
+	 *     如果需要，准备给定指定模型的视图，将其与静态属性和RequestContext属性合并。 委托renderMergedOutputModel进行实际渲染
+	 * </p>
 	 * @see #renderMergedOutputModel
 	 */
 	@Override
@@ -357,6 +371,13 @@ public abstract class AbstractView extends WebApplicationObjectSupport implement
 	 * Prepare the given response for rendering.
 	 * <p>The default implementation applies a workaround for an IE bug
 	 * when sending download content via HTTPS.
+	 *
+	 * <p>
+	 *     准备给定的渲染响应。
+	 * </p>
+	 * <p>
+	 *     默认实现在通过HTTPS发送下载内容时应用IE错误的变通方法
+	 * </p>
 	 * @param request current HTTP request
 	 * @param response current HTTP response
 	 */

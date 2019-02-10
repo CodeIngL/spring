@@ -52,6 +52,17 @@ public interface SingletonBeanRegistry {
 	 * for runtime registration of singletons. As a consequence, a registry
 	 * implementation should synchronize singleton access; it will have to do
 	 * this anyway if it supports a BeanFactory's lazy initialization of singletons.
+	 * <p> 在给定的bean名称下，在bean注册表中将给定的现有对象注册为singleton。
+	 * </p>
+	 * <p>
+	 * 假定给定的实例已完全初始化; 注册表不会执行任何初始化回调（特别是，它不会调用InitializingBean的afterPropertiesSet方法）。 给定的实例也不会收到任何破坏回调（如DisposableBean的destroy方法）。
+	 * </p>
+	 * <p>
+	 * 在完整的BeanFactory中运行时：如果bean应该接收初始化和/或销毁回调，则注册bean定义而不是现有实例。
+	 * </p>
+	 * <p>
+	 * 通常在注册表配置期间调用，但也可用于单例的运行时注册。 因此，注册表实现应该同步单例访问; 如果它支持BeanFactory对单例的懒惰初始化，它将无论如何都必须这样做
+	 * </p>
 	 * @param beanName the name of the bean
 	 * @param singletonObject the existing singleton object
 	 * @see org.springframework.beans.factory.InitializingBean#afterPropertiesSet
@@ -69,6 +80,18 @@ public interface SingletonBeanRegistry {
 	 * defined by a bean definition that already been created, in a raw fashion.
 	 * <p><b>NOTE:</b> This lookup method is not aware of FactoryBean prefixes or aliases.
 	 * You need to resolve the canonical bean name first before obtaining the singleton instance.
+	 * <p>
+	 *     返回在给定名称下注册的（原始）单例对象。
+	 * </p>
+	 * <p>
+	 *     只检查已经实例化的单身人士; 不返回尚未实例化的单例bean定义的Object。
+	 * </p>
+	 * <p>
+	 *     注意：此查找方法不知道FactoryBean前缀或别名。 在获取单例实例之前，需要首先解析规范bean名称
+	 * </p>
+	 * <p>
+	 *     此方法的主要目的是访问手动注册的单例（请参阅registerSingleton）。 也可以用于以原始方式访问已经创建的bean定义定义的单例。
+	 * </p>
 	 * @param beanName the name of the bean to look for
 	 * @return the registered singleton object, or {@code null} if none found
 	 * @see ConfigurableListableBeanFactory#getBeanDefinition
@@ -129,6 +152,10 @@ public interface SingletonBeanRegistry {
 
 	/**
 	 * Return the singleton mutex used by this registry (for external collaborators).
+	 *
+	 * <p>
+	 *  返回此注册表使用的单例互斥锁（适用于外部协作者）。
+	 * </p>
 	 * @return the mutex object (never {@code null})
 	 * @since 4.2
 	 */

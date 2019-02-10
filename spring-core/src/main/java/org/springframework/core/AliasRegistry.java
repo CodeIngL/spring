@@ -21,7 +21,7 @@ package org.springframework.core;
  * {@link org.springframework.beans.factory.support.BeanDefinitionRegistry}.
  *
  * <p>
- *    管理别名的通用界面。 作为org.springframework.beans.factory.support.BeanDefinitionRegistry的超级接口。
+ *    管理别名的通用接口。 作为org.springframework.beans.factory.support.BeanDefinitionRegistry的超级接口。
  * </p>
  *
  * @author Juergen Hoeller

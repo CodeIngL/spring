@@ -211,6 +211,11 @@ public class BeanWrapperImpl extends AbstractNestablePropertyAccessor implements
 	 * Convert the given value for the specified property to the latter's type.
 	 * <p>This method is only intended for optimizations in a BeanFactory.
 	 * Use the {@code convertIfNecessary} methods for programmatic conversion.
+	 * <p> 将指定属性的给定值转换为后者的类型。
+	 * </p>
+	 * <p>
+	 *     	 此方法仅用于BeanFactory中的优化。 使用convertIfNecessary方法进行编程转换。
+	 * </p>
 	 * @param value the value to convert
 	 * @param propertyName the target property
 	 * (note that nested or indexed properties are not supported here)

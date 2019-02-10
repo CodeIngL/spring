@@ -40,6 +40,16 @@ import org.springframework.context.ApplicationContextException;
  * <p>Many framework classes are derived from this class, particularly
  * within the web support.
  *
+ * <p>
+ *     想要了解应用程序上下文的应用程序对象的便捷超类，例如 用于自定义查找协作Bean或用于特定于上下文的资源访问。 它保存应用程序上下文引用并提供初始化回调方法。 此外，它为消息查找提供了许多便利方法。
+ * </p>
+ * <p>
+ *      * 没有要求对这个类进行子类化：如果你需要访问上下文，它只会让事情变得容易一些，例如： 用于访问文件资源或消息源。 请注意，许多应用程序对象根本不需要了解应用程序上下文，因为它们可以通过bean引用接收协作bean。
+ * </p>
+ * <p>
+ * 许多框架类都派生自此类，特别是在Web支持中。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see org.springframework.web.context.support.WebApplicationObjectSupport

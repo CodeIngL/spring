@@ -85,6 +85,22 @@ import org.springframework.util.ObjectUtils;
  *
  * <p>This exporter is compatible with MBeans as well as MXBeans.
  *
+ *
+ * <p>
+ *     JMX导出器，允许将任何Spring管理的bean公开给JMX MBeanServer，而无需在bean类中定义任何特定于JMX的信息。
+ * </p>
+ * <p>
+ *      * 如果bean实现了一个JMX管理接口，MBeanExporter可以通过其自动检测过程简单地向服务器注册MBean。
+ * </p>
+ * <p>
+ *      * 如果bean未实现其中一个JMX管理接口，则MBeanExporter将使用提供的MBeanInfoAssembler创建管理信息。
+ * </p>
+ * <p>
+ *      * 可以通过listeners属性注册MBeanExporterListeners列表，从而允许应用程序代码通知MBean注册和取消注册事件。
+ * </p>
+ * <p>
+ *      * 此导出器与MBean和MXBeans兼容。
+ * </p>
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @author Rick Evans

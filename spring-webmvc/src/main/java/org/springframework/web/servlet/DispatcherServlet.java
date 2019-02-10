@@ -1309,6 +1309,7 @@ public class DispatcherServlet extends FrameworkServlet {
 		View view;
 		if (mv.isReference()) {
 			// We need to resolve the view name.
+			// 我们需要解析视图名称。
 			view = resolveViewName(mv.getViewName(), mv.getModelInternal(), locale, request);
 			if (view == null) {
 				throw new ServletException("Could not resolve view with name '" + mv.getViewName() +

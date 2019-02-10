@@ -54,6 +54,16 @@ import org.springframework.util.CollectionUtils;
  * <p>This class is serializable; subclasses need not be.
  * This class is used to hold snapshots of proxies.
  *
+ * <p>
+ *     AOP代理配置管理器的基类。 它们本身不是AOP代理，但是这个类的子类通常是直接从中获取AOP代理实例的工厂。
+ * </p>
+ * <p>
+ *      此类释放了Advices和Advisor的内务管理的子类，但实际上并未实现子类提供的代理创建方法。
+ * </p>
+ * <p>
+ *      这个类是可序列化的; 子类不必是。 此类用于保存代理的快照。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see org.springframework.aop.framework.AopProxy

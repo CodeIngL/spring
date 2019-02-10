@@ -38,6 +38,13 @@ import org.springframework.aop.support.ComposablePointcut;
  * <p>Uses AspectJ 5 AJType reflection API, enabling us to work with different
  * AspectJ instantiation models such as "singleton", "pertarget" and "perthis".
  *
+ * <p>
+ *    AspectJ方面类的元数据，为per子句添加了额外的Spring AOP切入点。
+ * </p>
+ * <p>
+ *    使用AspectJ 5 AJType反射API，使我们能够使用不同的AspectJ实例化模型，如“singleton”，“pertarget”和“perthis”。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 2.0

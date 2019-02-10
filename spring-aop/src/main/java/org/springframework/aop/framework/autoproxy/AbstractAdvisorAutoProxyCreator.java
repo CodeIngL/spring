@@ -109,6 +109,10 @@ public abstract class AbstractAdvisorAutoProxyCreator extends AbstractAutoProxyC
 	/**
 	 * Search the given candidate Advisors to find all Advisors that
 	 * can apply to the specified bean.
+	 *
+	 * <p>
+	 *     搜索给定的候选Advisors，找到可以应用于指定bean的所有Advisors。
+	 * </p>
 	 * @param candidateAdvisors the candidate Advisors
 	 * @param beanClass the target's bean class
 	 * @param beanName the target's bean name

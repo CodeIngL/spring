@@ -25,6 +25,10 @@ import org.springframework.beans.factory.Aware;
  * {@link ServletContext} (typically determined by the {@link WebApplicationContext})
  * that it runs in.
  *
+ * <p>
+ *     由任何希望获得{@link ServletContext}（通常由{@link WebApplicationContext})确定）运行的对象实现的接口。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 12.03.2004

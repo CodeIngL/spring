@@ -20,6 +20,9 @@ import org.springframework.util.Assert;
 
 /**
  * Context object for evaluating an expression within a bean definition.
+ * <p>
+ *     用于评估bean定义中的表达式的上下文对象。
+ * </p>
  *
  * @author Juergen Hoeller
  * @since 3.0

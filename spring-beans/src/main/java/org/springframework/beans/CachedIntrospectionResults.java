@@ -64,6 +64,21 @@ import org.springframework.util.StringUtils;
  * recreates much-requested entries every time the garbage collector removed them. In
  * such a scenario, consider the {@link #IGNORE_BEANINFO_PROPERTY_NAME} system property.
  *
+ * <p>
+ *     内部类，用于缓存Java类的JavaBeans {@link java.beans.PropertyDescriptor}信息。不适合应用程序代码直接使用。
+ * <p>
+ *      必须在应用程序的ClassLoader中自己缓存描述符，而不是依赖于JDK的系统范围BeanInfo缓存（以避免ClassLoader关闭时出现泄漏）
+ * </p>
+ * <p>
+ *      信息是静态缓存的，因此我们不需要为每个操作的JavaBean创建此类的新对象。因此，此类实现工厂设计模式，使用私有构造函数和静态forClass（Class）工厂方法来获取实例。
+ * </p>
+ * <p>
+ *      请注意，要使缓存有效工作，需要满足一些前提条件：首选Spring jar与应用程序类位于同一ClassLoader中的安排，这样可以在任何情况下实现干净缓存以及应用程序的生命周期。对于Web应用程序，考虑在多类ClassLoader布局的情况下在web.xml中声明本地org.springframework.web.util.IntrospectorCleanupListener，这也将允许有效的缓存。
+ * </p>
+ * <p>
+ *      如果没有设置清理侦听器的非干净ClassLoader安排，此类将回退到基于弱引用的缓存模型，每次垃圾收集器删除它时都会重新创建请求很多的条目。在这种情况下，请考虑IGNORE_BEANINFO_PROPERTY_NAME系统属性。</p>
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 05 May 2001
@@ -265,15 +280,19 @@ public class CachedIntrospectionResults {
 				logger.trace("Getting BeanInfo for class [" + beanClass.getName() + "]");
 			}
 
+			//beanInfo
 			BeanInfo beanInfo = null;
+			//
 			for (BeanInfoFactory beanInfoFactory : beanInfoFactories) {
 				beanInfo = beanInfoFactory.getBeanInfo(beanClass);
 				if (beanInfo != null) {
 					break;
 				}
 			}
+			//还是为null
 			if (beanInfo == null) {
 				// If none of the factories supported the class, fall back to the default
+				// 没有支持进行回退
 				beanInfo = (shouldIntrospectorIgnoreBeaninfoClasses ?
 						Introspector.getBeanInfo(beanClass, Introspector.IGNORE_ALL_BEANINFO) :
 						Introspector.getBeanInfo(beanClass));
@@ -286,6 +305,7 @@ public class CachedIntrospectionResults {
 			this.propertyDescriptorCache = new LinkedHashMap<String, PropertyDescriptor>();
 
 			// This call is slow so we do it once.
+			// 这个调用非常的慢，我们应该仅仅使用一次
 			PropertyDescriptor[] pds = this.beanInfo.getPropertyDescriptors();
 			for (PropertyDescriptor pd : pds) {
 				if (Class.class == beanClass &&

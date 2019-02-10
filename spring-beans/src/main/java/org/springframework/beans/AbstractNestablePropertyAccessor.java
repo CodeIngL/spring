@@ -600,6 +600,16 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 		return false;
 	}
 
+	/**
+	 * 必要的转换
+	 * @param propertyName
+	 * @param oldValue
+	 * @param newValue
+	 * @param requiredType
+	 * @param td
+	 * @return
+	 * @throws TypeMismatchException
+	 */
 	private Object convertIfNecessary(String propertyName, Object oldValue, Object newValue, Class<?> requiredType,
 			TypeDescriptor td) throws TypeMismatchException {
 		try {
@@ -627,6 +637,15 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 		}
 	}
 
+	/**
+	 * 转换类型
+	 * @param propertyName
+	 * @param oldValue
+	 * @param newValue
+	 * @param td
+	 * @return
+	 * @throws TypeMismatchException
+	 */
 	protected Object convertForProperty(String propertyName, Object oldValue, Object newValue, TypeDescriptor td)
 			throws TypeMismatchException {
 

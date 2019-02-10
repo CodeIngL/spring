@@ -232,6 +232,12 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	}
 
 
+	/**
+	 * 处理
+	 * @param beanDefinition the merged bean definition for the bean
+	 * @param beanType       the actual type of the managed bean instance
+	 * @param beanName       the name of the bean
+	 */
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
 		if (beanType != null) {
@@ -425,6 +431,12 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 		return metadata;
 	}
 
+	/**
+	 *
+	 * 构建Autowired的源信息
+	 * @param clazz
+	 * @return
+	 */
 	private InjectionMetadata buildAutowiringMetadata(final Class<?> clazz) {
 		LinkedList<InjectionMetadata.InjectedElement> elements = new LinkedList<InjectionMetadata.InjectedElement>();
 		Class<?> targetClass = clazz;
@@ -433,6 +445,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 			final LinkedList<InjectionMetadata.InjectedElement> currElements =
 					new LinkedList<InjectionMetadata.InjectedElement>();
 
+			//字段上的
 			ReflectionUtils.doWithLocalFields(targetClass, new ReflectionUtils.FieldCallback() {
 				@Override
 				public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
@@ -450,6 +463,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				}
 			});
 
+			//方法上的
 			ReflectionUtils.doWithLocalMethods(targetClass, new ReflectionUtils.MethodCallback() {
 				@Override
 				public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
@@ -622,6 +636,9 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 * Class representing injection information about an annotated method.
+	 * <p>
+	 *     表示注解方法的注入信息的类。
+	 * </p>
 	 */
 	private class AutowiredMethodElement extends InjectionMetadata.InjectedElement {
 
@@ -648,13 +665,20 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				arguments = resolveCachedArguments(beanName);
 			}
 			else {
+				//方法的参数类型
 				Class<?>[] paramTypes = method.getParameterTypes();
+				//参数
 				arguments = new Object[paramTypes.length];
+				//依赖描述
 				DependencyDescriptor[] descriptors = new DependencyDescriptor[paramTypes.length];
 				Set<String> autowiredBeans = new LinkedHashSet<String>(paramTypes.length);
+				//类型转换器
 				TypeConverter typeConverter = beanFactory.getTypeConverter();
+				//
 				for (int i = 0; i < arguments.length; i++) {
+					//构建方法参数
 					MethodParameter methodParam = new MethodParameter(method, i);
+					//构建依赖描述
 					DependencyDescriptor currDesc = new DependencyDescriptor(methodParam, this.required);
 					currDesc.setContainingClass(bean.getClass());
 					descriptors[i] = currDesc;
@@ -664,12 +688,14 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 							arguments = null;
 							break;
 						}
+						//进行赋值
 						arguments[i] = arg;
 					}
 					catch (BeansException ex) {
 						throw new UnsatisfiedDependencyException(null, beanName, new InjectionPoint(methodParam), ex);
 					}
 				}
+				//没有缓存
 				synchronized (this) {
 					if (!this.cached) {
 						if (arguments != null) {
@@ -698,6 +724,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 					}
 				}
 			}
+			//调用相关的方法
 			if (arguments != null) {
 				try {
 					ReflectionUtils.makeAccessible(method);

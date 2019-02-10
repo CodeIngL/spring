@@ -29,13 +29,13 @@ package org.springframework.aop;
  * {@code TargetSources} directly: this is an AOP framework interface.
  *
  * <p>
- *     TargetSource用于获取AOP调用的当前“目标”，如果没有周围的建议选择结束拦截器链本身，则将通过反射调用该目标。
+ *     TargetSource用于获取AOP调用的当前“目标”，如果没有around advice选择结束拦截器链本身，则将通过反射调用该目标。
  * </p>
  * <p>
- *      如果TargetSource是“静态的”，它将始终返回相同的目标，允许在AOP框架中进行优化。 动态目标源可以支持池，热交换等。
+ *      如果TargetSource是“static”，它将始终返回相同的目标，允许在AOP框架中进行优化。 动态目标源可以支持池化，热交换等。
  * </p>
  * <p>
- *      应用程序开发人员通常不需要直接使用TargetSources：这是一个AOP框架接口。
+ *      应用程序开发人员通常不需要直接使用{@code TargetSources} : 这是一个AOP框架接口。
  * </p>
  *
  * @author Rod Johnson
@@ -55,6 +55,9 @@ public interface TargetSource extends TargetClassAware {
 	 * Will all calls to {@link #getTarget()} return the same object?
 	 * <p>In that case, there will be no need to invoke {@link #releaseTarget(Object)},
 	 * and the AOP framework can cache the return value of {@link #getTarget()}.
+	 * <p>
+	 *     在这种情况下，不需要调用{@link #releaseTarget(Object)}），AOP框架可以缓存getTarget（）的返回值。
+	 * </p>
 	 * @return {@code true} if the target is immutable
 	 * @see #getTarget
 	 */

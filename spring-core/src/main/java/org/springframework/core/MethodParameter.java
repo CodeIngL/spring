@@ -630,6 +630,12 @@ public class MethodParameter {
 	 * Create a new MethodParameter for the given method or constructor.
 	 * <p>This is a convenience constructor for scenarios where a
 	 * Method or Constructor reference is treated in a generic fashion.
+	 * <p>
+	 *   为给定的方法或构造函数创建一个新的MethodParameter。
+	 * </p>
+	 * <p>
+	 *    对于以通用方式处理Method或Constructor引用的方案，这是一个便利构造函数。
+	 * </p>
 	 * @param methodOrConstructor the Method or Constructor to specify a parameter for
 	 * @param parameterIndex the index of the parameter
 	 * @return the corresponding MethodParameter instance

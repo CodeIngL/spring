@@ -56,6 +56,10 @@ public class ContextCleanupListener implements ServletContextListener {
 	/**
 	 * Find all ServletContext attributes which implement {@link DisposableBean}
 	 * and destroy them, removing all affected ServletContext attributes eventually.
+	 *
+	 * <p>
+	 *     找到实现DisposableBean并销毁它们的所有ServletContext属性，最终删除所有受影响的ServletContext属性。
+	 * </p>
 	 * @param sc the ServletContext to check
 	 */
 	static void cleanupAttributes(ServletContext sc) {

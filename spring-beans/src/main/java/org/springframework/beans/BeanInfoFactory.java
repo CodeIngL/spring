@@ -39,6 +39,20 @@ import java.beans.IntrospectionException;
  * {@link org.springframework.core.annotation.Order @Order}, so that ones with a
  * higher precedence come first.
  *
+ * <p>
+ *     公共接口BeanInfoFactory
+ * </p>
+ *
+ * <p>
+ *  用于为Spring bean创建BeanInfo实例的策略接口。 可用于插入自定义bean属性解析策略（例如，对于JVM上的其他语言）或更高效的BeanInfo检索算法。
+ * </p>
+ * <p>
+ *      BeanInfoFactories由CachedIntrospectionResults实例化，使用org.springframework.core.io.support.SpringFactoriesLoader实用程序类。 当要创建BeanInfo时，CachedIntrospectionResults将遍历已发现的工厂，并在每个工厂上调用getBeanInfo（Class）。 如果返回null，则将查询下一个工厂。 如果没有工厂支持该类，则将创建标准BeanInfo作为默认值。
+ * </p></P>
+ * <p>
+ *      请注意，org.springframework.core.io.support.SpringFactoriesLoader按@Order对BeanInfoFactory实例进行排序，以便优先级较高的实例排在第一位。
+ * </p></P>
+ *
  * @author Arjen Poutsma
  * @since 3.2
  * @see CachedIntrospectionResults

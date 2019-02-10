@@ -23,6 +23,13 @@ package org.springframework.aop;
  * (via {@link org.springframework.aop.framework.Advised})
  * as well as by {@link TargetSource TargetSources}.
  *
+ * <p>
+ *     用于在代理后面公开目标类的最小接口。
+ * </p>
+ * <p>
+ *      由AOP代理对象和代理工厂（通过{@link org.springframework.aop.framework.Advised}）以及TargetSources实现。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.0.3
  * @see org.springframework.aop.support.AopUtils#getTargetClass(Object)

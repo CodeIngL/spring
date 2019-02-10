@@ -26,7 +26,7 @@ import java.beans.PropertyEditor;
  * and {@link org.springframework.validation.DataBinder}.
  *
  * <p>
- *     封装注册JavaBean PropertyEditors的方法。 这是PropertyEditorRegistrar操作的中心界面。
+ *     封装注册JavaBean PropertyEditors的方法。 这是PropertyEditorRegistrar操作的中心接口。
  * </p>
  * <p>
  *     由BeanWrapper扩展; 由BeanWrapperImpl和org.springframework.validation.DataBinder实现。

@@ -49,6 +49,14 @@ import org.springframework.util.StringUtils;
  * <li>the bean implementing DisposableBean itself;
  * <li>a custom destroy method specified on the bean definition.
  * </ul>
+ * <p>
+ *     实现{@link DisposableBean}和{@link Runnable}接口的适配器在给定的bean实例上执行各种销毁步骤：
+ * </p>
+ * <ul>
+ * <li> DestructionAwareBeanPostProcessors;
+ * <li> 实现DisposableBean本身的bean;
+ * <li> 在bean定义中指定的自定义destroy方法。
+ * </ul>
  *
  * @author Juergen Hoeller
  * @author Costin Leau

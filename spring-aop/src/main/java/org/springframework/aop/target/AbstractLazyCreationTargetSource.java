@@ -33,6 +33,16 @@ import org.springframework.aop.TargetSource;
  * but you don't actually want the dependency to be created until it is first used.
  * A typical scenario for this is a connection to a remote resource.
  *
+ * <p>
+ *     TargetSource实现将懒洋洋地创建用户管理的对象。
+ * </p>
+ * <p>
+ *      通过实现createObject（）方法，用户可以控制惰性目标对象的创建。 此TargetSource将在第一次访问代理时调用此方法。
+ * </p>
+ * <p>
+ *      当您需要将对某个依赖项的引用传递给对象时很有用，但实际上并不希望在第一次使用它之前创建依赖项。 典型的情况是与远程资源的连接。
+ * </p>
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 1.2.4

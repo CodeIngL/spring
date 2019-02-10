@@ -36,6 +36,13 @@ import org.springframework.util.StringUtils;
  * <p>Does not support Method Injection, although it provides hooks for subclasses
  * to override to add Method Injection support, for example by overriding methods.
  *
+ * <p>
+ *     用于BeanFactory的简单对象实例化策略。
+ * </p>
+ * <p>
+ *    不支持方法注入，尽管它提供了子类的挂钩来覆盖以添加方法注入支持，例如通过重写方法。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1
@@ -108,6 +115,8 @@ public class SimpleInstantiationStrategy implements InstantiationStrategy {
 	public Object instantiate(RootBeanDefinition bd, String beanName, BeanFactory owner,
 			final Constructor<?> ctor, Object... args) {
 
+		//没有方法被替代或者重写，
+		//那么可以简单的进行相关的处理，否则需要使用cglib进行代理处理
 		if (bd.getMethodOverrides().isEmpty()) {
 			if (System.getSecurityManager() != null) {
 				// use own privileged to change accessibility (when security is on)

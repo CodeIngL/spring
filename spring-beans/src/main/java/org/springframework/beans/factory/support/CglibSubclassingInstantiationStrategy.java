@@ -44,6 +44,13 @@ import org.springframework.util.StringUtils;
  * <p>Uses CGLIB to generate subclasses dynamically if methods need to be
  * overridden by the container to implement <em>Method Injection</em>.
  *
+ * <p>
+ *     在BeanFactories中使用的默认对象实例化策略。
+ * </p>
+ * <p>
+ *     如果容器需要覆盖方法以实现方法注入，则使用CGLIB动态生成子类。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Sam Brannen

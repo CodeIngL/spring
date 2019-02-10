@@ -76,13 +76,21 @@ public class DelegatingEntityResolver implements EntityResolver {
 	}
 
 
+	/**
+	 * 该接口来自xml，xml的解析需要相关实体解析，这里会有解析，
+	 * @param publicId
+	 * @param systemId
+	 * @return
+	 * @throws SAXException
+	 * @throws IOException
+	 */
 	@Override
 	public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
 		if (systemId != null) {
-			if (systemId.endsWith(DTD_SUFFIX)) {
+			if (systemId.endsWith(DTD_SUFFIX)) { //DTD风格
 				return this.dtdResolver.resolveEntity(publicId, systemId);
 			}
-			else if (systemId.endsWith(XSD_SUFFIX)) {
+			else if (systemId.endsWith(XSD_SUFFIX)) { //schema风格
 				return this.schemaResolver.resolveEntity(publicId, systemId);
 			}
 		}

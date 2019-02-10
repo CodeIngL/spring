@@ -392,6 +392,19 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		return getBeanNamesForType(type, true, true);
 	}
 
+	/**
+	 *
+	 * 通过类型获得所有的bean
+	 * @param type                 the class or interface to match, or {@code null} for all bean names
+	 * @param includeNonSingletons whether to include prototype or scoped beans too
+	 *                             or just singletons (also applies to FactoryBeans)
+	 * @param allowEagerInit       whether to initialize <i>lazy-init singletons</i> and
+	 *                             <i>objects created by FactoryBeans</i> (or by factory methods with a
+	 *                             "factory-bean" reference) for the type check. Note that FactoryBeans need to be
+	 *                             eagerly initialized to determine their type: So be aware that passing in "true"
+	 *                             for this flag will initialize FactoryBeans and "factory-bean" references.
+	 * @return
+	 */
 	@Override
 	public String[] getBeanNamesForType(Class<?> type, boolean includeNonSingletons, boolean allowEagerInit) {
 		if (!isConfigurationFrozen() || type == null || !allowEagerInit) {
@@ -410,21 +423,34 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		return resolvedBeanNames;
 	}
 
+	/**
+	 *
+	 * 获得所有的类型
+	 * @param type
+	 * @param includeNonSingletons
+	 * @param allowEagerInit
+	 * @return
+	 */
 	private String[] doGetBeanNamesForType(ResolvableType type, boolean includeNonSingletons, boolean allowEagerInit) {
 		List<String> result = new ArrayList<String>();
 
 		// Check all bean definitions.
+		// 检查所有bean的定义
 		for (String beanName : this.beanDefinitionNames) {
 			// Only consider bean as eligible if the bean name
 			// is not defined as alias for some other bean.
+			//不考虑别名,仅仅考虑正式名字
 			if (!isAlias(beanName)) {
 				try {
+					//获得合并得bean定义
 					RootBeanDefinition mbd = getMergedLocalBeanDefinition(beanName);
 					// Only check bean definition if it is complete.
+					// 仅仅检查相关得完整的beandefinitiion
 					if (!mbd.isAbstract() && (allowEagerInit ||
 							((mbd.hasBeanClass() || !mbd.isLazyInit() || isAllowEagerClassLoading())) &&
 									!requiresEagerInitForType(mbd.getFactoryBeanName()))) {
 						// In case of FactoryBean, match object created by FactoryBean.
+						// 对于FactoryBean，匹配FactoryBean创建的对象
 						boolean isFactoryBean = isFactoryBean(beanName, mbd);
 						BeanDefinitionHolder dbd = mbd.getDecoratedDefinition();
 						boolean matchFound =
@@ -467,6 +493,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 
 		// Check manually registered singletons too.
+		// 检查手动注册的单例
 		for (String beanName : this.manualSingletonNames) {
 			try {
 				// In case of FactoryBean, match object created by FactoryBean.
@@ -1059,14 +1086,25 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		return null;
 	}
 
+	/**
+	 * @param descriptor         the descriptor for the dependency (field/method/constructor)
+	 * @param requestingBeanName the name of the bean which declares the given dependency
+	 * @param autowiredBeanNames a Set that all names of autowired beans (used for
+	 *                           resolving the given dependency) are supposed to be added to
+	 * @param typeConverter      the TypeConverter to use for populating arrays and collections
+	 * @return
+	 * @throws BeansException
+	 */
 	@Override
 	public Object resolveDependency(DependencyDescriptor descriptor, String requestingBeanName,
 			Set<String> autowiredBeanNames, TypeConverter typeConverter) throws BeansException {
 
+		//构建名字发现器
 		descriptor.initParameterNameDiscovery(getParameterNameDiscoverer());
 		if (javaUtilOptionalClass == descriptor.getDependencyType()) {
 			return new OptionalDependencyFactory().createOptionalDependency(descriptor, requestingBeanName);
 		}
+		// 特殊的依赖，则构建特殊的对象
 		else if (ObjectFactory.class == descriptor.getDependencyType() ||
 				ObjectProvider.class == descriptor.getDependencyType()) {
 			return new DependencyObjectProvider(descriptor, requestingBeanName);
@@ -1084,6 +1122,14 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 	}
 
+	/**
+	 * @param descriptor
+	 * @param beanName
+	 * @param autowiredBeanNames
+	 * @param typeConverter
+	 * @return
+	 * @throws BeansException
+	 */
 	public Object doResolveDependency(DependencyDescriptor descriptor, String beanName,
 			Set<String> autowiredBeanNames, TypeConverter typeConverter) throws BeansException {
 

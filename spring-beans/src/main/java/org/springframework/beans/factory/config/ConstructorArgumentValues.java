@@ -36,6 +36,13 @@ import org.springframework.util.ObjectUtils;
  * <p>Supports values for a specific index in the constructor argument list
  * as well as for generic argument matches by type.
  *
+ * <p>
+ *     持久化构造函数参数值，通常作为bean定义的一部分。
+ * </p>
+ * <p>
+ *     支持构造函数参数列表中特定索引的值以及类型的泛型参数匹配。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 09.11.2003
  * @see BeanDefinition#getConstructorArgumentValues

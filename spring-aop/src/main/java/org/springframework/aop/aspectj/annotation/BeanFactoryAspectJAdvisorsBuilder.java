@@ -91,16 +91,20 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 	 * @see #isEligibleBean
 	 */
 	public List<Advisor> buildAspectJAdvisors() {
+		//获得所有aspectj的名字
 		List<String> aspectNames = this.aspectBeanNames;
 
+		//如果为空，我们需要进行构建
 		if (aspectNames == null) {
 			synchronized (this) {
 				aspectNames = this.aspectBeanNames;
 				if (aspectNames == null) {
 					List<Advisor> advisors = new LinkedList<Advisor>();
 					aspectNames = new LinkedList<String>();
+					//查找所有的对象
 					String[] beanNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(
 							this.beanFactory, Object.class, true, false);
+					//遍历2处理所有的东西
 					for (String beanName : beanNames) {
 						if (!isEligibleBean(beanName)) {
 							continue;
@@ -114,8 +118,11 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 						}
 						if (this.advisorFactory.isAspect(beanType)) {
 							aspectNames.add(beanName);
+							//构建相关的元信息
 							AspectMetadata amd = new AspectMetadata(beanType, beanName);
+							//类型
 							if (amd.getAjType().getPerClause().getKind() == PerClauseKind.SINGLETON) {
+								//再次构建相关的缓存
 								MetadataAwareAspectInstanceFactory factory =
 										new BeanFactoryAspectInstanceFactory(this.beanFactory, beanName);
 								List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory);
@@ -146,16 +153,20 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 			}
 		}
 
+		//如果还是为空，直接返回空
 		if (aspectNames.isEmpty()) {
 			return Collections.emptyList();
 		}
+		//
 		List<Advisor> advisors = new LinkedList<Advisor>();
 		for (String aspectName : aspectNames) {
+			//尝试从缓存中获取
 			List<Advisor> cachedAdvisors = this.advisorsCache.get(aspectName);
 			if (cachedAdvisors != null) {
 				advisors.addAll(cachedAdvisors);
 			}
 			else {
+				// 没有缓存，在从另一个缓存中获取，
 				MetadataAwareAspectInstanceFactory factory = this.aspectFactoryCache.get(aspectName);
 				advisors.addAll(this.advisorFactory.getAdvisors(factory));
 			}

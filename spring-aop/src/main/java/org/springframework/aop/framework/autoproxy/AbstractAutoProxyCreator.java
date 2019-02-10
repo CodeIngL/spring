@@ -168,6 +168,13 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * from being added to it once it is created.
 	 * <p>Overridden from the super class to prevent the proxy configuration
 	 * from being frozen before the proxy is created.
+	 *
+	 * <p>
+	 *     设置是否应冻结代理，防止在创建建议后将建议添加到其中。
+	 * </p>
+	 * <p>
+	 *     从超类重写以防止在创建代理之前冻结代理配置。
+	 * </p>
 	 */
 	@Override
 	public void setFrozen(boolean frozen) {

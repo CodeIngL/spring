@@ -65,6 +65,17 @@ import org.springframework.util.StringUtils;
  * }
  * </pre>
  *
+ * <p>
+ * 封装Java {@link java.lang.reflect.Type}，提供对{@link #getSuperType() supertypes}，{@link #getInterfaces() interfaces}和{@link #getGeneric(int...) generic parameters} 的访问，
+ * 以及最终{@link #resolve() resolve}为一个 {@link java.lang.Class}的能力。
+ * ResolvableTypes可以从字段，方法参数，方法返回或类中获得。 此类上的大多数方法本身都会返回ResolvableTypes，从而可以轻松导航。 例如：
+ * </p>
+ * <p>
+ *     {@code ResolvableTypes}可以从 {@link #forField(Field) fields}，{@link #forMethodParameter(Method, int) method parameters}，
+ *     {@link #forMethodReturnType(Method) method returns}或{@link #forClass(Class) classes}中获得。 此类上的大多数方法本身都会返回{@link ResolvableType}，从而可以轻松导航。 例如
+ * </p>
+ * <p></p>
+ *
  * @author Phillip Webb
  * @author Juergen Hoeller
  * @author Stephane Nicoll
