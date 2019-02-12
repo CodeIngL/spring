@@ -119,6 +119,9 @@ abstract class AutowireUtils {
 	/**
 	 * Return whether the setter method of the given bean property is defined
 	 * in any of the given interfaces.
+	 * <p>
+	 *     返回是否在任何给定接口中定义给定bean属性的setter方法
+	 * </p>
 	 * @param pd the PropertyDescriptor of the bean property
 	 * @param interfaces the Set of interfaces (Class objects)
 	 * @return whether the setter method is defined by an interface

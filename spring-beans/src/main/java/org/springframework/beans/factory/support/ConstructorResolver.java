@@ -538,6 +538,7 @@ class ConstructorResolver {
 						argsHolder = new ArgumentsHolder(explicitArgs);
 					}
 
+					//类型权重处理，用于筛选最为确切的方法
 					int typeDiffWeight = (mbd.isLenientConstructorResolution() ?
 							argsHolder.getTypeDifferenceWeight(paramTypes) : argsHolder.getAssignabilityWeight(paramTypes));
 					// Choose this factory method if it represents the closest match.
@@ -621,6 +622,7 @@ class ConstructorResolver {
 						ambiguousFactoryMethods);
 			}
 
+			//进行缓存操作
 			if (explicitArgs == null && argsHolderToUse != null) {
 				argsHolderToUse.storeCache(mbd, factoryMethodToUse);
 			}
@@ -769,10 +771,12 @@ class ConstructorResolver {
 			if (valueHolder != null) {
 				// We found a potential match - let's give it a try.
 				// Do not consider the same value definition multiple times!
+				// 我们找到了一个潜在的匹配 - 让我们试一试。 不要多次考虑相同的值定义！
 				usedValueHolders.add(valueHolder);
 				Object originalValue = valueHolder.getValue();
 				Object convertedValue;
 				if (valueHolder.isConverted()) {
+					//已经被转换了，加入到prepared中
 					convertedValue = valueHolder.getConvertedValue();
 					args.preparedArguments[paramIndex] = convertedValue;
 				}
@@ -792,7 +796,9 @@ class ConstructorResolver {
 						}
 						else {
 						*/
+							//是否还需要解析
 							args.resolveNecessary = true;
+							//也是prepared
 							args.preparedArguments[paramIndex] = sourceValue;
 						// }
 					}
@@ -804,7 +810,9 @@ class ConstructorResolver {
 								"] to required type [" + paramType.getName() + "]: " + ex.getMessage());
 					}
 				}
+				//被转换的参数
 				args.arguments[paramIndex] = convertedValue;
+				//原始的参数
 				args.rawArguments[paramIndex] = originalValue;
 			}
 			else {

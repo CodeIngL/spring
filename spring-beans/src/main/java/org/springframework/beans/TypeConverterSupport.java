@@ -25,6 +25,9 @@ import org.springframework.core.convert.ConverterNotFoundException;
 /**
  * Base implementation of the {@link TypeConverter} interface, using a package-private delegate.
  * Mainly serves as base class for {@link BeanWrapperImpl}.
+ * <p>
+ *     {@link TypeConverter}接口的基本实现，使用package-private委托。 主要用作{@link BeanWrapperImpl}的基类。
+ * </p>
  *
  * @author Juergen Hoeller
  * @since 3.2

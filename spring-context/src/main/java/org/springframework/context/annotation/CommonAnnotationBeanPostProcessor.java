@@ -131,6 +131,23 @@ import org.springframework.util.StringValueResolver;
  * the latter configuration will override the former for properties wired through
  * both approaches.
  *
+ * <p>
+ *     org.springframework.beans.factory.config.config.BeanPostProcessor实现，支持开箱即用的常见Java注释，特别是javax.annotation包中的JSR-250注释。许多Java EE 5技术（例如JSF 1.2）以及Java 6的JAX-WS都支持这些常见的Java注释。
+ 此后处理器包括对PostConstruct和PreDestroy注释的支持 - 分别作为init注释和销毁注释 - 通过从InitDestroyAnnotationBeanPostProcessor继承预先配置的注释类型。
+ 中心元素是注释驱动的命名bean注入的Resource注释，默认情况下来自包含的Spring BeanFactory，只有在JNDI中解析了mappedName引用。 “alwaysUseJndiLookup”标志强制执行JNDI查找，该查找等同于标准Java EE 5资源注入，用于名称引用和默认名称。目标bean可以是简单的POJO，除了必须匹配的类型之外没有特殊要求。
+ 还支持JAX-WS WebServiceRef注释，类似于Resource，但具有创建特定JAX-WS服务端点的能力。这可以指向按名称显式定义的资源，也可以在本地指定的JAX-WS服务类上运行。最后，这个后处理器还支持EJB 3 EJB注释，类似于Resource，能够为回退检索指定本地bean名称和全局JNDI名称。在这种情况下，目标bean可以是纯POJO以及EJB 3会话Bean。
+ 此后处理器支持的通用注释可在Java 6（JDK 1.6）以及Java EE 5/6中获得（它还为其常用注释提供独立jar，允许在任何基于Java 5的应用程序中使用） 。
+ 对于默认用法，将资源名称解析为Spring bean名称，只需在应用程序上下文中定义以下内容：
+ ???<bean class =“org.springframework.context.annotation.CommonAnnotationBeanPostProcessor”/>
+ 对于直接JNDI访问，将资源名称解析为Java EE应用程序的“java：comp / env /”命名空间中的JNDI资源引用，请使用以下命令：
+ ???<bean class =“org.springframework.context.annotation.CommonAnnotationBeanPostProcessor”>
+ ?????<property name =“alwaysUseJndiLookup”value =“true”/>
+ ???</豆>
+ mappedName引用将始终在JNDI中解析，允许全局JNDI名称（包括“java：”前缀）。 “alwaysUseJndiLookup”标志只影响名称引用和默认名称（从字段名称/属性名称推断）。
+ 注意：默认的CommonAnnotationBeanPostProcessor将由“context：annotation-config”和“context：component-scan”XML标记注册。如果要指定自定义CommonAnnotationBeanPostProcessor bean定义，请删除或关闭默认注释配置！
+ 注意：注释注入将在XML注入之前执行;因此后一种配置将覆盖通过两种方法连接的属性的前者。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.5
  * @see #setAlwaysUseJndiLookup

@@ -27,6 +27,9 @@ public abstract class PropertyAccessorUtils {
 
 	/**
 	 * Return the actual property name for the given property path.
+	 * <p>
+	 *     返回给定属性路径的实际属性名称。
+	 * </p>
 	 * @param propertyPath the property path to determine the property name
 	 * for (can include property keys, for example for specifying a map entry)
 	 * @return the actual property name, without any key elements
@@ -39,6 +42,9 @@ public abstract class PropertyAccessorUtils {
 
 	/**
 	 * Check whether the given property path indicates an indexed or nested property.
+	 * <p>
+	 *     检查给定的属性路径是否指示索引或嵌套属性。
+	 * </p>
 	 * @param propertyPath the property path to check
 	 * @return whether the path indicates an indexed or nested property
 	 */
@@ -60,7 +66,7 @@ public abstract class PropertyAccessorUtils {
 	 * Determine the first nested property separator in the
 	 * given property path, ignoring dots in keys (like "map[my.key]").
 	 * <p>
-	 *     确定给定属性路径中的第一个嵌套属性分隔符，忽略键中的点（如“map [my.key]”）。
+	 *     确定给定属性路径中的第一个嵌套属性分隔符，忽略键中的点（如“map[my.key]”）。
 	 * </p>
 	 * @param propertyPath the property path to check
 	 * @return the index of the nested property separator, or -1 if none
@@ -70,8 +76,11 @@ public abstract class PropertyAccessorUtils {
 	}
 
 	/**
-	 * Determine the first nested property separator in the
+	 * Determine the last nested property separator in the
 	 * given property path, ignoring dots in keys (like "map[my.key]").
+	 * <p>
+	 *     确定给定属性路径中的第一个嵌套属性分隔符，忽略键中的点（如“map[my.key]”）。
+	 * </p>
 	 * @param propertyPath the property path to check
 	 * @return the index of the nested property separator, or -1 if none
 	 */
@@ -117,6 +126,9 @@ public abstract class PropertyAccessorUtils {
 	/**
 	 * Determine whether the given registered path matches the given property path,
 	 * either indicating the property itself or an indexed element of the property.
+	 * <p>
+	 *     确定给定的已注册路径是否与给定的属性路径匹配，指示属性本身或属性的索引元素。
+	 * </p>
 	 * @param propertyPath the property path (typically without index)
 	 * @param registeredPath the registered path (potentially with index)
 	 * @return whether the paths match
@@ -140,6 +152,9 @@ public abstract class PropertyAccessorUtils {
 	 * Removes surrounding quotes from map keys:<br>
 	 * {@code map['key']} -> {@code map[key]}<br>
 	 * {@code map["key"]} -> {@code map[key]}
+	 * <p>
+	 *     确定给定属性路径的规范名称。 从map键中删除周围的引号：
+	 * </p>
 	 * @param propertyName the bean property path
 	 * @return the canonical representation of the property path
 	 */
@@ -172,6 +187,9 @@ public abstract class PropertyAccessorUtils {
 
 	/**
 	 * Determine the canonical names for the given property paths.
+	 * <p>
+	 *     确定给定属性路径的规范名称。
+	 * </p>
 	 * @param propertyNames the bean property paths (as array)
 	 * @return the canonical representation of the property paths
 	 * (as array of the same size)

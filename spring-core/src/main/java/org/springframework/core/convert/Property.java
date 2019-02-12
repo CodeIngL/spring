@@ -39,6 +39,14 @@ import org.springframework.util.StringUtils;
  * <p>Used to build a TypeDescriptor from a property location.
  * The built TypeDescriptor can then be used to convert from/to the property type.
  *
+ * <p>
+ * JavaBeans属性的描述，它允许我们避免对java.beans.PropertyDescriptor的依赖。 {@code java.beans} 包在许多环境中都不可用（例如Android，Java ME），因此这对于Spring的核心转换工具的可移植性是可取的。
+ * </p>
+ * <p>
+ *   用于从属性位置构建TypeDescriptor。 然后可以使用构建的TypeDescriptor从/转换为属性类型。
+ * </p>
+ * <p></p>
+ *
  * @author Keith Donald
  * @author Phillip Webb
  * @since 3.1

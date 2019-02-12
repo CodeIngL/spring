@@ -37,6 +37,10 @@ import org.springframework.util.ReflectionUtils;
  * Internal class for managing injection metadata.
  * Not intended for direct use in applications.
  *
+ * <p>
+ *     用于管理注入元数据的内部类。 不适合直接用于应用程序。
+ * </p>
+ *
  * <p>Used by {@link AutowiredAnnotationBeanPostProcessor},
  * {@link org.springframework.context.annotation.CommonAnnotationBeanPostProcessor} and
  * {@link org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor}.
@@ -61,6 +65,10 @@ public class InjectionMetadata {
 	}
 
 
+	/**
+	 * 校验
+	 * @param beanDefinition
+	 */
 	public void checkConfigMembers(RootBeanDefinition beanDefinition) {
 		Set<InjectedElement> checkedElements = new LinkedHashSet<InjectedElement>(this.injectedElements.size());
 		for (InjectedElement element : this.injectedElements) {
@@ -109,14 +117,29 @@ public class InjectionMetadata {
 	}
 
 
+	/**
+	 * 代表了要注入的元素
+	 */
 	public static abstract class InjectedElement {
 
+		/**
+		 * 方法或者字段的说明
+		 */
 		protected final Member member;
 
+		/**
+		 * 是字段
+		 */
 		protected final boolean isField;
 
+		/**
+		 * 是属性说明符
+		 */
 		protected final PropertyDescriptor pd;
 
+		/**
+		 * 是否跳过
+		 */
 		protected volatile Boolean skip;
 
 		protected InjectedElement(Member member, PropertyDescriptor pd) {
@@ -161,6 +184,9 @@ public class InjectionMetadata {
 
 		/**
 		 * Either this or {@link #getResourceToInject} needs to be overridden.
+		 * <p>
+		 *     需要覆盖this或getResourceToInject。
+		 * </p>
 		 */
 		protected void inject(Object target, String requestingBeanName, PropertyValues pvs) throws Throwable {
 			if (this.isField) {
@@ -187,6 +213,9 @@ public class InjectionMetadata {
 		 * Check whether this injector's property needs to be skipped due to
 		 * an explicit property value having been specified. Also marks the
 		 * affected property as processed for other processors to ignore it.
+		 * <p>
+		 *     检查是否由于已指定显式属性值而需要跳过此注入器的属性。 还将受影响的属性标记为已为其他处理器处理以忽略它。
+		 * </p>
 		 */
 		protected boolean checkPropertySkipping(PropertyValues pvs) {
 			if (this.skip != null) {

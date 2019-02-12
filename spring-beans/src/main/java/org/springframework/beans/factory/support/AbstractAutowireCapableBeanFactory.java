@@ -136,6 +136,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Dependency types to ignore on dependency check and autowire, as Set of
 	 * Class objects: for example, String. Default is none.
+	 * <p>
+	 *     要在依赖项检查和自动装配时忽略的依赖关系类型，如Set对象组：例如，String。默认为none。
+	 * </p>
 	 */
 	private final Set<Class<?>> ignoredDependencyTypes = new HashSet<Class<?>>();
 
@@ -149,7 +152,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	private final Map<String, BeanWrapper> factoryBeanInstanceCache =
 			new ConcurrentHashMap<String, BeanWrapper>(16);
 
-	/** Cache of filtered PropertyDescriptors: bean Class -> PropertyDescriptor array */
+	/** Cache of filtered PropertyDescriptors: bean Class -> PropertyDescriptor array
+	 * 过滤的PropertyDescriptors的缓存：bean Class -> PropertyDescriptor array */
 	private final ConcurrentMap<Class<?>, PropertyDescriptor[]> filteredPropertyDescriptorsCache =
 			new ConcurrentHashMap<Class<?>, PropertyDescriptor[]>(256);
 
@@ -1336,6 +1340,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				}
 			}
 			if (needsDepCheck) {
+				//检查bean实例的剩下字段
 				checkDependencies(beanName, mbd, filteredPds, pvs);
 			}
 		}
@@ -1528,6 +1533,9 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Perform a dependency check that all properties exposed have been set,
 	 * if desired. Dependency checks can be objects (collaborating beans),
 	 * simple (primitives and String), or all (both).
+	 * <p>
+	 *     如果需要，执行依赖性检查，以确定已设置所有已公开的属性。 依赖性检查可以是对象（协作bean），简单（基元和字符串）或全部（两者）。
+	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the merged bean definition the bean was created with
 	 * @param pds the relevant property descriptors for the target bean
@@ -1541,7 +1549,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		int dependencyCheck = mbd.getDependencyCheck();
 		for (PropertyDescriptor pd : pds) {
 			if (pd.getWriteMethod() != null && !pvs.contains(pd.getName())) {
-				boolean isSimple = BeanUtils.isSimpleProperty(pd.getPropertyType());
+				boolean isSimple = BeanUtils.isSimpleProperty(pd.getPropertyType()); //基本类型
 				boolean unsatisfied = (dependencyCheck == RootBeanDefinition.DEPENDENCY_CHECK_ALL) ||
 						(isSimple && dependencyCheck == RootBeanDefinition.DEPENDENCY_CHECK_SIMPLE) ||
 						(!isSimple && dependencyCheck == RootBeanDefinition.DEPENDENCY_CHECK_OBJECTS);
@@ -1629,6 +1637,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 				}
 				// Possibly store converted value in merged bean definition,
 				// in order to avoid re-conversion for every created bean instance.
+				// 可能在合并的bean定义中存储转换后的值，
+				// 为了避免每个创建的bean实例重新转换。
 				if (resolvedValue == originalValue) {
 					if (convertible) {
 						pv.setConvertedValue(convertedValue);

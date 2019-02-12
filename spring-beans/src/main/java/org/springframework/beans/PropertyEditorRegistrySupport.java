@@ -480,6 +480,9 @@ public class PropertyEditorRegistrySupport implements PropertyEditorRegistry {
 
 	/**
 	 * Copy the custom editors registered in this instance to the given target registry.
+	 * <p>
+	 *     将在此实例中注册的自定义编辑器复制到给定的目标注册表。
+	 * </p>
 	 * @param target the target registry to copy to
 	 * @param nestedProperty the nested property path of the target registry, if any.
 	 * If this is non-null, only editors registered for a path below this nested property

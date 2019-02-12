@@ -103,21 +103,24 @@ public abstract class AbstractPropertyAccessor extends TypeConverterSupport impl
 				setPropertyValue(pv);
 			}
 			catch (NotWritablePropertyException ex) {
-				if (!ignoreUnknown) {
+				if (!ignoreUnknown) { //如果不允许忽略未知的我们将抛出异常
 					throw ex;
 				}
 				// Otherwise, just ignore it and continue...
+				//否则，仅仅是忽略他们并且我们继续吧
 			}
 			catch (NullValueInNestedPathException ex) {
-				if (!ignoreInvalid) {
+				if (!ignoreInvalid) { //如果不允许忽略非法的我们将抛出异常
 					throw ex;
 				}
 				// Otherwise, just ignore it and continue...
+				//否则，仅仅是忽略他们并且我们继续吧
 			}
 			catch (PropertyAccessException ex) {
 				if (propertyAccessExceptions == null) {
 					propertyAccessExceptions = new LinkedList<PropertyAccessException>();
 				}
+				//访问异常，我们先收集他们
 				propertyAccessExceptions.add(ex);
 			}
 		}

@@ -405,6 +405,13 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	}
 
 
+	/**
+	 * 查找自动注入的信息
+	 * @param beanName
+	 * @param clazz
+	 * @param pvs
+	 * @return
+	 */
 	private InjectionMetadata findAutowiringMetadata(String beanName, Class<?> clazz, PropertyValues pvs) {
 		// Fall back to class name as cache key, for backwards compatibility with custom callers.
 		String cacheKey = (StringUtils.hasLength(beanName) ? beanName : clazz.getName());

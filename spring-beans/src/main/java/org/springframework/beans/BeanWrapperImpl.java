@@ -241,6 +241,11 @@ public class BeanWrapperImpl extends AbstractNestablePropertyAccessor implements
 		return new Property(gpd.getBeanClass(), gpd.getReadMethod(), gpd.getWriteMethod(), gpd.getName());
 	}
 
+	/**
+	 * 获得对应的bean属性处理器
+	 * @param propertyName the name of a local property
+	 * @return
+	 */
 	@Override
 	protected BeanPropertyHandler getLocalPropertyHandler(String propertyName) {
 		PropertyDescriptor pd = getCachedIntrospectionResults().getPropertyDescriptor(propertyName);
@@ -281,6 +286,9 @@ public class BeanWrapperImpl extends AbstractNestablePropertyAccessor implements
 	}
 
 
+	/**
+	 * bean属性处理器包装，通过包装属性描述符，
+	 */
 	private class BeanPropertyHandler extends PropertyHandler {
 
 		private final PropertyDescriptor pd;

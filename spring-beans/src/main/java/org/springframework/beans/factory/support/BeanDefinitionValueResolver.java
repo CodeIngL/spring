@@ -50,6 +50,13 @@ import org.springframework.util.StringUtils;
  * {@link org.springframework.beans.factory.config.BeanDefinition} object.
  * Used by {@link AbstractAutowireCapableBeanFactory}.
  *
+ * <p>
+ *     用于bean工厂实现的Helper类，将bean定义对象中包含的值解析为应用于目标bean实例的实际值。
+ * </p>
+ * <p>
+ * 在{@link AbstractBeanFactory}和普通{@link org.springframework.beans.factory.config.BeanDefinition}对象上运行。 由 {@link AbstractAutowireCapableBeanFactory}.使用。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.2
  * @see AbstractAutowireCapableBeanFactory

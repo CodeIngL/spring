@@ -1113,6 +1113,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			return new Jsr330ProviderFactory().createDependencyProvider(descriptor, requestingBeanName);
 		}
 		else {
+			//使用延迟的策略
 			Object result = getAutowireCandidateResolver().getLazyResolutionProxyIfNecessary(
 					descriptor, requestingBeanName);
 			if (result == null) {

@@ -52,6 +52,30 @@ import org.springframework.core.io.support.ResourcePatternResolver;
  *     中央接口为应用程序提供配置。 这在应用程序运行时是只读的，但是如果实现支持这个，可以重新加载。
  * </p>
  *
+ * <p>
+ *     ApplicationContext提供：
+ * </p>
+ * <ul>
+ *     <li>
+ *          Bean工厂方法，用于访问应用程序组件继承自{@link org.springframework.beans.factory.ListableBeanFactory}。
+ *     </li>
+ *     <li>
+ *          以通用方式加载文件资源的能力。继承自{@link org.springframework.core.io.ResourceLoader}接口。
+ *     </li>
+ *     <li>
+ *          将事件发布到已注册的侦听器的功能。继承自{@link ApplicationEventPublisher}接口。
+ *     </li>
+ *     <li>
+ *          解决消息，支持国际化的能力。继承自{@link MessageSource}接口。
+ *     </li>
+ *     <li>
+ *          从父上下文继承。后代上下文中的定义始终优先。这意味着，例如，整个Web应用程序可以使用单个父上下文，而每个servlet都有自己的子上下文，该上下文独立于任何其他servlet的子上下文。
+ *     </li>
+ * </ul>
+ * <p>
+ *          除了标准的org.springframework.beans.factory.BeanFactory生命周期功能外，ApplicationContext实现还检测并调用ApplicationContextAware bean以及ResourceLoaderAware，ApplicationEventPublisherAware和MessageSourceAware bean。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see ConfigurableApplicationContext
@@ -63,6 +87,9 @@ public interface ApplicationContext extends EnvironmentCapable, ListableBeanFact
 
 	/**
 	 * Return the unique id of this application context.
+	 * <p>
+	 *     返回此应用程序上下文的唯一ID。
+	 * </p>
 	 * @return the unique id of the context, or {@code null} if none
 	 */
 	String getId();

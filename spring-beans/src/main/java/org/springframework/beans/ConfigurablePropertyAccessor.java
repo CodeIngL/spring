@@ -25,6 +25,12 @@ import org.springframework.core.convert.ConversionService;
  *
  * <p>Serves as base interface for {@link BeanWrapper}.
  *
+ * <p> 封装PropertyAccessor的配置方法的接口。 还扩展了PropertyEditorRegistry接口，该接口定义了PropertyEditor管理的方法。
+ * </p>
+ * <p>
+ *     用作{@link BeanWrapper}.的基本接口。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Stephane Nicoll
  * @since 2.0

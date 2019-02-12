@@ -25,6 +25,10 @@ import org.springframework.core.convert.TypeDescriptor;
  * (such as bean properties of an object or fields in an object)
  * Serves as base interface for {@link BeanWrapper}.
  *
+ * <p>
+ *     可以访问命名属性的类的公共接口（例如对象的bean属性或对象中的字段）用作 {@link BeanWrapper}.的基接口。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.1
  * @see BeanWrapper
@@ -124,6 +128,9 @@ public interface PropertyAccessor {
 
 	/**
 	 * Set the specified value as current property value.
+	 * <p>
+	 *     将指定值设置为当前属性值。
+	 * </p>
 	 * @param pv an object containing the new property value
 	 * @throws InvalidPropertyException if there is no such property or
 	 * if the property isn't writable
@@ -158,6 +165,18 @@ public interface PropertyAccessor {
 	 * This exception can be examined later to see all binding errors.
 	 * Properties that were successfully updated remain changed.
 	 * <p>Does not allow unknown fields or invalid fields.
+	 *
+	 * <p>
+	 * 	 执行批量更新的首选方法。
+	 * </p>
+	 * <p>
+	 *     	 请注意，执行批量更新与执行单个更新不同，因为如果遇到可恢复的错误（例如类型不匹配，但不是无效的字段名称等），
+	 *     	 则此类的实现将继续更新属性 包含所有单个错误的PropertyBatchUpdateException。 稍后可以检查此异常以查看所有绑定错误。
+	 *     	 已成功更新的属性仍会更改。
+	 * </p>
+	 * <p>
+	 *     	 不允许使用未知字段或无效字段。
+	 * </p>
 	 * @param pvs PropertyValues to set on the target object
 	 * @throws InvalidPropertyException if there is no such property or
 	 * if the property isn't writable
@@ -200,6 +219,15 @@ public interface PropertyAccessor {
 	 * {@link PropertyBatchUpdateException} containing all the individual errors.
 	 * This exception can be examined later to see all binding errors.
 	 * Properties that were successfully updated remain changed.
+	 *
+	 * <p>
+	 *     通过完全控制行为执行批量更新。
+	 * </p>
+	 * <p>
+	 *     	 请注意，执行批量更新与执行单个更新不同，因为如果遇到可恢复的错误（例如类型不匹配，但不是无效的字段名称等），
+	 *     	 则此类的实现将继续更新属性 包含所有单个错误的PropertyBatchUpdateException。
+	 *     	 稍后可以检查此异常以查看所有绑定错误。 已成功更新的属性仍会更改。
+	 * </p>
 	 * @param pvs PropertyValues to set on the target object
 	 * @param ignoreUnknown should we ignore unknown properties (not found in the bean)
 	 * @param ignoreInvalid should we ignore invalid properties (found but not accessible)
