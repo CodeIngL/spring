@@ -31,6 +31,13 @@ import org.springframework.context.ConfigurableApplicationContext;
  * {@link org.springframework.context.ConfigurableApplicationContext}.
  * They do not cause an initialization of the context on their own.
  *
+ * <p>
+ *     由可配置的Web应用程序上下文实现的接口。 ContextLoader和org.springframework.web.servlet.FrameworkServlet支持。
+ * </p>
+ * <p>
+ *     注意：在调用从ConfigurableApplicationContext继承的refresh方法之前，需要调用此接口的setter。 它们不会导致自己初始化上下文。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 05.12.2003
  * @see #refresh

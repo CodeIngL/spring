@@ -72,6 +72,9 @@ public class DependencyDescriptor extends InjectionPoint implements Serializable
 	/**
 	 * Create a new descriptor for a method or constructor parameter.
 	 * Considers the dependency as 'eager'.
+	 * <p>
+	 *     为方法或构造函数参数创建新描述符。 将依赖性视为“急切”。
+	 * </p>
 	 * @param methodParameter the MethodParameter to wrap
 	 * @param required whether the dependency is required
 	 */
@@ -184,6 +187,12 @@ public class DependencyDescriptor extends InjectionPoint implements Serializable
 	 * method before going into the regular type matching algorithm across all beans.
 	 * Subclasses may override this method to improve resolution performance based on
 	 * pre-cached information while still receiving {@link InjectionPoint} exposure etc.
+	 * <p>
+	 *     解决针对给定工厂的此依赖关系的快捷方式，例如考虑一些预先解析的信息。
+	 * </p>
+	 * <p>
+	 *     在进入所有bean的常规类型匹配算法之前，解析算法将首先尝试通过此方法解析快捷方式。 子类可以覆盖此方法，以在仍然接收注入点暴露等的同时基于预缓存的信息提高分辨率性能。
+	 * </p>
 	 * @param beanFactory the associated factory
 	 * @return the shortcut result if any, or {@code null} if none
 	 * @throws BeansException if the shortcut could not be obtained
@@ -198,6 +207,13 @@ public class DependencyDescriptor extends InjectionPoint implements Serializable
 	 * algorithm for this dependency, to a bean instance from the given factory.
 	 * <p>The default implementation calls {@link BeanFactory#getBean(String)}.
 	 * Subclasses may provide additional arguments or other customizations.
+	 *
+	 * <p>
+	 *     将指定的bean名称解析为给定工厂的bean实例，作为此依赖项的匹配算法的候选结果。
+	 * </p>
+	 * <p>
+	 *     默认实现调用BeanFactory.getBean（String）。 子类可以提供其他参数或其他自定义。
+	 * </p>
 	 * @param beanName the bean name, as a candidate result for this dependency
 	 * @param requiredType the expected type of the bean (as an assertion)
 	 * @param beanFactory the associated factory

@@ -162,12 +162,13 @@ public class ConstructorArgumentValues {
 	 * @param index the index in the constructor argument list
 	 * @param requiredType the type to match (can be {@code null} to match
 	 * untyped values only)
-	 * @param requiredName the type to match (can be {@code null} to match
+	 * @param requiredName the name to match (can be {@code null} to match
 	 * unnamed values only, or empty String to match any name)
 	 * @return the ValueHolder for the argument, or {@code null} if none set
 	 */
 	public ValueHolder getIndexedArgumentValue(int index, Class<?> requiredType, String requiredName) {
 		Assert.isTrue(index >= 0, "Index must not be negative");
+		//直接获得值
 		ValueHolder valueHolder = this.indexedArgumentValues.get(index);
 		if (valueHolder != null &&
 				(valueHolder.getType() == null ||
@@ -272,6 +273,9 @@ public class ConstructorArgumentValues {
 	 * Look for the next generic argument value that matches the given type,
 	 * ignoring argument values that have already been used in the current
 	 * resolution process.
+	 * <p>
+	 *     查找与给定类型匹配的下一个泛型参数值，忽略已在当前解析过程中使用的参数值。
+	 * </p>
 	 * @param requiredType the type to match (can be {@code null} to find
 	 * an arbitrary next generic argument value)
 	 * @param requiredName the name to match (can be {@code null} to not
@@ -338,6 +342,9 @@ public class ConstructorArgumentValues {
 	/**
 	 * Look for an argument value that either corresponds to the given index
 	 * in the constructor argument list or generically matches by type.
+	 * <p>
+	 *     查找与构造函数参数列表中的给定索引相对应的参数值，或者按类型进行一般匹配。
+	 * </p>
 	 * @param index the index in the constructor argument list
 	 * @param requiredType the parameter type to match (can be {@code null}
 	 * to find an untyped argument value)

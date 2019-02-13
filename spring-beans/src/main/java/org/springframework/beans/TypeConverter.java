@@ -67,6 +67,13 @@ public interface TypeConverter {
 	 * Convert the value to the required type (if necessary from a String).
 	 * <p>Conversions from String to any type will typically use the {@code setAsText}
 	 * method of the PropertyEditor class, or a Spring Converter in a ConversionService.
+	 *
+	 * <p>
+	 *     将值转换为所需类型（如果需要，从String）。
+	 * </p>
+	 * <p>
+	 *     从String到任何类型的转换通常使用PropertyEditor类的{@code setAsText}方法或ConversionService中的Spring Converter。
+	 * </p>
 	 * @param value the value to convert
 	 * @param requiredType the type we must convert to
 	 * (or {@code null} if not known, for example in case of a collection element)

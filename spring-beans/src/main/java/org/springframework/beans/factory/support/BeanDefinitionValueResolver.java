@@ -120,11 +120,11 @@ class BeanDefinitionValueResolver {
 		// We must check each value to see whether it requires a runtime reference
 		// to another bean to be resolved.
 		// 我们必须检查每个值以查看是否需要对要解析的另一个bean的运行时引用。
-		if (value instanceof RuntimeBeanReference) {
+		if (value instanceof RuntimeBeanReference) { //运行时bean的引用
 			RuntimeBeanReference ref = (RuntimeBeanReference) value;
 			return resolveReference(argName, ref);
 		}
-		else if (value instanceof RuntimeBeanNameReference) {
+		else if (value instanceof RuntimeBeanNameReference) { //运行时的beanName引用
 			String refName = ((RuntimeBeanNameReference) value).getBeanName();
 			refName = String.valueOf(doEvaluate(refName));
 			if (!this.beanFactory.containsBean(refName)) {
@@ -133,7 +133,7 @@ class BeanDefinitionValueResolver {
 			}
 			return refName;
 		}
-		else if (value instanceof BeanDefinitionHolder) {
+		else if (value instanceof BeanDefinitionHolder) { //是一个BeanDefinitionHolder
 			// Resolve BeanDefinitionHolder: contains BeanDefinition with name and aliases.
 			// Resolve BeanDefinitionHolder：包含带名称和别名的BeanDefinition。
 			BeanDefinitionHolder bdHolder = (BeanDefinitionHolder) value;

@@ -55,13 +55,21 @@ public class ContextAnnotationAutowireCandidateResolver extends QualifierAnnotat
 		return (isLazy(descriptor) ? buildLazyResolutionProxy(descriptor, beanName) : null);
 	}
 
+	/**
+	 *
+	 * 是否是lazy
+	 * @param descriptor
+	 * @return
+	 */
 	protected boolean isLazy(DependencyDescriptor descriptor) {
+		//变量注解，是否是lazy
 		for (Annotation ann : descriptor.getAnnotations()) {
 			Lazy lazy = AnnotationUtils.getAnnotation(ann, Lazy.class);
 			if (lazy != null && lazy.value()) {
 				return true;
 			}
 		}
+		//方法藐视，是否是lazy
 		MethodParameter methodParam = descriptor.getMethodParameter();
 		if (methodParam != null) {
 			Method method = methodParam.getMethod();
@@ -75,6 +83,13 @@ public class ContextAnnotationAutowireCandidateResolver extends QualifierAnnotat
 		return false;
 	}
 
+	/**
+	 *
+	 * 构建lazy代理
+	 * @param descriptor
+	 * @param beanName
+	 * @return
+	 */
 	protected Object buildLazyResolutionProxy(final DependencyDescriptor descriptor, final String beanName) {
 		Assert.state(getBeanFactory() instanceof DefaultListableBeanFactory,
 				"BeanFactory needs to be a DefaultListableBeanFactory");

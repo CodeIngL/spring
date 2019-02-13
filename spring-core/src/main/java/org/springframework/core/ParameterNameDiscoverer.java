@@ -27,6 +27,13 @@ import java.lang.reflect.Method;
  * emitted at compile time, and looking for argname annotation values optionally
  * accompanying AspectJ annotated methods.
  *
+ * <p>
+ *     用于发现方法和构造函数的参数名称的接口。
+ * </p>
+ * <p>
+ *    参数名称发现并不总是可行，但可以尝试各种策略，例如查找可能在编译时发出的调试信息，以及查找可选的AspectJ注解方法的argname注解值。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Adrian Colyer
  * @since 2.0

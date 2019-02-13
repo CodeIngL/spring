@@ -491,7 +491,9 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 		long startTime = System.currentTimeMillis();
 
 		try {
+			//初始化webApplicationContext，容器
 			this.webApplicationContext = initWebApplicationContext();
+			//可以自定义实现，这里是最后一步，就是说用户在这里进行一些收尾的工作
 			initFrameworkServlet();
 		}
 		catch (ServletException ex) {
@@ -520,11 +522,13 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 	 * @see #setContextConfigLocation
 	 */
 	protected WebApplicationContext initWebApplicationContext() {
+		//尝试获得硬编码的父容器
 		WebApplicationContext rootContext =
 				WebApplicationContextUtils.getWebApplicationContext(getServletContext());
 		WebApplicationContext wac = null;
 
 		if (this.webApplicationContext != null) {
+			// 手动指定了，直接使用手动的
 			// A context instance was injected at construction time -> use it
 			wac = this.webApplicationContext;
 			if (wac instanceof ConfigurableWebApplicationContext) {
@@ -532,9 +536,11 @@ public abstract class FrameworkServlet extends HttpServletBean implements Applic
 				if (!cwac.isActive()) {
 					// The context has not yet been refreshed -> provide services such as
 					// setting the parent context, setting the application context id, etc
+					// 上下文尚未刷新 - >提供服务，例如设置父上下文，设置应用程序上下文ID等
 					if (cwac.getParent() == null) {
 						// The context instance was injected without an explicit parent -> set
 						// the root application context (if any; may be null) as the parent
+						// 注入上下文实例时没有显式父级 - >将根应用程序上下文（如果有的话;可以为null）设置为父级
 						cwac.setParent(rootContext);
 					}
 					configureAndRefreshWebApplicationContext(cwac);

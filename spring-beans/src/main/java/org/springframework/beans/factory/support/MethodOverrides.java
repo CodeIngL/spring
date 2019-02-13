@@ -31,7 +31,7 @@ import java.util.Set;
  * <p>一组方法覆盖，确定Spring IoC容器在运行时将覆盖的托管对象上的哪些方法（如果有）。
  * </p>
  * <p>
- *      * 当前支持的MethodOverride变体是LookupOverride和ReplaceOverride
+ *    当前支持的MethodOverride变体是LookupOverride和ReplaceOverride
  * </p>
  *
  * @author Rod Johnson

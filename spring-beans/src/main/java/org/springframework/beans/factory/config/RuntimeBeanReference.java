@@ -73,6 +73,9 @@ public class RuntimeBeanReference implements BeanReference {
 	/**
 	 * Return whether this is an explicit reference to a bean
 	 * in the parent factory.
+	 * <p>
+	 *     返回这是否是父工厂中bean的显式引用。
+	 * </p>
 	 */
 	public boolean isToParent() {
 		return this.toParent;

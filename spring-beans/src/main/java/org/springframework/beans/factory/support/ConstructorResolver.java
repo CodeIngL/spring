@@ -371,6 +371,15 @@ class ConstructorResolver {
 	 * to match with the parameters. We don't have the types attached to constructor args,
 	 * so trial and error is the only way to go here. The explicitArgs array may contain
 	 * argument values passed in programmatically via the corresponding getBean method.
+	 *
+	 * <p>
+	 *     使用命名的工厂方法实例化bean。 如果bean定义参数指定一个类而不是“factory-bean”，或者工厂对象本身使用依赖注入配置的实例变量，则该方法可以是静态的。
+	 * </p>
+	 * <p>
+	 *     	实现需要使用RootBeanDefinition中指定的名称迭代静态或实例方法（方法可能会重载）并尝试与参数匹配。
+	 *     	我们没有附加到构造函数args的类型，因此试验和错误是唯一的方法。
+	 *     	explicitArgs数组可以包含通过相应的getBean方法以编程方式传递的参数值。
+	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the merged bean definition for the bean
 	 * @param explicitArgs argument values passed in programmatically via the getBean
@@ -741,10 +750,13 @@ class ConstructorResolver {
 			BeanWrapper bw, Class<?>[] paramTypes, String[] paramNames, Object methodOrCtor,
 			boolean autowiring) throws UnsatisfiedDependencyException {
 
+		//构建相关的类型转换器
 		TypeConverter customConverter = this.beanFactory.getCustomTypeConverter();
 		TypeConverter converter = (customConverter != null ? customConverter : bw);
 
+		//构建参数持有实例
 		ArgumentsHolder args = new ArgumentsHolder(paramTypes.length);
+		//已经被使用的“构造器”的参数
 		Set<ConstructorArgumentValues.ValueHolder> usedValueHolders =
 				new HashSet<ConstructorArgumentValues.ValueHolder>(paramTypes.length);
 		Set<String> autowiredBeanNames = new LinkedHashSet<String>(4);
@@ -773,7 +785,9 @@ class ConstructorResolver {
 				// Do not consider the same value definition multiple times!
 				// 我们找到了一个潜在的匹配 - 让我们试一试。 不要多次考虑相同的值定义！
 				usedValueHolders.add(valueHolder);
+				//原始值
 				Object originalValue = valueHolder.getValue();
+				//存储转换至
 				Object convertedValue;
 				if (valueHolder.isConverted()) {
 					//已经被转换了，加入到prepared中
@@ -781,6 +795,7 @@ class ConstructorResolver {
 					args.preparedArguments[paramIndex] = convertedValue;
 				}
 				else {
+					//没有被转换，进行转换
 					ConstructorArgumentValues.ValueHolder sourceHolder =
 							(ConstructorArgumentValues.ValueHolder) valueHolder.getSource();
 					Object sourceValue = sourceHolder.getValue();
@@ -816,6 +831,7 @@ class ConstructorResolver {
 				args.rawArguments[paramIndex] = originalValue;
 			}
 			else {
+				//不存在使用
 				MethodParameter methodParam = MethodParameter.forMethodOrConstructor(methodOrCtor, paramIndex);
 				// No explicit match found: we're either supposed to autowire or
 				// have to fail creating an argument array for the given constructor.
@@ -930,6 +946,7 @@ class ConstructorResolver {
 	protected Object resolveAutowiredArgument(
 			MethodParameter param, String beanName, Set<String> autowiredBeanNames, TypeConverter typeConverter) {
 
+		//可以是一个注入点
 		if (InjectionPoint.class.isAssignableFrom(param.getParameterType())) {
 			InjectionPoint injectionPoint = currentInjectionPoint.get();
 			if (injectionPoint == null) {
@@ -937,6 +954,7 @@ class ConstructorResolver {
 			}
 			return injectionPoint;
 		}
+		//去解析依赖
 		return this.beanFactory.resolveDependency(
 				new DependencyDescriptor(param, true), beanName, autowiredBeanNames, typeConverter);
 	}

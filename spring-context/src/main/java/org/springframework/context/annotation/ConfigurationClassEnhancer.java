@@ -98,6 +98,9 @@ class ConfigurationClassEnhancer {
 	/**
 	 * Loads the specified class and generates a CGLIB subclass of it equipped with
 	 * container-aware callbacks capable of respecting scoping and other bean semantics.
+	 * <p>
+	 *     加载指定的类并生成一个CGLIB子类，它配备了能够识别作用域和其他bean语义的容器感知回调。
+	 * </p>
 	 * @return the enhanced subclass
 	 */
 	public Class<?> enhance(Class<?> configClass, ClassLoader classLoader) {
@@ -112,6 +115,7 @@ class ConfigurationClassEnhancer {
 			}
 			return configClass;
 		}
+
 		Class<?> enhancedClass = createClass(newEnhancer(configClass, classLoader));
 		if (logger.isDebugEnabled()) {
 			logger.debug(String.format("Successfully enhanced %s; enhanced class name is: %s",
@@ -122,6 +126,9 @@ class ConfigurationClassEnhancer {
 
 	/**
 	 * Creates a new CGLIB {@link Enhancer} instance.
+	 * <p>
+	 *     创建一个新的CGLIB {@link Enhancer}实例
+	 * </p>
 	 */
 	private Enhancer newEnhancer(Class<?> superclass, ClassLoader classLoader) {
 		Enhancer enhancer = new Enhancer();
@@ -158,6 +165,15 @@ class ConfigurationClassEnhancer {
 	 * <p>Note that this interface is intended for framework-internal use only, however
 	 * must remain public in order to allow access to subclasses generated from other
 	 * packages (i.e. user code).
+	 * <p>
+	 *     标记接口由所有@Configuration CGLIB子类实现。 通过检查候选类是否已经可以赋予它来促进幂等行为的增强，例如， 已经得到了加强。
+	 * </p>
+	 * <p>
+	 *     	 还扩展了BeanFactoryAware，因为所有增强的@Configuration类都需要访问创建它们的BeanFactory。
+	 * </p>
+	 * <p>
+	 *     	 请注意，此接口仅供框架内部使用，但必须保持公开，以便允许访问从其他包（即用户代码）生成的子类。
+	 * </p>
 	 */
 	public interface EnhancedConfiguration extends BeanFactoryAware {
 	}
@@ -176,6 +192,9 @@ class ConfigurationClassEnhancer {
 	/**
 	 * A {@link CallbackFilter} that works by interrogating {@link Callback}s in the order
 	 * that they are defined via {@link ConditionalCallback}.
+	 * <p>
+	 *     一个CallbackFilter，它通过按照通过ConfigurationClassEnhancer.ConditionalCallback定义它们的顺序询问回调来工作。
+	 * </p>
 	 */
 	private static class ConditionalCallbackFilter implements CallbackFilter {
 
@@ -484,6 +503,12 @@ class ConfigurationClassEnhancer {
 		 * within a Bean method, allowing for proper scoping semantics even when working against the FactoryBean
 		 * instance directly. If a FactoryBean instance is fetched through the container via &-dereferencing,
 		 * it will not be proxied. This too is aligned with the way XML configuration works.
+		 * <p>
+		 *     创建一个子类代理，拦截对getObject()的调用，
+		 *     委托给当前的BeanFactory而不是创建一个新实例。
+		 *     只有在Bean方法中调用FactoryBean时才会创建这些代理，即使在直接对FactoryBean实例进行操作时也允许适当的作用域语义。
+		 *     如果通过＆-dereferencing通过容器获取FactoryBean实例，则不会代理它。 这也与XML配置的工作方式一致。
+		 * </p>
 		 */
 		private Object enhanceFactoryBean(final Object factoryBean, Class<?> exposedType,
 				final ConfigurableBeanFactory beanFactory, final String beanName) {
@@ -537,6 +562,13 @@ class ConfigurationClassEnhancer {
 					});
 		}
 
+		/**
+		 * 为FactoryBean创建相关的代理
+		 * @param factoryBean
+		 * @param beanFactory
+		 * @param beanName
+		 * @return
+		 */
 		private Object createCglibProxyForFactoryBean(final Object factoryBean,
 				final ConfigurableBeanFactory beanFactory, final String beanName) {
 

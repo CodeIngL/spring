@@ -26,6 +26,13 @@ import org.springframework.util.ObjectUtils;
  *
  * <p>Methods eligible for lookup override must not have arguments.
  *
+ * <p>
+ *     表示在同一IoC上下文中查找对象的方法的覆盖。
+ * </p>
+ * <p>
+ *      符合查询覆盖条件的方法必须没有参数。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1

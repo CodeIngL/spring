@@ -79,6 +79,32 @@ import org.springframework.util.ClassUtils;
  *
  * <p><strong>NOTE:</strong> As of Spring Framework 4.3, this class requires JUnit 4.12 or higher.
  *
+ * <p>
+ *     SpringClassRule是一个自定义的JUnit TestRule，它通过TestContextManager和相关的支持类和注释在标准JUnit测试中支持Spring TestContext Framework的类级功能。
+ 但是，为了实现与SpringJUnit4ClassRunner相同的功能，SpringClassRule必须与SpringMethodRule结合使用，因为SpringClassRule仅支持SpringJUnit4ClassRunner的类级功能。
+ 示例用法
+ ?public class ExampleSpringIntegrationTest {
+ ??
+ ??????@ClassRule
+ ??????public static final SpringClassRule SPRING_CLASS_RULE = new SpringClassRule（）;
+ ??
+ ??????@规则
+ ??????public final SpringMethodRule springMethodRule = new SpringMethodRule（）;
+ ??
+ ??????// ...
+ ???}
+ 以下列表构成SpringClassRule当前直接或间接支持的所有注释。 （请注意，各种TestExecutionListener或TestContextBootstrapper实现可能支持其他注释。）
+ @ProfileValueSourceConfiguration
+ 同时@IfProfileValue
+ 注意：从Spring Framework 4.3开始，此类需要JUnit 4.12或更高版本。
+ * </p>
+ * <p>
+  *      与SpringJUnit4ClassRunner相比，Spring基于规则的JUnit支持的优势在于它独立于任何Runner，因此可以与现有的替代运行程序（如JUnit的参数化或第三方运行程序，如MockitoJUnitRunner）结合使用。
+  * </p>
+ * <p></p>
+ * <p></p>
+ * <p></p>
+ *
  * @author Sam Brannen
  * @author Philippe Marschall
  * @since 4.2

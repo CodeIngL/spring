@@ -46,6 +46,17 @@ import org.springframework.util.ClassUtils;
  * caches the ASM discovered information for each introspected Class, in a thread-safe
  * manner. It is recommended to reuse ParameterNameDiscoverer instances as far as possible.
  *
+ * <p>
+ *     {@link ParameterNameDiscoverer}的实现，
+ *     它使用方法属性中的LocalVariableTable信息来发现参数名称。
+ *     如果在没有调试信息的情况下编译类文件，则返回null。
+ * </p>
+ * <p>
+ *      使用ObjectWeb的ASM库来分析类文件。
+ *      每个发现者实例以线程安全的方式为每个内省类缓存ASM发现的信息。
+ *      建议尽可能重用ParameterNameDiscoverer实例。
+ * </p>
+ *
  * @author Adrian Colyer
  * @author Costin Leau
  * @author Juergen Hoeller

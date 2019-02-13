@@ -30,6 +30,13 @@ import org.springframework.util.ObjectUtils;
  * <p>Any non-final method can be overridden, irrespective of its
  * parameters and return types.
  *
+ * <p>
+ *     MethodOverride的扩展，表示IoC容器对方法的任意覆盖。
+ * </p>
+ * <p>
+ *     无论其参数和返回类型如何，都可以覆盖任何非final方法。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1

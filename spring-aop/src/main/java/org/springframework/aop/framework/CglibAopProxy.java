@@ -499,6 +499,10 @@ class CglibAopProxy implements AopProxy, Serializable {
 	 * Interceptor used to invoke a dynamic target without creating a method
 	 * invocation or evaluating an advice chain. (We know there was no advice
 	 * for this method.)
+	 *
+	 * <p>
+	 *     拦截器用于在不创建方法调用或评估建议链的情况下调用动态目标。 （我们知道这种方法没有建议。）
+	 * </p>
 	 */
 	private static class DynamicUnadvisedInterceptor implements MethodInterceptor, Serializable {
 

@@ -98,6 +98,9 @@ public class MethodParameter {
 
 	/**
 	 * Create a new {@code MethodParameter} for the given method, with nesting level 1.
+	 * <p>
+	 *     为给定方法创建一个新的{@code MethodParameter} ，嵌套级别为1
+	 * </p>
 	 * @param method the Method to specify a parameter for
 	 * @param parameterIndex the index of the parameter: -1 for the method
 	 * return type; 0 for the first method parameter; 1 for the second method
@@ -127,6 +130,9 @@ public class MethodParameter {
 
 	/**
 	 * Create a new MethodParameter for the given constructor, with nesting level 1.
+	 * <p>
+	 *     为给定的构造函数创建一个新的MethodParameter，嵌套级别为1。
+	 * </p>
 	 * @param constructor the Constructor to specify a parameter for
 	 * @param parameterIndex the index of the parameter
 	 */

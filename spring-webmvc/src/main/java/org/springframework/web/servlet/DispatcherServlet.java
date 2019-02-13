@@ -397,6 +397,55 @@ public class DispatcherServlet extends FrameworkServlet {
 	 * assumption that the user has performed these actions (or not) per their specific
 	 * needs.
 	 * <p>See {@link org.springframework.web.WebApplicationInitializer} for usage examples.
+	 *
+	 * <p>
+	 *     使用给定的Web应用程序上下文创建新的DispatcherServlet。
+	 *     此构造函数在Servlet 3.0+环境中非常有用，在这些环境中，ServletContext.addServlet API可以通过基于实例的servlet注册。
+	 * </p>
+	 * <p></p>
+	 * <p>
+	 *     	 使用此构造函数表示将忽略以下属性/ init-params：
+	 * </p>
+	 * <ul>
+	 *     <li>
+	 *         	 setContextClass（Class）/'contextClass'
+	 *     </li>
+	 *     <li>
+	 *         	 setContextConfigLocation（String）/'contextConfigLocation'
+	 *     </li>
+	 *     <li>
+	 *         	 setContextAttribute（String）/'contextAttribute'
+	 *     </li>
+	 *     <li>
+	 *         	 setNamespace（String）/'namespace'
+	 *     </li>
+	 * </ul>
+	 * <p>
+	 *     	 给定的Web应用程序上下文可能已经或可能尚未刷新。如果尚未刷新（建议的方法），则会发生以下情况：
+	 * </p>
+	 *  <ul>
+	 *     <li>
+	 *         如果给定的上下文还没有父级，则根应用程序上下文将被设置为父级。
+	 *     </li>
+	 *     <li>
+	 *         	 如果给定的上下文尚未分配id，则将为其分配一个id
+	 *     </li>
+	 *     <li>
+	 *         	 ServletContext和ServletConfig对象将委托给应用程序上下文
+	 *     </li>
+	 *     <li>
+	 *         	 将调用postProcessWebApplicationContext
+	 *     </li>
+	 *	   <li>
+	 *         	 将应用通过“contextInitializerClasses”init-param或通过setContextInitializers属性指定的任何ApplicationContextInitializers。
+	 *     </li>
+	 *     <li>
+	 *         	 如果上下文实现ConfigurableApplicationContext，则将调用refresh（）
+	 *     </li>
+	 * </ul>
+	 * <p>
+	 *     如果上下文已经刷新，则假设用户已根据其特定需要执行（或不执行）这些操作，则不会发生上述情况。
+	 * </p>
 	 * @param webApplicationContext the context to use
 	 * @see #initWebApplicationContext
 	 * @see #configureAndRefreshWebApplicationContext

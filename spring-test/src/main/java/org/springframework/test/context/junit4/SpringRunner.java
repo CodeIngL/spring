@@ -30,6 +30,19 @@ import org.junit.runners.model.InitializationError;
  *
  * <p><strong>NOTE:</strong> This class requires JUnit 4.12 or higher.
  *
+ * <p>
+ *     SpringRunner是SpringJUnit4ClassRunner的别名。
+ * </p>
+ * <p>
+ *      要使用此类，只需使用@RunWith（SpringRunner.class）注释基于JUnit 4的测试类。
+ * </p>
+ * <p>
+ *      如果您希望将Spring TestContext Framework与此类以外的运行器一起使用，请使用org.springframework.test.context.junit4.rules.SpringClassRule和org.springframework.test.context.junit4.rules.SpringMethodRule。
+ * </p>
+ * <p>
+ *      注意：此类需要JUnit 4.12或更高版本。
+ * </p>
+ *
  * @author Sam Brannen
  * @since 4.3
  * @see SpringJUnit4ClassRunner
