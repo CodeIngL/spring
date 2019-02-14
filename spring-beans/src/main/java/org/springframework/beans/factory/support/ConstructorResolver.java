@@ -308,6 +308,10 @@ class ConstructorResolver {
 	/**
 	 * Resolve the factory method in the specified bean definition, if possible.
 	 * {@link RootBeanDefinition#getResolvedFactoryMethod()} can be checked for the result.
+	 *
+	 * <p>
+	 *     如果可能，解析指定bean定义中的工厂方法。 可以检查{@link RootBeanDefinition#getResolvedFactoryMethod()}的结果。
+	 * </p>
 	 * @param mbd the bean definition to check
 	 */
 	public void resolveFactoryMethodIfPossible(RootBeanDefinition mbd) {

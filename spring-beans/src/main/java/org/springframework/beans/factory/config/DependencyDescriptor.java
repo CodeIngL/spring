@@ -84,6 +84,7 @@ public class DependencyDescriptor extends InjectionPoint implements Serializable
 
 	/**
 	 * Create a new descriptor for a method or constructor parameter.
+	 * <p>使用方法或者构造函数的参数信息MethodParameter来构建一个依赖描述信息</p></P>
 	 * @param methodParameter the MethodParameter to wrap
 	 * @param required whether the dependency is required
 	 * @param eager whether this dependency is 'eager' in the sense of

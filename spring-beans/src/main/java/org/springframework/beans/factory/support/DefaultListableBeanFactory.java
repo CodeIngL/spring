@@ -705,6 +705,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		//解析类型
 		resolveBeanClass(mbd, beanDefinitionName);
 
+		//解析是否是唯一的属性，对象的@Bean方法总是为true
 		if (mbd.isFactoryMethodUnique) {
 			boolean resolve;
 			synchronized (mbd.constructorArgumentLock) {
@@ -1098,6 +1099,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	}
 
 	/**
+	 * <p>
+	 *     针对此工厂中定义的bean解析指定的依赖项。
+	 * </p>
 	 * @param descriptor         the descriptor for the dependency (field/method/constructor)
 	 * @param requestingBeanName the name of the bean which declares the given dependency
 	 * @param autowiredBeanNames a Set that all names of autowired beans (used for
@@ -1137,7 +1141,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 
 	/**
 	 *
-	 * 解析依赖项
+	 * 解析依赖项的主体逻辑
 	 * @param descriptor
 	 * @param beanName
 	 * @param autowiredBeanNames
@@ -1246,7 +1250,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		//类型
 		Class<?> type = descriptor.getDependencyType();
 		if (type.isArray()) { //数组
+			//数组的内部类型
 			Class<?> componentType = type.getComponentType();
+			//依赖描述的解析类型
 			ResolvableType resolvableType = descriptor.getResolvableType();
 			Class<?> resolvedArrayType = resolvableType.resolve();
 			if (resolvedArrayType != null && resolvedArrayType != type) {
@@ -1271,7 +1277,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 			return result;
 		}
-		else if (Collection.class.isAssignableFrom(type) && type.isInterface()) {
+		else if (Collection.class.isAssignableFrom(type) && type.isInterface()) {//集合
 			Class<?> elementType = descriptor.getResolvableType().asCollection().resolveGeneric();
 			if (elementType == null) {
 				return null;
@@ -1291,7 +1297,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			}
 			return result;
 		}
-		else if (Map.class == type) {
+		else if (Map.class == type) { //映射
 			ResolvableType mapType = descriptor.getResolvableType().asMap();
 			Class<?> keyType = mapType.resolveGeneric(0);
 			if (String.class != keyType) {
@@ -1382,7 +1388,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 				}
 			}
 		}
-		//从候选周获得
+		//从候选中获得相关信息
 		for (String candidate : candidateNames) {
 			if (!isSelfReference(beanName, candidate) && isAutowireCandidate(candidate, descriptor)) {
 				addCandidateEntry(result, candidate, descriptor, requiredType);
@@ -1455,7 +1461,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			return priorityCandidate;
 		}
 		// Fallback
-		// 最后的退路
+		// 最后的退路，来自缓存中设置的显式的依赖
 		for (Map.Entry<String, Object> entry : candidates.entrySet()) {
 			String candidateName = entry.getKey();
 			Object beanInstance = entry.getValue();
@@ -1589,6 +1595,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 * Determine whether the given beanName/candidateName pair indicates a self reference,
 	 * i.e. whether the candidate points back to the original bean or to a factory method
 	 * on the original bean.
+	 *
+	 * 是否是自我引用
+	 *
 	 */
 	private boolean isSelfReference(String beanName, String candidateName) {
 		return (beanName != null && candidateName != null &&

@@ -1223,6 +1223,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Instantiate the bean using a named factory method. The method may be static, if the
 	 * mbd parameter specifies a class, rather than a factoryBean, or an instance variable
 	 * on a factory object itself configured using Dependency Injection.
+	 *
+	 * <p>
+	 *     使用命名的工厂方法实例化bean。 如果mbd参数指定类而不是factoryBean，或者工厂对象本身使用依赖注入配置的实例变量，则该方法可以是静态的
+	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the bean definition for the bean
 	 * @param explicitArgs argument values passed in programmatically via the getBean method,
