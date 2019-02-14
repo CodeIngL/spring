@@ -1597,6 +1597,15 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * trying whether its {@code getObjectType} method already returns a type.
 	 * If no type found, a full FactoryBean creation as performed by this implementation
 	 * should be used as fallback.
+	 *
+	 * <p>
+	 *     尽可能确定给定FactoryBean定义的bean类型。 仅在没有为目标bean注册单例实例时才调用。
+	 * </p>
+	 * <p>
+	 *     	 默认实现通过getBean创建FactoryBean以调用其{@code getObjectType} 方法。
+	 *     	 鼓励子类优化它，通常只是实例化FactoryBean但不填充它，尝试它的getObjectType方法是否已经返回一个类型。
+	 *     	 如果未找到任何类型，则应将此实现执行的完整FactoryBean创建用作回退。
+	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the merged bean definition for the bean
 	 * @return the type for the bean if determinable, or {@code null} else

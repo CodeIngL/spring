@@ -148,7 +148,8 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	private final Set<Class<?>> ignoredDependencyInterfaces = new HashSet<Class<?>>();
 
-	/** Cache of unfinished FactoryBean instances: FactoryBean name --> BeanWrapper */
+	/** Cache of unfinished FactoryBean instances: FactoryBean name --> BeanWrapper
+	 * 未完成的FactoryBean实例的缓存：FactoryBean名称 - > BeanWrapper */
 	private final Map<String, BeanWrapper> factoryBeanInstanceCache =
 			new ConcurrentHashMap<String, BeanWrapper>(16);
 
@@ -804,6 +805,13 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * <p>The shortcut check for a FactoryBean is only applied in case of a singleton
 	 * FactoryBean. If the FactoryBean instance itself is not kept as singleton,
 	 * it will be fully created to check the type of its exposed object.
+	 *
+	 * <p>
+	 *     此实现尝试查询FactoryBean的通用参数元数据（如果存在）以确定对象类型。 如果不存在，即FactoryBean被声明为原始类型，则在FactoryBean的普通实例上检查FactoryBean的getObjectType方法，但尚未应用bean属性。 如果这还没有返回类型，则完全创建FactoryBean用作回退（通过委托给超类的实现）。
+	 * </p>
+	 * <p>
+	 *     	 FactoryBean的快捷方式检查仅适用于单件FactoryBean。 如果FactoryBean实例本身不保持为单例，则将完全创建它以检查其公开对象的类型。
+	 * </p>
 	 */
 	@Override
 	protected Class<?> getTypeForFactoryBean(String beanName, RootBeanDefinition mbd) {
@@ -934,6 +942,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Obtain a "shortcut" singleton FactoryBean instance to use for a
 	 * {@code getObjectType()} call, without full initialization of the FactoryBean.
+	 *
+	 * <p>
+	 *     获取“shortcut”单例FactoryBean实例以用于{@code getObjectType()}调用，而无需完全初始化FactoryBean。
+	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the bean definition for the bean
 	 * @return the FactoryBean instance, or {@code null} to indicate
