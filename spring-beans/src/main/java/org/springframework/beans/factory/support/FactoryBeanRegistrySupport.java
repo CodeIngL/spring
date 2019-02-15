@@ -37,12 +37,20 @@ import org.springframework.beans.factory.FactoryBeanNotInitializedException;
  *
  * <p>Serves as base class for {@link AbstractBeanFactory}.
  *
+ * <p>
+ *     支持需要处理{@link org.springframework.beans.factory.FactoryBean}实例的单例注册表的基类，与{@link DefaultSingletonBeanRegistry}的单例管理集成。
+ * </p>
+ * <p>
+ *     用作{@link AbstractBeanFactory}的基类
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.5.1
  */
 public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanRegistry {
 
-	/** Cache of singleton objects created by FactoryBeans: FactoryBean name --> object */
+	/** Cache of singleton objects created by FactoryBeans: FactoryBean name --> object
+	 * FactoryBeans创建的单例对象的缓存：FactoryBean名称 - >对象 */
 	private final Map<String, Object> factoryBeanObjectCache = new ConcurrentHashMap<String, Object>(16);
 
 
@@ -77,6 +85,10 @@ public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanReg
 	/**
 	 * Obtain an object to expose from the given FactoryBean, if available
 	 * in cached form. Quick check for minimal synchronization.
+	 *
+	 * <p>
+	 *     获取要从给定FactoryBean公开的对象（如果在缓存形式中可用）。 快速检查最小同步。
+	 * </p>
 	 * @param beanName the name of the bean
 	 * @return the object obtained from the FactoryBean,
 	 * or {@code null} if not available
@@ -192,6 +204,14 @@ public abstract class FactoryBeanRegistrySupport extends DefaultSingletonBeanReg
 	 * The resulting object will get exposed for bean references.
 	 * <p>The default implementation simply returns the given object as-is.
 	 * Subclasses may override this, for example, to apply post-processors.
+	 *
+	 * <p>
+	 *     对从FactoryBean获取的给定对象进行后处理。 生成的对象将暴露给bean引用。
+	 * </p>
+	 * <p>
+	 * 默认实现只是按原样返回给定的对象。 子类可以覆盖它，例如，应用后处理器对从FactoryBean获取的给定对象进行后处理。 生成的对象将暴露给bean引用。
+	 * </p>
+	 * <p></p>
 	 * @param object the object obtained from the FactoryBean.
 	 * @param beanName the name of the bean
 	 * @return the object to expose

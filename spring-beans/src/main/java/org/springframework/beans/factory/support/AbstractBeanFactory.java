@@ -650,14 +650,25 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		return isTypeMatch(name, ResolvableType.forRawClass(typeToMatch));
 	}
 
+	/**
+	 *
+	 * 通过beanName获得一个类型
+	 * @param name the name of the bean to query
+	 * @return
+	 * @throws NoSuchBeanDefinitionException
+	 */
 	@Override
 	public Class<?> getType(String name) throws NoSuchBeanDefinitionException {
+		//转换的名字，在spring中
 		String beanName = transformedBeanName(name);
 
 		// Check manually registered singletons.
+		// 检查手动注册的实例，不支持循环引用
 		Object beanInstance = getSingleton(beanName, false);
+		//不为空
 		if (beanInstance != null) {
 			if (beanInstance instanceof FactoryBean && !BeanFactoryUtils.isFactoryDereference(name)) {
+				//如果是beanFactory并且，开发者想获得不是FactoryBean，获得合适的类型
 				return getTypeForFactoryBean((FactoryBean<?>) beanInstance);
 			}
 			else {
@@ -1277,6 +1288,7 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 */
 	protected RootBeanDefinition getMergedLocalBeanDefinition(String beanName) throws BeansException {
 		// Quick check on the concurrent map first, with minimal locking.
+		// 首先快速检查并发映射，锁定最小。
 		RootBeanDefinition mbd = this.mergedBeanDefinitions.get(beanName);
 		if (mbd != null) {
 			return mbd;
@@ -1752,8 +1764,10 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		}
 		if (object == null) {
 			// Return bean instance from factory.
+			// 从factory中获得bean实例
 			FactoryBean<?> factory = (FactoryBean<?>) beanInstance;
 			// Caches object obtained from FactoryBean if it is a singleton.
+			// 缓存从FactoryBean获取的对象（如果它是单例）。
 			if (mbd == null && containsBeanDefinition(beanName)) {
 				mbd = getMergedLocalBeanDefinition(beanName);
 			}
@@ -1860,6 +1874,14 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * just amounts to a local hash lookup: The operation is therefore part of the
 	 * public interface there. The same implementation can serve for both this
 	 * template method and the public interface method in that case.
+	 *
+	 * <p>返回给定bean名称的bean定义。 子类通常应该实现缓存，因为每次需要bean定义元数据时，此类都会调用此方法。
+	 * </p>
+	 * <p>
+	 * 根据具体bean工厂实现的性质，此操作可能很昂贵（例如，由于外部注册表中的目录查找）。
+	 * 但是，对于listableBean工厂，这通常只相当于本地哈希查找：因此该操作是那里的公共接口的一部分。
+	 * 在这种情况下，相同的实现可以用于此模板方法和公共接口方法。
+	 * </p>
 	 * @param beanName the name of the bean to find a definition for
 	 * @return the BeanDefinition for this prototype name (never {@code null})
 	 * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException
