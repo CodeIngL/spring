@@ -92,6 +92,12 @@ class ConstructorResolver {
 	 * <p>This corresponds to constructor injection: In this mode, a Spring
 	 * bean factory is able to host components that expect constructor-based
 	 * dependency resolution.
+	 * <p>
+	 *     “autowire constructor”（带有类型的构造函数参数）行为。 如果指定了显式构造函数参数值，则还应用，将所有剩余参数与bean工厂中的bean匹配。
+	 * </p>
+	 * <p>
+	 *    这对应于构造函数注入：在此模式下，Spring bean工厂能够托管期望基于构造函数的依赖项解析的组件
+	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the merged bean definition for the bean
 	 * @param chosenCtors chosen candidate constructors (or {@code null} if none)

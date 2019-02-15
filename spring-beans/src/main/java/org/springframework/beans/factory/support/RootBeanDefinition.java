@@ -226,6 +226,10 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Register a target definition that is being decorated by this bean definition.
+	 *
+	 * <p>
+	 *     注册由此bean定义修饰的目标定义。
+	 * </p>
 	 */
 	public void setDecoratedDefinition(BeanDefinitionHolder decoratedDefinition) {
 		this.decoratedDefinition = decoratedDefinition;
@@ -233,6 +237,9 @@ public class RootBeanDefinition extends AbstractBeanDefinition {
 
 	/**
 	 * Return the target definition that is being decorated by this bean definition, if any.
+	 * <p>
+	 *     返回由此bean定义修饰的目标定义(如果有)。
+	 * </p>
 	 */
 	public BeanDefinitionHolder getDecoratedDefinition() {
 		return this.decoratedDefinition;
