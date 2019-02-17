@@ -24,6 +24,9 @@ import org.springframework.util.StringUtils;
  * Exception thrown when a bean depends on other beans or simple properties
  * that were not specified in the bean factory definition, although
  * dependency checking was enabled.
+ * <p>
+ *     当bean依赖于其他bean或bean工厂定义中未指定的简单属性时抛出异常，尽管启用了依赖性检查。
+ * </p>
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

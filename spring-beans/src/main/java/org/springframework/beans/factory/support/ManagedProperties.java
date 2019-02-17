@@ -25,6 +25,10 @@ import org.springframework.beans.Mergeable;
  * Tag class which represents a Spring-managed {@link Properties} instance
  * that supports merging of parent/child definitions.
  *
+ * <p>
+ *     Tag类，表示支持合并父/子定义的Spring托管的{@link Properties}实例。
+ * </p>
+ *
  * @author Rob Harrop
  * @author Juergen Hoeller
  * @since 2.0

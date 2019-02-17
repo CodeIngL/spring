@@ -37,7 +37,7 @@ import org.springframework.util.StringUtils;
  * type variable will be resolved against the containing bean class.
  *
  * <p>
- *   扩展标准JavaBeans PropertyDescriptor类，重写getPropertyType（），以便针对包含bean类解析一般声明的类型变量。
+ *   扩展标准JavaBeans PropertyDescriptor类，重写{@code getPropertyType()}，以便针对包含bean类解析一般声明的类型变量。
  * </p>
  * @author Juergen Hoeller
  * @since 2.5.2

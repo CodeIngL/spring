@@ -433,6 +433,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		return (T) bean;
 	}
 
+	/**
+	 * 是否包含bean，不会进行初始化
+	 * @param name the name of the bean to query
+	 * @return
+	 */
 	@Override
 	public boolean containsBean(String name) {
 		String beanName = transformedBeanName(name);
@@ -1217,6 +1222,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * and populate bean instances.
 	 * <p>The default implementation delegates to {@link #registerCustomEditors}.
 	 * Can be overridden in subclasses.
+	 *
+	 * <p>
+	 * 使用在此工厂注册的自定义编辑器初始化给定的BeanWrapper。 为将要创建和填充bean实例的BeanWrappers调用。
+	 * 默认实现委托给{@link #registerCustomEditors}。 可以在子类中重写。
+	 * </p>
 	 * @param bw the BeanWrapper to initialize
 	 */
 	protected void initBeanWrapper(BeanWrapper bw) {

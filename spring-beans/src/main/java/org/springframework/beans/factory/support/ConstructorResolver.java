@@ -59,6 +59,10 @@ import org.springframework.util.StringUtils;
  * Delegate for resolving constructors and factory methods.
  * Performs constructor resolution through argument matching.
  *
+ * <p>
+ *     代表解决构造函数和工厂方法。 通过参数匹配执行构造函数解析。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @author Mark Fisher
@@ -407,7 +411,7 @@ class ConstructorResolver {
 		Class<?> factoryClass;
 		boolean isStatic;
 
-		//获得beandefinition的factoryBean，这不同于的FactoryBean
+		//获得beanDefinition的factoryBean，这不同于的FactoryBean
 		String factoryBeanName = mbd.getFactoryBeanName();
 		if (factoryBeanName != null) {
 			if (factoryBeanName.equals(beanName)) {
@@ -459,13 +463,13 @@ class ConstructorResolver {
 					}
 				}
 			}
-			//缓存不存在
+			//缓存存在,但是需要待解析，因为不完善，尝试去解析
 			if (argsToResolve != null) {
-				//尝试去解析
 				argsToUse = resolvePreparedArguments(beanName, mbd, bw, factoryMethodToUse, argsToResolve);
 			}
 		}
 
+		//通常的第一次,
 		if (factoryMethodToUse == null || argsToUse == null) {
 			// Need to determine the factory method...
 			// Try all methods with this name to see if they match the given arguments.
@@ -725,7 +729,7 @@ class ConstructorResolver {
 						valueResolver.resolveValueIfNecessary("constructor argument", valueHolder.getValue());
 				ConstructorArgumentValues.ValueHolder resolvedValueHolder =
 						new ConstructorArgumentValues.ValueHolder(resolvedValue, valueHolder.getType(), valueHolder.getName());
-				resolvedValueHolder.setSource(valueHolder);
+				resolvedValueHolder.setSource(valueHolder); //设置来源
 				resolvedValues.addIndexedArgumentValue(index, resolvedValueHolder);
 			}
 		}
@@ -808,9 +812,11 @@ class ConstructorResolver {
 					//没有被转换，进行转换
 					ConstructorArgumentValues.ValueHolder sourceHolder =
 							(ConstructorArgumentValues.ValueHolder) valueHolder.getSource();
+					//原来的value
 					Object sourceValue = sourceHolder.getValue();
 					MethodParameter methodParam = MethodParameter.forMethodOrConstructor(methodOrCtor, paramIndex);
 					try {
+						//转换后的value
 						convertedValue = converter.convertIfNecessary(originalValue, paramType, methodParam);
 						// TODO re-enable once race condition has been found (SPR-7423)
 						/*
@@ -823,7 +829,7 @@ class ConstructorResolver {
 						*/
 							//是否还需要解析
 							args.resolveNecessary = true;
-							//也是prepared
+							//也是prepared，是sourceValue
 							args.preparedArguments[paramIndex] = sourceValue;
 						// }
 					}
@@ -845,6 +851,7 @@ class ConstructorResolver {
 				MethodParameter methodParam = MethodParameter.forMethodOrConstructor(methodOrCtor, paramIndex);
 				// No explicit match found: we're either supposed to autowire or
 				// have to fail creating an argument array for the given constructor.
+				// 找不到明确的匹配：我们要么应该自动装配，要么必须为给定的构造函数创建一个参数数组时失败。
 				if (!autowiring) {
 					throw new UnsatisfiedDependencyException(
 							mbd.getResourceDescription(), beanName, new InjectionPoint(methodParam),
@@ -880,7 +887,7 @@ class ConstructorResolver {
 
 	/**
 	 * Resolve the prepared arguments stored in the given bean definition.
-	 * <p>解析已经准备在bean定义中的参数</p>
+	 * <p>解析已经准备好的bean定义中的参数，即存在相关的依赖</p>
 	 */
 	private Object[] resolvePreparedArguments(
 			String beanName, RootBeanDefinition mbd, BeanWrapper bw, Member methodOrCtor, Object[] argsToResolve) {
@@ -1063,12 +1070,12 @@ class ConstructorResolver {
 		 */
 		public void storeCache(RootBeanDefinition mbd, Object constructorOrFactoryMethod) {
 			synchronized (mbd.constructorArgumentLock) {
-				//已经解析出来的的构造实例的方法
+				//将已经解析出来的的构造实例的方法进行缓存
 				mbd.resolvedConstructorOrFactoryMethod = constructorOrFactoryMethod;
-				//标记
+				//标记构造实例的参数以及被解析
 				mbd.constructorArgumentsResolved = true;
 				if (this.resolveNecessary) {
-					//需要解析，准备好的参数转换过去
+					//还需要解析，构建已经准备好的参数
 					mbd.preparedConstructorArguments = this.preparedArguments;
 				}
 				else {

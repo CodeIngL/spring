@@ -311,6 +311,7 @@ public class CachedIntrospectionResults {
 				if (Class.class == beanClass &&
 						("classLoader".equals(pd.getName()) ||  "protectionDomain".equals(pd.getName()))) {
 					// Ignore Class.getClassLoader() and getProtectionDomain() methods - nobody needs to bind to those
+					// 忽略Class.getClassLoader()和getProtectionDomain() 方法 - 没有人需要绑定到那些
 					continue;
 				}
 				if (logger.isTraceEnabled()) {

@@ -403,20 +403,27 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 *                             "factory-bean" reference) for the type check. Note that FactoryBeans need to be
 	 *                             eagerly initialized to determine their type: So be aware that passing in "true"
 	 *                             for this flag will initialize FactoryBeans and "factory-bean" references.
+	 *                             是否初始化lazy-init单例和由FactoryBeans创建的对象（或工厂方法使用“factory-bean”引用）进行类型检查。
+	 *                             请注意，需要急切地初始化FactoryBeans以确定它们的类型：因此请注意，为此标志传入“true”将初始化FactoryBeans和“factory-bean”引用
 	 * @return
 	 */
 	@Override
 	public String[] getBeanNamesForType(Class<?> type, boolean includeNonSingletons, boolean allowEagerInit) {
+		//如果没冻结，或者没有类型（全部bean)，或者
 		if (!isConfigurationFrozen() || type == null || !allowEagerInit) {
 			return doGetBeanNamesForType(ResolvableType.forRawClass(type), includeNonSingletons, allowEagerInit);
 		}
+		//全部类型
 		Map<Class<?>, String[]> cache =
 				(includeNonSingletons ? this.allBeanNamesByType : this.singletonBeanNamesByType);
+		//解析类型
 		String[] resolvedBeanNames = cache.get(type);
 		if (resolvedBeanNames != null) {
 			return resolvedBeanNames;
 		}
+		//去解析名字
 		resolvedBeanNames = doGetBeanNamesForType(ResolvableType.forRawClass(type), includeNonSingletons, true);
+		//翻入缓存
 		if (ClassUtils.isCacheSafe(type, getBeanClassLoader())) {
 			cache.put(type, resolvedBeanNames);
 		}
@@ -1257,14 +1264,16 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			Class<?> componentType = type.getComponentType();
 			//依赖描述的解析类型
 			ResolvableType resolvableType = descriptor.getResolvableType();
+			//依赖数组类型
 			Class<?> resolvedArrayType = resolvableType.resolve();
-			if (resolvedArrayType != null && resolvedArrayType != type) {
+			if (resolvedArrayType != null && resolvedArrayType != type) { //为主
 				type = resolvedArrayType;
 				componentType = resolvableType.getComponentType().resolve();
 			}
 			if (componentType == null) {
 				return null;
 			}
+
 			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, componentType,
 					new MultiElementDescriptor(descriptor));
 			if (matchingBeans.isEmpty()) {
