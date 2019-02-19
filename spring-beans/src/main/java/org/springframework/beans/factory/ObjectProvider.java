@@ -23,7 +23,7 @@ import org.springframework.beans.BeansException;
  * allowing for programmatic optionality and lenient not-unique handling.
  *
  * <p>
- *     ObjectFactory的一个变体，专门为注入点设计，允许编程选项和宽松非唯一
+ *    {@link ObjectFactory}的一个变体，专门为注入点设计，允许编程选项和宽松非唯一
  * </p>
  *
  * @author Juergen Hoeller

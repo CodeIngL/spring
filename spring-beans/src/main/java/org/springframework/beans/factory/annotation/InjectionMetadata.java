@@ -84,6 +84,13 @@ public class InjectionMetadata {
 		this.checkedElements = checkedElements;
 	}
 
+	/**
+	 * 为目标bean注入相关属性
+	 * @param target
+	 * @param beanName
+	 * @param pvs
+	 * @throws Throwable
+	 */
 	public void inject(Object target, String beanName, PropertyValues pvs) throws Throwable {
 		Collection<InjectedElement> elementsToIterate =
 				(this.checkedElements != null ? this.checkedElements : this.injectedElements);
@@ -260,6 +267,10 @@ public class InjectionMetadata {
 
 		/**
 		 * Either this or {@link #inject} needs to be overridden.
+		 *
+		 * <p>
+		 *     需要重写此注入或注入。
+		 * </p>
 		 */
 		protected Object getResourceToInject(Object target, String requestingBeanName) {
 			return null;

@@ -1125,6 +1125,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	protected BeanWrapper createBeanInstance(String beanName, RootBeanDefinition mbd, Object[] args) {
 		// Make sure bean class is actually resolved at this point.
+		// 确保此时实际解析了bean类。
 		Class<?> beanClass = resolveBeanClass(mbd, beanName);
 
 		if (beanClass != null && !Modifier.isPublic(beanClass.getModifiers()) && !mbd.isNonPublicAccessAllowed()) {
@@ -1541,6 +1542,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * <p>This implementation excludes properties defined by CGLIB and
 	 * properties whose type matches an ignored dependency type or which
 	 * are defined by an ignored dependency interface.
+	 * <p>
+	 *     确定是否从依赖性检查中排除给定的bean属性。
+	 *   此实现排除了CGLIB定义的属性以及类型与忽略的依赖关系类型匹配的属性，或者由忽略的依赖关系接口定义的属性。
+	 * </p>
 	 * @param pd the PropertyDescriptor of the bean property
 	 * @return whether the bean property is excluded
 	 * @see #ignoreDependencyType(Class)
@@ -1569,10 +1574,14 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			String beanName, AbstractBeanDefinition mbd, PropertyDescriptor[] pds, PropertyValues pvs)
 			throws UnsatisfiedDependencyException {
 
+		//获得依赖校验类型
 		int dependencyCheck = mbd.getDependencyCheck();
+		//遍历属性描述符
 		for (PropertyDescriptor pd : pds) {
+			//能写，但是找不到属性值
 			if (pd.getWriteMethod() != null && !pvs.contains(pd.getName())) {
-				boolean isSimple = BeanUtils.isSimpleProperty(pd.getPropertyType()); //基本类型
+				boolean isSimple = BeanUtils.isSimpleProperty(pd.getPropertyType()); //简单类型
+				//存在属性，但是在属性值中找不到，也就是不满足，
 				boolean unsatisfied = (dependencyCheck == RootBeanDefinition.DEPENDENCY_CHECK_ALL) ||
 						(isSimple && dependencyCheck == RootBeanDefinition.DEPENDENCY_CHECK_SIMPLE) ||
 						(!isSimple && dependencyCheck == RootBeanDefinition.DEPENDENCY_CHECK_OBJECTS);

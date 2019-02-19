@@ -341,6 +341,14 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 	}
 
 
+	/**
+	 *
+	 * 通过资源获得注入元信息
+	 * @param beanName
+	 * @param clazz
+	 * @param pvs
+	 * @return
+	 */
 	private InjectionMetadata findResourceMetadata(String beanName, final Class<?> clazz, PropertyValues pvs) {
 		// Fall back to class name as cache key, for backwards compatibility with custom callers.
 		String cacheKey = (StringUtils.hasLength(beanName) ? beanName : clazz.getName());
@@ -367,6 +375,12 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 		return metadata;
 	}
 
+	/**
+	 *
+	 * 不支持static字段和方法
+	 * @param clazz
+	 * @return
+	 */
 	private InjectionMetadata buildResourceMetadata(final Class<?> clazz) {
 		LinkedList<InjectionMetadata.InjectedElement> elements = new LinkedList<InjectionMetadata.InjectedElement>();
 		Class<?> targetClass = clazz;
@@ -375,6 +389,7 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 			final LinkedList<InjectionMetadata.InjectedElement> currElements =
 					new LinkedList<InjectionMetadata.InjectedElement>();
 
+			//字段,Resource
 			ReflectionUtils.doWithLocalFields(targetClass, new ReflectionUtils.FieldCallback() {
 				@Override
 				public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
@@ -401,6 +416,7 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 				}
 			});
 
+			//方法
 			ReflectionUtils.doWithLocalMethods(targetClass, new ReflectionUtils.MethodCallback() {
 				@Override
 				public void doWith(Method method) throws IllegalArgumentException, IllegalAccessException {
@@ -437,6 +453,7 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 							if (paramTypes.length != 1) {
 								throw new IllegalStateException("@Resource annotation requires a single-arg method: " + method);
 							}
+							//不是忽略Resource类型
 							if (!ignoredResourceTypes.contains(paramTypes[0].getName())) {
 								PropertyDescriptor pd = BeanUtils.findPropertyForMethod(bridgedMethod, clazz);
 								currElements.add(new ResourceElement(method, bridgedMethod, pd));
@@ -446,6 +463,7 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 				}
 			});
 
+			//父类优先
 			elements.addAll(0, currElements);
 			targetClass = targetClass.getSuperclass();
 		}

@@ -151,8 +151,10 @@ class BeanDefinitionValueResolver {
 			// May need to resolve contained runtime references.
 			// 可能需要解析包含的运行时引用。
 			ManagedArray array = (ManagedArray) value;
+			//获得类型
 			Class<?> elementType = array.resolvedElementType;
 			if (elementType == null) {
+				//尝试解析类型
 				String elementTypeName = array.getElementTypeName();
 				if (StringUtils.hasText(elementTypeName)) {
 					try {
@@ -167,6 +169,7 @@ class BeanDefinitionValueResolver {
 					}
 				}
 				else {
+					//否则是Object类型
 					elementType = Object.class;
 				}
 			}
@@ -205,8 +208,10 @@ class BeanDefinitionValueResolver {
 			TypedStringValue typedStringValue = (TypedStringValue) value;
 			Object valueObject = evaluate(typedStringValue);
 			try {
+				//要转换成类型
 				Class<?> resolvedTargetType = resolveTargetType(typedStringValue);
 				if (resolvedTargetType != null) {
+					//进行转换
 					return this.typeConverter.convertIfNecessary(valueObject, resolvedTargetType);
 				}
 				else {
@@ -227,6 +232,9 @@ class BeanDefinitionValueResolver {
 
 	/**
 	 * Evaluate the given value as an expression, if necessary.
+	 * <p>
+	 *     如有必要，将给定值评估为表达式
+	 * </p>
 	 * @param value the candidate value (may be an expression)
 	 * @return the resolved value
 	 */
@@ -291,6 +299,10 @@ class BeanDefinitionValueResolver {
 
 	/**
 	 * Resolve an inner bean definition.
+	 *
+	 * <p>
+	 *     解析内部bean定义
+	 * </p>
 	 * @param argName the name of the argument that the inner bean is defined for
 	 * @param innerBeanName the name of the inner bean
 	 * @param innerBd the bean definition for the inner bean
@@ -338,6 +350,9 @@ class BeanDefinitionValueResolver {
 	/**
 	 * Checks the given bean name whether it is unique. If not already unique,
 	 * a counter is added, increasing the counter until the name is unique.
+	 * <p>
+	 *     检查给定的bean名称是否唯一。 如果尚未唯一，则添加计数器，增加计数器，直到名称唯一。
+	 * </p>
 	 * @param innerBeanName the original name for the inner bean
 	 * @return the adapted name for the inner bean
 	 */
@@ -385,6 +400,9 @@ class BeanDefinitionValueResolver {
 
 	/**
 	 * For each element in the managed array, resolve reference if necessary.
+	 * <p>
+	 *     对于托管阵列中的每个元素，必要时解析引用。
+	 * </p>
 	 */
 	private Object resolveManagedArray(Object argName, List<?> ml, Class<?> elementType) {
 		Object resolved = Array.newInstance(elementType, ml.size());
@@ -437,6 +455,9 @@ class BeanDefinitionValueResolver {
 
 	/**
 	 * Holder class used for delayed toString building.
+	 * <p>
+	 *     持有人类用于延迟toString建设。
+	 * </p>
 	 */
 	private static class KeyedArgName {
 

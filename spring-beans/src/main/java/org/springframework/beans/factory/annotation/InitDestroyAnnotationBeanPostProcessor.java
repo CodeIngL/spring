@@ -177,12 +177,19 @@ public class InitDestroyAnnotationBeanPostProcessor
 	}
 
 
+	/**
+	 * 找到和bean生命周期相关的方法，也就是的init和destroy相关的信息
+	 * @param clazz
+	 * @return
+	 */
 	private LifecycleMetadata findLifecycleMetadata(Class<?> clazz) {
 		if (this.lifecycleMetadataCache == null) {
 			// Happens after deserialization, during destruction...
+			// 在反序列化之后，在破坏期间发生...
 			return buildLifecycleMetadata(clazz);
 		}
 		// Quick check on the concurrent map first, with minimal locking.
+		// 首先快速检查并发映射，锁定最小。
 		LifecycleMetadata metadata = this.lifecycleMetadataCache.get(clazz);
 		if (metadata == null) {
 			synchronized (this.lifecycleMetadataCache) {
@@ -354,6 +361,9 @@ public class InitDestroyAnnotationBeanPostProcessor
 
 	/**
 	 * Class representing injection information about an annotated method.
+	 * <p>
+	 *     表示注解方法的注入信息的类。
+	 * </p>
 	 */
 	private static class LifecycleElement {
 

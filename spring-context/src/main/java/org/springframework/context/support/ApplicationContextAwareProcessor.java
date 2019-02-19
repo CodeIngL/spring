@@ -73,6 +73,13 @@ class ApplicationContextAwareProcessor implements BeanPostProcessor {
 	}
 
 
+	/**
+	 * 在初始化之前完成应用层级的Aware注册
+	 * @param bean     the new bean instance
+	 * @param beanName the name of the bean
+	 * @return
+	 * @throws BeansException
+	 */
 	@Override
 	public Object postProcessBeforeInitialization(final Object bean, String beanName) throws BeansException {
 		AccessControlContext acc = null;
@@ -100,29 +107,46 @@ class ApplicationContextAwareProcessor implements BeanPostProcessor {
 		return bean;
 	}
 
+	/**
+	 *
+	 * 应用层级的Aware的方法调用
+	 * @param bean
+	 */
 	private void invokeAwareInterfaces(Object bean) {
 		if (bean instanceof Aware) {
+			//获得环境
 			if (bean instanceof EnvironmentAware) {
 				((EnvironmentAware) bean).setEnvironment(this.applicationContext.getEnvironment());
 			}
+			//获得内嵌的值解析
 			if (bean instanceof EmbeddedValueResolverAware) {
 				((EmbeddedValueResolverAware) bean).setEmbeddedValueResolver(this.embeddedValueResolver);
 			}
+			//获得资源加载器
 			if (bean instanceof ResourceLoaderAware) {
 				((ResourceLoaderAware) bean).setResourceLoader(this.applicationContext);
 			}
+			//获得事件推送器
 			if (bean instanceof ApplicationEventPublisherAware) {
 				((ApplicationEventPublisherAware) bean).setApplicationEventPublisher(this.applicationContext);
 			}
+			//获得消息器
 			if (bean instanceof MessageSourceAware) {
 				((MessageSourceAware) bean).setMessageSource(this.applicationContext);
 			}
+			//获得应用
 			if (bean instanceof ApplicationContextAware) {
 				((ApplicationContextAware) bean).setApplicationContext(this.applicationContext);
 			}
 		}
 	}
 
+	/**
+	 * 不处理初始化后
+	 * @param bean     the new bean instance
+	 * @param beanName the name of the bean
+	 * @return
+	 */
 	@Override
 	public Object postProcessAfterInitialization(Object bean, String beanName) {
 		return bean;

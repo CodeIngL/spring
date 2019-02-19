@@ -41,6 +41,18 @@ import org.springframework.util.ClassUtils;
  *   &lt;/property&gt;
  * &lt;/bean&gt;</pre>
  *
+ * <p>
+ *      {@link org.springframework.beans.factory.config.BeanFactoryPostProcessor}实现，允许方便地注册自定义autowire qualifier类型。
+ * </p>
+ * <pre class="code">
+ * &lt;bean id="customAutowireConfigurer" class="org.springframework.beans.factory.annotation.CustomAutowireConfigurer"&gt;
+ *   &lt;property name="customQualifierTypes"&gt;
+ *     &lt;set&gt;
+ *       &lt;value&gt;mypackage.MyQualifier&lt;/value&gt;
+ *     &lt;/set&gt;
+ *   &lt;/property&gt;
+ * &lt;/bean&gt;</pre>
+ *
  * @author Mark Fisher
  * @author Juergen Hoeller
  * @since 2.5
@@ -50,6 +62,9 @@ public class CustomAutowireConfigurer implements BeanFactoryPostProcessor, BeanC
 
 	private int order = Ordered.LOWEST_PRECEDENCE;  // default: same as non-Ordered
 
+	/**
+	 * 自定义的注入限定符
+	 */
 	private Set<?> customQualifierTypes;
 
 	private ClassLoader beanClassLoader = ClassUtils.getDefaultClassLoader();
@@ -77,6 +92,13 @@ public class CustomAutowireConfigurer implements BeanFactoryPostProcessor, BeanC
 	 * <p>Note that any annotation that is itself annotated with Spring's
 	 * {@link org.springframework.beans.factory.annotation.Qualifier}
 	 * does not require explicit registration.
+	 *
+	 * <p>
+	 *     注册自动装配bean时要考虑的自定义限定符注释类型。 提供的集合的每个元素可以是Class实例，也可以是自定义注解的完全限定类名称的String表示形式。
+	 * </p>
+	 * <p>
+	 *     	 请注意，任何使用Spring的{@link org.springframework.beans.factory.annotation.Qualifier}的注解都不需要显式注册。
+	 * </p>
 	 * @param customQualifierTypes the custom types to register
 	 */
 	public void setCustomQualifierTypes(Set<?> customQualifierTypes) {
