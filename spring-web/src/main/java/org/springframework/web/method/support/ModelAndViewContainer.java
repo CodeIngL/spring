@@ -42,6 +42,17 @@ import org.springframework.web.bind.support.SimpleSessionStatus;
  * to {@code true} signalling a redirect scenario, the {@link #getModel()}
  * returns the redirect model instead of the default model.
  *
+ * <p>
+ * 在调用控制器方法的过程中记录由{@link HandlerMethodArgumentResolver}和{@link HandlerMethodReturnValueHandler}做出的模型和视图相关决策。
+ * </p>
+ * <p>
+ * * {@link #setRequestHandled} 标志可用于指示已直接处理请求并且不需要查看解析。
+ * </p>
+ * <p>
+ * 在实例化时自动创建默认模型。 可以通过{@link #setRedirectModel}提供备用模型实例以用于重定向场景。
+ * 当{@link #setRedirectModelScenario}设置为true表示重定向方案时，{@link #getModel()}返回重定向模型而不是默认模型。
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @since 3.1
  */

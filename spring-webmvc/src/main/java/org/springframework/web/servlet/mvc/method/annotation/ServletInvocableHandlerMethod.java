@@ -49,6 +49,14 @@ import org.springframework.web.util.NestedServletException;
  * (see {@link ServletWebRequest#checkNotModified(long)}), or
  * a method argument that provides access to the response stream.
  *
+ * <p>
+ *     扩展{@link InvocableHandlerMethod} ，能够通过已注册的{@link HandlerMethodReturnValueHandler} 处理返回值，还支持基于方法级{@code @ResponseStatus}批注设置响应状态。
+ * </p>
+ * <p>
+ *     {@code null}返回值（包括void）可以解释为请求处理的结束与{@code @ResponseStatus}注解，
+ *     未修改的检查条件（请参阅{@link ServletWebRequest#checkNotModified(long)}）或提供访问权限的方法参数。 响应流。
+ * </p>
+ *
  * @author Rossen Stoyanchev
  * @author Juergen Hoeller
  * @since 3.1
