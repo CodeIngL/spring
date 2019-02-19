@@ -120,6 +120,9 @@ public class CachedIntrospectionResults {
 	/**
 	 * Set of ClassLoaders that this CachedIntrospectionResults class will always
 	 * accept classes from, even if the classes do not qualify as cache-safe.
+	 * <p>
+	 *     这个CachedIntrospectionResults类将始终接受类的ClassLoaders集合，即使这些类不符合条件
+	 * </p>
 	 */
 	static final Set<ClassLoader> acceptedClassLoaders =
 			Collections.newSetFromMap(new ConcurrentHashMap<ClassLoader, Boolean>(16));
@@ -127,6 +130,9 @@ public class CachedIntrospectionResults {
 	/**
 	 * Map keyed by Class containing CachedIntrospectionResults, strongly held.
 	 * This variant is being used for cache-safe bean classes.
+	 * <p>
+	 *     由包含CachedIntrospectionResults的类键控的地图，强烈持有。 此变体用于缓存安全的bean类。
+	 * </p>
 	 */
 	static final ConcurrentMap<Class<?>, CachedIntrospectionResults> strongClassCache =
 			new ConcurrentHashMap<Class<?>, CachedIntrospectionResults>(64);
@@ -134,6 +140,9 @@ public class CachedIntrospectionResults {
 	/**
 	 * Map keyed by Class containing CachedIntrospectionResults, softly held.
 	 * This variant is being used for non-cache-safe bean classes.
+	 * <p>
+	 *     由包含CachedIntrospectionResults的Class键入的地图，轻轻按住。 此变体用于非缓存安全的bean类。
+	 * </p>
 	 */
 	static final ConcurrentMap<Class<?>, CachedIntrospectionResults> softClassCache =
 			new ConcurrentReferenceHashMap<Class<?>, CachedIntrospectionResults>(64);
@@ -259,10 +268,12 @@ public class CachedIntrospectionResults {
 	}
 
 
-	/** The BeanInfo object for the introspected bean class */
+	/** The BeanInfo object for the introspected bean class
+	 * 内省bean类的BeanInfo对象 */
 	private final BeanInfo beanInfo;
 
-	/** PropertyDescriptor objects keyed by property name String */
+	/** PropertyDescriptor objects keyed by property name String
+	 * PropertyDescriptor对象由属性名称String键控 */
 	private final Map<String, PropertyDescriptor> propertyDescriptorCache;
 
 	/** TypeDescriptor objects keyed by PropertyDescriptor */

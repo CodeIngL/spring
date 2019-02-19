@@ -63,6 +63,9 @@ public abstract class BeanUtils {
 
 	/**
 	 * Convenience method to instantiate a class using its no-arg constructor.
+	 * <p>
+	 *     使用no-arg构造函数实例化类的便捷方法。
+	 * </p>
 	 * @param clazz class to instantiate
 	 * @return the new instance
 	 * @throws BeanInstantiationException if the bean cannot be instantiated
@@ -70,16 +73,19 @@ public abstract class BeanUtils {
 	 */
 	public static <T> T instantiate(Class<T> clazz) throws BeanInstantiationException {
 		Assert.notNull(clazz, "Class must not be null");
-		if (clazz.isInterface()) {
+		if (clazz.isInterface()) { //不能是接口
 			throw new BeanInstantiationException(clazz, "Specified class is an interface");
 		}
 		try {
+			//构建新实例
 			return clazz.newInstance();
 		}
 		catch (InstantiationException ex) {
+			//抽象接口
 			throw new BeanInstantiationException(clazz, "Is it an abstract class?", ex);
 		}
 		catch (IllegalAccessException ex) {
+			//不能访问
 			throw new BeanInstantiationException(clazz, "Is the constructor accessible?", ex);
 		}
 	}

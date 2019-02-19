@@ -67,6 +67,30 @@ import org.springframework.util.ObjectUtils;
  * <a href="http://docs.oracle.com/javase/tutorial/javabeans/writing/properties.html">
  * indexed properties</a> are fully supported.
  *
+ * <p>
+ *     用于标准BeanInfo对象的装饰器，例如 由Introspector.getBeanInfo（Class）创建，用于发现和注册静态和/或非void返回的setter方法。 例如：
+ * </p>
+ * <pre class="code">
+ * public class Bean {
+ *     private Foo foo;
+ *
+ *     public Foo getFoo() {
+ *         return this.foo;
+ *     }
+ *
+ *     public Bean setFoo(Foo foo) {
+ *         this.foo = foo;
+ *         return this;
+ *     }
+ * }</pre>
+ * <p>
+ *     标准JavaBeans内部检查器将发现getFoo读取方法，
+ *     但将绕过#setFoo（Foo）写入方法，因为其非void返回签名不符合JavaBeans规范。
+ *     另一方面，ExtendedBeanInfo将识别并包含它。
+ *     这旨在允许在Spring <beans> XML中使用具有“构建器”或方法链样式setter签名的API。
+ *     getPropertyDescriptors（）返回包装的BeanInfo中的所有现有属性描述符以及为非void返回setter添加的任何属性描述符。
+ *     完全支持标准（“非索引”）和索引属性。
+ * </p>
  * @author Chris Beams
  * @since 3.1
  * @see #ExtendedBeanInfo(BeanInfo)

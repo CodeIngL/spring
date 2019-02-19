@@ -96,6 +96,9 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 	}
 
 
+	/**
+	 * 自动增长的最大限制
+	 */
 	private int autoGrowCollectionLimit = Integer.MAX_VALUE;
 
 	Object wrappedObject;
@@ -309,6 +312,12 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 		}
 	}
 
+	/**
+	 * 设置值 属性值
+	 * @param tokens
+	 * @param pv
+	 * @throws BeansException
+	 */
 	protected void setPropertyValue(PropertyTokenHolder tokens, PropertyValue pv) throws BeansException {
 		if (tokens.keys != null) {
 			//存在key
@@ -581,8 +590,7 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 	public TypeDescriptor getPropertyTypeDescriptor(String propertyName) throws BeansException {
 		try {
 			AbstractNestablePropertyAccessor nestedPa = getPropertyAccessorForPropertyPath(propertyName);
-			String finalPath = getFinalPath(nestedPa, propertyName);
-			PropertyTokenHolder tokens = getPropertyNameTokens(finalPath);
+			PropertyTokenHolder tokens = getPropertyNameTokens(getFinalPath(nestedPa, propertyName));
 			PropertyHandler ph = nestedPa.getLocalPropertyHandler(tokens.actualName);
 			if (ph != null) {
 				if (tokens.keys != null) {
@@ -1016,7 +1024,7 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 	}
 
 	/**
-	 * 设置属性值
+	 * 设置属性值(默认值)
 	 * @param tokens
 	 * @return
 	 */
@@ -1032,11 +1040,11 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 	 * @return
 	 */
 	private PropertyValue createDefaultPropertyValue(PropertyTokenHolder tokens) {
-		//从其规范的名称获得类型描述
+		// 从其规范的名称获得类型描述
 		TypeDescriptor desc = getPropertyTypeDescriptor(tokens.canonicalName);
-		//获得类型
+		// 获得类型
 		Class<?> type = desc.getType();
-		if (type == null) {
+		if (type == null) { //如果空，即不能决定自动增长的类型的默认值了
 			throw new NullValueInNestedPathException(getRootClass(), this.nestedPath + tokens.canonicalName,
 					"Could not determine property type for auto-growing a default value");
 		}
@@ -1070,7 +1078,7 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 					return Array.newInstance(componentType, 0);
 				}
 			}
-			else if (Collection.class.isAssignableFrom(type)) { //集合
+			else if (Collection.class.isAssignableFrom(type)) { //collection属性
 				TypeDescriptor elementDesc = (desc != null ? desc.getElementTypeDescriptor() : null);
 				return CollectionFactory.createCollection(type, (elementDesc != null ? elementDesc.getType() : null), 16);
 			}
@@ -1079,7 +1087,7 @@ public abstract class AbstractNestablePropertyAccessor extends AbstractPropertyA
 				return CollectionFactory.createMap(type, (keyDesc != null ? keyDesc.getType() : null), 16);
 			}
 			else {
-				//构建
+				//构建对象实例
 				return BeanUtils.instantiate(type);
 			}
 		}

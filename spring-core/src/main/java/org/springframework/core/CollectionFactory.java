@@ -274,6 +274,13 @@ public abstract class CollectionFactory {
 	 * may wish to treat the return value as a raw map or map keyed by
 	 * {@link Object}. Similarly, type safety cannot be enforced if the
 	 * desired {@code mapType} is {@link MultiValueMap}.
+	 *
+	 * <p>
+	 *     使用no-arg构造函数实例化类的便捷方法。为给定的地图类型创建最合适的地图。
+	 * 警告：由于参数化类型K未绑定到提供的keyType，因此如果所需的mapType为EnumMap，则无法保证类型安全。
+	 * 在这种情况下，调用者负责确保keyType是枚举类型匹配类型K.作为替代，调用者可能希望将返回值视为由Object键入的原始映射或映射。
+	 * 同样，如果所需的mapType是MultiValueMap，则无法强制执行类型安全。
+	 * </p>
 	 * @param mapType the desired type of the target map; never {@code null}
 	 * @param keyType the map's key type, or {@code null} if unknown
 	 * (note: only relevant for {@link EnumMap} creation)
