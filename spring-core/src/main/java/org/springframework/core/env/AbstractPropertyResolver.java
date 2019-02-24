@@ -33,6 +33,10 @@ import org.springframework.util.SystemPropertyUtils;
 /**
  * Abstract base class for resolving properties against any underlying source.
  *
+ * <p>
+ *     用于解析任何基础源的属性的抽象基类。
+ * </p>
+ *
  * @author Chris Beams
  * @author Juergen Hoeller
  * @since 3.1

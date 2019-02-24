@@ -106,12 +106,17 @@ public class DefaultNamespaceHandlerResolver implements NamespaceHandlerResolver
 	/**
 	 * Locate the {@link NamespaceHandler} for the supplied namespace URI
 	 * from the configured mappings.
+	 * <p>
+	 *     从配置的映射中找到提供的命名空间URI的NamespaceHandler
+	 * </p>
 	 * @param namespaceUri the relevant namespace URI
 	 * @return the located {@link NamespaceHandler}, or {@code null} if none found
 	 */
 	@Override
 	public NamespaceHandler resolve(String namespaceUri) {
+		//加载对应的映射关系
 		Map<String, Object> handlerMappings = getHandlerMappings();
+		//寻找对应的对应关系
 		Object handlerOrClassName = handlerMappings.get(namespaceUri);
 		if (handlerOrClassName == null) {
 			return null;

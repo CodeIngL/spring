@@ -27,6 +27,14 @@ import org.springframework.transaction.interceptor.TransactionAttribute;
  * {@link Transactional}, JTA 1.2's {@link javax.transaction.Transactional}
  * or EJB3's {@link javax.ejb.TransactionAttribute}.
  *
+ * <p>
+ *     用于解析已知事务注释类型的策略接口。 AnnotationTransactionAttributeSource委托给这样的解析器，以支持特定的注解类型，
+ *     例如Spring自己的{@link Transactional}，JTA 1.2的{@link javax.transaction.Transactional}或EJB3的{@link javax.ejb.TransactionAttribute}。
+ * </p>
+ * <p>
+ *
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.5
  * @see AnnotationTransactionAttributeSource

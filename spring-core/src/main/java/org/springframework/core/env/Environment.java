@@ -122,6 +122,16 @@ public interface Environment extends PropertyResolver {
 	 * return {@code true} if profile 'p1' is active or 'p2' is not active.
 	 * @throws IllegalArgumentException if called with zero arguments
 	 * or if any profile is {@code null}, empty or whitespace-only
+	 *
+	 * <p>
+	 *     返回一个或多个给定配置文件是否处于活动状态，或者在没有显式活动配置文件的情况下，返回一组或多个给定配置文件是否包含在默认配置文件集中。 如果个人资料以'！'开头 逻辑被反转，即如果给定的配置文件不活动，该方法将返回true。 例如，
+	 * </p></P>
+	 * <p>
+	 *     	env.acceptsProfiles（“p1”，“！p2”）
+	 * </p></P>
+	 * <p>
+	 *     	如果配置文件“p1”处于活动状态或“p2”未激活，则返回true。
+	 * </p></P>
 	 * @see #getActiveProfiles
 	 * @see #getDefaultProfiles
 	 */

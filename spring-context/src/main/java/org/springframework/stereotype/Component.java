@@ -32,6 +32,13 @@ import java.lang.annotation.Target;
  * e.g. the {@link Repository @Repository} annotation or AspectJ's
  * {@link org.aspectj.lang.annotation.Aspect @Aspect} annotation.
  *
+ * <p>
+ *    表示带主机的类是“组件”。 当使用基于注解的配置和类路径扫描时，这些类被视为自动检测的候选者。
+ * </p>
+ * <p>
+ *     其他类级注解也可以被认为是识别组件，通常是特殊类型的组件：例如， {@link Repository @Repository} 注解或AspectJ的{@link org.aspectj.lang.annotation.Aspect @Aspect}注解。
+ * </p>
+ *
  * @author Mark Fisher
  * @since 2.5
  * @see Repository

@@ -126,7 +126,7 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 		this.delegate = createDelegate(getReaderContext(), root, parent);
 
 		if (this.delegate.isDefaultNamespace(root)) {
-			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);
+			String profileSpec = root.getAttribute(PROFILE_ATTRIBUTE);// profile
 			if (StringUtils.hasText(profileSpec)) {
 				String[] specifiedProfiles = StringUtils.tokenizeToStringArray(
 						profileSpec, BeanDefinitionParserDelegate.MULTI_VALUE_ATTRIBUTE_DELIMITERS);
@@ -158,6 +158,8 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	/**
 	 * Parse the elements at the root level in the document:
 	 * "import", "alias", "bean".
+	 * 处理root层次顶级的属性，即beans下的顶级属性，
+	 * 否则委托给自定义的处理
 	 * @param root the DOM root element of the document
 	 */
 	protected void parseBeanDefinitions(Element root, BeanDefinitionParserDelegate delegate) {
@@ -168,15 +170,18 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 				if (node instanceof Element) {
 					Element ele = (Element) node;
 					if (delegate.isDefaultNamespace(ele)) {
+						//处理默认的定义
 						parseDefaultElement(ele, delegate);
 					}
 					else {
+						//处理自定义
 						delegate.parseCustomElement(ele);
 					}
 				}
 			}
 		}
 		else {
+			//处理自定义
 			delegate.parseCustomElement(root);
 		}
 	}
@@ -336,6 +341,12 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * convert custom elements into standard Spring bean definitions, for example.
 	 * Implementors have access to the parser's bean definition reader and the
 	 * underlying XML resource, through the corresponding accessors.
+	 * <p>
+	 *     在我们开始处理bean定义之前，首先通过处理任何自定义元素类型来允许XML可扩展。 此方法是XML的任何其他自定义预处理的自然扩展点。
+	 * </p>
+	 * <p>
+	 *     默认实现为空。 例如，子类可以重写此方法以将自定义元素转换为标准的Spring bean定义。 实现者可以通过相应的访问器访问解析器的bean定义读取器和底层XML资源。
+	 * </p>
 	 * @see #getReaderContext()
 	 */
 	protected void preProcessXml(Element root) {
@@ -349,6 +360,13 @@ public class DefaultBeanDefinitionDocumentReader implements BeanDefinitionDocume
 	 * convert custom elements into standard Spring bean definitions, for example.
 	 * Implementors have access to the parser's bean definition reader and the
 	 * underlying XML resource, through the corresponding accessors.
+	 *
+	 * <p>
+	 *     在完成bean定义的处理之后，通过最后处理任何自定义元素类型，允许XML可扩展。 此方法是XML的任何其他自定义后处理的自然扩展点。
+	 * </p>
+	 * <p>
+	 *     默认实现为空。 例如，子类可以重写此方法以将自定义元素转换为标准的Spring bean定义。 实现者可以通过相应的访问器访问解析器的bean定义读取器和底层XML资源。
+	 * </p>
 	 * @see #getReaderContext()
 	 */
 	protected void postProcessXml(Element root) {

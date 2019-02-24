@@ -44,6 +44,17 @@ import org.springframework.util.ClassUtils;
  * (which is very unlikely), caching could be made configurable. Caching is
  * desirable because of the cost of evaluating rollback rules.
  *
+ * <p>
+ *     TransactionAttributeSource的抽象实现，它缓存方法的属性并实现回退策略：1. 特定的目标方法; 2.目标班级; 3.声明方法; 4.声明类/接口。
+ * </p>
+ * <p>
+ *     如果没有与目标方法关联，则默认使用目标类的事务属性。 与目标方法关联的任何事务属性都会完全覆盖类事务属性。
+ *     如果在目标类上找不到，则将检查已调用调用方法的接口（如果是JDK代理）。
+ * </p>
+ * <p>
+ *     此实现在首次使用后按方法缓存属性。 如果希望允许动态更改事务属性（这是非常不可能的），则可以使高速缓存可配置。 由于评估回滚规则的成本，缓存是可取的。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1

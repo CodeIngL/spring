@@ -59,22 +59,22 @@ import org.springframework.util.StringUtils;
  * and {@code TransactionAttributeSource} are serializable.
  *
  * <p>
- *     事务性方面的基类，例如TransactionInterceptor或AspectJ方面。
+ *     事务性方面的基类，例如{@link TransactionInterceptor}或AspectJ 切面。
  * </p>
  * <p>
- *     这使得底层Spring事务基础架构可以轻松用于实现任何方面系统的一个方面。
+ *     这使得底层Spring事务基础架构可以轻松用于实现任何切面系统的一个切面。
  * </p>
  * <p>
  *      子类负责以正确的顺序调用此类中的方法。
  * </p>
  * <p>
- *      如果在TransactionAttribute中没有指定事务名称，则显示的名称将是完全限定的类名称+“。”。 +方法名称（默认情况下）。
+ *      如果在{@code TransactionAttribute}中没有指定事务名称，则显示的名称将是{@code fully-qualified class name + "." + method name}（默认情况下）。
  * </p>
  * <p>
- *      使用策略设计模式。 PlatformTransactionManager实现将执行实际的事务管理，并且使用TransactionAttributeSource来确定事务定义。
+ *      使用策略设计模式。 {@code PlatformTransactionManager}实现将执行实际的事务管理，并且使用{@code TransactionAttributeSource}来确定事务定义。
  * </p>
  * <p>
- *      如果它的PlatformTransactionManager和TransactionAttributeSource是可序列化的，则事务方面是可序列化的。
+ *      如果它的{@code PlatformTransactionManager}和{@code TransactionAttributeSource} 是可序列化的，则事务切面是可序列化的。
  * </p>
  * @author Rod Johnson
  * @author Juergen Hoeller

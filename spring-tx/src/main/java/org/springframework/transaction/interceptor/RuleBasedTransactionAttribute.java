@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  *     如果没有规则与异常相关，则其行为类似于DefaultTransactionAttribute（回滚运行时异常）。
  * </p>
  * <p>
- *      TransactionAttributeEditor创建此类的对象。
+ *      {@link TransactionAttributeEditor} 创建此类的对象。
  * </p>
  *
  * @author Rod Johnson
