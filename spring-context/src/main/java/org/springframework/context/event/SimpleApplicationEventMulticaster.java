@@ -117,11 +117,20 @@ public class SimpleApplicationEventMulticaster extends AbstractApplicationEventM
 	}
 
 
+	/**
+	 * 广播事件
+	 * @param event the event to multicast
+	 */
 	@Override
 	public void multicastEvent(ApplicationEvent event) {
 		multicastEvent(event, resolveDefaultEventType(event));
 	}
 
+	/**
+	 * 广播事件的核心
+	 * @param event     the event to multicast
+	 * @param eventType the type of event (can be null)
+	 */
 	@Override
 	public void multicastEvent(final ApplicationEvent event, ResolvableType eventType) {
 		ResolvableType type = (eventType != null ? eventType : resolveDefaultEventType(event));

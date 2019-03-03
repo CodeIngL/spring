@@ -26,6 +26,13 @@ import org.springframework.aop.aspectj.AspectInstanceFactory;
  * AspectMetadata uses Java-5-only {@link org.aspectj.lang.reflect.AjType},
  * we need to split out this subinterface.
  *
+ * <p>
+ *     AspectInstanceFactory的子接口，返回与AspectJ注释类关联的AspectMetadata。
+ * </p>
+ * <p>
+ *      理想情况下，AspectInstanceFactory本身会包含此方法，但由于{@link AspectMetadata}仅使用Java-5 org.aspectj.lang.reflect.AjType，因此我们需要拆分此子接口。
+ * </p>
+ *
  * @author Rod Johnson
  * @since 2.0
  * @see AspectMetadata

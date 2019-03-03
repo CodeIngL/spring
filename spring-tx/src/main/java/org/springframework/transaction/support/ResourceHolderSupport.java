@@ -27,6 +27,13 @@ import org.springframework.transaction.TransactionTimedOutException;
  * Can expire after a certain number of seconds or milliseconds
  * in order to determine a transactional timeout.
  *
+ * <p>
+ *     资源持有者的便捷基类。
+ * </p>
+ * <p>
+ *      具有仅对回滚事务的回滚支持。 可以在一定的秒数或毫秒后过期，以确定事务超时。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 02.02.2004
  * @see org.springframework.jdbc.datasource.DataSourceTransactionManager#doBegin

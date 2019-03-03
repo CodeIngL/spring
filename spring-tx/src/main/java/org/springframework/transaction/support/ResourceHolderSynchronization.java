@@ -20,6 +20,10 @@ package org.springframework.transaction.support;
  * {@link TransactionSynchronization} implementation that manages a
  * {@link ResourceHolder} bound through {@link TransactionSynchronizationManager}.
  *
+ *<p>
+ *     TransactionSynchronization实现，用于管理通过TransactionSynchronizationManager绑定的ResourceHolder。
+ *</p>
+ *
  * @author Juergen Hoeller
  * @since 2.5.5
  */

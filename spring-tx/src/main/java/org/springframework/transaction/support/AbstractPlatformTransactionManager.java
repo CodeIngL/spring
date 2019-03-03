@@ -1190,6 +1190,17 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * <p>The default implementation returns {@code false}, assuming that
 	 * participating in existing transactions is generally not supported.
 	 * Subclasses are of course encouraged to provide such support.
+	 *
+	 * <p>
+	 *     	检查给定的事务对象是否指示现有事务（即已启动的事务）。
+	 * </p>
+	 * <p>
+	 *     	 将根据新事务的指定传播行为来评估结果。
+	 *     	 现有事务可能会被暂停（如果是PROPAGATION_REQUIRES_NEW），或者新事务可能参与现有事务（如果是PROPAGATION_REQUIRED）。
+	 * </p>
+	 * <p>
+	 *     	 假设通常不支持参与现有事务，则默认实现返回false。 当然鼓励子类提供这样的支持。
+	 * </p>
 	 * @param transaction transaction object returned by doGetTransaction
 	 * @return if there is an existing transaction
 	 * @throws TransactionException in case of system errors

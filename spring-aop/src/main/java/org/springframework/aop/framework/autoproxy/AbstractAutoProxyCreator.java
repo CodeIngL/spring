@@ -519,13 +519,16 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		}
 
 		ProxyFactory proxyFactory = new ProxyFactory();
+		//设置一些配置，全局配置
 		proxyFactory.copyFrom(this);
 
 		if (!proxyFactory.isProxyTargetClass()) {
+			//自一次评估设置proxyTargetClass
 			if (shouldProxyTargetClass(beanClass, beanName)) {
 				proxyFactory.setProxyTargetClass(true);
 			}
 			else {
+				//计算接口
 				evaluateProxyInterfaces(beanClass, proxyFactory);
 			}
 		}

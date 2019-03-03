@@ -37,6 +37,12 @@ public abstract class AutoProxyUtils {
 	 * <p>Proxy factories can set this attribute if they built a target class proxy
 	 * for a specific bean, and want to enforce that bean can always be cast
 	 * to its target class (even if AOP advices get applied through auto-proxying).
+	 * <p>
+	 *     Bean定义属性，可以指示给定的bean是否应该被其目标类代理（当它第一次发生被代理）。 值为Boolean.TRUE或Boolean.FALSE。
+	 * </p>
+	 * <p>
+	 *     如果代理工厂为特定bean构建了目标类代理，并且希望强制该bean始终可以强制转换为其目标类（即使通过自动代理应用AOP advices），也可以设置此属性。
+	 * </p>
 	 * @see #shouldProxyTargetClass
 	 */
 	public static final String PRESERVE_TARGET_CLASS_ATTRIBUTE =
