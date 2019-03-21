@@ -54,12 +54,6 @@ import org.springframework.util.ClassUtils;
  * with resource editors. Used by
  * {@link org.springframework.context.support.AbstractApplicationContext}.
  *
- * <p>
- * PropertyEditorRegistrar实现，
- * 它使用资源编辑器填充给定的{@link org.springframework.beans.PropertyEditorRegistry}（通常是用于在org.springframework.context.ApplicationContext中创建bean的org.springframework.beans.BeanWrapper）。
- * 由{@link org.springframework.context.support.AbstractApplicationContext}使用。
- * </p>
- *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 2.0

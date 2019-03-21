@@ -59,28 +59,6 @@ import org.springframework.web.multipart.MultipartRequest;
  * Errors errors = binder.getErrors();
  * ...</pre>
  *
- * <p>
- * 特殊的org.springframework.validation.DataBinder，用于执行从Web请求参数到JavaBeans的数据绑定，包括对多部分文件的支持。
- * </p>
- * <p>
- * 请参阅DataBinder/WebDataBinder超类以获取自定义选项，其中包括指定允许/必需字段以及注册自定义属性编辑器。
- * </p>
- * <p>
- * 也可以用于基于Spring的WebRequest抽象构建的自定义Web控制器或拦截器中的手动数据绑定：例如 在org.springframework.web.context.request.WebRequestInterceptor实现中。 只需为每个绑定进程实例化一个WebRequestDataBinder，并使用当前的WebRequest作为参数调用bind：
- * </p>
- *
- * <pre class="code">
- * MyBean myBean = new MyBean();
- * // apply binder to custom target object
- * WebRequestDataBinder binder = new WebRequestDataBinder(myBean);
- * // register custom editors, if desired
- * binder.registerCustomEditor(...);
- * // trigger actual binding of request parameters
- * binder.bind(request);
- * // optionally evaluate binding errors
- * Errors errors = binder.getErrors();
- * ...</pre>
- *
  * @author Juergen Hoeller
  * @author Brian Clozel
  * @since 2.5.2

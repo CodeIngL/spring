@@ -433,11 +433,6 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		return (T) bean;
 	}
 
-	/**
-	 * 是否包含bean，不会进行初始化
-	 * @param name the name of the bean to query
-	 * @return
-	 */
 	@Override
 	public boolean containsBean(String name) {
 		String beanName = transformedBeanName(name);
@@ -655,25 +650,14 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		return isTypeMatch(name, ResolvableType.forRawClass(typeToMatch));
 	}
 
-	/**
-	 *
-	 * 通过beanName获得一个类型
-	 * @param name the name of the bean to query
-	 * @return
-	 * @throws NoSuchBeanDefinitionException
-	 */
 	@Override
 	public Class<?> getType(String name) throws NoSuchBeanDefinitionException {
-		//转换的名字，在spring中
 		String beanName = transformedBeanName(name);
 
 		// Check manually registered singletons.
-		// 检查手动注册的实例，不支持循环引用
 		Object beanInstance = getSingleton(beanName, false);
-		//不为空
 		if (beanInstance != null) {
 			if (beanInstance instanceof FactoryBean && !BeanFactoryUtils.isFactoryDereference(name)) {
-				//如果是beanFactory并且，开发者想获得不是FactoryBean，获得合适的类型
 				return getTypeForFactoryBean((FactoryBean<?>) beanInstance);
 			}
 			else {
@@ -1222,11 +1206,6 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * and populate bean instances.
 	 * <p>The default implementation delegates to {@link #registerCustomEditors}.
 	 * Can be overridden in subclasses.
-	 *
-	 * <p>
-	 * 使用在此工厂注册的自定义编辑器初始化给定的BeanWrapper。 为将要创建和填充bean实例的BeanWrappers调用。
-	 * 默认实现委托给{@link #registerCustomEditors}。 可以在子类中重写。
-	 * </p>
 	 * @param bw the BeanWrapper to initialize
 	 */
 	protected void initBeanWrapper(BeanWrapper bw) {
@@ -1298,7 +1277,6 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 */
 	protected RootBeanDefinition getMergedLocalBeanDefinition(String beanName) throws BeansException {
 		// Quick check on the concurrent map first, with minimal locking.
-		// 首先快速检查并发映射，锁定最小。
 		RootBeanDefinition mbd = this.mergedBeanDefinitions.get(beanName);
 		if (mbd != null) {
 			return mbd;
@@ -1619,15 +1597,6 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * trying whether its {@code getObjectType} method already returns a type.
 	 * If no type found, a full FactoryBean creation as performed by this implementation
 	 * should be used as fallback.
-	 *
-	 * <p>
-	 *     尽可能确定给定FactoryBean定义的bean类型。 仅在没有为目标bean注册单例实例时才调用。
-	 * </p>
-	 * <p>
-	 *     	 默认实现通过getBean创建FactoryBean以调用其{@code getObjectType} 方法。
-	 *     	 鼓励子类优化它，通常只是实例化FactoryBean但不填充它，尝试它的getObjectType方法是否已经返回一个类型。
-	 *     	 如果未找到任何类型，则应将此实现执行的完整FactoryBean创建用作回退。
-	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the merged bean definition for the bean
 	 * @return the type for the bean if determinable, or {@code null} else
@@ -1774,10 +1743,8 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 		}
 		if (object == null) {
 			// Return bean instance from factory.
-			// 从factory中获得bean实例
 			FactoryBean<?> factory = (FactoryBean<?>) beanInstance;
 			// Caches object obtained from FactoryBean if it is a singleton.
-			// 缓存从FactoryBean获取的对象（如果它是单例）。
 			if (mbd == null && containsBeanDefinition(beanName)) {
 				mbd = getMergedLocalBeanDefinition(beanName);
 			}
@@ -1884,14 +1851,6 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 	 * just amounts to a local hash lookup: The operation is therefore part of the
 	 * public interface there. The same implementation can serve for both this
 	 * template method and the public interface method in that case.
-	 *
-	 * <p>返回给定bean名称的bean定义。 子类通常应该实现缓存，因为每次需要bean定义元数据时，此类都会调用此方法。
-	 * </p>
-	 * <p>
-	 * 根据具体bean工厂实现的性质，此操作可能很昂贵（例如，由于外部注册表中的目录查找）。
-	 * 但是，对于listableBean工厂，这通常只相当于本地哈希查找：因此该操作是那里的公共接口的一部分。
-	 * 在这种情况下，相同的实现可以用于此模板方法和公共接口方法。
-	 * </p>
 	 * @param beanName the name of the bean to find a definition for
 	 * @return the BeanDefinition for this prototype name (never {@code null})
 	 * @throws org.springframework.beans.factory.NoSuchBeanDefinitionException

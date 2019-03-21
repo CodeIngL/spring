@@ -22,9 +22,6 @@ import org.springframework.beans.factory.config.DependencyDescriptor;
 /**
  * Strategy interface for determining whether a specific bean definition
  * qualifies as an autowire candidate for a specific dependency.
- * <p>
- *     用于确定特定bean定义是否有资格作为特定依赖关系的自动线候选的策略接口。
- * </p>
  *
  * @author Juergen Hoeller
  * @author Mark Fisher
@@ -35,10 +32,6 @@ public interface AutowireCandidateResolver {
 	/**
 	 * Determine whether the given bean definition qualifies as an
 	 * autowire candidate for the given dependency.
-	 *
-	 * <p>
-	 *     确定给定的bean定义是否有资格作为给定依赖项的autowire候选。
-	 * </p>
 	 * @param bdHolder the bean definition including bean name and aliases
 	 * @param descriptor the descriptor for the target method parameter or field
 	 * @return whether the bean definition qualifies as autowire candidate

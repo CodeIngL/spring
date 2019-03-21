@@ -148,8 +148,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	private final Set<Class<?>> ignoredDependencyInterfaces = new HashSet<Class<?>>();
 
-	/** Cache of unfinished FactoryBean instances: FactoryBean name --> BeanWrapper
-	 * 未完成的FactoryBean实例的缓存：FactoryBean名称 - > BeanWrapper */
+	/** Cache of unfinished FactoryBean instances: FactoryBean name --> BeanWrapper */
 	private final Map<String, BeanWrapper> factoryBeanInstanceCache =
 			new ConcurrentHashMap<String, BeanWrapper>(16);
 
@@ -527,7 +526,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Instantiate the bean.
 		BeanWrapper instanceWrapper = null;
 		if (mbd.isSingleton()) {
-			//删除factoryBean没有初始化好的实例，以正式开始实例化
 			instanceWrapper = this.factoryBeanInstanceCache.remove(beanName);
 		}
 		if (instanceWrapper == null) {
@@ -806,13 +804,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * <p>The shortcut check for a FactoryBean is only applied in case of a singleton
 	 * FactoryBean. If the FactoryBean instance itself is not kept as singleton,
 	 * it will be fully created to check the type of its exposed object.
-	 *
-	 * <p>
-	 *     此实现尝试查询FactoryBean的通用参数元数据（如果存在）以确定对象类型。 如果不存在，即FactoryBean被声明为原始类型，则在FactoryBean的普通实例上检查FactoryBean的getObjectType方法，但尚未应用bean属性。 如果这还没有返回类型，则完全创建FactoryBean用作回退（通过委托给超类的实现）。
-	 * </p>
-	 * <p>
-	 *     	 FactoryBean的快捷方式检查仅适用于单件FactoryBean。 如果FactoryBean实例本身不保持为单例，则将完全创建它以检查其公开对象的类型。
-	 * </p>
 	 */
 	@Override
 	protected Class<?> getTypeForFactoryBean(String beanName, RootBeanDefinition mbd) {
@@ -943,10 +934,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	/**
 	 * Obtain a "shortcut" singleton FactoryBean instance to use for a
 	 * {@code getObjectType()} call, without full initialization of the FactoryBean.
-	 *
-	 * <p>
-	 *     获取“shortcut”单例FactoryBean实例以用于{@code getObjectType()}调用，而无需完全初始化FactoryBean。
-	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the bean definition for the bean
 	 * @return the FactoryBean instance, or {@code null} to indicate
@@ -1125,7 +1112,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 */
 	protected BeanWrapper createBeanInstance(String beanName, RootBeanDefinition mbd, Object[] args) {
 		// Make sure bean class is actually resolved at this point.
-		// 确保此时实际解析了bean类。
 		Class<?> beanClass = resolveBeanClass(mbd, beanName);
 
 		if (beanClass != null && !Modifier.isPublic(beanClass.getModifiers()) && !mbd.isNonPublicAccessAllowed()) {
@@ -1237,10 +1223,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * Instantiate the bean using a named factory method. The method may be static, if the
 	 * mbd parameter specifies a class, rather than a factoryBean, or an instance variable
 	 * on a factory object itself configured using Dependency Injection.
-	 *
-	 * <p>
-	 *     使用命名的工厂方法实例化bean。 如果mbd参数指定类而不是factoryBean，或者工厂对象本身使用依赖注入配置的实例变量，则该方法可以是静态的
-	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the bean definition for the bean
 	 * @param explicitArgs argument values passed in programmatically via the getBean method,
@@ -1261,12 +1243,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * <p>This corresponds to constructor injection: In this mode, a Spring
 	 * bean factory is able to host components that expect constructor-based
 	 * dependency resolution.
-	 * <p>
-	 *     “autowire constructor”（带有类型的构造函数参数）行为。 如果指定了显式构造函数参数值，则还应用，将所有剩余参数与bean工厂中的bean匹配。
-	 * </p>
-	 * <p>
-	 *    这对应于构造函数注入：在此模式下，Spring bean工厂能够托管期望基于构造函数的依赖项解析的组件
-	 * </p>
 	 * @param beanName the name of the bean
 	 * @param mbd the bean definition for the bean
 	 * @param ctors the chosen candidate constructors
@@ -1542,10 +1518,6 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 	 * <p>This implementation excludes properties defined by CGLIB and
 	 * properties whose type matches an ignored dependency type or which
 	 * are defined by an ignored dependency interface.
-	 * <p>
-	 *     确定是否从依赖性检查中排除给定的bean属性。
-	 *   此实现排除了CGLIB定义的属性以及类型与忽略的依赖关系类型匹配的属性，或者由忽略的依赖关系接口定义的属性。
-	 * </p>
 	 * @param pd the PropertyDescriptor of the bean property
 	 * @return whether the bean property is excluded
 	 * @see #ignoreDependencyType(Class)
@@ -1574,14 +1546,10 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 			String beanName, AbstractBeanDefinition mbd, PropertyDescriptor[] pds, PropertyValues pvs)
 			throws UnsatisfiedDependencyException {
 
-		//获得依赖校验类型
 		int dependencyCheck = mbd.getDependencyCheck();
-		//遍历属性描述符
 		for (PropertyDescriptor pd : pds) {
-			//能写，但是找不到属性值
 			if (pd.getWriteMethod() != null && !pvs.contains(pd.getName())) {
-				boolean isSimple = BeanUtils.isSimpleProperty(pd.getPropertyType()); //简单类型
-				//存在属性，但是在属性值中找不到，也就是不满足，
+				boolean isSimple = BeanUtils.isSimpleProperty(pd.getPropertyType()); //基本类型
 				boolean unsatisfied = (dependencyCheck == RootBeanDefinition.DEPENDENCY_CHECK_ALL) ||
 						(isSimple && dependencyCheck == RootBeanDefinition.DEPENDENCY_CHECK_SIMPLE) ||
 						(!isSimple && dependencyCheck == RootBeanDefinition.DEPENDENCY_CHECK_OBJECTS);

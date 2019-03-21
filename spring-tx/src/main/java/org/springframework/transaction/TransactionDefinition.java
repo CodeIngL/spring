@@ -58,12 +58,6 @@ public interface TransactionDefinition {
 	 * Analogous to the EJB transaction attribute of the same name.
 	 * <p>This is typically the default setting of a transaction definition,
 	 * and typically defines a transaction synchronization scope.
-	 * <p>
-	 *     支持当前事务; 如果不存在则创建一个新的。 类似于同名的EJB事务属性。
-	 * </p>
-	 * <p>
-	 *     	 这通常是事务定义的缺省设置，通常定义事务同步范围。
-	 * </p>
 	 */
 	int PROPAGATION_REQUIRED = 0;
 
@@ -107,15 +101,6 @@ public interface TransactionDefinition {
 	 * <p>A {@code PROPAGATION_REQUIRES_NEW} scope always defines its own
 	 * transaction synchronizations. Existing synchronizations will be suspended
 	 * and resumed appropriately.
-	 * <p>
-	 * 创建一个新事务，暂停当前事务（如果存在）。 类似于同名的EJB事务属性。
-	 * </p>
-	 * <p>
-	 *     	 注意：实际的事务暂停将无法在所有事务管理器上开箱即用。 这特别适用于org.springframework.transaction.jta.JtaTransactionManager，它需要使javax.transaction.TransactionManager可用（它在标准Java EE中是特定于服务器的）。
-	 * </p>
-	 * <p>
-	 *     	 PROPAGATION_REQUIRES_NEW范围始终定义自己的事务同步。 现有同步将被暂停并适当恢复。
-	 * </p>
 	 * @see org.springframework.transaction.jta.JtaTransactionManager#setTransactionManager
 	 */
 	int PROPAGATION_REQUIRES_NEW = 3;

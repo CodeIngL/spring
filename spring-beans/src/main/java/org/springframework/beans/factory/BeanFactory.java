@@ -280,13 +280,6 @@ public interface BeanFactory {
 	 * or abstract, lazy or eager, in scope or not. Therefore, note that a {@code true}
 	 * return value from this method does not necessarily indicate that {@link #getBean}
 	 * will be able to obtain an instance for the same name.
-	 *
-	 * <p>
-	 *     此bean工厂是否包含具有给定名称的bean定义或外部注册的单例实例？
-	 如果给定的名称是别名，它将被转换回相应的规范bean名称。
-	 如果此工厂是分层的，则会询问任何父工厂是否在此工厂实例中找不到该bean。
-	 如果找到与给定名称匹配的bean定义或单例实例，则此方法将返回true，无论命名bean定义是具体还是抽象，懒惰或渴望，是否在范围内。 因此，请注意，此方法的true返回值不一定表示getBean将能够获取同名的实例。
-	 * </p>
 	 * @param name the name of the bean to query
 	 * @return whether a bean with the given name is present
 	 */

@@ -26,9 +26,6 @@ import org.springframework.beans.factory.config.BeanPostProcessor;
 /**
  * Base class for {@link BeanPostProcessor} implementations that apply a
  * Spring AOP {@link Advisor} to specific beans.
- * <p>
- *     BeanPostProcessor实现的基类，它将Spring AOP Advisor应用于特定bean。
- * </p>
  *
  * @author Juergen Hoeller
  * @since 3.2

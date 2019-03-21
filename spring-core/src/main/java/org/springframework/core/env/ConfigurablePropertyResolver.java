@@ -96,10 +96,6 @@ public interface ConfigurablePropertyResolver extends PropertyResolver {
 	 * Validate that each of the properties specified by
 	 * {@link #setRequiredProperties} is present and resolves to a
 	 * non-{@code null} value.
-	 *
-	 * <p>
-	 *     验证{@link #setRequiredProperties}指定的每个属性是否存在并解析为非null值。
-	 * </p>
 	 * @throws MissingRequiredPropertiesException if any of the required
 	 * properties are not resolvable.
 	 */

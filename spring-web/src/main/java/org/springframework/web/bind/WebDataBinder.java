@@ -40,16 +40,6 @@ import org.springframework.web.multipart.MultipartFile;
  * bean property accordingly. Default values, for parameters that are otherwise
  * not present, can specify a value for the field other then empty.
  *
- * <p>
- *     用于从Web请求参数到JavaBean对象的数据绑定的特殊{@link DataBinder}。
- *     专为Web环境而设计，但不依赖于Servlet API; 作为更具体的DataBinder变体的基类，例如{@link org.springframework.web.bind.ServletRequestDataBinder}。
- * </p>
- * <p>
- *     包括对字段标记的支持，这些标记解决了HTML复选框和选择选项的常见问题：
- *     		检测到字段是表单的一部分，但由于它是空的，因此未生成请求参数。 字段标记允许检测该状态并相应地重置相应的bean属性。
- *     		对于不存在的参数，默认值可以指定除空后的字段的值。
- * </p>
- *
  * @author Juergen Hoeller
  * @author Scott Andrews
  * @author Brian Clozel

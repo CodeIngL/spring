@@ -25,7 +25,7 @@ import java.lang.reflect.Method;
  * metadata attributes at source level (such as Java 5 annotations), or anywhere else.
  *
  * <p>
- *     {@link TransactionInterceptor}用于元数据检索的策略接口。
+ *     TransactionInterceptor用于元数据检索的策略接口。
  * </p>
  * <p>
  *     实现知道如何从配置，源级别的元数据属性（例如Java 5注解）或其他任何地方获取事务属性。
@@ -44,7 +44,7 @@ public interface TransactionAttributeSource {
 	 * or {@code null} if the method is non-transactional.
 	 *
 	 * <p>
-	 *     返回给定方法的transaction属性，如果该方法是非事务性的，则返回{@code null}。
+	 *     返回给定方法的transaction属性，如果该方法是非事务性的，则返回null。
 	 * </p>
 	 *
 	 * @param method the method to introspect

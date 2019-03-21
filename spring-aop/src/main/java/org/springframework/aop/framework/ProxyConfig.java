@@ -89,13 +89,6 @@ public class ProxyConfig implements Serializable {
 	 * is disabled by default. An optimize value of "true" may be ignored
 	 * if other settings preclude optimization: for example, if "exposeProxy"
 	 * is set to "true" and that's not compatible with the optimization.
-	 * <p>
-	 *     设置代理是否应执行积极优化。 代理之间“积极优化”的确切含义会有所不同，但通常会有一些权衡。 默认为“false”。
-	 * </p>
-	 * <p>
-	 *     例如，优化通常意味着在创建代理后，advice更改不会生效。
-	 *     因此，默认情况下禁用优化。 如果其他设置阻止优化，则可以忽略优化值“true”: 例如，如果“exposeProxy”设置为“true”并且与优化不兼容。
-	 * </p>
 	 */
 	public void setOptimize(boolean optimize) {
 		this.optimize = optimize;
@@ -113,12 +106,6 @@ public class ProxyConfig implements Serializable {
 	 * from being cast to {@link Advised} to query proxy status.
 	 * <p>Default is "false", meaning that any AOP proxy can be cast to
 	 * {@link Advised}.
-	 * <p>
-	 *     设置是否应阻止将此配置创建的代理强制转换为{@link Advised}查询代理状态。
-	 * </p>
-	 * <p>
-	 *     默认值为“false”，表示任何AOP代理都可以转换为Advised。
-	 * </p>
 	 */
 	public void setOpaque(boolean opaque) {
 		this.opaque = opaque;
@@ -140,13 +127,6 @@ public class ProxyConfig implements Serializable {
 	 * <p>Default is "false", in order to avoid unnecessary extra interception.
 	 * This means that no guarantees are provided that AopContext access will
 	 * work consistently within any method of the advised object.
-	 * <p>
-	 *     设置代理是否应该由AOP框架作为ThreadLocal公开，以便通过AopContext类进行检索。
-	 *     如果advised对象需要自己调用另一个advised方法，这将非常有用。（如果使用{@code this}，则不会advised调用）。
-	 * </p>
-	 * <p>
-	 *     	 默认为“false”，以避免不必要的额外拦截。 这意味着不保证AopContext访问将在{对象的任何方法中一致地工作。
-	 * </p>
 	 */
 	public void setExposeProxy(boolean exposeProxy) {
 		this.exposeProxy = exposeProxy;
@@ -165,12 +145,6 @@ public class ProxyConfig implements Serializable {
 	 * <p>When a config is frozen, no advice changes can be made. This is
 	 * useful for optimization, and useful when we don't want callers to
 	 * be able to manipulate configuration after casting to Advised.
-	 * <p>
-	 *     设置是否应冻结此配置。
-	 * </p>
-	 * <p>
-	 *     当配置被冻结时，不能进行任何Advised更改。 这对于优化很有用，当我们不希望调用者在转换为Advised之后能够操作配置时非常有用。
-	 * </p>
 	 */
 	public void setFrozen(boolean frozen) {
 		this.frozen = frozen;
@@ -178,6 +152,9 @@ public class ProxyConfig implements Serializable {
 
 	/**
 	 * Return whether the config is frozen, and no advice changes can be made.
+	 * <p>
+	 *     返回是否冻结配置，并且不能进行任何建议更改。
+	 * </p>
 	 */
 	public boolean isFrozen() {
 		return this.frozen;

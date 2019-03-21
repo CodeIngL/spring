@@ -579,9 +579,6 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 * Class representing injection information about an annotated field.
-	 * <p>
-	 *     表示注解字段的注入信息的类。
-	 * </p>
 	 */
 	private class AutowiredFieldElement extends InjectionMetadata.InjectedElement {
 
@@ -596,19 +593,11 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 			this.required = required;
 		}
 
-		/**
-		 * 字段上的注入
-		 * @param bean
-		 * @param beanName
-		 * @param pvs
-		 * @throws Throwable
-		 */
 		@Override
 		protected void inject(Object bean, String beanName, PropertyValues pvs) throws Throwable {
 			Field field = (Field) this.member;
 			Object value;
 			if (this.cached) {
-				//存在缓存，尝试从缓存中或的
 				value = resolvedCachedArgument(beanName, this.cachedFieldValue);
 			}
 			else {
@@ -617,14 +606,13 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 				Set<String> autowiredBeanNames = new LinkedHashSet<String>(1);
 				TypeConverter typeConverter = beanFactory.getTypeConverter();
 				try {
-					//解析依赖获得属性
 					value = beanFactory.resolveDependency(desc, beanName, autowiredBeanNames, typeConverter);
 				}
 				catch (BeansException ex) {
 					throw new UnsatisfiedDependencyException(null, beanName, new InjectionPoint(field), ex);
 				}
 				synchronized (this) {
-					if (!this.cached) { //构建缓存
+					if (!this.cached) {
 						if (value != null || this.required) {
 							this.cachedFieldValue = desc;
 							registerDependentBeans(beanName, autowiredBeanNames);
@@ -632,7 +620,6 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 								String autowiredBeanName = autowiredBeanNames.iterator().next();
 								if (beanFactory.containsBean(autowiredBeanName)) {
 									if (beanFactory.isTypeMatch(autowiredBeanName, field.getType())) {
-										//进行短路
 										this.cachedFieldValue = new ShortcutDependencyDescriptor(
 												desc, autowiredBeanName, field.getType());
 									}
@@ -646,7 +633,6 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 					}
 				}
 			}
-			//反射直接设置
 			if (value != null) {
 				ReflectionUtils.makeAccessible(field);
 				field.set(bean, value);
@@ -772,10 +758,6 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 * DependencyDescriptor variant with a pre-resolved target bean name.
-	 *
-	 * <p>
-	 *     具有预解析目标bean名称的DependencyDescriptor变体。
-	 * </p>
 	 */
 	@SuppressWarnings("serial")
 	private static class ShortcutDependencyDescriptor extends DependencyDescriptor {

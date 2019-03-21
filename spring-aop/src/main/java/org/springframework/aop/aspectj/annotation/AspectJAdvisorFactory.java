@@ -67,10 +67,6 @@ public interface AspectJAdvisorFactory {
 	/**
 	 * Build Spring AOP Advisors for all annotated At-AspectJ methods
 	 * on the specified aspect instance.
-	 *
-	 * <p>
-	 *     在指定的切面实例上为所有带注解的At-AspectJ方法构建Spring AOP Advisors。
-	 * </p>
 	 * @param aspectInstanceFactory the aspect instance factory
 	 * (not the aspect instance itself in order to avoid eager instantiation)
 	 * @return a list of advisors for this class
@@ -92,9 +88,6 @@ public interface AspectJAdvisorFactory {
 
 	/**
 	 * Build a Spring AOP Advice for the given AspectJ advice method.
-	 * <P>
-	 *     为给定的AspectJ建议方法构建Spring AOP建议。
-	 * </P>
 	 * @param candidateAdviceMethod the candidate advice method
 	 * @param expressionPointcut the AspectJ expression pointcut
 	 * @param aspectInstanceFactory the aspect instance factory

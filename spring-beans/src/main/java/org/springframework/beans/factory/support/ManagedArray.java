@@ -22,10 +22,6 @@ import org.springframework.util.Assert;
  * Tag collection class used to hold managed array elements, which may
  * include runtime bean references (to be resolved into bean objects).
  *
- * <p>
- *     用于保存托管数组元素的标记集合类，可以包括运行时bean引用（要解析为bean对象）。
- * </p>
- *
  * @author Juergen Hoeller
  * @since 3.0
  */
