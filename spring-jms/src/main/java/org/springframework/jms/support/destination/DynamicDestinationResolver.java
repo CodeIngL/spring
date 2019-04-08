@@ -27,6 +27,9 @@ import org.springframework.util.Assert;
 /**
  * Simple {@link DestinationResolver} implementation resolving destination names
  * as dynamic destinations.
+ * <p>
+ *     简单的DestinationResolver实现将目标名称解析为动态目标。
+ * </p>
  *
  * @author Juergen Hoeller
  * @since 1.1

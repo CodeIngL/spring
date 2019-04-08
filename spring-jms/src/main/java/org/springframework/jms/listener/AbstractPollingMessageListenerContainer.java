@@ -234,6 +234,9 @@ public abstract class AbstractPollingMessageListenerContainer extends AbstractMe
 	/**
 	 * Execute the listener for a message received from the given consumer,
 	 * wrapping the entire operation in an external transaction if demanded.
+	 * <p>
+	 *     执行侦听器以获取从给定使用者接收的消息，如果需要，将整个操作包装在外部事务中。
+	 * </p>
 	 * @param session the JMS Session to work on
 	 * @param consumer the MessageConsumer to work on
 	 * @return whether a message has been received

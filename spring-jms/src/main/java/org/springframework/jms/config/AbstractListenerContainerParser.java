@@ -120,6 +120,7 @@ abstract class AbstractListenerContainerParser implements BeanDefinitionParser {
 			}
 		}
 
+		//解析消息监听器
 		NodeList childNodes = element.getChildNodes();
 		for (int i = 0; i < childNodes.getLength(); i++) {
 			Node child = childNodes.item(i);
@@ -142,6 +143,7 @@ abstract class AbstractListenerContainerParser implements BeanDefinitionParser {
 		listenerDef.setSource(parserContext.extractSource(listenerEle));
 		listenerDef.setBeanClassName("org.springframework.jms.listener.adapter.MessageListenerAdapter");
 
+		//委托的消息处理
 		String ref = listenerEle.getAttribute(REF_ATTRIBUTE);
 		if (!StringUtils.hasText(ref)) {
 			parserContext.getReaderContext().error(
@@ -151,6 +153,7 @@ abstract class AbstractListenerContainerParser implements BeanDefinitionParser {
 			listenerDef.getPropertyValues().add("delegate", new RuntimeBeanReference(ref));
 		}
 
+		//默认监听的方法
 		if (listenerEle.hasAttribute(METHOD_ATTRIBUTE)) {
 			String method = listenerEle.getAttribute(METHOD_ATTRIBUTE);
 			if (!StringUtils.hasText(method)) {
@@ -160,15 +163,18 @@ abstract class AbstractListenerContainerParser implements BeanDefinitionParser {
 			listenerDef.getPropertyValues().add("defaultListenerMethod", method);
 		}
 
+		//消息转换器
 		PropertyValue messageConverterPv = commonContainerProperties.getPropertyValue("messageConverter");
 		if (messageConverterPv != null) {
 			listenerDef.getPropertyValues().addPropertyValue(messageConverterPv);
 		}
 
+		//构建容器
 		BeanDefinition containerDef = createContainer(
 				containerEle, listenerEle, parserContext, commonContainerProperties, specificContainerProperties);
 		containerDef.getPropertyValues().add("messageListener", listenerDef);
 
+		//存在写回去
 		if (listenerEle.hasAttribute(RESPONSE_DESTINATION_ATTRIBUTE)) {
 			String responseDestination = listenerEle.getAttribute(RESPONSE_DESTINATION_ATTRIBUTE);
 			Boolean pubSubDomain = (Boolean) commonContainerProperties.getPropertyValue("replyPubSubDomain").getValue();

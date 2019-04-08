@@ -37,6 +37,9 @@ import org.springframework.util.Assert;
  */
 public class JmsListenerEndpointRegistrar implements BeanFactoryAware, InitializingBean {
 
+	/**
+	 * jmsEndpoint的注册表
+	 */
 	private JmsListenerEndpointRegistry endpointRegistry;
 
 	private MessageHandlerMethodFactory messageHandlerMethodFactory;
@@ -47,6 +50,9 @@ public class JmsListenerEndpointRegistrar implements BeanFactoryAware, Initializ
 
 	private BeanFactory beanFactory;
 
+	/**
+	 * jmsEndpoint描述符，构造了EndPoint和Factory
+	 */
 	private final List<JmsListenerEndpointDescriptor> endpointDescriptors =
 			new ArrayList<JmsListenerEndpointDescriptor>();
 
@@ -128,6 +134,9 @@ public class JmsListenerEndpointRegistrar implements BeanFactoryAware, Initializ
 		registerAllEndpoints();
 	}
 
+	/**
+	 * 注册所有的EndPoint，如果这个bean发生在之前，后来的则发生立即注册，否则由该bean进行注册
+	 */
 	protected void registerAllEndpoints() {
 		synchronized (this.mutex) {
 			for (JmsListenerEndpointDescriptor descriptor : this.endpointDescriptors) {
@@ -138,6 +147,11 @@ public class JmsListenerEndpointRegistrar implements BeanFactoryAware, Initializ
 		}
 	}
 
+	/**
+	 * 解析描述符中的JmsListenerContainerFactory
+	 * @param descriptor
+	 * @return
+	 */
 	private JmsListenerContainerFactory<?> resolveContainerFactory(JmsListenerEndpointDescriptor descriptor) {
 		if (descriptor.containerFactory != null) {
 			return descriptor.containerFactory;
@@ -164,6 +178,12 @@ public class JmsListenerEndpointRegistrar implements BeanFactoryAware, Initializ
 	 * {@link JmsListenerContainerFactory} to use to create the underlying container.
 	 * <p>The {@code factory} may be {@code null} if the default factory has to be
 	 * used for that endpoint.
+	 * <P>
+	 *     在JmsListenerContainerFactory旁边注册一个新的JmsListenerEndpoint，用于创建底层容器。
+	 * </P>
+	 * <p>
+	 *     如果必须将默认工厂用于该端点，则工厂可能为null。
+	 * </p>
 	 */
 	public void registerEndpoint(JmsListenerEndpoint endpoint, JmsListenerContainerFactory<?> factory) {
 		Assert.notNull(endpoint, "Endpoint must be set");
@@ -173,11 +193,12 @@ public class JmsListenerEndpointRegistrar implements BeanFactoryAware, Initializ
 		JmsListenerEndpointDescriptor descriptor = new JmsListenerEndpointDescriptor(endpoint, factory);
 
 		synchronized (this.mutex) {
-			if (this.startImmediately) {  // register and start immediately
+			if (this.startImmediately) {  // register and start immediately 立即开始？
 				this.endpointRegistry.registerListenerContainer(descriptor.endpoint,
 						resolveContainerFactory(descriptor), true);
 			}
 			else {
+				//简单的添加
 				this.endpointDescriptors.add(descriptor);
 			}
 		}
@@ -194,6 +215,9 @@ public class JmsListenerEndpointRegistrar implements BeanFactoryAware, Initializ
 	}
 
 
+	/**
+	 * jmsendpoint的描述符
+	 */
 	private static class JmsListenerEndpointDescriptor {
 
 		public final JmsListenerEndpoint endpoint;

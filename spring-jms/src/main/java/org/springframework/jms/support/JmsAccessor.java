@@ -38,6 +38,13 @@ import org.springframework.jms.JmsException;
  * <p>Not intended to be used directly.
  * See {@link org.springframework.jms.core.JmsTemplate}.
  *
+ * <p>
+ *     org.springframework.jms.core.JmsTemplate和其他JMS访问网关助手的基类，
+ *     定义了常用属性，例如要操作的JMS ConnectionFactory。
+ *     子类org.springframework.jms.support.destination.JmsDestinationAccessor进一步添加了与目标相关的属性。
+ * <p>
+ *    不打算直接使用。 请参阅org.springframework.jms.core.JmsTemplate。
+ *
  * @author Juergen Hoeller
  * @since 1.2
  * @see org.springframework.jms.support.destination.JmsDestinationAccessor

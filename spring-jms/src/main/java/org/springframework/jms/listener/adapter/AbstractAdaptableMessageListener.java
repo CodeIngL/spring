@@ -177,6 +177,15 @@ public abstract class AbstractAdaptableMessageListener
 	 * result objects returned from listener methods. Use the
 	 * {@link SessionAwareMessageListener} entry point (typically through a Spring
 	 * message listener container) for handling result objects as well.
+	 * <p>
+	 *     标准JMS MessageListener入口点。
+	 * </p>
+	 * <p>
+	 *   将消息委派给目标侦听器方法，并对message参数进行适当的转换。 如果发生异常，将调用{@link #handleListenerException(Throwable)}方法。
+	 * </p>
+	 * <p>
+	 * 注意：不支持基于侦听器方法返回的结果对象发送响应消息。 使用SessionAwareMessageListener入口点（通常通过Spring消息侦听器容器）来处理结果对象
+	 * </p>
 	 * @param message the incoming JMS message
 	 * @see #handleListenerException
 	 * @see #onMessage(javax.jms.Message, javax.jms.Session)

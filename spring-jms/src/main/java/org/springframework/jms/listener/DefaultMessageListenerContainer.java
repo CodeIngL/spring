@@ -112,6 +112,48 @@ import org.springframework.util.backoff.FixedBackOff;
  * on configuring an external transaction manager. Note that for the default
  * "AUTO_ACKNOWLEDGE" mode, this container applies automatic message acknowledgment
  * before listener execution, with no redelivery in case of an exception.
+ * <p>
+ *     消息侦听器容器变体，
+ *     它使用普通的JMS客户端API，
+ *     特别是{@code MessageConsumer.receive()} 调用的循环，
+ *     它还允许事务性地接收消息（使用XA事务注册它们）。
+ *     设计用于在本机JMS环境以及Java EE环境中工作，只有很小的配置差异。
+ * </p>
+ * <p>
+ * 这是一个简单但功能强大的消息监听器容器形式。
+ * 在启动时，它获得固定数量的JMS会话以调用侦听器，并且可选地允许在运行时动态调整（最多为最大数量）。
+ * 与SimpleMessageListenerContainer一样，它的主要优点是运行时复杂度低，
+ * 特别是对JMS提供程序的最低要求：甚至不需要JMS ServerSessionPool工具。除此之外，如果代理暂时不可用，它将完全自我恢复，并允许停止/重新启动以及运行时更改其配置。
+ * </p>
+ * <p>
+ * 实际的MessageListener执行发生在通过Spring的TaskExecutor抽象创建的异步工作单元中。
+ * 默认情况下，根据“concurrentConsumers”设置，将在启动时创建指定数量的调用程序任务。
+ * 指定备用TaskExecutor以与现有线程池工具（例如Java EE服务器）集成，例如使用CommonJ WorkManager。
+ * 使用本机JMS设置，每个侦听器线程将使用缓存的JMS会话和MessageConsumer（仅在发生故障时刷新），尽可能高效地使用JMS提供程序的资源。
+ * </p>
+ * <p>
+ * 通过将Spring org.springframework.transaction.PlatformTransactionManager传递到“transactionManager”属性，消息接收和侦听器执行可以自动包装在事务中。
+ * 这通常是Java EE环境中的org.springframework.transaction.jta.JtaTransactionManager，以及从JNDI获取的支持JTA的JMS ConnectionFactory（请查看Java EE服务器的文档）。
+ * 请注意，如果指定了外部事务管理器，则此侦听器容器将自动为每个事务重新获取所有JMS句柄，以便与所有Java EE服务器（特别是JBoss）兼容。
+ * 可以通过“cacheLevel”/“cacheLevelName”属性覆盖此非缓存行为，即使涉及外部事务管理器，也会强制执行Connection（或Session和MessageConsumer）的缓存。
+ * </p>
+ * <p>
+ * 可以通过指定高于“concurrentConsumers”值的“maxConcurrentConsumers”值来激活并发调度器数量的动态缩放。
+ * 由于后者的默认值为1，因此您也可以简单地指定例如“maxConcurrentConsumers”。 5，这将导致在消息负载增加的情况下动态扩展到5个并发消费者，
+ * 并且一旦负载减少，动态缩减回标准数量的消费者。考虑调整“idleTaskExecutionLimit”设置来控制每个新任务的生命周期，以避免频繁地向上和向下扩展，特别是如果ConnectionFactory没有池化JMS会话和/或TaskExecutor不汇集线程（检查您的配置！）。
+ * 请注意，动态缩放只对第一个队列真正有意义;对于某个主题，您通常会使用默认的1个使用者数，否则您将在同一节点上多次收到相同的消息。
+ * </p>
+ * <p>
+ * 注意：不要将Spring的org.springframework.jms.connection.CachingConnectionFactory与动态缩放结合使用。
+ * 理想情况下，不要将它与消息侦听器容器一起使用，因为通常最好让侦听器容器本身在其生命周期内处理适当的缓存。
+ * 此外，停止和重新启动侦听器容器只能使用独立的本地缓存连接 - 而不是外部缓存连接。
+ * </p>
+ * <p>
+ * 强烈建议将“sessionTransacted”设置为“true”或指定外部“transactionManager”。
+ * 有关确认模式和本机事务选项的详细信息，请参阅AbstractMessageListenerContainer javadoc;有关配置外部事务管理器的详细信息，
+ * 请参阅AbstractPollingMessageListenerContainer javadoc。
+ * 请注意，对于默认的“AUTO_ACKNOWLEDGE”模式，此容器在侦听器执行之前应用自动消息确认，如果发生异常则不会重新传递。
+ * </p>
  *
  * @author Juergen Hoeller
  * @since 2.0
@@ -540,12 +582,16 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	 * Creates the specified number of concurrent consumers,
 	 * in the form of a JMS Session plus associated MessageConsumer
 	 * running in a separate thread.
+	 * <p>
+	 *     创建指定数量的并发使用者，以JMS会话的形式以及在单独线程中运行的关联MessageConsumer。
+	 * </p>
 	 * @see #scheduleNewInvoker
 	 * @see #setTaskExecutor
 	 */
 	@Override
 	protected void doInitialize() throws JMSException {
 		synchronized (this.lifecycleMonitor) {
+			//并发的消费
 			for (int i = 0; i < this.concurrentConsumers; i++) {
 				scheduleNewInvoker();
 			}
@@ -692,6 +738,9 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	/**
 	 * Schedule a new invoker, increasing the total number of scheduled
 	 * invokers for this listener container.
+	 * <p>
+	 *     安排新的invoker，增加此侦听器容器的预定调用者总数。
+	 * </p>
 	 */
 	private void scheduleNewInvoker() {
 		AsyncMessageListenerInvoker invoker = new AsyncMessageListenerInvoker();

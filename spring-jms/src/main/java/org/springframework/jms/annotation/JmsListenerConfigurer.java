@@ -27,6 +27,14 @@ import org.springframework.jms.config.JmsListenerEndpointRegistrar;
  * approach of using the @{@link JmsListener} annotation.
  *
  * <p>See @{@link EnableJms} for detailed usage examples.
+ * <p>
+ *     可由Spring托管bean实现的可选接口，该bean愿意自定义如何配置JMS侦听器端点。
+ *     通常用于定义要使用的默认JmsListenerContainerFactory或以编程方式注册JMS端点，而不是使用@JmsListener注解的声明方法。
+ * <p>
+ *      * 有关详细用法示例，请参阅@EnableJms。
+ * <p>
+ *
+ *
  *
  * @author Stephane Nicoll
  * @since 4.1

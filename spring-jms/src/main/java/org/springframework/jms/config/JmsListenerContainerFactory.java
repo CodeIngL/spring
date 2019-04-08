@@ -30,6 +30,9 @@ public interface JmsListenerContainerFactory<C extends MessageListenerContainer>
 
 	/**
 	 * Create a {@link MessageListenerContainer} for the given {@link JmsListenerEndpoint}.
+	 * <p>
+	 *     为给定的{@link JmsListenerEndpoint}创建一个{@link MessageListenerContainer}。
+	 * </p>
 	 * @param endpoint the endpoint to configure
 	 * @return the created container
 	 */

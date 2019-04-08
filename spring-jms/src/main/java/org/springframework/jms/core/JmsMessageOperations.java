@@ -30,6 +30,9 @@ import org.springframework.messaging.core.MessageSendingOperations;
  * A specialization of {@link MessageSendingOperations}, {@link MessageReceivingOperations}
  * and {@link MessageRequestReplyOperations} for JMS related operations that allow to specify
  * a destination name rather than the actual {@link javax.jms.Destination}
+ * <p>
+ *     MessageSendingOperations，MessageReceivingOperations和MessageRequestReplyOperations的专门化，用于JMS相关操作，允许指定目标名称而不是实际目标
+ * </p>
  *
  * @author Stephane Nicoll
  * @since 4.1

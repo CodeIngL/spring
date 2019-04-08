@@ -62,6 +62,9 @@ public class JmsListenerEndpointRegistry implements DisposableBean, SmartLifecyc
 
 	protected final Log logger = LogFactory.getLog(getClass());
 
+	/**
+	 *
+	 */
 	private final Map<String, MessageListenerContainer> listenerContainers =
 			new ConcurrentHashMap<String, MessageListenerContainer>();
 
@@ -132,6 +135,7 @@ public class JmsListenerEndpointRegistry implements DisposableBean, SmartLifecyc
 		Assert.notNull(endpoint, "Endpoint must not be null");
 		Assert.notNull(factory, "Factory must not be null");
 
+		//endpoint的id
 		String id = endpoint.getId();
 		Assert.notNull(id, "Endpoint id must not be null");
 		synchronized (this.listenerContainers) {
@@ -140,7 +144,7 @@ public class JmsListenerEndpointRegistry implements DisposableBean, SmartLifecyc
 			}
 			MessageListenerContainer container = createListenerContainer(endpoint, factory);
 			this.listenerContainers.put(id, container);
-			if (startImmediately) {
+			if (startImmediately) { //是否要立即启动
 				startIfNecessary(container);
 			}
 		}
@@ -150,6 +154,12 @@ public class JmsListenerEndpointRegistry implements DisposableBean, SmartLifecyc
 	 * Create a message listener container for the given {@link JmsListenerEndpoint}.
 	 * <p>This create the necessary infrastructure to honor that endpoint
 	 * with regards to its configuration.
+	 * <p>
+	 *     为给定的JmsListenerEndpoint创建消息侦听器容器。
+	 * </p>
+	 * <p>
+	 * 这创建了必要的基础架构来支持该端点的配置。
+	 * </p>
 	 * @param endpoint the endpoint to add
 	 * @param factory the listener factory to use
 	 * @see #registerListenerContainer(JmsListenerEndpoint, JmsListenerContainerFactory, boolean)
@@ -236,6 +246,8 @@ public class JmsListenerEndpointRegistry implements DisposableBean, SmartLifecyc
 	/**
 	 * Start the specified {@link MessageListenerContainer} if it should be started
 	 * on startup or when start is called explicitly after startup.
+	 * <p>
+	 *     如果应该在启动时启动或在启动后显式调用start，则启动指定的MessageListenerContainer。
 	 * @see MessageListenerContainer#isAutoStartup()
 	 */
 	private void startIfNecessary(MessageListenerContainer listenerContainer) {

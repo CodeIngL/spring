@@ -169,6 +169,7 @@ public class JmsListenerAnnotationBeanPostProcessor
 
 		if (this.beanFactory instanceof ListableBeanFactory) {
 			// Apply JmsListenerConfigurer beans from the BeanFactory, if any
+			// 如果有的话，从BeanFactory应用JmsListenerConfigurer bean
 			Map<String, JmsListenerConfigurer> beans =
 					((ListableBeanFactory) this.beanFactory).getBeansOfType(JmsListenerConfigurer.class);
 			List<JmsListenerConfigurer> configurers = new ArrayList<JmsListenerConfigurer>(beans.values());
@@ -212,6 +213,13 @@ public class JmsListenerAnnotationBeanPostProcessor
 		return bean;
 	}
 
+	/**
+	 * 处理JmsListener,构建端点
+	 * @param bean the new bean instance
+	 * @param beanName the name of the bean
+	 * @return
+	 * @throws BeansException
+	 */
 	@Override
 	public Object postProcessAfterInitialization(final Object bean, String beanName) throws BeansException {
 		if (!this.nonAnnotatedClasses.contains(bean.getClass())) {
@@ -251,6 +259,8 @@ public class JmsListenerAnnotationBeanPostProcessor
 	/**
 	 * Process the given {@link JmsListener} annotation on the given method,
 	 * registering a corresponding endpoint for the given bean instance.
+	 * <p>
+	 *     在给定方法上处理给定的JmsListener注释，为给定的bean实例注册相应的端点。
 	 * @param jmsListener the annotation to process
 	 * @param mostSpecificMethod the annotated method
 	 * @param bean the instance to invoke the method on
@@ -260,6 +270,9 @@ public class JmsListenerAnnotationBeanPostProcessor
 	protected void processJmsListener(JmsListener jmsListener, Method mostSpecificMethod, Object bean) {
 		Method invocableMethod = AopUtils.selectInvocableMethod(mostSpecificMethod, bean.getClass());
 
+		/**
+		 * 方法级暴露出来的endpoint
+		 */
 		MethodJmsListenerEndpoint endpoint = createMethodJmsListenerEndpoint();
 		endpoint.setBean(bean);
 		endpoint.setMethod(invocableMethod);
@@ -279,6 +292,7 @@ public class JmsListenerAnnotationBeanPostProcessor
 			endpoint.setConcurrency(resolve(jmsListener.concurrency()));
 		}
 
+		//构建factory
 		JmsListenerContainerFactory<?> factory = null;
 		String containerFactoryBeanName = resolve(jmsListener.containerFactory());
 		if (StringUtils.hasText(containerFactoryBeanName)) {
@@ -293,6 +307,7 @@ public class JmsListenerAnnotationBeanPostProcessor
 			}
 		}
 
+		//由registrar进行注册
 		this.registrar.registerEndpoint(endpoint, factory);
 	}
 

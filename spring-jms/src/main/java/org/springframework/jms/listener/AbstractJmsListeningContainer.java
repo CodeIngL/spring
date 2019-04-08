@@ -187,6 +187,9 @@ public abstract class AbstractJmsListeningContainer extends JmsDestinationAccess
 	 * <p>Creates a JMS Connection, starts the {@link javax.jms.Connection}
 	 * (if {@link #setAutoStartup(boolean) "autoStartup"} hasn't been turned off),
 	 * and calls {@link #doInitialize()}.
+	 * <p>
+	 *     初始化此容器。
+	 * 创建JMS连接，启动Connection（如果 {@link #setAutoStartup(boolean) “autoStartup”尚未关闭），并调用{@link #doInitialize()}。
 	 * @throws org.springframework.jms.JmsException if startup failed
 	 */
 	public void initialize() throws JmsException {
@@ -508,6 +511,12 @@ public abstract class AbstractJmsListeningContainer extends JmsDestinationAccess
 	 * has been restarted.
 	 * <p>If this container has already been shut down, the task will not
 	 * get rescheduled at all.
+	 * <p>
+	 *     获取给定的任务对象并重新安排它，如果此容器当前正在运行，则立即重新安排，或者稍后重新启动此容器。
+	 * </p>
+	 * <p>
+	 * 如果此容器已关闭，则根本不会重新安排任务。
+	 * </p>
 	 * @param task the task object to reschedule
 	 * @return whether the task has been rescheduled
 	 * (either immediately or for a restart of this container)

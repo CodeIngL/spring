@@ -32,6 +32,16 @@ import javax.jms.Session;
  * {@link DynamicDestinationResolver} class. Consider using the
  * {@link JndiDestinationResolver} for more advanced scenarios.
  *
+ * <p>
+ *     用于解析JMS目标的策略接口。
+ * </p>
+ * <p>
+ *     由{@link org.springframework.jms.core.JmsTemplate}用于将目标名称从{@link String Strings} 解析为实际的{@link Destination}实现实例。
+ * </p>
+ * <p>
+ *     {@link org.springframework.jms.core.JmsTemplate}实例使用的默认{@link DestinationResolver} 实现是{@link DynamicDestinationResolver}类。 考虑将{@link JndiDestinationResolver}用于更高级的方案。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 1.1
  * @see org.springframework.jms.core.JmsTemplate#setDestinationResolver

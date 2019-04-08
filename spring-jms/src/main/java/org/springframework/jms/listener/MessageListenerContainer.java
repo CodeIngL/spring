@@ -24,6 +24,8 @@ import org.springframework.jms.support.destination.DestinationResolver;
  * Internal abstraction used by the framework representing a message
  * listener container. Not meant to be implemented externally with
  * support for both JMS and JCA style containers.
+ * <p>
+ *     表示消息侦听器容器的框架使用的内部抽象。 不应在外部实现，同时支持JMS和JCA样式容器。
  *
  * @author Stephane Nicoll
  * @since 4.1

@@ -55,6 +55,18 @@ import org.springframework.util.Assert;
  * transactional reception of messages (registering them with XA transactions),
  * see {@link DefaultMessageListenerContainer}.
  *
+ * <p>
+ * 需要基于JMS连接实现侦听的所有容器的公共基类（每次尝试共享或新获取）。 从org.springframework.jms.support.JmsAccessor基类继承基本的连接和会话配置处理。
+ * </p>
+ * <p>
+ * 此类提供基本生命周期管理，特别是管理共享JMS连接。 子类应该插入到这个生命周期中，实现sharedConnectionEnabled（）以及doInitialize（）和doShutdown（）模板方法。
+ * </p>
+ * <p>
+ * 此基类不承担任何特定的侦听器编程模型或侦听器调用程序机制。 它只提供了在JMS连接/会话上运行的任何类型的基于JMS的侦听机制所需的通用运行时生命周期管理。
+ * </p>
+ * <p>
+ *  对于不同类型的MessageListener处理，通过循环的MessageConsumer.receive（）调用也允许事务接收消息（使用XA事务注册它们），请参阅DefaultMessageListenerContainer。
+ *
  * @author Juergen Hoeller
  * @since 2.0
  * @see javax.jms.MessageConsumer#setMessageListener
