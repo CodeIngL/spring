@@ -65,6 +65,12 @@ public interface MethodMatcher {
 	 * runtime even if the 2-arg matches method returns {@code true}?
 	 * <p>Can be invoked when an AOP proxy is created, and need not be invoked
 	 * again before each method invocation,
+	 * <p>
+	 *     这个MethodMatcher是否是动态的，即，必须在运行时对匹配{@link #matches(java.lang.reflect.Method, Class, Object[])}方法进行最终调用，即使2-arg matches方法返回true也是如此？
+	 * </p>
+	 * <p>
+	 * 可以在创建AOP代理时调用，并且无需在每次方法调用之前再次调用
+	 * </p>
 	 * @return whether or not a runtime match via the 3-arg
 	 * {@link #matches(java.lang.reflect.Method, Class, Object[])} method
 	 * is required if static matching passed

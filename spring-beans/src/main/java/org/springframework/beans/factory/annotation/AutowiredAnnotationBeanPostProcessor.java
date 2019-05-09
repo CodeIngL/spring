@@ -240,7 +240,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	 */
 	@Override
 	public void postProcessMergedBeanDefinition(RootBeanDefinition beanDefinition, Class<?> beanType, String beanName) {
-		if (beanType != null) {
+		if (beanType != null) { //存在类型
 			InjectionMetadata metadata = findAutowiringMetadata(beanName, beanType, null);
 			metadata.checkConfigMembers(beanDefinition);
 		}
@@ -413,9 +413,9 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 	 * @return
 	 */
 	private InjectionMetadata findAutowiringMetadata(String beanName, Class<?> clazz, PropertyValues pvs) {
-		// Fall back to class name as cache key, for backwards compatibility with custom callers.
+		// 回退到类名作为缓存键，以便与自定义调用者向后兼容。
 		String cacheKey = (StringUtils.hasLength(beanName) ? beanName : clazz.getName());
-		// Quick check on the concurrent map first, with minimal locking.
+		// 首先快速检查并发映射，锁定最小
 		InjectionMetadata metadata = this.injectionMetadataCache.get(cacheKey);
 		if (InjectionMetadata.needsRefresh(metadata, clazz)) {
 			synchronized (this.injectionMetadataCache) {
@@ -607,8 +607,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 		protected void inject(Object bean, String beanName, PropertyValues pvs) throws Throwable {
 			Field field = (Field) this.member;
 			Object value;
-			if (this.cached) {
-				//存在缓存，尝试从缓存中或的
+			if (this.cached) {//存在缓存，尝试从缓存中或的
 				value = resolvedCachedArgument(beanName, this.cachedFieldValue);
 			}
 			else {

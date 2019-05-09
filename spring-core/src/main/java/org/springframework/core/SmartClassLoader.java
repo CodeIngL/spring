@@ -24,20 +24,27 @@ package org.springframework.core;
  * <p>If a ClassLoader does <i>not</i> implement this interface,
  * then all of the classes obtained from it should be considered
  * as not reloadable (i.e. cacheable).
+ * <p>
+ * 由重新加载识别的ClassLoader（例如基于Groovy的ClassLoader）实现的接口。 例如，由Spring的CGLIB代理工厂检测到进行缓存决策。
+ * </p>
+ * <p>
+ * 如果ClassLoader没有实现这个接口，那么从它获得的所有类都应该被认为是不可重载的（即可缓存的）。
+ * </p>
  *
  * @author Juergen Hoeller
  * @since 2.5.1
  */
 public interface SmartClassLoader {
 
-	/**
-	 * Determine whether the given class is reloadable (in this ClassLoader).
-	 * <p>Typically used to check whether the result may be cached (for this
-	 * ClassLoader) or whether it should be reobtained every time.
-	 * @param clazz the class to check (usually loaded from this ClassLoader)
-	 * @return whether the class should be expected to appear in a reloaded
-	 * version (with a different {@code Class} object) later on
-	 */
-	boolean isClassReloadable(Class<?> clazz);
+    /**
+     * Determine whether the given class is reloadable (in this ClassLoader).
+     * <p>Typically used to check whether the result may be cached (for this
+     * ClassLoader) or whether it should be reobtained every time.
+     *
+     * @param clazz the class to check (usually loaded from this ClassLoader)
+     * @return whether the class should be expected to appear in a reloaded
+     * version (with a different {@code Class} object) later on
+     */
+    boolean isClassReloadable(Class<?> clazz);
 
 }

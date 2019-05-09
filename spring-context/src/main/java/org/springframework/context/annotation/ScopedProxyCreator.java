@@ -26,7 +26,6 @@ import org.springframework.beans.factory.support.BeanDefinitionRegistry;
  *
  * <p>
  *     在实际创建一个作用域代理时，委托工厂类仅用于引入AOP框架依赖关系。
- * </p>
  *
  * @author Juergen Hoeller
  * @since 3.0

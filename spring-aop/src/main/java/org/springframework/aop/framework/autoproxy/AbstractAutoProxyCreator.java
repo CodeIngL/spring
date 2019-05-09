@@ -138,7 +138,6 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * to prevent the configuration from becoming frozen too early.
 	 * <p>
 	 *     指示是否应冻结代理。 从supper覆盖以防止配置过早冻结。
-	 * </p>
 	 */
 	private boolean freezeProxy = false;
 
@@ -500,7 +499,6 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * Create an AOP proxy for the given bean.
 	 * <p>
 	 *     为给定的bean创建一个AOP代理。
-	 * </p>
 	 * @param beanClass the class of the bean bean的类
 	 * @param beanName the name of the bean bean的名字
 	 * @param specificInterceptors the set of interceptors that is
@@ -569,10 +567,10 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * will always return pre-filtered Advisors.
 	 *
 	 * <p>
-	 *     返回子类返回的Advisors是否已经过预过滤以匹配bean的目标类，允许在构建AOP调用的顾问程序链时跳过ClassFilter检查。
+	 *     返回子类返回的Advisors是否已经pre-filtered以匹配bean的目标类，允许在构建AOP调用的building advisors chains时跳过ClassFilter检查。
 	 * </p>
 	 * <p>
-	 *     默认值为false。 如果子类始终返回预过滤的Advisor，则子类可以覆盖它
+	 *     默认值为{@code false}。 如果子类始终返回pre-filtered Advisors，则子类可以覆盖它
 	 * </p>
 	 * @return whether the Advisors are pre-filtered
 	 * @see #getAdvicesAndAdvisorsForBean

@@ -21,21 +21,28 @@ import java.util.List;
 
 /**
  * Factory interface for advisor chains.
+ * <p>
+ * advisor chains的工厂接口。
+ * </p>
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
  */
 public interface AdvisorChainFactory {
 
-	/**
-	 * Determine a list of {@link org.aopalliance.intercept.MethodInterceptor} objects
-	 * for the given advisor chain configuration.
-	 * @param config the AOP configuration in the form of an Advised object
-	 * @param method the proxied method
-	 * @param targetClass the target class (may be {@code null} to indicate a proxy without
-	 * target object, in which case the method's declaring class is the next best option)
-	 * @return List of MethodInterceptors (may also include InterceptorAndDynamicMethodMatchers)
-	 */
-	List<Object> getInterceptorsAndDynamicInterceptionAdvice(Advised config, Method method, Class<?> targetClass);
+    /**
+     * Determine a list of {@link org.aopalliance.intercept.MethodInterceptor} objects
+     * for the given advisor chain configuration.
+     * <p>
+     * 确定给定advisor chain配置的{@link org.aopalliance.intercept.MethodInterceptor}对象列表
+     * </p>
+     *
+     * @param config      the AOP configuration in the form of an Advised object
+     * @param method      the proxied method
+     * @param targetClass the target class (may be {@code null} to indicate a proxy without
+     *                    target object, in which case the method's declaring class is the next best option)
+     * @return List of MethodInterceptors (may also include InterceptorAndDynamicMethodMatchers)
+     */
+    List<Object> getInterceptorsAndDynamicInterceptionAdvice(Advised config, Method method, Class<?> targetClass);
 
 }

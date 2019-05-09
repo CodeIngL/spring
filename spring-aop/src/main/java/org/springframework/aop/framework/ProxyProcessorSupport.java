@@ -31,7 +31,7 @@ import org.springframework.util.ObjectUtils;
  * ClassLoader management and the {@link #evaluateProxyInterfaces} algorithm.
  *
  * <p>
- *     具有代理处理器通用功能的基类，特别是ClassLoader管理和evaluateProxyInterfaces算法
+ *     具有代理功能的通用处理器基类，特别是ClassLoader管理和{@link #evaluateProxyInterfaces}算法
  * </p>
  *
  * @author Juergen Hoeller

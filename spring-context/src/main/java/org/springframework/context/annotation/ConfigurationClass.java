@@ -229,7 +229,7 @@ final class ConfigurationClass {
 	public void validate(ProblemReporter problemReporter) {
 		// A configuration class may not be final (CGLIB limitation)
 		if (getMetadata().isAnnotated(Configuration.class.getName())) {
-			if (getMetadata().isFinal()) {
+			if (getMetadata().isFinal()) { //不能是final
 				problemReporter.error(new FinalConfigurationProblem());
 			}
 		}

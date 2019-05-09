@@ -52,8 +52,10 @@ public class InjectionMetadata {
 
 	private static final Log logger = LogFactory.getLog(InjectionMetadata.class);
 
+	//目标类
 	private final Class<?> targetClass;
 
+	//要注入的集合，包括方法和字段
 	private final Collection<InjectedElement> injectedElements;
 
 	private volatile Set<InjectedElement> checkedElements;

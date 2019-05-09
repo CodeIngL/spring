@@ -150,11 +150,10 @@ class ConfigurationClassBeanDefinitionReader {
 		}
 
 		if (configClass.isImported()) {
-			//注册由import产生的
+			//注册由importby产生的配置类，需要转换为beanDefinition
 			registerBeanDefinitionForImportedConfigurationClass(configClass);
 		}
-		for (BeanMethod beanMethod : configClass.getBeanMethods()) {
-			//注册@bean产生的
+		for (BeanMethod beanMethod : configClass.getBeanMethods()) {//注册@bean产生的
 			loadBeanDefinitionsForBeanMethod(beanMethod);
 		}
 		//注册由@importedResources产生的

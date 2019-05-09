@@ -43,221 +43,230 @@ import org.springframework.util.ObjectUtils;
  */
 public abstract class AopProxyUtils {
 
-	/**
-	 * Obtain the singleton target object behind the given proxy, if any.
-	 * @param candidate the (potential) proxy to check
-	 * @return the singleton target object managed in a {@link SingletonTargetSource},
-	 * or {@code null} in any other case (not a proxy, not an existing singleton target)
-	 * @since 4.3.8
-	 * @see Advised#getTargetSource()
-	 * @see SingletonTargetSource#getTarget()
-	 */
-	public static Object getSingletonTarget(Object candidate) {
-		if (candidate instanceof Advised) {
-			TargetSource targetSource = ((Advised) candidate).getTargetSource();
-			if (targetSource instanceof SingletonTargetSource) {
-				return ((SingletonTargetSource) targetSource).getTarget();
-			}
-		}
-		return null;
-	}
+    /**
+     * Obtain the singleton target object behind the given proxy, if any.
+     *
+     * @param candidate the (potential) proxy to check
+     * @return the singleton target object managed in a {@link SingletonTargetSource},
+     * or {@code null} in any other case (not a proxy, not an existing singleton target)
+     * @see Advised#getTargetSource()
+     * @see SingletonTargetSource#getTarget()
+     * @since 4.3.8
+     */
+    public static Object getSingletonTarget(Object candidate) {
+        if (candidate instanceof Advised) {
+            TargetSource targetSource = ((Advised) candidate).getTargetSource();
+            if (targetSource instanceof SingletonTargetSource) {
+                return ((SingletonTargetSource) targetSource).getTarget();
+            }
+        }
+        return null;
+    }
 
-	/**
-	 * Determine the ultimate target class of the given bean instance, traversing
-	 * not only a top-level proxy but any number of nested proxies as well &mdash;
-	 * as long as possible without side effects, that is, just for singleton targets.
-	 * @param candidate the instance to check (might be an AOP proxy)
-	 * @return the ultimate target class (or the plain class of the given
-	 * object as fallback; never {@code null})
-	 * @see org.springframework.aop.TargetClassAware#getTargetClass()
-	 * @see Advised#getTargetSource()
-	 */
-	public static Class<?> ultimateTargetClass(Object candidate) {
-		Assert.notNull(candidate, "Candidate object must not be null");
-		Object current = candidate;
-		Class<?> result = null;
-		while (current instanceof TargetClassAware) {
-			result = ((TargetClassAware) current).getTargetClass();
-			current = getSingletonTarget(current);
-		}
-		if (result == null) {
-			result = (AopUtils.isCglibProxy(candidate) ? candidate.getClass().getSuperclass() : candidate.getClass());
-		}
-		return result;
-	}
+    /**
+     * Determine the ultimate target class of the given bean instance, traversing
+     * not only a top-level proxy but any number of nested proxies as well &mdash;
+     * as long as possible without side effects, that is, just for singleton targets.
+     *
+     * @param candidate the instance to check (might be an AOP proxy)
+     * @return the ultimate target class (or the plain class of the given
+     * object as fallback; never {@code null})
+     * @see org.springframework.aop.TargetClassAware#getTargetClass()
+     * @see Advised#getTargetSource()
+     */
+    public static Class<?> ultimateTargetClass(Object candidate) {
+        Assert.notNull(candidate, "Candidate object must not be null");
+        Object current = candidate;
+        Class<?> result = null;
+        while (current instanceof TargetClassAware) {
+            result = ((TargetClassAware) current).getTargetClass();
+            current = getSingletonTarget(current);
+        }
+        if (result == null) {
+            result = (AopUtils.isCglibProxy(candidate) ? candidate.getClass().getSuperclass() : candidate.getClass());
+        }
+        return result;
+    }
 
-	/**
-	 * Determine the complete set of interfaces to proxy for the given AOP configuration.
-	 * <p>This will always add the {@link Advised} interface unless the AdvisedSupport's
-	 * {@link AdvisedSupport#setOpaque "opaque"} flag is on. Always adds the
-	 * {@link org.springframework.aop.SpringProxy} marker interface.
-	 *
-	 * <p>
-	 *     确定要为给定AOP配置代理的完整接口集。
-	 * 这将始终添加Advised接口，除非AdvisedSupport的“opaque”标志已打开。 始终添加SpringProxy标记接口
-	 * </p>
-	 * @param advised the proxy config
-	 * @return the complete set of interfaces to proxy
-	 * @see SpringProxy
-	 * @see Advised
-	 */
-	public static Class<?>[] completeProxiedInterfaces(AdvisedSupport advised) {
-		return completeProxiedInterfaces(advised, false);
-	}
+    /**
+     * Determine the complete set of interfaces to proxy for the given AOP configuration.
+     * <p>This will always add the {@link Advised} interface unless the AdvisedSupport's
+     * {@link AdvisedSupport#setOpaque "opaque"} flag is on. Always adds the
+     * {@link org.springframework.aop.SpringProxy} marker interface.
+     *
+     * <p>
+     * 确定要为给定AOP配置代理的完整接口集。
+     * </p>
+     * <p>
+     * 这将始终添加{@link Advised}接口，除非{@link AdvisedSupport#setOpaque "opaque"} 标志已打开。 始终添加{@link org.springframework.aop.SpringProxy} 标记接口
+     * </p>
+     *
+     * @param advised the proxy config
+     * @return the complete set of interfaces to proxy
+     * @see SpringProxy
+     * @see Advised
+     */
+    public static Class<?>[] completeProxiedInterfaces(AdvisedSupport advised) {
+        return completeProxiedInterfaces(advised, false);
+    }
 
-	/**
-	 * Determine the complete set of interfaces to proxy for the given AOP configuration.
-	 * <p>This will always add the {@link Advised} interface unless the AdvisedSupport's
-	 * {@link AdvisedSupport#setOpaque "opaque"} flag is on. Always adds the
-	 * {@link org.springframework.aop.SpringProxy} marker interface.
-	 *
-	 * <p>
-	 *     确定要为给定AOP配置代理的完整接口集。
-	 * 这将始终添加Advised接口，除非AdvisedSupport的“opaque”标志已打开。 始终添加SpringProxy标记接口
-	 * </p>
-	 * @param advised the proxy config
-	 * @param decoratingProxy whether to expose the {@link DecoratingProxy} interface
-	 * @return the complete set of interfaces to proxy
-	 * @since 4.3
-	 * @see SpringProxy
-	 * @see Advised
-	 * @see DecoratingProxy
-	 */
-	static Class<?>[] completeProxiedInterfaces(AdvisedSupport advised, boolean decoratingProxy) {
-		//获得相关类型
-		Class<?>[] specifiedInterfaces = advised.getProxiedInterfaces();
-		if (specifiedInterfaces.length == 0) {
-			// No user-specified interfaces: check whether target class is an interface.
-			// 没有用户指定的接口：检查目标类是否是接口。
-			Class<?> targetClass = advised.getTargetClass();
-			if (targetClass != null) {
-				if (targetClass.isInterface()) {
-					advised.setInterfaces(targetClass);
-				}
-				else if (Proxy.isProxyClass(targetClass)) {
-					advised.setInterfaces(targetClass.getInterfaces());
-				}
-				specifiedInterfaces = advised.getProxiedInterfaces();
-			}
-		}
-		//添加一个特殊的spring接口
-		boolean addSpringProxy = !advised.isInterfaceProxied(SpringProxy.class);
-		//是否添加相关Advised接口
-		boolean addAdvised = !advised.isOpaque() && !advised.isInterfaceProxied(Advised.class);
-		//装饰dail
-		boolean addDecoratingProxy = (decoratingProxy && !advised.isInterfaceProxied(DecoratingProxy.class));
-		int nonUserIfcCount = 0;
-		if (addSpringProxy) {
-			nonUserIfcCount++;
-		}
-		if (addAdvised) {
-			nonUserIfcCount++;
-		}
-		if (addDecoratingProxy) {
-			nonUserIfcCount++;
-		}
-		//总共添加的的代理
-		Class<?>[] proxiedInterfaces = new Class<?>[specifiedInterfaces.length + nonUserIfcCount];
-		System.arraycopy(specifiedInterfaces, 0, proxiedInterfaces, 0, specifiedInterfaces.length);
-		//位置就是优先自己的接口
-		// springProxy---> Advised--->DecoratingProxy
-		int index = specifiedInterfaces.length;
-		if (addSpringProxy) {
-			proxiedInterfaces[index] = SpringProxy.class;
-			index++;
-		}
-		if (addAdvised) {
-			proxiedInterfaces[index] = Advised.class;
-			index++;
-		}
-		if (addDecoratingProxy) {
-			proxiedInterfaces[index] = DecoratingProxy.class;
-		}
-		return proxiedInterfaces;
-	}
+    /**
+     * Determine the complete set of interfaces to proxy for the given AOP configuration.
+     * <p>This will always add the {@link Advised} interface unless the AdvisedSupport's
+     * {@link AdvisedSupport#setOpaque "opaque"} flag is on. Always adds the
+     * {@link org.springframework.aop.SpringProxy} marker interface.
+     *
+     * <p>
+     * 确定要为给定AOP配置代理的完整接口集。
+     * </p>
+     * <p>
+     * 这将始终添加{@link Advised}接口，除非{@link AdvisedSupport#setOpaque "opaque"} 标志已打开。 始终添加{@link org.springframework.aop.SpringProxy} 标记接口
+     * </p>
+     *
+     * @param advised         the proxy config
+     * @param decoratingProxy whether to expose the {@link DecoratingProxy} interface
+     * @return the complete set of interfaces to proxy
+     * @see SpringProxy
+     * @see Advised
+     * @see DecoratingProxy
+     * @since 4.3
+     */
+    static Class<?>[] completeProxiedInterfaces(AdvisedSupport advised, boolean decoratingProxy) {
+        //获得相关类型
+        Class<?>[] specifiedInterfaces = advised.getProxiedInterfaces();
+        if (specifiedInterfaces.length == 0) {
+            // No user-specified interfaces: check whether target class is an interface.
+            // 没有用户指定的接口：检查目标类是否是接口。
+            Class<?> targetClass = advised.getTargetClass();
+            if (targetClass != null) {
+                if (targetClass.isInterface()) {
+                    advised.setInterfaces(targetClass);
+                } else if (Proxy.isProxyClass(targetClass)) {
+                    advised.setInterfaces(targetClass.getInterfaces());
+                }
+                specifiedInterfaces = advised.getProxiedInterfaces();
+            }
+        }
+        //添加一个特殊的spring接口
+        boolean addSpringProxy = !advised.isInterfaceProxied(SpringProxy.class);
+        //是否添加相关Advised接口
+        boolean addAdvised = !advised.isOpaque() && !advised.isInterfaceProxied(Advised.class);
+        //装饰dail
+        boolean addDecoratingProxy = (decoratingProxy && !advised.isInterfaceProxied(DecoratingProxy.class));
+        int nonUserIfcCount = 0;
+        if (addSpringProxy) {
+            nonUserIfcCount++;
+        }
+        if (addAdvised) {
+            nonUserIfcCount++;
+        }
+        if (addDecoratingProxy) {
+            nonUserIfcCount++;
+        }
+        //总共添加的的代理
+        Class<?>[] proxiedInterfaces = new Class<?>[specifiedInterfaces.length + nonUserIfcCount];
+        System.arraycopy(specifiedInterfaces, 0, proxiedInterfaces, 0, specifiedInterfaces.length);
+        //位置就是优先自己的接口
+        // springProxy---> Advised--->DecoratingProxy
+        int index = specifiedInterfaces.length;
+        if (addSpringProxy) {
+            proxiedInterfaces[index] = SpringProxy.class;
+            index++;
+        }
+        if (addAdvised) {
+            proxiedInterfaces[index] = Advised.class;
+            index++;
+        }
+        if (addDecoratingProxy) {
+            proxiedInterfaces[index] = DecoratingProxy.class;
+        }
+        return proxiedInterfaces;
+    }
 
-	/**
-	 * Extract the user-specified interfaces that the given proxy implements,
-	 * i.e. all non-Advised interfaces that the proxy implements.
-	 * @param proxy the proxy to analyze (usually a JDK dynamic proxy)
-	 * @return all user-specified interfaces that the proxy implements,
-	 * in the original order (never {@code null} or empty)
-	 * @see Advised
-	 */
-	public static Class<?>[] proxiedUserInterfaces(Object proxy) {
-		Class<?>[] proxyInterfaces = proxy.getClass().getInterfaces();
-		int nonUserIfcCount = 0;
-		if (proxy instanceof SpringProxy) {
-			nonUserIfcCount++;
-		}
-		if (proxy instanceof Advised) {
-			nonUserIfcCount++;
-		}
-		if (proxy instanceof DecoratingProxy) {
-			nonUserIfcCount++;
-		}
-		Class<?>[] userInterfaces = new Class<?>[proxyInterfaces.length - nonUserIfcCount];
-		System.arraycopy(proxyInterfaces, 0, userInterfaces, 0, userInterfaces.length);
-		Assert.notEmpty(userInterfaces, "JDK proxy must implement one or more interfaces");
-		return userInterfaces;
-	}
+    /**
+     * Extract the user-specified interfaces that the given proxy implements,
+     * i.e. all non-Advised interfaces that the proxy implements.
+     *
+     * @param proxy the proxy to analyze (usually a JDK dynamic proxy)
+     * @return all user-specified interfaces that the proxy implements,
+     * in the original order (never {@code null} or empty)
+     * @see Advised
+     */
+    public static Class<?>[] proxiedUserInterfaces(Object proxy) {
+        Class<?>[] proxyInterfaces = proxy.getClass().getInterfaces();
+        int nonUserIfcCount = 0;
+        if (proxy instanceof SpringProxy) {
+            nonUserIfcCount++;
+        }
+        if (proxy instanceof Advised) {
+            nonUserIfcCount++;
+        }
+        if (proxy instanceof DecoratingProxy) {
+            nonUserIfcCount++;
+        }
+        Class<?>[] userInterfaces = new Class<?>[proxyInterfaces.length - nonUserIfcCount];
+        System.arraycopy(proxyInterfaces, 0, userInterfaces, 0, userInterfaces.length);
+        Assert.notEmpty(userInterfaces, "JDK proxy must implement one or more interfaces");
+        return userInterfaces;
+    }
 
-	/**
-	 * Check equality of the proxies behind the given AdvisedSupport objects.
-	 * Not the same as equality of the AdvisedSupport objects:
-	 * rather, equality of interfaces, advisors and target sources.
-	 */
-	public static boolean equalsInProxy(AdvisedSupport a, AdvisedSupport b) {
-		return (a == b ||
-				(equalsProxiedInterfaces(a, b) && equalsAdvisors(a, b) && a.getTargetSource().equals(b.getTargetSource())));
-	}
+    /**
+     * Check equality of the proxies behind the given AdvisedSupport objects.
+     * Not the same as equality of the AdvisedSupport objects:
+     * rather, equality of interfaces, advisors and target sources.
+     */
+    public static boolean equalsInProxy(AdvisedSupport a, AdvisedSupport b) {
+        return (a == b ||
+                (equalsProxiedInterfaces(a, b) && equalsAdvisors(a, b) && a.getTargetSource().equals(b.getTargetSource())));
+    }
 
-	/**
-	 * Check equality of the proxied interfaces behind the given AdvisedSupport objects.
-	 */
-	public static boolean equalsProxiedInterfaces(AdvisedSupport a, AdvisedSupport b) {
-		return Arrays.equals(a.getProxiedInterfaces(), b.getProxiedInterfaces());
-	}
+    /**
+     * Check equality of the proxied interfaces behind the given AdvisedSupport objects.
+     */
+    public static boolean equalsProxiedInterfaces(AdvisedSupport a, AdvisedSupport b) {
+        return Arrays.equals(a.getProxiedInterfaces(), b.getProxiedInterfaces());
+    }
 
-	/**
-	 * Check equality of the advisors behind the given AdvisedSupport objects.
-	 */
-	public static boolean equalsAdvisors(AdvisedSupport a, AdvisedSupport b) {
-		return Arrays.equals(a.getAdvisors(), b.getAdvisors());
-	}
+    /**
+     * Check equality of the advisors behind the given AdvisedSupport objects.
+     */
+    public static boolean equalsAdvisors(AdvisedSupport a, AdvisedSupport b) {
+        return Arrays.equals(a.getAdvisors(), b.getAdvisors());
+    }
 
 
-	/**
-	 * Adapt the given arguments to the target signature in the given method,
-	 * if necessary: in particular, if a given vararg argument array does not
-	 * match the array type of the declared vararg parameter in the method.
-	 * @param method the target method
-	 * @param arguments the given arguments
-	 * @return a cloned argument array, or the original if no adaptation is needed
-	 * @since 4.2.3
-	 */
-	static Object[] adaptArgumentsIfNecessary(Method method, Object... arguments) {
-		if (method.isVarArgs() && !ObjectUtils.isEmpty(arguments)) {
-			Class<?>[] paramTypes = method.getParameterTypes();
-			if (paramTypes.length == arguments.length) {
-				int varargIndex = paramTypes.length - 1;
-				Class<?> varargType = paramTypes[varargIndex];
-				if (varargType.isArray()) {
-					Object varargArray = arguments[varargIndex];
-					if (varargArray instanceof Object[] && !varargType.isInstance(varargArray)) {
-						Object[] newArguments = new Object[arguments.length];
-						System.arraycopy(arguments, 0, newArguments, 0, varargIndex);
-						Class<?> targetElementType = varargType.getComponentType();
-						int varargLength = Array.getLength(varargArray);
-						Object newVarargArray = Array.newInstance(targetElementType, varargLength);
-						System.arraycopy(varargArray, 0, newVarargArray, 0, varargLength);
-						newArguments[varargIndex] = newVarargArray;
-						return newArguments;
-					}
-				}
-			}
-		}
-		return arguments;
-	}
+    /**
+     * Adapt the given arguments to the target signature in the given method,
+     * if necessary: in particular, if a given vararg argument array does not
+     * match the array type of the declared vararg parameter in the method.
+     *
+     * @param method    the target method
+     * @param arguments the given arguments
+     * @return a cloned argument array, or the original if no adaptation is needed
+     * @since 4.2.3
+     */
+    static Object[] adaptArgumentsIfNecessary(Method method, Object... arguments) {
+        if (method.isVarArgs() && !ObjectUtils.isEmpty(arguments)) {
+            Class<?>[] paramTypes = method.getParameterTypes();
+            if (paramTypes.length == arguments.length) {
+                int varargIndex = paramTypes.length - 1;
+                Class<?> varargType = paramTypes[varargIndex];
+                if (varargType.isArray()) {
+                    Object varargArray = arguments[varargIndex];
+                    if (varargArray instanceof Object[] && !varargType.isInstance(varargArray)) {
+                        Object[] newArguments = new Object[arguments.length];
+                        System.arraycopy(arguments, 0, newArguments, 0, varargIndex);
+                        Class<?> targetElementType = varargType.getComponentType();
+                        int varargLength = Array.getLength(varargArray);
+                        Object newVarargArray = Array.newInstance(targetElementType, varargLength);
+                        System.arraycopy(varargArray, 0, newVarargArray, 0, varargLength);
+                        newArguments[varargIndex] = newVarargArray;
+                        return newArguments;
+                    }
+                }
+            }
+        }
+        return arguments;
+    }
 
 }

@@ -84,27 +84,24 @@ class ConditionEvaluator {
 	 * </p>
 	 *
 	 * @param metadata the meta data
-	 * @param phase the phase of the call
+	 * @param phase the phase of the call,配置解析所处于的阶段
 	 * @return if the item should be skipped
 	 */
 	public boolean shouldSkip(AnnotatedTypeMetadata metadata, ConfigurationPhase phase) {
-		//参数为空，或者没有携带Conditional直接返回
-		if (metadata == null || !metadata.isAnnotated(Conditional.class.getName())) {
+		if (metadata == null || !metadata.isAnnotated(Conditional.class.getName())) {//参数为空，或者无Conditional注解，默认不跳过
 			return false;
 		}
 
-		//phase没有进行推断，1.PARSE_CONFIGURATION，2.REGISTER_BEAN。
-		if (phase == null) {
+		if (phase == null) {//phase没有进行推断，1.PARSE_CONFIGURATION，2.REGISTER_BEAN。
 			if (metadata instanceof AnnotationMetadata &&
 					ConfigurationClassUtils.isConfigurationCandidate((AnnotationMetadata) metadata)) {
-				return shouldSkip(metadata, ConfigurationPhase.PARSE_CONFIGURATION);
+				return shouldSkip(metadata, ConfigurationPhase.PARSE_CONFIGURATION); //解析Configuration的阶段
 			}
-			return shouldSkip(metadata, ConfigurationPhase.REGISTER_BEAN);
+			return shouldSkip(metadata, ConfigurationPhase.REGISTER_BEAN);//解析@Bean的阶段
 		}
 
 		List<Condition> conditions = new ArrayList<Condition>();
-		//遍历
-		for (String[] conditionClasses : getConditionClasses(metadata)) {
+		for (String[] conditionClasses : getConditionClasses(metadata)) {//遍历条件
 			for (String conditionClass : conditionClasses) {
 				Condition condition = getCondition(conditionClass, this.context.getClassLoader());
 				conditions.add(condition);
@@ -113,12 +110,13 @@ class ConditionEvaluator {
 
 		AnnotationAwareOrderComparator.sort(conditions);
 
-		for (Condition condition : conditions) {
-			ConfigurationPhase requiredPhase = null;
+		//匹配的条件需要全部不成立，才能不跳过
+		for (Condition condition : conditions) {//应用条件
+			ConfigurationPhase requiredPhase = null; //条件要求的阶段
 			if (condition instanceof ConfigurationCondition) {
-				requiredPhase = ((ConfigurationCondition) condition).getConfigurationPhase();
+				requiredPhase = ((ConfigurationCondition) condition).getConfigurationPhase(); //获得条件要求的应用阶段
 			}
-			if (requiredPhase == null || requiredPhase == phase) {
+			if (requiredPhase == null || requiredPhase == phase) { //有条件应用阶段，需要应用条件，否则默认调用条件匹配
 				if (!condition.matches(this.context, metadata)) {
 					return true;
 				}

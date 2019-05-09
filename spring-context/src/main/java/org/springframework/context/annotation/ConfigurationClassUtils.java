@@ -188,7 +188,7 @@ abstract class ConfigurationClassUtils {
 
 		// Any of the typical annotations found?
 		// 发现了任何典型的注解？
-		for (String indicator : candidateIndicators) {
+		for (String indicator : candidateIndicators) { //@Component，@ComponentScan，@Import，@ImportResource
 			if (metadata.isAnnotated(indicator)) {
 				return true;
 			}
@@ -212,8 +212,7 @@ abstract class ConfigurationClassUtils {
 	 * class, through checking {@link #checkConfigurationClassCandidate}'s metadata marker.
 	 *
 	 * <p>
-	 *     通过检查checkConfigurationClassCandidate的元数据标记，确定给定的bean定义是否指示完整的@Configuration类。
-	 * </p>
+	 *     通过检查 {@link #checkConfigurationClassCandidate}的元数据标记，确定给定的bean定义是否指示完整的{@code @Configuration}类。
 	 */
 	public static boolean isFullConfigurationClass(BeanDefinition beanDef) {
 		return CONFIGURATION_CLASS_FULL.equals(beanDef.getAttribute(CONFIGURATION_CLASS_ATTRIBUTE));

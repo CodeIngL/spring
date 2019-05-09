@@ -292,7 +292,6 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
      * <p>
      * <p>
      *  在指定的基础包中执行扫描，返回注册的bean定义。此方法不注册annotation config processor，而是将其留给调用者。
-     * </p>
      *
      * @param basePackages the packages to check for annotated classes
      * @return set of beans registered if any for tooling registration purposes (never {@code null})
@@ -301,11 +300,9 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
         Assert.notEmpty(basePackages, "At least one base package must be specified");
         Set<BeanDefinitionHolder> beanDefinitions = new LinkedHashSet<BeanDefinitionHolder>();
         for (String basePackage : basePackages) {
-            //解析找到相关的bean
-            Set<BeanDefinition> candidates = findCandidateComponents(basePackage);
-            for (BeanDefinition candidate : candidates) {
-                //bean的范围作用域，单例还是其他
-                ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(candidate);
+            Set<BeanDefinition> candidates = findCandidateComponents(basePackage);//解析找到相关的beanDefinition
+            for (BeanDefinition candidate : candidates) { //变量
+                ScopeMetadata scopeMetadata = this.scopeMetadataResolver.resolveScopeMetadata(candidate);//bean的范围作用域，单例还是其他
                 candidate.setScope(scopeMetadata.getScopeName());
                 //bean的名字
                 String beanName = this.beanNameGenerator.generateBeanName(candidate, this.registry);
@@ -318,8 +315,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
                 if (candidate instanceof AnnotatedBeanDefinition) {
                     AnnotationConfigUtils.processCommonDefinitionAnnotations((AnnotatedBeanDefinition) candidate);
                 }
-                //检查这些后续的bean
-                if (checkCandidate(beanName, candidate)) {
+                if (checkCandidate(beanName, candidate)) {//检查这些后续的bean
                     BeanDefinitionHolder definitionHolder = new BeanDefinitionHolder(candidate, beanName);
                     definitionHolder =
                             AnnotationConfigUtils.applyScopedProxyMode(scopeMetadata, definitionHolder, this.registry);
@@ -380,6 +376,7 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
         }
         //已经存在的bean
         BeanDefinition existingDef = this.registry.getBeanDefinition(beanName);
+        //原始的beanDefinition
         BeanDefinition originatingDef = existingDef.getOriginatingBeanDefinition();
         if (originatingDef != null) {
             existingDef = originatingDef;
@@ -411,8 +408,8 @@ public class ClassPathBeanDefinitionScanner extends ClassPathScanningCandidateCo
      */
     protected boolean isCompatible(BeanDefinition newDefinition, BeanDefinition existingDefinition) {
         return (!(existingDefinition instanceof ScannedGenericBeanDefinition) ||  // explicitly registered overriding bean 显式注册覆盖bean
-                newDefinition.getSource().equals(existingDefinition.getSource()) ||  // scanned same file twice
-                newDefinition.equals(existingDefinition));  // scanned equivalent class twice
+                newDefinition.getSource().equals(existingDefinition.getSource()) ||  // scanned same file twice 扫描了两次
+                newDefinition.equals(existingDefinition));  // scanned equivalent class twice 扫描的是相等的beanDefinition
     }
 
 

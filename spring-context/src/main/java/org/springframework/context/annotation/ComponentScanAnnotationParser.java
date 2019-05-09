@@ -131,7 +131,7 @@ class ComponentScanAnnotationParser {
 			scanner.getBeanDefinitionDefaults().setLazyInit(true);
 		}
 
-		//处理basePackag
+		//处理basePackages
 		Set<String> basePackages = new LinkedHashSet<String>();
 		String[] basePackagesArray = componentScan.getStringArray("basePackages");
 		for (String pkg : basePackagesArray) {

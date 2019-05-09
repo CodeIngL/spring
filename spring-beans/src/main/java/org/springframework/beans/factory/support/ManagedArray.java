@@ -23,8 +23,7 @@ import org.springframework.util.Assert;
  * include runtime bean references (to be resolved into bean objects).
  *
  * <p>
- *     用于保存托管数组元素的标记集合类，可以包括运行时bean引用（要解析为bean对象）。
- * </p>
+ *     用于保存托管数组元素的标记集合类，可以包括运行时bean的引用（要解析为bean对象）。
  *
  * @author Juergen Hoeller
  * @since 3.0

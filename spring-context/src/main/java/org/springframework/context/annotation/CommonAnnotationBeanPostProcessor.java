@@ -624,6 +624,9 @@ public class CommonAnnotationBeanPostProcessor extends InitDestroyAnnotationBean
 	/**
 	 * Class representing injection information about an annotated field
 	 * or setter method, supporting the @Resource annotation.
+	 * <p>
+	 *     表示注释字段或setter方法的注入信息的类，支持@Resource注释。
+	 * </p>
 	 */
 	private class ResourceElement extends LookupElement {
 

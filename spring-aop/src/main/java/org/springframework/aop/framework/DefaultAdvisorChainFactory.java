@@ -39,10 +39,10 @@ import org.springframework.aop.support.MethodMatchers;
  * caching can be provided by subclasses.
  *
  * <p>
- *     在给定Advised对象的情况下，为Method制定建议链的简单但明确的方法。
+ *     在给定{@link Advised}对象的情况下，为Method制定advice chain的简单但明确的方法。
  * </p>
  * <p>
- *     始终重建每个建议链; 缓存可以由子类提供
+ *     始终重建每个advice chain; 缓存可以由子类提供
  * </p>
  *
  * @author Juergen Hoeller
@@ -59,22 +59,26 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 
 		// This is somewhat tricky... We have to process introductions first,
 		// but we need to preserve order in the ultimate list.
-		List<Object> interceptorList = new ArrayList<Object>(config.getAdvisors().length);
-		Class<?> actualClass = (targetClass != null ? targetClass : method.getDeclaringClass());
-		boolean hasIntroductions = hasMatchingIntroductions(config, actualClass);
+		// 这有点棘手......我们必须首先处理introductions，但我们需要保留最终列表中的顺序。
+		List<Object> interceptorList = new ArrayList<Object>(config.getAdvisors().length); //拦截器列表
+		Class<?> actualClass = (targetClass != null ? targetClass : method.getDeclaringClass()); //实际的类
+		boolean hasIntroductions = hasMatchingIntroductions(config, actualClass); //存在IntroductionAdvisor匹配上
+		//获得全局注册表
 		AdvisorAdapterRegistry registry = GlobalAdvisorAdapterRegistry.getInstance();
 
 		for (Advisor advisor : config.getAdvisors()) {
 			if (advisor instanceof PointcutAdvisor) {
 				// Add it conditionally.
+				// 有条件地添加它
 				PointcutAdvisor pointcutAdvisor = (PointcutAdvisor) advisor;
-				if (config.isPreFiltered() || pointcutAdvisor.getPointcut().getClassFilter().matches(actualClass)) {
-					MethodInterceptor[] interceptors = registry.getInterceptors(advisor);
-					MethodMatcher mm = pointcutAdvisor.getPointcut().getMethodMatcher();
-					if (MethodMatchers.matches(mm, method, actualClass, hasIntroductions)) {
-						if (mm.isRuntime()) {
+				if (config.isPreFiltered() || pointcutAdvisor.getPointcut().getClassFilter().matches(actualClass)) {//首先类匹配
+					MethodInterceptor[] interceptors = registry.getInterceptors(advisor); //获得方法拦截器
+					MethodMatcher mm = pointcutAdvisor.getPointcut().getMethodMatcher(); //获得方法上匹配
+					if (MethodMatchers.matches(mm, method, actualClass, hasIntroductions)) { //需要匹配方法
+						if (mm.isRuntime()) { //运行时操作的
 							// Creating a new object instance in the getInterceptors() method
 							// isn't a problem as we normally cache created chains.
+							// 在getInterceptors()方法中创建一个新的对象实例不是问题，因为我们通常会缓存创建的链。
 							for (MethodInterceptor interceptor : interceptors) {
 								interceptorList.add(new InterceptorAndDynamicMethodMatcher(interceptor, mm));
 							}
@@ -87,12 +91,12 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 			}
 			else if (advisor instanceof IntroductionAdvisor) {
 				IntroductionAdvisor ia = (IntroductionAdvisor) advisor;
-				if (config.isPreFiltered() || ia.getClassFilter().matches(actualClass)) {
+				if (config.isPreFiltered() || ia.getClassFilter().matches(actualClass)) { //类匹配
 					Interceptor[] interceptors = registry.getInterceptors(advisor);
 					interceptorList.addAll(Arrays.asList(interceptors));
 				}
 			}
-			else {
+			else {//普通
 				Interceptor[] interceptors = registry.getInterceptors(advisor);
 				interceptorList.addAll(Arrays.asList(interceptors));
 			}
@@ -103,6 +107,9 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 
 	/**
 	 * Determine whether the Advisors contain matching introductions.
+	 * <p>
+	 *     确定Advisors是否包含匹配的introductions。
+	 * </p>
 	 */
 	private static boolean hasMatchingIntroductions(Advised config, Class<?> actualClass) {
 		for (int i = 0; i < config.getAdvisors().length; i++) {

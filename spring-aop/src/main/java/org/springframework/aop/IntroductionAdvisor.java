@@ -26,36 +26,38 @@ package org.springframework.aop;
  * (not implemented by a target) via AOP advice.
  *
  * <p>
- *     对于执行一个或多个AOP介绍的顾问的超级接口。
+ * 对于执行一个或多个AOP introductions 的advisors的超级接口。
  * </p>
  * <p>
- *     这个接口不能直接实现; 子接口必须提供实现引言的建议类型。
+ * 这个接口不能直接实现; 子接口必须提供实现introduction的advice type。
  * </p>
  * <p>
- *      简介是通过AOP建议实现其他接口（不是由目标实现）。
+ * Introduction是通过AOP advice 实现的额外接口（不是由目标实现）。
  * </p>
  *
  * @author Rod Johnson
- * @since 04.04.2003
  * @see IntroductionInterceptor
+ * @since 04.04.2003
  */
 public interface IntroductionAdvisor extends Advisor, IntroductionInfo {
 
-	/**
-	 * Return the filter determining which target classes this introduction
-	 * should apply to.
-	 * <p>This represents the class part of a pointcut. Note that method
-	 * matching doesn't make sense to introductions.
-	 * @return the class filter
-	 */
-	ClassFilter getClassFilter();
+    /**
+     * Return the filter determining which target classes this introduction
+     * should apply to.
+     * <p>This represents the class part of a pointcut. Note that method
+     * matching doesn't make sense to introductions.
+     *
+     * @return the class filter
+     */
+    ClassFilter getClassFilter();
 
-	/**
-	 * Can the advised interfaces be implemented by the introduction advice?
-	 * Invoked before adding an IntroductionAdvisor.
-	 * @throws IllegalArgumentException if the advised interfaces can't be
-	 * implemented by the introduction advice
-	 */
-	void validateInterfaces() throws IllegalArgumentException;
+    /**
+     * Can the advised interfaces be implemented by the introduction advice?
+     * Invoked before adding an IntroductionAdvisor.
+     *
+     * @throws IllegalArgumentException if the advised interfaces can't be
+     *                                  implemented by the introduction advice
+     */
+    void validateInterfaces() throws IllegalArgumentException;
 
 }

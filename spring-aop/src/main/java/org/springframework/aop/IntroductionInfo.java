@@ -25,15 +25,25 @@ package org.springframework.aop;
  * In this case, the advice is self-describing, providing not only the
  * necessary behavior, but describing the interfaces it introduces.
  *
+ * <p>
+ * 提供描述介绍所需信息的接口。
+ * </p>
+ * <p>
+ * {@link IntroductionAdvisor IntroductionAdvisors}必须实现此接口。
+ * 如果一个{@link org.aopalliance.aop.Advice}类实现了这个类，它可以用作没有{@link IntroductionAdvisor}的introduction。
+ * 在这种情况下，advice是自描述的，不仅提供必要的行为，而且描述它introduces的接口
+ * </p>
+ *
  * @author Rod Johnson
  * @since 1.1.1
  */
 public interface IntroductionInfo {
 
-	/**
-	 * Return the additional interfaces introduced by this Advisor or Advice.
-	 * @return the introduced interfaces
-	 */
-	Class<?>[] getInterfaces();
+    /**
+     * Return the additional interfaces introduced by this Advisor or Advice.
+     *
+     * @return the introduced interfaces
+     */
+    Class<?>[] getInterfaces();
 
 }

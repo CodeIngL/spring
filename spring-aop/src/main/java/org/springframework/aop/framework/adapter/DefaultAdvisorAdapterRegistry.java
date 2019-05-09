@@ -58,12 +58,12 @@ public class DefaultAdvisorAdapterRegistry implements AdvisorAdapterRegistry, Se
 		if (adviceObject instanceof Advisor) {  //是Advisor 直接返回
 			return (Advisor) adviceObject;
 		}
-		if (!(adviceObject instanceof Advice)) { //不是Advice就是非法的
+		if (!(adviceObject instanceof Advice)) { //不是Advice是非法的
 			throw new UnknownAdviceTypeException(adviceObject);
 		}
 		Advice advice = (Advice) adviceObject;
-		if (advice instanceof MethodInterceptor) { //是方法接口
-			// So well-known it doesn't even need an adapter. //众所周知它甚至不需要适配器。
+		if (advice instanceof MethodInterceptor) { //是MethodInterceptor
+			// So well-known it doesn't even need an adapter. //众所周知它甚至不需要适配器，构建了总是DefaultPointcutAdvisor
 			return new DefaultPointcutAdvisor(advice);
 		}
 		for (AdvisorAdapter adapter : this.adapters) {

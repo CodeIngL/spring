@@ -285,8 +285,7 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 			//确切的搜索路径
 			String packageSearchPath = ResourcePatternResolver.CLASSPATH_ALL_URL_PREFIX +
 					resolveBasePackage(basePackage) + '/' + this.resourcePattern;
-			//转换为资源
-			Resource[] resources = this.resourcePatternResolver.getResources(packageSearchPath);
+			Resource[] resources = this.resourcePatternResolver.getResources(packageSearchPath);//转换为资源
 			boolean traceEnabled = logger.isTraceEnabled();
 			boolean debugEnabled = logger.isDebugEnabled();
 			//对资源的处理
@@ -299,15 +298,14 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 						//特别好，这里可以选择不加载这个类
 						MetadataReader metadataReader = this.metadataReaderFactory.getMetadataReader(resource);
 						if (isCandidateComponent(metadataReader)) { //能够匹配
-							//构造的都是ScannedGenericBeanDefinition
-							ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);
+							ScannedGenericBeanDefinition sbd = new ScannedGenericBeanDefinition(metadataReader);//构造的都是ScannedGenericBeanDefinition
 							sbd.setResource(resource);
 							sbd.setSource(resource);
-							if (isCandidateComponent(sbd)) {
+							if (isCandidateComponent(sbd)) { //是一个候选类
 								if (debugEnabled) {
 									logger.debug("Identified candidate component class: " + resource);
 								}
-								candidates.add(sbd);
+								candidates.add(sbd); //加入
 							}
 							else {
 								if (debugEnabled) {
@@ -362,17 +360,16 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 	 * @return whether the class qualifies as a candidate component
 	 */
 	protected boolean isCandidateComponent(MetadataReader metadataReader) throws IOException {
-		//先使用排除过滤器
+		//先应用excludeFilter
 		for (TypeFilter tf : this.excludeFilters) {
 			if (tf.match(metadataReader, this.metadataReaderFactory)) {
 				return false;
 			}
 		}
-		//后使用包含过滤器
+		//再使用includeFilter
 		for (TypeFilter tf : this.includeFilters) {
-			if (tf.match(metadataReader, this.metadataReaderFactory)) {
-				//再使用Condition来判断是否需要加载
-				return isConditionMatch(metadataReader);
+			if (tf.match(metadataReader, this.metadataReaderFactory)) { //匹配后，再匹配Condition
+				return isConditionMatch(metadataReader);//再使用Condition来判断是否需要加载这个配置类
 			}
 		}
 		return false;

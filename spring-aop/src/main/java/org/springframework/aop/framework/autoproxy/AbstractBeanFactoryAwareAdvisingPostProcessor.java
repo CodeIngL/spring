@@ -31,10 +31,10 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
  * This post-processor is therefore aligned with {@link AbstractAutoProxyCreator}.
  *
  * <p>
- *     实现BeanFactoryAware的AbstractAutoProxyCreator的扩展，
- *     为每个代理bean添加了原始目标类的暴露（AutoProxyUtils.ORIGINAL_TARGET_CLASS_ATTRIBUTE），
- *     并参与任何给定bean的外部强制目标类模式（AutoProxyUtils.PRESERVE_TARGET_CLASS_ATTRIBUTE）。
- *     因此，此后处理器与AbstractAutoProxyCreator对齐
+ *     实现{@link BeanFactoryAware}的{@link AbstractAutoProxyCreator}的扩展，
+ *     为每个代理bean添加了原始目标类的暴露({@link AutoProxyUtils#ORIGINAL_TARGET_CLASS_ATTRIBUTE})，
+ *     并参与任何给定bean的外部强制目标类模式({@link AutoProxyUtils#PRESERVE_TARGET_CLASS_ATTRIBUTE})。
+ *     因此，此后处理器与{@link AbstractAutoProxyCreator}对齐
  * </p>
  *
  * @author Juergen Hoeller

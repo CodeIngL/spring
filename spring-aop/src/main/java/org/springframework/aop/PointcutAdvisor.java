@@ -22,7 +22,7 @@ package org.springframework.aop;
  * for which method-level matching doesn't apply.
  *
  * <p>
- *     由切入点驱动的所有顾问的超级接口。 这涵盖几乎所有顾问，除了介绍顾问，方法级别匹配不适用
+ *     由pointcut驱动的all advisors的超级接口。 这涵盖几乎all advisors，除了introduction advisors(不适用方法级别匹配)
  * </p>
  * @author Rod Johnson
  */

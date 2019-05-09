@@ -85,6 +85,9 @@ public abstract class MethodMatchers {
 	 * the candidate class must be taken to be the method's declaring class)
 	 * @param hasIntroductions {@code true} if the object on whose behalf we are
 	 * asking is the subject on one or more introductions; {@code false} otherwise
+	 * <p>
+	 *                                     如果我们要求的对象是一个或多个introductions，则为{@code true}; 否则是{@code false}
+	 * </p>
 	 * @return whether or not this method matches statically
 	 */
 	public static boolean matches(MethodMatcher mm, Method method, Class<?> targetClass, boolean hasIntroductions) {

@@ -86,8 +86,8 @@ public class ContextAnnotationAutowireCandidateResolver extends QualifierAnnotat
 	/**
 	 *
 	 * 构建lazy代理
-	 * @param descriptor
-	 * @param beanName
+	 * @param descriptor 待注入的描述
+	 * @param beanName 要求注入的原始bean
 	 * @return
 	 */
 	protected Object buildLazyResolutionProxy(final DependencyDescriptor descriptor, final String beanName) {

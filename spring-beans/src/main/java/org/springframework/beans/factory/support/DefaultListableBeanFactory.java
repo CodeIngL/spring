@@ -789,6 +789,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		// Trigger initialization of all non-lazy singleton beans...
 		for (String beanName : beanNames) {
 			RootBeanDefinition bd = getMergedLocalBeanDefinition(beanName);
+			//单例不是lazy，lazy不加载。因此不注入，注解的lazy是不一样的
 			if (!bd.isAbstract() && bd.isSingleton() && !bd.isLazyInit()) {
 				if (isFactoryBean(beanName)) {
 					final FactoryBean<?> factory = (FactoryBean<?>) getBean(FACTORY_BEAN_PREFIX + beanName);
@@ -841,6 +842,12 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	// Implementation of BeanDefinitionRegistry interface
 	//---------------------------------------------------------------------
 
+	/**
+	 * 存在优先的说法
+	 * @param beanName the name of the bean instance to register
+	 * @param beanDefinition definition of the bean instance to register
+	 * @throws BeanDefinitionStoreException
+	 */
 	@Override
 	public void registerBeanDefinition(String beanName, BeanDefinition beanDefinition)
 			throws BeanDefinitionStoreException {
@@ -859,17 +866,14 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 
 		BeanDefinition oldBeanDefinition;
-		//已存在的可能的老的bean的定义
-		oldBeanDefinition = this.beanDefinitionMap.get(beanName);
+		oldBeanDefinition = this.beanDefinitionMap.get(beanName);//已存在的同名BeanDefinition
 		if (oldBeanDefinition != null) {
-			//存在需要设置运行覆盖的策略，否则就会报错
-			if (!isAllowBeanDefinitionOverriding()) {
+			if (!isAllowBeanDefinitionOverriding()) {//设置运行覆盖，默认支持
 				throw new BeanDefinitionStoreException(beanDefinition.getResourceDescription(), beanName,
 						"Cannot register bean definition [" + beanDefinition + "] for bean '" + beanName +
 						"': There is already [" + oldBeanDefinition + "] bound.");
 			}
-			//因为充当的角色不同造成的覆盖，用户即将覆盖内部的bean
-			else if (oldBeanDefinition.getRole() < beanDefinition.getRole()) {
+			else if (oldBeanDefinition.getRole() < beanDefinition.getRole()) {//不同角色的beanDefinition的定义，用户级别即将覆盖内部级别的beanDefinition
 				// e.g. was ROLE_APPLICATION, now overriding with ROLE_SUPPORT or ROLE_INFRASTRUCTURE
 				if (this.logger.isWarnEnabled()) {
 					this.logger.warn("Overriding user-defined bean definition for bean '" + beanName +
@@ -877,8 +881,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 							oldBeanDefinition + "] with [" + beanDefinition + "]");
 				}
 			}
-			//两个是不同的bean，将会覆盖
-			else if (!beanDefinition.equals(oldBeanDefinition)) {
+			else if (!beanDefinition.equals(oldBeanDefinition)) {//两个是不同的bean，将会覆盖
 				if (this.logger.isInfoEnabled()) {
 					this.logger.info("Overriding bean definition for bean '" + beanName +
 							"' with a different definition: replacing [" + oldBeanDefinition +
@@ -898,15 +901,14 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 		}
 		else {
 			if (hasBeanCreationStarted()) { //bean创建是否已经开始了
-				// Cannot modify startup-time collection elements anymore (for stable iteration)
-				// 无法再修改启动时集合元素（用于稳定迭代）
+				// Cannot modify startup-time collection elements anymore (for stable iteration) 无法再修改启动时集合元素（用于稳定迭代）
 				synchronized (this.beanDefinitionMap) {
 					this.beanDefinitionMap.put(beanName, beanDefinition);
 					List<String> updatedDefinitions = new ArrayList<String>(this.beanDefinitionNames.size() + 1);
 					updatedDefinitions.addAll(this.beanDefinitionNames);
 					updatedDefinitions.add(beanName);
 					this.beanDefinitionNames = updatedDefinitions;
-					if (this.manualSingletonNames.contains(beanName)) {
+					if (this.manualSingletonNames.contains(beanName)) { //手动的有了，移除手动的名字集合
 						Set<String> updatedSingletons = new LinkedHashSet<String>(this.manualSingletonNames);
 						updatedSingletons.remove(beanName);
 						this.manualSingletonNames = updatedSingletons;
@@ -1115,7 +1117,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	 * @param descriptor         the descriptor for the dependency (field/method/constructor)
 	 * @param requestingBeanName the name of the bean which declares the given dependency
 	 * @param autowiredBeanNames a Set that all names of autowired beans (used for
-	 *                           resolving the given dependency) are supposed to be added to
+	 *                           resolving the given dependency) are supposed to be added to 应该添加自动装配bean的所有名称（用于解析给定的依赖关系）的Set
 	 * @param typeConverter      the TypeConverter to use for populating arrays and collections
 	 * @return
 	 * @throws BeansException
@@ -1152,9 +1154,9 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	/**
 	 *
 	 * 解析依赖项的主体逻辑
-	 * @param descriptor
-	 * @param beanName
-	 * @param autowiredBeanNames
+	 * @param descriptor 原始bean依赖的的描述
+	 * @param beanName 原始bean
+	 * @param autowiredBeanNames 解析处理的依赖将加入这个set中
 	 * @param typeConverter
 	 * @return
 	 * @throws BeansException
@@ -1188,6 +1190,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 						converter.convertIfNecessary(value, type, descriptor.getField()) :
 						converter.convertIfNecessary(value, type, descriptor.getMethodParameter()));
 			}
+			//-------------没有建议值
 
 			//是否为复杂类型，array，list，map
 			Object multipleBeans = resolveMultipleBeans(descriptor, beanName, autowiredBeanNames, typeConverter);
@@ -1198,7 +1201,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			//找到候选的bean
 			Map<String, Object> matchingBeans = findAutowireCandidates(beanName, type, descriptor);
 			if (matchingBeans.isEmpty()) {
-				if (isRequired(descriptor)) {
+				if (isRequired(descriptor)) { //要求的，必须有注入
 					raiseNoMatchingBeanFound(type, descriptor.getResolvableType(), descriptor);
 				}
 				return null;
@@ -1236,6 +1239,7 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 			if (autowiredBeanNames != null) {
 				autowiredBeanNames.add(autowiredBeanName);
 			}
+			//后续这实例不是class，则解析出对象
 			return (instanceCandidate instanceof Class ?
 					descriptor.resolveCandidate(autowiredBeanName, type, this) : instanceCandidate);
 		}
@@ -1442,10 +1446,11 @@ public class DefaultListableBeanFactory extends AbstractAutowireCapableBeanFacto
 	private void addCandidateEntry(Map<String, Object> candidates, String candidateName,
 			DependencyDescriptor descriptor, Class<?> requiredType) {
 
-		if (descriptor instanceof MultiElementDescriptor || containsSingleton(candidateName)) {
+		if (descriptor instanceof MultiElementDescriptor || containsSingleton(candidateName)) {//获得对象
 			candidates.put(candidateName, descriptor.resolveCandidate(candidateName, requiredType, this));
 		}
 		else {
+			//获得类型
 			candidates.put(candidateName, getType(candidateName));
 		}
 	}

@@ -370,7 +370,6 @@ class BeanDefinitionValueResolver {
 	 * Resolve a reference to another bean in the factory.
 	 * <p>
 	 *     解析对工厂中另一个bean的引用。
-	 * </p>
 	 */
 	private Object resolveReference(Object argName, RuntimeBeanReference ref) {
 		try {

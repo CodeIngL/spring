@@ -22,6 +22,8 @@ import org.springframework.core.env.PropertySource;
 
 /**
  * Strategy interface for creating resource-based {@link PropertySource} wrappers.
+ * <p>
+ *     用于创建基于资源的PropertySource包装器的策略接口。
  *
  * @author Juergen Hoeller
  * @since 4.3

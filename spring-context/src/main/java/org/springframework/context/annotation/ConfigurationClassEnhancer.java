@@ -288,6 +288,8 @@ class ConfigurationClassEnhancer {
 	/**
 	 * Intercepts the invocation of any {@link BeanFactoryAware#setBeanFactory(BeanFactory)} on
 	 * {@code @Configuration} class instances for the purpose of recording the {@link BeanFactory}.
+	 * <p>
+	 *     为了记录BeanFactory，截取@Configuration类实例上任何{@link BeanFactoryAware#setBeanFactory(BeanFactory)} 的调用。
 	 * @see EnhancedConfiguration
 	 */
 	private static class BeanFactoryAwareMethodInterceptor implements MethodInterceptor, ConditionalCallback {
@@ -416,6 +418,7 @@ class ConfigurationClassEnhancer {
 					// Stubbed null arguments just for reference purposes,
 					// expecting them to be autowired for regular singleton references?
 					// A safe assumption since @Bean singleton arguments cannot be optional...
+					// 被引用的空参数仅用于参考目的，期望它们被自动装配用于常规单例引用？ 一个安全的假设，因为@Bean单例参数不能是可选的......
 					for (Object arg : beanMethodArgs) {
 						if (arg == null) {
 							useArgs = false;

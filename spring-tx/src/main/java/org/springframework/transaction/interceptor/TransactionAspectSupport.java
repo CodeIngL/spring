@@ -281,7 +281,7 @@ public abstract class TransactionAspectSupport implements BeanFactoryAware, Init
 	 * as well as regular {@link PlatformTransactionManager} implementations.
 	 * <p>
 	 *     一般代表基于around-advice的子类，委托给这个类的其他几个模板方法。
-	 *     能够处理CallbackPreferringPlatformTransactionManager以及常规的PlatformTransactionManager实现。
+	 *     能够处理{@link CallbackPreferringPlatformTransactionManager}以及常规的 {@link PlatformTransactionManager}实现。
 	 * </p>
 	 * @param method the Method being invoked 将被调用的可能的用户的方法
 	 * @param targetClass the target class that we're invoking the method on 目标方法所属的类
