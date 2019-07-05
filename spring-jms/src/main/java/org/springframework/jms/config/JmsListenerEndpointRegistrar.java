@@ -129,6 +129,9 @@ public class JmsListenerEndpointRegistrar implements BeanFactoryAware, Initializ
 	}
 
 
+	/**
+	 * 触发注册所有的端点
+	 */
 	@Override
 	public void afterPropertiesSet() {
 		registerAllEndpoints();
@@ -139,10 +142,12 @@ public class JmsListenerEndpointRegistrar implements BeanFactoryAware, Initializ
 	 */
 	protected void registerAllEndpoints() {
 		synchronized (this.mutex) {
+			//开始描述符。
 			for (JmsListenerEndpointDescriptor descriptor : this.endpointDescriptors) {
 				this.endpointRegistry.registerListenerContainer(
 						descriptor.endpoint, resolveContainerFactory(descriptor));
 			}
+			//一旦被调用，后来的再次注册都进行直接的启动
 			this.startImmediately = true;  // trigger immediate startup
 		}
 	}

@@ -41,6 +41,7 @@ import org.springframework.jms.config.JmsListenerEndpointRegistry;
 @Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 public class JmsBootstrapConfiguration {
 
+	//内部结构请不要使用这个内部结构，构建了处理器去进行处理
 	@Bean(name = JmsListenerConfigUtils.JMS_LISTENER_ANNOTATION_PROCESSOR_BEAN_NAME)
 	@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 	public JmsListenerAnnotationBeanPostProcessor jmsListenerAnnotationProcessor() {

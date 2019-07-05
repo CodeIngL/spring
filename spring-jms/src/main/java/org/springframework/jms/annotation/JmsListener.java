@@ -122,6 +122,15 @@ public @interface JmsListener {
 	 * <p>Note that the underlying container may or may not support all features.
 	 * For instance, it may not be able to scale, in which case only the upper limit
 	 * is used.
+	 * <p>
+	 *     侦听器的并发限制（如果有）。 覆盖用于创建侦听器容器的容器工厂定义的值。
+	 * </p>
+	 * <p>
+	 * 并发限制可以是“低 - 高”字符串 - 例如，“5-10” - 或简单的上限字符串 - 例如，“10”，在这种情况下，下限将为1。
+	 * </p>
+	 * <p>
+	 * 请注意，底层容器可能支持也可能不支持所有功能。 例如，它可能无法缩放，在这种情况下仅使用上限
+	 * </p>
 	 */
 	String concurrency() default "";
 

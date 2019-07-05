@@ -80,6 +80,7 @@ public abstract class AbstractJmsListeningContainer extends JmsDestinationAccess
 
 	private final List<Object> pausedTasks = new LinkedList<Object>();
 
+	//Ëø
 	protected final Object lifecycleMonitor = new Object();
 
 
@@ -153,6 +154,9 @@ public abstract class AbstractJmsListeningContainer extends JmsDestinationAccess
 
 	/**
 	 * Delegates to {@link #validateConfiguration()} and {@link #initialize()}.
+	 * <p>
+	 *     Î¯ÍÐ{@link #validateConfiguration()} ºÍ{@link #initialize()}¡£
+	 * </p>
 	 */
 	@Override
 	public void afterPropertiesSet() {
@@ -264,6 +268,7 @@ public abstract class AbstractJmsListeningContainer extends JmsDestinationAccess
 
 	/**
 	 * Start this container.
+	 * //¿ªÆôÈÝÆ÷
 	 * @throws JmsException if starting failed
 	 * @see #doStart
 	 */
@@ -610,6 +615,9 @@ public abstract class AbstractJmsListeningContainer extends JmsDestinationAccess
 	/**
 	 * Return whether a shared JMS Connection should be maintained
 	 * by this container base class.
+	 * <p>
+	 *
+	 * </p>
 	 * @see #getSharedConnection()
 	 */
 	protected abstract boolean sharedConnectionEnabled();

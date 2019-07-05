@@ -80,6 +80,11 @@ public class DefaultJcaListenerContainerFactory extends JmsActivationSpecConfig
 	}
 
 
+	/**
+	 *
+	 * @param endpoint the endpoint to configure
+	 * @return
+	 */
 	@Override
 	public JmsMessageEndpointManager createListenerContainer(JmsListenerEndpoint endpoint) {
 		if (this.destinationResolver != null && this.activationSpecFactory != null) {

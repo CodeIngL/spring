@@ -22,6 +22,9 @@ import org.springframework.jms.listener.MessageListenerContainer;
  * Factory of {@link MessageListenerContainer} based on a
  * {@link JmsListenerEndpoint} definition.
  *
+ * <p>
+ *     {@link MessageListenerContainer}的工厂基于{@link JmsListenerEndpoint}定义。
+ * </p>
  * @author Stephane Nicoll
  * @since 4.1
  * @see JmsListenerEndpoint

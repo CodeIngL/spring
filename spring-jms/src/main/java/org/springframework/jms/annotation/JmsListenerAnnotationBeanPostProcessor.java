@@ -222,8 +222,11 @@ public class JmsListenerAnnotationBeanPostProcessor
 	 */
 	@Override
 	public Object postProcessAfterInitialization(final Object bean, String beanName) throws BeansException {
+		//如果一个类不存在相关的注解被处理过了。下一次会直接跳过，因为我们知道这个类是不在拥有这个注解
 		if (!this.nonAnnotatedClasses.contains(bean.getClass())) {
+			//获得目标类
 			Class<?> targetClass = AopUtils.getTargetClass(bean);
+			//选择相关的方法
 			Map<Method, Set<JmsListener>> annotatedMethods = MethodIntrospector.selectMethods(targetClass,
 					new MethodIntrospector.MetadataLookup<Set<JmsListener>>() {
 						@Override
@@ -234,6 +237,7 @@ public class JmsListenerAnnotationBeanPostProcessor
 						}
 					});
 			if (annotatedMethods.isEmpty()) {
+				//不存在，我们添加这个类到相关的集合里面
 				this.nonAnnotatedClasses.add(bean.getClass());
 				if (logger.isTraceEnabled()) {
 					logger.trace("No @JmsListener annotations found on bean type: " + bean.getClass());
@@ -241,9 +245,11 @@ public class JmsListenerAnnotationBeanPostProcessor
 			}
 			else {
 				// Non-empty set of methods
+				//存在相关的方法
 				for (Map.Entry<Method, Set<JmsListener>> entry : annotatedMethods.entrySet()) {
 					Method method = entry.getKey();
 					for (JmsListener listener : entry.getValue()) {
+						//让我们一个个处理注解和携带他的方法，我们使用这个bean来进行处理哦
 						processJmsListener(listener, method, bean);
 					}
 				}
@@ -260,10 +266,10 @@ public class JmsListenerAnnotationBeanPostProcessor
 	 * Process the given {@link JmsListener} annotation on the given method,
 	 * registering a corresponding endpoint for the given bean instance.
 	 * <p>
-	 *     在给定方法上处理给定的JmsListener注释，为给定的bean实例注册相应的端点。
-	 * @param jmsListener the annotation to process
-	 * @param mostSpecificMethod the annotated method
-	 * @param bean the instance to invoke the method on
+	 *     在给定方法上处理给定的JmsListener注解，为给定的bean实例注册相应的端点。
+	 * @param jmsListener the annotation to process 待处理的注解
+	 * @param mostSpecificMethod the annotated method 指定的方法
+	 * @param bean the instance to invoke the method on 实际bean
 	 * @see #createMethodJmsListenerEndpoint()
 	 * @see JmsListenerEndpointRegistrar#registerEndpoint
 	 */
@@ -281,19 +287,25 @@ public class JmsListenerAnnotationBeanPostProcessor
 		endpoint.setEmbeddedValueResolver(this.embeddedValueResolver);
 		endpoint.setBeanFactory(this.beanFactory);
 		endpoint.setId(getEndpointId(jmsListener));
+		//监听的目标
 		endpoint.setDestination(resolve(jmsListener.destination()));
+		//jmsSelector存在
 		if (StringUtils.hasText(jmsListener.selector())) {
+			//设置Selector
 			endpoint.setSelector(resolve(jmsListener.selector()));
 		}
+		//持久化订阅
 		if (StringUtils.hasText(jmsListener.subscription())) {
 			endpoint.setSubscription(resolve(jmsListener.subscription()));
 		}
+		//并发限制
 		if (StringUtils.hasText(jmsListener.concurrency())) {
 			endpoint.setConcurrency(resolve(jmsListener.concurrency()));
 		}
 
 		//构建factory
 		JmsListenerContainerFactory<?> factory = null;
+		//获得factoryBeanName的名字
 		String containerFactoryBeanName = resolve(jmsListener.containerFactory());
 		if (StringUtils.hasText(containerFactoryBeanName)) {
 			Assert.state(this.beanFactory != null, "BeanFactory must be set to obtain container factory by bean name");

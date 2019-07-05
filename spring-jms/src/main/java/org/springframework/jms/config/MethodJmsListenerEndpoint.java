@@ -47,10 +47,13 @@ import org.springframework.util.StringValueResolver;
  */
 public class MethodJmsListenerEndpoint extends AbstractJmsListenerEndpoint implements BeanFactoryAware {
 
+	//endpoint由那个bean产生
 	private Object bean;
 
+	//对饮的方法
 	private Method method;
 
+	//对应的方法，一般来说是一样的
 	private Method mostSpecificMethod;
 
 	private MessageHandlerMethodFactory messageHandlerMethodFactory;
@@ -71,6 +74,9 @@ public class MethodJmsListenerEndpoint extends AbstractJmsListenerEndpoint imple
 
 	/**
 	 * Set the method to invoke for processing a message managed by this endpoint.
+	 * <p>
+	 *     设置要调用的方法以处理此端点管理的消息。
+	 * </p>
 	 */
 	public void setMethod(Method method) {
 		this.method = method;
@@ -84,6 +90,10 @@ public class MethodJmsListenerEndpoint extends AbstractJmsListenerEndpoint imple
 	 * Set the most specific method known for this endpoint's declaration.
 	 * <p>In case of a proxy, this will be the method on the target class
 	 * (if annotated itself, that is, if not just annotated in an interface).
+	 * <p0>
+	 *     设置此端点声明的最具体方法。
+	 * 在代理的情况下，这将是目标类上的方法（如果注解本身，即，如果不是仅在接口中注解）。
+	 * </p0>
 	 * @since 4.2.3
 	 */
 	public void setMostSpecificMethod(Method mostSpecificMethod) {

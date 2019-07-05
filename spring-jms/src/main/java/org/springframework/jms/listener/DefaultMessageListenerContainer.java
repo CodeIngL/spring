@@ -829,6 +829,9 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	/**
 	 * Determine whether this listener container currently has more
 	 * than one idle instance among its scheduled invokers.
+	 * <p>
+	 *     确定此侦听器容器当前是否在其计划的调用程序中具有多个空闲实例。
+	 * </p>
 	 */
 	private int getIdleInvokerCount() {
 		int count = 0;
@@ -1092,6 +1095,9 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 
 		private volatile boolean idle = true;
 
+		/**
+		 * 运行逻辑
+		 */
 		@Override
 		public void run() {
 			synchronized (lifecycleMonitor) {
@@ -1210,7 +1216,13 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 			return messageReceived;
 		}
 
+		/**
+		 * 调用监听
+		 * @return
+		 * @throws JMSException
+		 */
 		private boolean invokeListener() throws JMSException {
+			//如果必要我们重新初始化资源
 			initResourcesIfNecessary();
 			boolean messageReceived = receiveAndExecute(this, this.session, this.consumer);
 			this.lastMessageSucceeded = true;
@@ -1234,6 +1246,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 					updateRecoveryMarker();
 					this.session = createSession(getSharedConnection());
 				}
+				//
 				if (this.consumer == null && getCacheLevel() >= CACHE_CONSUMER) {
 					this.consumer = createListenerConsumer(this.session);
 					synchronized (lifecycleMonitor) {
