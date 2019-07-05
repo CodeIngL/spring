@@ -133,14 +133,19 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 	 */
 	private HandlerMethodReturnValueHandlerComposite returnValueHandlers;
 
+	//model和View解析器
 	private List<ModelAndViewResolver> modelAndViewResolvers;
 
+	//内容协商处理器
 	private ContentNegotiationManager contentNegotiationManager = new ContentNegotiationManager();
 
+	//消息转换器
 	private List<HttpMessageConverter<?>> messageConverters;
 
+	//对使用request和ResponseBody处理的advice
 	private List<Object> requestResponseBodyAdvice = new ArrayList<Object>();
 
+	//数据绑定初始器
 	private WebBindingInitializer webBindingInitializer;
 
 	private AsyncTaskExecutor taskExecutor = new SimpleAsyncTaskExecutor("MvcAsync");
@@ -761,6 +766,15 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		return true;
 	}
 
+	/**
+	 * requestMap上对饮的对handle的内部逻辑处理
+	 * @param request current HTTP request
+	 * @param response current HTTP response
+	 * @param handlerMethod handler method to use. This object must have previously been passed to the
+	 * {@link #supportsInternal(HandlerMethod)} this interface, which must have returned {@code true}.
+	 * @return
+	 * @throws Exception
+	 */
 	@Override
 	protected ModelAndView handleInternal(HttpServletRequest request,
 			HttpServletResponse response, HandlerMethod handlerMethod) throws Exception {
@@ -971,7 +985,7 @@ public class RequestMappingHandlerAdapter extends AbstractHandlerMethodAdapter
 		//尝试从缓存中获得
 		Set<Method> methods = this.initBinderCache.get(handlerType);
 		if (methods == null) {
-			//筛选类中方法带有@InitBinder注解的方法，放入缓存中
+			//筛选产生HandlerMetho的实例类中方法带有@InitBinder注解的方法，放入缓存中
 			methods = MethodIntrospector.selectMethods(handlerType, INIT_BINDER_METHODS);
 			this.initBinderCache.put(handlerType, methods);
 		}
