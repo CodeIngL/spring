@@ -365,6 +365,17 @@ public abstract class AbstractAspectJAdvice implements Advice, AspectJPrecedence
 	 * value. We need to calculate which advice parameter needs to be bound
 	 * to which argument name. There are multiple strategies for determining
 	 * this binding, which are arranged in a ChainOfResponsibility.
+	 * <p>
+	 *     作为设置的一部分尽可能多地工作，以便对后续建议调用的参数绑定尽可能快。
+	 *     <P>
+	 * 如果第一个参数是JoinPoint或ProceedingJoinPoint类型，那么我们在该位置传递JoinPoint（ProceedingJoinPoint以获取建议）。
+	 *     </P>
+	 *     <P>
+	 * 如果第一个参数的类型为JoinPoint.StaticPart，那么我们在该位置传递JoinPoint.StaticPart。
+	 *     </P>
+	 *     <P>
+	 * 剩余的参数必须受到给定连接点处的切入点评估的约束。 我们将从参数名称到值返回一个映射。 我们需要计算哪个advice参数需要绑定到哪个参数名称。 有多种策略可用于确定此绑定，这些策略以ChainOfResponsibility排列。
+	 *     </P>
 	 */
 	public synchronized final void calculateArgumentBindings() {
 		// The simple case... nothing to bind.
