@@ -76,6 +76,9 @@ public class HandlerMethod {
 
 	/**
 	 * Create an instance from a bean instance and a method.
+	 * <p>
+	 *    从bean实例和相应的方法中构建HandlerMethod
+	 * </p>
 	 */
 	public HandlerMethod(Object bean, Method method) {
 		Assert.notNull(bean, "Bean is required");

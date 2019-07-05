@@ -26,16 +26,24 @@ import java.io.OutputStream;
  * <p>Typically implemented by an HTTP request handle on the client side,
  * or an HTTP response handle on the server side.
  *
+ * <p>
+ * 表示HTTP输入消息，由 {@linkplain #getHeaders() headers}和{@linkplain #getBody() body}组成。
+ * </p>
+ * <p>
+ * 通常由服务器端的HTTP请求句柄或客户端的HTTP响应句柄实现。
+ * </p>
+ *
  * @author Arjen Poutsma
  * @since 3.0
  */
 public interface HttpOutputMessage extends HttpMessage {
 
-	/**
-	 * Return the body of the message as an output stream.
-	 * @return the output stream body (never {@code null})
-	 * @throws IOException in case of I/O Errors
-	 */
-	OutputStream getBody() throws IOException;
+    /**
+     * Return the body of the message as an output stream.
+     *
+     * @return the output stream body (never {@code null})
+     * @throws IOException in case of I/O Errors
+     */
+    OutputStream getBody() throws IOException;
 
 }

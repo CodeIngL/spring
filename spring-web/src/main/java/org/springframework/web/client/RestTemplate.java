@@ -177,18 +177,27 @@ public class RestTemplate extends InterceptingHttpAccessor implements RestOperat
 			ClassUtils.isPresent("com.google.gson.Gson", RestTemplate.class.getClassLoader());
 
 
+	/**
+	 * 消息转换器
+	 */
 	private final List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
 
+	//错误响应处理器
 	private ResponseErrorHandler errorHandler = new DefaultResponseErrorHandler();
 
+	//uri模板处理器
 	private UriTemplateHandler uriTemplateHandler = new DefaultUriTemplateHandler();
 
+	//响应头导出器
 	private final ResponseExtractor<HttpHeaders> headersExtractor = new HeadersExtractor();
 
 
 	/**
 	 * Create a new instance of the {@link RestTemplate} using default settings.
 	 * Default {@link HttpMessageConverter}s are initialized.
+	 * <p>
+	 *     使用默认设置创建RestTemplate的新实例。 默认HttpMessageConverters已初始化。
+	 * </p>
 	 */
 	public RestTemplate() {
 		this.messageConverters.add(new ByteArrayHttpMessageConverter());
