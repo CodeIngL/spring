@@ -35,12 +35,12 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  *
  *
  * <p>
- *     NamespaceHandler允许使用XML或使用注解来配置声明式事务管理。
+ * NamespaceHandler允许使用XML或使用注解来配置声明式事务管理。
  * <p>
- *     这个命名空间处理程序是Spring事务管理工具中的核心功能，提供了两种声明式管理事务的方法。
- *  <p>
+ * 这个命名空间处理程序是Spring事务管理工具中的核心功能，提供了两种声明式管理事务的方法。
  * <p>
- *	   一种方法使用{@code <tx：advice>}元素使用XML中定义的事务语义，另一种方法使用注释与{@code <tx：annotation-driven>}元素结合使用。 在Spring参考手册中详细介绍了这两者。
+ * <p>
+ * 一种方法使用{@code <tx：advice>}元素使用XML中定义的事务语义，另一种方法使用注释与{@code <tx：annotation-driven>}元素结合使用。 在Spring参考手册中详细介绍了这两者。
  *
  * @author Rob Harrop
  * @author Juergen Hoeller
@@ -48,27 +48,28 @@ import org.springframework.beans.factory.xml.NamespaceHandlerSupport;
  */
 public class TxNamespaceHandler extends NamespaceHandlerSupport {
 
-	static final String TRANSACTION_MANAGER_ATTRIBUTE = "transaction-manager";
+    static final String TRANSACTION_MANAGER_ATTRIBUTE = "transaction-manager";
 
-	static final String DEFAULT_TRANSACTION_MANAGER_BEAN_NAME = "transactionManager";
-
-
-	/**
-	 * 获得事务管理器的名字，由属性transaction-manager决定，不定义则默认为transactionManager
-	 * @param element
-	 * @return
-	 */
-	static String getTransactionManagerName(Element element) {
-		return (element.hasAttribute(TRANSACTION_MANAGER_ATTRIBUTE) ?
-				element.getAttribute(TRANSACTION_MANAGER_ATTRIBUTE) : DEFAULT_TRANSACTION_MANAGER_BEAN_NAME);
-	}
+    static final String DEFAULT_TRANSACTION_MANAGER_BEAN_NAME = "transactionManager";
 
 
-	@Override
-	public void init() {
-		registerBeanDefinitionParser("advice", new TxAdviceBeanDefinitionParser());
-		registerBeanDefinitionParser("annotation-driven", new AnnotationDrivenBeanDefinitionParser());
-		registerBeanDefinitionParser("jta-transaction-manager", new JtaTransactionManagerBeanDefinitionParser());
-	}
+    /**
+     * 获得事务管理器的名字，由属性transaction-manager决定，不定义则默认为transactionManager
+     *
+     * @param element
+     * @return
+     */
+    static String getTransactionManagerName(Element element) {
+        return (element.hasAttribute(TRANSACTION_MANAGER_ATTRIBUTE) ?
+                element.getAttribute(TRANSACTION_MANAGER_ATTRIBUTE) : DEFAULT_TRANSACTION_MANAGER_BEAN_NAME);
+    }
+
+
+    @Override
+    public void init() {
+        registerBeanDefinitionParser("advice", new TxAdviceBeanDefinitionParser());
+        registerBeanDefinitionParser("annotation-driven", new AnnotationDrivenBeanDefinitionParser());
+        registerBeanDefinitionParser("jta-transaction-manager", new JtaTransactionManagerBeanDefinitionParser());
+    }
 
 }

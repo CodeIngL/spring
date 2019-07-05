@@ -26,6 +26,12 @@ import org.springframework.messaging.handler.invocation.InvocableHandlerMethod;
  *
  * <p>Typically used by listener endpoints that require a flexible method
  * signature.
+ * <p>
+ *     {@link InvocableHandlerMethod}的工厂，适用于处理传入的{@link org.springframework.messaging.Message}
+ * </p>
+ * <p>
+ * 		通常由需要灵活方法签名的侦听器端点使用。
+ * </p>
  *
  * @author Stephane Nicoll
  * @since 4.1
