@@ -65,28 +65,16 @@ import org.springframework.util.StringUtils;
  * }
  * </pre>
  *
- * <p> 封装Java {@link java.lang.reflect.Type}，
- *    提供对{@link #getSuperType() supertypes}，{@link #getInterfaces() interfaces}和{@link #getGeneric(int...) generic parameters} 的访问，
- *    以及最终{@link #resolve() resolve}为一个 {@link java.lang.Class}的能力。
+ * <p>
+ * 封装Java {@link java.lang.reflect.Type}，提供对{@link #getSuperType() supertypes}，{@link #getInterfaces() interfaces}和{@link #getGeneric(int...) generic parameters} 的访问，
+ * 以及最终{@link #resolve() resolve}为一个 {@link java.lang.Class}的能力。
+ * ResolvableTypes可以从字段，方法参数，方法返回或类中获得。 此类上的大多数方法本身都会返回ResolvableTypes，从而可以轻松导航。 例如：
  * </p>
  * <p>
- *     {@code ResolvableTypes}可以从 {@link #forField(Field) 字段}，{@link #forMethodParameter(Method, int) 方法参数}，
- *     {@link #forMethodReturnType(Method) 方法返回}或{@link #forClass(Class) 类}中获得。
- *     此类上的大多数方法本身都会返回{@link ResolvableType}，从而可以轻松导航。 例如
+ *     {@code ResolvableTypes}可以从 {@link #forField(Field) fields}，{@link #forMethodParameter(Method, int) method parameters}，
+ *     {@link #forMethodReturnType(Method) method returns}或{@link #forClass(Class) classes}中获得。 此类上的大多数方法本身都会返回{@link ResolvableType}，从而可以轻松导航。 例如
  * </p>
- * <pre class="code">
- * private HashMap&lt;Integer, List&lt;String&gt;&gt; myMap;
- *
- * public void example() {
- *     ResolvableType t = ResolvableType.forField(getClass().getDeclaredField("myMap"));
- *     t.getSuperType(); // AbstractMap&lt;Integer, List&lt;String&gt;&gt;
- *     t.asMap(); // Map&lt;Integer, List&lt;String&gt;&gt;
- *     t.getGeneric(0).resolve(); // Integer
- *     t.getGeneric(1).resolve(); // List
- *     t.getGeneric(1); // List&lt;String&gt;
- *     t.resolveGeneric(1, 0); // String
- * }
- * </pre>
+ * <p></p>
  *
  * @author Phillip Webb
  * @author Juergen Hoeller
@@ -133,9 +121,6 @@ public class ResolvableType implements Serializable {
 
 	/**
 	 * The component type for an array or {@code null} if the type should be deduced.
-	 * <p>
-	 *     如果要推断类型，则为数组的组件类型或{@code null}
-	 * </p>
 	 */
 	private final ResolvableType componentType;
 
@@ -1406,9 +1391,6 @@ public class ResolvableType implements Serializable {
 
 	/**
 	 * Strategy interface used to resolve {@link TypeVariable}s.
-	 * <p>
-	 *     用于解析{@link TypeVariable}的策略接口
-	 * </p>
 	 */
 	interface VariableResolver extends Serializable {
 

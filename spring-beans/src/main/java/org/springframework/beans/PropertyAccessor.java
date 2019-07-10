@@ -229,8 +229,8 @@ public interface PropertyAccessor {
 	 *     	 稍后可以检查此异常以查看所有绑定错误。 已成功更新的属性仍会更改。
 	 * </p>
 	 * @param pvs PropertyValues to set on the target object
-	 * @param ignoreUnknown should we ignore unknown properties (not found in the bean) 我们应该忽略未知属性（在bean中找不到）
-	 * @param ignoreInvalid should we ignore invalid properties (found but not accessible) 我们应该忽略无效的属性（找到但不可访问）
+	 * @param ignoreUnknown should we ignore unknown properties (not found in the bean)
+	 * @param ignoreInvalid should we ignore invalid properties (found but not accessible)
 	 * @throws InvalidPropertyException if there is no such property or
 	 * if the property isn't writable
 	 * @throws PropertyBatchUpdateException if one or more PropertyAccessExceptions

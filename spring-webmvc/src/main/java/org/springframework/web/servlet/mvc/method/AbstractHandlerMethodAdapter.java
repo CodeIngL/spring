@@ -81,9 +81,6 @@ public abstract class AbstractHandlerMethodAdapter extends WebContentGenerator i
 
 	/**
 	 * This implementation expects the handler to be an {@link HandlerMethod}.
-	 * <p>
-	 *     此实现要求处理程序为{@link HandlerMethod}。
-	 * </p>
 	 */
 	@Override
 	public final ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -94,9 +91,6 @@ public abstract class AbstractHandlerMethodAdapter extends WebContentGenerator i
 
 	/**
 	 * Use the given handler method to handle the request.
-	 * <p>
-	 *     使用给定的处理程序方法来处理请求。
-	 * </p>
 	 * @param request current HTTP request
 	 * @param response current HTTP response
 	 * @param handlerMethod handler method to use. This object must have previously been passed to the

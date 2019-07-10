@@ -153,9 +153,6 @@ class TypeConverterDelegate {
 	/**
 	 * Convert the value to the required type (if necessary from a String),
 	 * for the specified property.
-	 * <p>
-	 *     将值转换为指定属性所需的类型（如果需要，从String）。
-	 * </p>
 	 * @param propertyName name of the property
 	 * @param oldValue the previous value, if available (may be {@code null})
 	 * @param newValue the proposed new value

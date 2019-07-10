@@ -410,9 +410,6 @@ public class ClassPathScanningCandidateComponentProvider implements EnvironmentC
 
 	/**
 	 * Clear the underlying metadata cache, removing all cached class metadata.
-	 * <p>
-	 *     清除基础元数据缓存，删除所有缓存的类元数据。
-	 * </p>
 	 */
 	public void clearCache() {
 		if (this.metadataReaderFactory instanceof CachingMetadataReaderFactory) {

@@ -27,7 +27,7 @@ import java.util.Map;
  * implementation of actual property access left to subclasses.
  *
  * <p>
- *     {@link PropertyAccessor}接口的抽象实现。 提供所有便捷方法的基本实现，并将实际属性访问的实现留给子类。
+ *     PropertyAccessor接口的抽象实现。 提供所有便捷方法的基本实现，并将实际属性访问的实现留给子类。
  * </p>
  *
  * @author Juergen Hoeller
@@ -40,9 +40,6 @@ public abstract class AbstractPropertyAccessor extends TypeConverterSupport impl
 
 	private boolean extractOldValueForEditor = false;
 
-	/**
-	 * 运行构建自动增长的路径
-	 */
 	private boolean autoGrowNestedPaths = false;
 
 

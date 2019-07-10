@@ -1,32 +1,30 @@
 ## Spring Framework
 
-## [Apache RocketMQ](https://rocketmq.apache.org)
-
-ÕâÊÇÒ»¸ö¹ØÓÚÔ´Âë×¢ÊÍÏà¹ØµÄÊÂÇé
+è¿™æ˜¯ä¸€ä¸ªå…³äºæºç æ³¨é‡Šç›¸å…³çš„äº‹æƒ…
 
 
 ### quickStart
 
-1. cloneµ½±¾µØ
+1. cloneåˆ°æœ¬åœ°
 
 	https://github.com/CodeIngL/spring.git
 
-2. idea´ò¿ª
+2. ideaæ‰“å¼€
 
 
 
-3. ´ò¿ªversion control tab
+3. æ‰“å¼€version control tab
 
-	![°æ±¾¿ØÖÆÑ¡Ïî](https://github.com/CodeIngL/spring/blob/master/imgs/showVc.png)
+	![ç‰ˆæœ¬æ§åˆ¶é€‰é¡¹](https://github.com/CodeIngL/spring/blob/master/imgs/showVc.png)
 
     
-4. Ñ¡ÖĞÏà¹Ø´úÂë¼ÇÂ¼£¬²é¿´Ïà¹ØÄã¸ĞĞËÈ¤µÄÎÄ¼ş×¢ÊÍ
+4. é€‰ä¸­ç›¸å…³ä»£ç è®°å½•ï¼ŒæŸ¥çœ‹ç›¸å…³ä½ æ„Ÿå…´è¶£çš„æ–‡ä»¶æ³¨é‡Š
 
-	![Ïà¹Ø×¢ÊÍ½âÎöÔ´ÂëÎÄ¼ş](https://github.com/CodeIngL/spring/blob/master/imgs/showDetails.png)
+	![ç›¸å…³æ³¨é‡Šè§£ææºç æ–‡ä»¶](https://github.com/CodeIngL/spring/blob/master/imgs/showDetails.png)
 	
 	
 ### other
 
-ÆäËûÏà¹ØÇëÒÆ²½¹ÙÍø»òÕß¹Ù·½²Ö¿â
+å…¶ä»–ç›¸å…³è¯·ç§»æ­¥å®˜ç½‘æˆ–è€…å®˜æ–¹ä»“åº“
 
-Ô´ÂëÉî¶ÈÂß¼­²¿·ÖÇëÁªÏµme
+æºç æ·±åº¦é€»è¾‘éƒ¨åˆ†è¯·è”ç³»me

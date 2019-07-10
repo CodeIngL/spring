@@ -125,13 +125,6 @@ public class InvocableHandlerMethod extends HandlerMethod {
 	 * i.e. without argument resolution. Examples of provided argument values include a
 	 * {@link WebDataBinder}, a {@link SessionStatus}, or a thrown exception instance.
 	 * Provided argument values are checked before argument resolvers.
-	 *
-	 * <p>
-	 *     在给定请求的上下文中解析其参数值后调用该方法。
-	 *     参数值通常通过{@link HandlerMethodArgumentResolver}解析。
-	 *     但是，{@code providedArgs} 参数可以提供要直接使用的参数值，即没有参数解析。
-	 *     提供的参数值的示例包括{@link WebDataBinder}，{@link SessionStatus}或抛出的异常实例。 在参数解析器之前检查提供的参数值。
-	 * </p>
 	 * @param request the current request
 	 * @param mavContainer the ModelAndViewContainer for this request
 	 * @param providedArgs "given" arguments matched by type, not resolved

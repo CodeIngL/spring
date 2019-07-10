@@ -28,7 +28,7 @@ import org.springframework.util.Assert;
  * A simple descriptor for an injection point, pointing to a method/constructor
  * parameter or a field. Exposed by {@link UnsatisfiedDependencyException}.
  *
- * <p>注入点的简单描述符，指向方法/构造函数参数或字段。 由{@link UnsatisfiedDependencyException}暴露。</p>
+ * <p>注入点的简单描述符，指向方法/构造函数参数或字段。 由UnsatisfiedDependencyException暴露。</p>
  *
  * @author Juergen Hoeller
  * @since 4.3

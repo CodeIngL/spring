@@ -308,12 +308,6 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		return null;
 	}
 
-	/**
-	 *  代理构建者放弃在Instantiation使用机会
-	 * @param bean     the bean instance created, with properties not having been set yet
-	 * @param beanName the name of the bean
-	 * @return
-	 */
 	@Override
 	public boolean postProcessAfterInstantiation(Object bean, String beanName) {
 		return true;

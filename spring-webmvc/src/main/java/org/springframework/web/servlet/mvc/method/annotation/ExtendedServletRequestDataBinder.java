@@ -28,10 +28,6 @@ import org.springframework.web.servlet.HandlerMapping;
  * Subclass of {@link ServletRequestDataBinder} that adds URI template variables
  * to the values used for data binding.
  *
- * <p>
- *     ServletRequestDataBinder的子类，它将URI模板变量添加到用于数据绑定的值。
- * </p>
- *
  * @author Rossen Stoyanchev
  * @since 3.1
  */

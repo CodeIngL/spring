@@ -63,9 +63,6 @@ public abstract class BeanUtils {
 
 	/**
 	 * Convenience method to instantiate a class using its no-arg constructor.
-	 * <p>
-	 *     使用no-arg构造函数实例化类的便捷方法。
-	 * </p>
 	 * @param clazz class to instantiate
 	 * @return the new instance
 	 * @throws BeanInstantiationException if the bean cannot be instantiated
@@ -73,19 +70,16 @@ public abstract class BeanUtils {
 	 */
 	public static <T> T instantiate(Class<T> clazz) throws BeanInstantiationException {
 		Assert.notNull(clazz, "Class must not be null");
-		if (clazz.isInterface()) { //不能是接口
+		if (clazz.isInterface()) {
 			throw new BeanInstantiationException(clazz, "Specified class is an interface");
 		}
 		try {
-			//构建新实例
 			return clazz.newInstance();
 		}
 		catch (InstantiationException ex) {
-			//抽象接口
 			throw new BeanInstantiationException(clazz, "Is it an abstract class?", ex);
 		}
 		catch (IllegalAccessException ex) {
-			//不能访问
 			throw new BeanInstantiationException(clazz, "Is the constructor accessible?", ex);
 		}
 	}
@@ -500,12 +494,6 @@ public abstract class BeanUtils {
 	 * a primitive, a String or other CharSequence, a Number, a Date,
 	 * a URI, a URL, a Locale, a Class, or a corresponding array.
 	 * <p>Used to determine properties to check for a "simple" dependency-check.
-	 * <p>
-	 *     检查给定类型是否表示“简单”属性：基元，字符串或其他CharSequence，数字，日期，URI，URL，区域设置，类或相应的数组。
-	 * </p>
-	 * <p>
-	 *     	 用于确定要检查“简单”依赖项检查的属性。
-	 * </p>
 	 * @param clazz the type to check
 	 * @return whether the given type represents a "simple" property
 	 * @see org.springframework.beans.factory.support.RootBeanDefinition#DEPENDENCY_CHECK_SIMPLE
