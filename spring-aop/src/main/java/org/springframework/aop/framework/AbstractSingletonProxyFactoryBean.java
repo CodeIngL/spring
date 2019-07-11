@@ -34,6 +34,13 @@ import org.springframework.util.ClassUtils;
  * interceptor names, as in {@link ProxyFactoryBean}) and provides
  * consistent interface management.
  *
+ * <p>
+ *     用于生成单例范围代理对象的{@link FactoryBean}类型的便捷超类。
+ * </p>
+ * <p>
+ *    管理拦截器之前和之后（引用，而不是拦截器名称，如{@link ProxyFactoryBean})中）并提供一致的接口管理
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.0
  */

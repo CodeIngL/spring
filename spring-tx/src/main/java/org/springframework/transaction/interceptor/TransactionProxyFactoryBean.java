@@ -100,6 +100,30 @@ import org.springframework.transaction.PlatformTransactionManager;
  *   <property name="target" ref="yourTarget"/>
  * </bean>}</pre>
  *
+ * <p>
+ *     代理工厂bean用于简化声明式事务处理。这是标准AOP org.springframework.aop.framework.ProxyFactoryBean的一个方便的替代方法，它具有单独的TransactionInterceptor定义。
+ * 需要指定三个主要属性：
+ * 如果没有显式设置“transactionManager”属性并且此FactoryBean在ListableBeanFactory中运行，则将从BeanFactory中获取类型为PlatformTransactionManager的匹配bean。
+ * 与TransactionInterceptor相反，事务属性被指定为属性，方法名称为键，事务属性描述符为值。方法名称始终应用于目标类。
+ * 在内部，使用了TransactionInterceptor实例，但此类的用户不必关心。可选地，可以指定方法切入点以引起对底层TransactionInterceptor的条件调用。
+ * 可以设置“preInterceptors”和“postInterceptors”属性以向混合中添加其他拦截器，如org.springframework.aop.interceptor.PerformanceMonitorInterceptor。
+ * 提示：此类通常与父/子bean定义一起使用。通常，您将在抽象父bean定义中定义事务管理器和缺省事务属性（对于方法名称模式），从而为特定目标对象派生具体的子bean定义。这将每个bean的定义工作量降至最低。
+ * </p>
+ * <p>
+ *      * 历史注释：此类最初设计用于涵盖声明性事务划分的典型情况：即使用事务代理包装单个目标对象，代理目标实现的所有接口。但是，在Spring 2.0及更高版本中，此处提供的功能被更方便的tx：XML命名空间所取代。请参阅Spring参考文档的声明式事务管理部分，以了解用于管理Spring应用程序中的事务的现代选项。出于这些原因，用户应该支持tx：XML命名空间以及@Transactional和@EnableTransactionManagement注释。
+ * </p>
+ * <ul>
+ * <li>" * “transactionManager”：要使用的PlatformTransactionManager实现（例如，org.springframework.transaction.jta.JtaTransactionManager实例）
+ * <li> * “target”：应为其创建事务代理的目标对象
+ * <li> * “transactionAttributes”：每个目标方法名称（或方法名称模式）的事务属性（例如，传播行为和“readOnly”标志）
+ * </ul>
+ * <p></p>
+ * <p></p>
+ * <p></p>
+ * <p></p>
+ * <p></p>
+ * <p></p>
+ *
  * @author Juergen Hoeller
  * @author Dmitriy Kopylenko
  * @author Rod Johnson

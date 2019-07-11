@@ -40,6 +40,16 @@ import org.springframework.core.annotation.AnnotationAwareOrderComparator;
  * Ordered interface will be considered as unordered; they will appear
  * at the end of the advisor chain in undefined order.
  *
+ * <p>
+ *     通用自动代理创建程序，它根据检测到的每个bean的Advisors为特定bean构建AOP代理。
+ * </p>
+ * <p>
+ *    子类必须实现抽象的findCandidateAdvisors（）方法，以返回应用于任何对象的Advisor列表。 子类还可以覆盖继承的shouldSkip方法，以从自动代理中排除某些对象。
+ * </p>
+ * <p>
+ *    需要订购的顾问或建议应实施org.springframework.core.Ordered接口。 此类按订购订单值对Advisors进行排序。 未实施Ordered接口的顾问将被视为无序; 它们将以未定义的顺序出现在顾问链的末尾
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see #findCandidateAdvisors

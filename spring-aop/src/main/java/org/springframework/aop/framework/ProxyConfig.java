@@ -23,6 +23,10 @@ import org.springframework.util.Assert;
 /**
  * Convenience superclass for configuration used in creating proxies,
  * to ensure that all proxy creators have consistent properties.
+ * <p>
+ *     用于创建代理的配置的便捷超类，以确保所有代理创建者具有一致的属性。
+ * </p>
+ * 配置类
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -31,7 +35,7 @@ import org.springframework.util.Assert;
 public class ProxyConfig implements Serializable {
 
     /**
-     * use serialVersionUID from Spring 1.2 for interoperability
+     * use serialVersionUID from Spring 1.2 FOR interoperability
      */
     private static final long serialVersionUID = -8409359707199703185L;
 

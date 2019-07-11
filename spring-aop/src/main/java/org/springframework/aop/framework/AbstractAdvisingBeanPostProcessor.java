@@ -71,18 +71,20 @@ public abstract class AbstractAdvisingBeanPostProcessor extends ProxyProcessorSu
 
 		if (bean instanceof Advised) {
 			Advised advised = (Advised) bean;
+			//如果不冻结，并且是是提早的初始化的
 			if (!advised.isFrozen() && isEligible(AopUtils.getTargetClass(bean))) {
 				// Add our local Advisor to the existing proxy's Advisor chain...
-				if (this.beforeExistingAdvisors) {
+				if (this.beforeExistingAdvisors) { //在前面添加
 					advised.addAdvisor(0, this.advisor);
 				}
-				else {
+				else {//在尾部添加
 					advised.addAdvisor(this.advisor);
 				}
 				return bean;
 			}
 		}
 
+		//需要提早暴露，那么暴露
 		if (isEligible(bean, beanName)) {
 			ProxyFactory proxyFactory = prepareProxyFactory(bean, beanName);
 			if (!proxyFactory.isProxyTargetClass()) {

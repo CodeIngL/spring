@@ -35,6 +35,13 @@ import org.springframework.util.StringUtils;
  * interceptor names to apply to all identified beans, via the
  * "interceptorNames" property.
  *
+ * <p>
+ *     自动代理创建程序，通过名称列表标识要代理的bean。 检查直接，“xxx *”和“* xxx”匹配。
+ * </p>
+ * <p>
+ * 有关配置详细信息，请参阅父类AbstractAutoProxyCreator的javadoc。 通常，您将通过“interceptorNames”属性指定要应用于所有已标识bean的拦截器名称列表
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 10.10.2003
  * @see #setBeanNames
