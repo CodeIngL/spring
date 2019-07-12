@@ -36,7 +36,7 @@ import org.springframework.util.ClassUtils;
  * of proxies which include AspectJ aspects (code style as well
  * Java 5 annotation style).
  * <p>
- *     基于AspectJ的代理工厂，允许以编程方式构建代理，包括AspectJ切面（代码样式以及Java 5注释样式）。
+ *     基于AspectJ的代理工厂，允许以编程方式构建代理，包括AspectJ切面（代码样式以及Java 5注解风格）。
  * </p>
  *
  * @author Rob Harrop
