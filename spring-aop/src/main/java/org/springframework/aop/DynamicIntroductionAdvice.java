@@ -32,13 +32,13 @@ import org.aopalliance.aop.Advice;
  * will be exposed in an advised object.
  *
  * <p>
- *     AOP Alliance建议的子接口允许通过建议实现其他接口，并通过代理使用该拦截器。 这是一个基本的AOP概念，称为介绍。
+ *     AOP Alliance建议的子接口允许通过Advice实现其他接口，并通过代理使用该拦截器。 这是一个基本的AOP概念，称为introduction。
  * </p>
  * <p>
- *     介绍通常是混合，使建立复合对象，可以实现Java的多重继承的许多目标。
+ *     introduction通常是混合，使建立复合对象，可以实现Java的多重继承的许多目标。
  * </p>
  * <p>
- *     与{qlink IntroductionInfo}相比，此接口允许建议实现一系列不一定预先知道的接口。 因此可以使用一个IntroductionAdvisor来指定哪个接口将被公开在一个建议的对象中。
+ *     与{qlink IntroductionInfo}相比，此接口允许建议实现一系列不一定预先知道的接口。 因此可以使用一个{@link IntroductionAdvisor}来指定哪个接口将被公开在一个建议的对象中。
  * </p>
  *
  * @author Rod Johnson

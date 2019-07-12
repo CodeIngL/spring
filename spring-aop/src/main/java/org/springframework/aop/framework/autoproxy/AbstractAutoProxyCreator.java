@@ -521,12 +521,12 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		ProxyFactory proxyFactory = new ProxyFactory();
 		proxyFactory.copyFrom(this);
 
-		if (!proxyFactory.isProxyTargetClass()) {
-			if (shouldProxyTargetClass(beanClass, beanName)) {
+		if (!proxyFactory.isProxyTargetClass()) { //不是基于接口的代理
+			if (shouldProxyTargetClass(beanClass, beanName)) { //是否应该使用类进行代理
 				proxyFactory.setProxyTargetClass(true);
 			}
 			else {
-				evaluateProxyInterfaces(beanClass, proxyFactory);
+				evaluateProxyInterfaces(beanClass, proxyFactory); //计算代理接口
 			}
 		}
 

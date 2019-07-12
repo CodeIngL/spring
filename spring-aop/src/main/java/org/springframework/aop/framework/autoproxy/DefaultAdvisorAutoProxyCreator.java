@@ -32,7 +32,7 @@ import org.springframework.beans.factory.BeanNameAware;
  * The separator (.) will also be used in this case.
  *
  * <p>
- *     BeanPostProcessor实现，基于当前BeanFactory中的所有候选advisors创建AOP代理。
+ *      {@code BeanPostProcessor}实现，基于当前 {@code BeanFactory}中的所有候选{@code Advisor}创建AOP代理。
  *     这个类是完全通用的; 它不包含处理任何特定切面的特殊代码，例如池化切面。
  * <p>
  * 	  可以过滤advisors - 例如，在同一工厂中使用这种类型的多个后置处理器 -

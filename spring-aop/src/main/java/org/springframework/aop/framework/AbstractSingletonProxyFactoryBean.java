@@ -38,7 +38,7 @@ import org.springframework.util.ClassUtils;
  *     用于生成单例范围代理对象的{@link FactoryBean}类型的便捷超类。
  * </p>
  * <p>
- *    管理拦截器之前和之后（引用，而不是拦截器名称，如{@link ProxyFactoryBean})中）并提供一致的接口管理
+ *    管理前置拦截器和后置拦截器(引用，而不是基于拦截器名称，如{@link ProxyFactoryBean})中)并提供一致的接口管理
  * </p>
  *
  * @author Juergen Hoeller
@@ -151,6 +151,7 @@ public abstract class AbstractSingletonProxyFactoryBean extends ProxyConfig
 
 		ProxyFactory proxyFactory = new ProxyFactory();
 
+		//添加前置拦截器
 		if (this.preInterceptors != null) {
 			for (Object interceptor : this.preInterceptors) {
 				proxyFactory.addAdvisor(this.advisorAdapterRegistry.wrap(interceptor));
@@ -158,8 +159,10 @@ public abstract class AbstractSingletonProxyFactoryBean extends ProxyConfig
 		}
 
 		// Add the main interceptor (typically an Advisor).
+		// 添加主要的拦截器
 		proxyFactory.addAdvisor(this.advisorAdapterRegistry.wrap(createMainInterceptor()));
 
+		//添加后置拦截器
 		if (this.postInterceptors != null) {
 			for (Object interceptor : this.postInterceptors) {
 				proxyFactory.addAdvisor(this.advisorAdapterRegistry.wrap(interceptor));
@@ -168,16 +171,19 @@ public abstract class AbstractSingletonProxyFactoryBean extends ProxyConfig
 
 		proxyFactory.copyFrom(this);
 
+		//构建TargetSource
 		TargetSource targetSource = createTargetSource(this.target);
 		proxyFactory.setTargetSource(targetSource);
 
+		//需要代理的接口
 		if (this.proxyInterfaces != null) {
 			proxyFactory.setInterfaces(this.proxyInterfaces);
 		}
+		//不是基于类的代理
 		else if (!isProxyTargetClass()) {
 			// Rely on AOP infrastructure to tell us what interfaces to proxy.
-			proxyFactory.setInterfaces(
-					ClassUtils.getAllInterfacesForClass(targetSource.getTargetClass(), this.proxyClassLoader));
+			// 计算所有接口
+			proxyFactory.setInterfaces(ClassUtils.getAllInterfacesForClass(targetSource.getTargetClass(), this.proxyClassLoader));
 		}
 
 		postProcessProxyFactory(proxyFactory);

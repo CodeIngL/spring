@@ -58,7 +58,7 @@ import org.springframework.util.CollectionUtils;
  *     AOP代理配置管理器的基类。 它们本身不是AOP代理，但是这个类的子类通常是直接从中获取AOP代理实例的工厂。
  * </p>
  * <p>
- *      此类释放了Advices和Advisor的内务管理的子类，但实际上并未实现子类提供的代理创建方法。
+ *      此类提供了Advices和Advisor的内务管理的子类，但实际上并未实现子类提供的代理创建方法。
  * </p>
  * <p>
  *      这个类是可序列化的; 子类不必是。 此类用于保存代理的快照。
@@ -498,6 +498,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 		MethodCacheKey cacheKey = new MethodCacheKey(method);
 		List<Object> cached = this.methodCache.get(cacheKey);
 		if (cached == null) {
+		    //获得拦截器或者动态拦截器
 			cached = this.advisorChainFactory.getInterceptorsAndDynamicInterceptionAdvice(this, method, targetClass);
 			this.methodCache.put(cacheKey, cached);
 		}

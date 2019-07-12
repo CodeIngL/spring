@@ -100,10 +100,10 @@ public class ProxyProcessorSupport extends ProxyConfig implements Ordered, BeanC
 	 * <p>Calls {@link #isConfigurationCallbackInterface} and {@link #isInternalLanguageInterface}
 	 * to filter for reasonable proxy interfaces, falling back to a target-class proxy otherwise.
 	 * <p>
-	 *     检查给定bean类的接口，并将其应用于ProxyFactory（如果适用）。
+	 *     检查给定bean类的接口，并将其应用于{@link ProxyFactory}（如果适用）。
 	 * </p>
 	 * <p>
-	 *     调用isConfigurationCallbackInterface和isInternalLanguageInterface来过滤合理的代理接口，否则回退到目标类代理。
+	 *     调用{@link #isConfigurationCallbackInterface}和{@link #isInternalLanguageInterface}来过滤合理的代理接口，否则回退到使用基于类的代理。
 	 * </p>
 	 * @param beanClass the class of the bean
 	 * @param proxyFactory the ProxyFactory for the bean
@@ -112,13 +112,13 @@ public class ProxyProcessorSupport extends ProxyConfig implements Ordered, BeanC
 		Class<?>[] targetInterfaces = ClassUtils.getAllInterfacesForClass(beanClass, getProxyClassLoader());
 		boolean hasReasonableProxyInterface = false;
 		for (Class<?> ifc : targetInterfaces) {
-			if (!isConfigurationCallbackInterface(ifc) && !isInternalLanguageInterface(ifc) &&
-					ifc.getMethods().length > 0) {
+			//我们跳过使用了内部接口，和一些特殊的接口，已经一些空房的接口
+			if (!isConfigurationCallbackInterface(ifc) && !isInternalLanguageInterface(ifc) && ifc.getMethods().length > 0) {
 				hasReasonableProxyInterface = true;
 				break;
 			}
 		}
-		if (hasReasonableProxyInterface) {
+		if (hasReasonableProxyInterface) {//支持接口代理才能代理
 			// Must allow for introductions; can't just set interfaces to the target's interfaces only.
 			for (Class<?> ifc : targetInterfaces) {
 				proxyFactory.addInterface(ifc);
@@ -134,6 +134,13 @@ public class ProxyProcessorSupport extends ProxyConfig implements Ordered, BeanC
 	 * therefore not to be considered as a reasonable proxy interface.
 	 * <p>If no reasonable proxy interface is found for a given bean, it will get
 	 * proxied with its full target class, assuming that as the user's intention.
+	 *
+	 * <p>
+	 *     确定给定接口是否只是容器回调，因此不被视为合理的代理接口。
+	 * </p>
+	 * <p>
+	 *    如果没有找到给定bean的合理代理接口，它将获得其完整目标类的代理，假设作为用户的意图。
+	 * </p>
 	 * @param ifc the interface to check
 	 * @return whether the given interface is just a container callback
 	 */

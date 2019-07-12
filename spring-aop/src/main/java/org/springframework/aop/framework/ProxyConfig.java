@@ -40,14 +40,19 @@ public class ProxyConfig implements Serializable {
     private static final long serialVersionUID = -8409359707199703185L;
 
 
+    //强制使用类代理
     private boolean proxyTargetClass = false;
 
+    //是否进行优化
     private boolean optimize = false;
 
+    //是否添加{@link Advised}接口
     boolean opaque = false;
 
+    //是否暴露代理到线程上下文中
     boolean exposeProxy = false;
 
+    //是否冻结配置，表示目标被代理后应该不能在修改
     private boolean frozen = false;
 
 
@@ -99,7 +104,7 @@ public class ProxyConfig implements Serializable {
      * if other settings preclude optimization: for example, if "exposeProxy"
      * is set to "true" and that's not compatible with the optimization.
      * <p>
-     * 设置代理是否应执行积极优化。 代理之间“积极优化”的确切含义会有所不同，但通常会有一些权衡。 默认为“false”。
+     * 设置代理是否应执行积极优化。 “积极优化”的确切含义在代理之间会有所不同，但通常会有一些权衡。 默认为“false”。
      * </p>
      * <p>
      * 例如，optimize通常意味着在创建代理后，advice更改不会生效。 因此，默认情况下禁用optimize。

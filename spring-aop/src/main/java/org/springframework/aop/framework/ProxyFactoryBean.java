@@ -81,19 +81,28 @@ import org.springframework.util.ObjectUtils;
  * and target, and changing any reference will change all objects.
  *
  * <p>
- *     FactoryBean实现，它基于Spring BeanFactory中的bean构建AOP代理。
+ *     {@link org.springframework.beans.factory.FactoryBean} 实现，它基于Spring {@link org.springframework.beans.factory.BeanFactory}中的bean构建AOP代理。
  * </p>
  * <p>
- * MethodIntercept和Advisors由当前bean工厂中的bean名称列表标识，通过“interceptorNames”属性指定。列表中的最后一个条目可以是目标bean或TargetSource的名称;但是，通常最好使用“targetName”/“target”/“targetSource”属性。
+ * {@link org.aopalliance.intercept.MethodInterceptor MethodInterceptors} 和{@link org.springframework.aop.Advisor Advisors}
+ * 由当前bean工厂中的bean名称列表定义，通过“interceptorNames”属性指定。
+ * 列表中的最后一个条目可以是目标bean或{@link org.springframework.aop.TargetSource}的名称;
+ * 但是，通常最好使用"targetName"/"target"/"targetSource"属性。
  * </p>
  * <p>
- * 可以在工厂级别添加全局拦截器和顾问。指定的那些在拦截器列表中展开，其中列表中包含“xxx *”条目，将给定前缀与bean名称匹配（例如“global *”将匹配“globalBean1”和“globalBean2”，“*”所有定义的拦截器）。如果匹配的拦截器实现org.springframework.core.Ordered接口，则根据它们返回的顺序值来应用匹配的拦截器。
+ * 可以在工厂级别添加全局interceptors和advisors。
+ * 指定的那些在拦截器列表中展开，其中列表中包含“xxx*”条目，将给定前缀与bean名称匹配
+ * （例如“global*”将匹配“globalBean1”和“globalBean2”，“*”进应用定义的拦截器）。
+ * 如果匹配的拦截器实现{@link org.springframework.core.Ordered}接口，则根据它们返回的顺序值来应用匹配的拦截器。
  * </p>
  * <p>
- * 给定代理接口时创建JDK代理，如果没有，则创建实际目标类的CGLIB代理。请注意，后者仅在目标类没有最终方法时才有效，因为将在运行时创建动态子类。
+ * 给定代理的接口被设置时将创建JDK代理，如果没有，则创建实际目标类的CGLIB代理。请注意，后者仅在目标类没有最终方法时才有效，因为将在运行时创建动态子类。
  * </p>
  * <p>
- * 可以将从此工厂获得的代理转换为Advised，或者获取ProxyFactoryBean引用并以编程方式操作它。这对于独立的现有原型引用不起作用。但是，它适用于随后从工厂获得的原型。对拦截的更改将立即对单身人士（包括现有的参考资料）起作用。但是，要更改接口或目标，必须从工厂获取新实例。这意味着从工厂获得的单例实例不具有相同的对象标识。但是，它们确实具有相同的拦截器和目标，并且更改任何引用将更改所有对象。
+ * 可以将从此工厂获得的代理转换为{@link Advised}，或者获取ProxyFactoryBean引用并以编程方式操作它。
+ * 这对于独立的现有prototypes引用不起作用。
+ * 但是，它适用于随后从factory获得的prototypes。对拦截的更改将立即对单例（包括现有的引用）起作用。
+ * 但是，要更改接口或目标，必须从工厂获取新实例。这意味着从工厂获得的单例实例不具有相同的对象标识。但是，它们确实具有相同的拦截器和目标，并且更改任何引用将更改所有对象。
  * </p>
  *
  * @author Rod Johnson
