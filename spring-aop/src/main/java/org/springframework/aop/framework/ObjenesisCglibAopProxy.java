@@ -29,7 +29,7 @@ import org.springframework.objenesis.SpringObjenesis;
  * without invoking the constructor of the class.
  *
  * <p>
- *     基于Objenesis的CglibAopProxy扩展，用于创建代理实例而无需调用类的构造函数。
+ *     基于Objenesis的{@link CglibAopProxy}扩展，用于创建代理实例而无需调用类的构造函数。
  * </p>
  *
  * @author Oliver Gierke

@@ -718,6 +718,7 @@ class CglibAopProxy implements AopProxy, Serializable {
             Class<?> targetClass = null;
             Object target = null;
             try {
+                //暴露给线程上下文
                 if (this.advised.exposeProxy) {
                     // Make invocation available if necessary.
                     // 如有必要，可以调用。
@@ -726,7 +727,7 @@ class CglibAopProxy implements AopProxy, Serializable {
                 }
                 // May be null. Get as late as possible to minimize the time we
                 // "own" the target, in case it comes from a pool...
-                // 可能为空。 尽可能缩短我们“拥有”目标的时间，以防它来自游泳池......
+                // 可能为空。 尽可能缩短我们“拥有”目标的时间，以防它来自pool......
                 target = getTarget();
                 if (target != null) {
                     targetClass = target.getClass();
