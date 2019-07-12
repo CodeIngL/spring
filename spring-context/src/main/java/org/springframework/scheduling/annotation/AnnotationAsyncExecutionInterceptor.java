@@ -41,8 +41,12 @@ public class AnnotationAsyncExecutionInterceptor extends AsyncExecutionIntercept
 	/**
 	 * Create a new {@code AnnotationAsyncExecutionInterceptor} with the given executor
 	 * and a simple {@link AsyncUncaughtExceptionHandler}.
+	 * <p>
+	 *     使用给定的执行程序创建一个新的AnnotationAsyncExecutionInterceptor。
+	 * </p>
+	 *
 	 * @param defaultExecutor the executor to be used by default if no more specific
-	 * executor has been qualified at the method level using {@link Async#value()};
+	 * executor has been qualified at the method level using {@link Async#value()}; 默认情况下使用的defaultExecutor，如果没有使用{@link Async#value()}在方法级别限定更多特定执行程序; 从4.2.6开始，将构建此拦截器的本地执行程序
 	 * as of 4.2.6, a local executor for this interceptor will be built otherwise
 	 */
 	public AnnotationAsyncExecutionInterceptor(Executor defaultExecutor) {

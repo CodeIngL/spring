@@ -42,13 +42,13 @@ import org.springframework.util.Assert;
  *
  *
  * <p>
- *      AspectJAwareAdvisorAutoProxyCreator子类，用于处理当前应用程序上下文中的所有AspectJ注解切面，以及Spring Advisor。
+ *      {@link AspectJAwareAdvisorAutoProxyCreator} 子类，用于处理当前应用程序上下文中的所有AspectJ注解切面，以及Spring Advisor。
  * <p>
- *     任何AspectJ注解类都将被自动识别，如果Spring AOP的基于代理的模型能够应用它们，则会应用它们的建议。 这涵盖方法执行连接点。
+ *     任何AspectJ注解类都将被自动识别，如果Spring AOP的基于代理的模型能够应用它们，则会应用它们的advice。 这涵盖方法执行连接点。
  * <p>
  *     如果使用<aop:include>元素，则只有名称与include模式匹配的@AspectJ bean才会被视为定义用于Spring自动代理的切面。
  * <p>
- *     Spring Advisors的处理遵循org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator中建立的规则。
+ *     Spring Advisors的处理遵循{@link org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator}中建立的规则。
  *
  * @author Rod Johnson
  * @author Juergen Hoeller

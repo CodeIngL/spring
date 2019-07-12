@@ -49,6 +49,18 @@ import org.springframework.util.Assert;
  * <p>Note: The underlying async advisor applies before existing advisors by default,
  * in order to switch to async execution as early as possible in the invocation chain.
  *
+ * <p>
+ *     Bean后处理器通过向公开的代理（现有的AOP代理或实现所有目标的新生成的代理）添加相应的{@link AsyncAnnotationAdvisor} ，
+ *     自动将异步调用行为应用于在类或方法级别承载{@link Async}注解的任何bean。接口）。
+ * </p>
+ * <p>
+ *   可以提供负责异步执行的{@link TaskExecutor}以及指示应该异步调用方法的注解。如果未指定注解，则此后处理器将检测Spring的@Async注解
+ *   以及EJB 3.1 javax.ejb.Asynchronous注解。
+ * </p>
+ * <p> 对于具有void返回类型的方法，调用方无法访问异步方法调用期间抛出的任何异常。可以指定{@link AsyncUncaughtExceptionHandler}来处理这些情况。</p>
+ *
+ * <p> 注意：默认情况下，底层异步advisor在现有advisors程序之前应用，以便在调用链中尽早切换到异步执行。</p>
+ *
  * @author Mark Fisher
  * @author Juergen Hoeller
  * @author Stephane Nicoll

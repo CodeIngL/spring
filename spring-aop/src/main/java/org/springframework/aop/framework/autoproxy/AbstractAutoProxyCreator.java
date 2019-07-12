@@ -79,19 +79,27 @@ import org.springframework.util.StringUtils;
  * or if none matches, a {@link org.springframework.aop.target.SingletonTargetSource}
  * will be used by default to wrap the target bean instance.
  *
- * <p>org.springframework.beans.factory.config.BeanPostProcessor实现，它使用AOP代理包装每个符合条件的bean，在调用bean本身之前委托给指定的拦截器。
- * <p> 此类区分“common”拦截器：为其创建的所有代理共享，以及“specific”拦截器：每个bean实例唯一。不需要任何common的拦截器。
- * 如果有，则使用interceptorNames属性设置它们。
- * 与org.springframework.aop.framework.ProxyFactoryBean一样，使用当前工厂中的拦截器名称而不是bean引用来允许正确处理原型顾问程序和拦截器：例如，支持有状态的mixin。
- * “interceptorNames”属性支持任何建议类型。 </p>
+ * <p>
+ *     {@link org.springframework.beans.factory.config.BeanPostProcessor}实现，
+ *     它使用AOP代理包装每个符合条件的bean，
+ *     在调用bean本身之前委托给指定的拦截器。
+ * <p>
+ *     此类区分“common”拦截器：为其创建的所有代理共享，以及“specific”拦截器：每个bean实例唯一。
+ *     本身不需要任何common的拦截器，如果有，则使用interceptorNames属性设置它们。
+ * 与{@link org.springframework.aop.framework.ProxyFactoryBean}一样，使用当前工厂中的拦截器名称而不是bean引用来允许正确处理原型advisors和拦截器：例如，支持有状态的mixin。
+ *  {@link #setInterceptorNames "interceptorNames"} 属性支持任何建议类型。 </p>
+ *
  * <p> 如果存在大量需要用类似代理包装的bean，即委托给相同的拦截器，则这种自动代理特别有用。
- * 而不是x目标bean的x重复代理定义，您可以使用bean工厂注册一个这样的后处理器以实现相同的效果。 </p>
+ * 而不是x个目标bean的重复代理定义，您可以使用bean工厂注册一个这样的后处理器以实现相同的效果。 </p>
+ *
  * <p> 子类可以应用任何策略来决定是否要代理bean，例如按类型，按名称，按定义细节等。
  * 它们还可以返回应该只应用于特定bean实例的其他拦截器。
- * 一个简单的具体实现是BeanNameAutoProxyCreator，通过给定的名称标识要代理的bean。 </p>
+ * 一个简单的具体实现是{@link BeanNameAutoProxyCreator}，通过给定的名称标识要代理的bean。 </p>
  *
- * <p> 可以使用任意数量的TargetSourceCreator实现来创建自定义目标源：例如，池化原型对象。只要TargetSourceCreator指定自定义TargetSource，即使没有建议，也会发生自动代理。
- * 如果没有设置TargetSourceCreators，或者如果没有匹配，则默认情况下将使用SingletonTargetSource来包装目标bean实例。</p> </p>
+ * <p> 可以使用任意数量的{@link TargetSourceCreator}实现来创建自定义目标源：
+ * 例如，池化prototype对象。只要TargetSourceCreator指定自定义{@link org.springframework.aop.TargetSource}，即使没有建议，也会发生自动代理。
+ * 如果没有设置TargetSourceCreators，
+ * 或者如果没有匹配，则默认情况下将使用{@link org.springframework.aop.target.SingletonTargetSource}来包装目标bean实例。</p> </p>
  *
  * @author Juergen Hoeller
  * @author Rod Johnson

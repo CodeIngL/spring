@@ -271,11 +271,11 @@ public abstract class AopUtils {
 	 * @return whether the pointcut can apply on any method
 	 */
 	public static boolean canApply(Advisor advisor, Class<?> targetClass, boolean hasIntroductions) {
-		if (advisor instanceof IntroductionAdvisor) {
+		if (advisor instanceof IntroductionAdvisor) { //IntroductionÊ¹ÓÃfilterµÄmatches
 			return ((IntroductionAdvisor) advisor).getClassFilter().matches(targetClass);
 		}
 		else if (advisor instanceof PointcutAdvisor) {
-			PointcutAdvisor pca = (PointcutAdvisor) advisor;
+			PointcutAdvisor pca = (PointcutAdvisor) advisor; //pointcut
 			return canApply(pca.getPointcut(), targetClass, hasIntroductions);
 		}
 		else {

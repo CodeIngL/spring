@@ -40,7 +40,7 @@ import org.springframework.util.ClassUtils;
  *
  *
  * <p>
- *     AbstractAdvisorAutoProxyCreator子类，公开AspectJ的调用上下文，并且当多个通知来自同一方面时，理解AspectJ的规则优先级。
+ *     @link org.springframework.aop.framework.autoproxy.AbstractAdvisorAutoProxyCreator}子类，公开AspectJ的调用上下文，并且当多个通知来自同一方面时，理解AspectJ的规则优先级。
  * </p>
  * @author Adrian Colyer
  * @author Juergen Hoeller
