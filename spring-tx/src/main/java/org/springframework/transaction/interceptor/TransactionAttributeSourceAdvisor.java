@@ -30,6 +30,13 @@ import org.springframework.aop.support.AbstractPointcutAdvisor;
  * faster than just letting the TransactionInterceptor run and find out
  * itself that it has no work to do.
  *
+ * <p>
+ *     由{@link TransactionAttributeSource}驱动的Advisor，用于仅为事务性方法包含{@link TransactionInterceptor}。
+ * </p>
+ * <p>
+ *   因为AOP框架缓存建议计算，所以这通常比让{@link TransactionInterceptor}运行并发现自己有无工作要快很多。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @see #setTransactionInterceptor
@@ -40,6 +47,7 @@ public class TransactionAttributeSourceAdvisor extends AbstractPointcutAdvisor {
 
 	private TransactionInterceptor transactionInterceptor;
 
+	//提取pointcut
 	private final TransactionAttributeSourcePointcut pointcut = new TransactionAttributeSourcePointcut() {
 		@Override
 		protected TransactionAttributeSource getTransactionAttributeSource() {
