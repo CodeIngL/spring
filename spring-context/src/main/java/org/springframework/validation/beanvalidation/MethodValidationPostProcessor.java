@@ -52,6 +52,22 @@ import org.springframework.validation.annotation.Validated;
  * (such as Hibernate Validator 5.x) or the Bean Validation 1.0 API with Hibernate Validator
  * 4.3. The actual provider will be autodetected and automatically adapted.
  *
+ * <p>
+ *     一个方便的{@link BeanPostProcessor}实现，它委托给JSR-303提供程序，用于对带注解的方法执行方法级验证。
+ * </p>
+ * <p>
+ *   适用的方法对其参数和/或它们的返回值具有JSR-303约束注释（在后一种情况下，在方法级别指定，通常作为内联注释），例如：
+ * </p>
+ * <pre class="code">
+ * public @NotNull Object myValidMethod(@NotNull String arg1, @Max(10) int arg2)
+ * </pre>
+ * <p>
+ * 具有这种带注释方法的目标类需要在类型级别使用Spring的{@link Validated}注释进行注释，以便搜索其内联约束注释的方法。 验证组也可以通过 {@code @Validated}指定。 默认情况下，JSR-303将仅针对其默认组进行验证。
+ * </p>
+ * <p>
+ * 从Spring 4.0开始，此功能需要Bean Validation 1.1提供程序（例如Hibernate Validator 5.x）或带有Hibernate Validator 4.3的Bean Validation 1.0 API。 实际的提供程序将被自动检测并自动调整。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 3.1
  * @see MethodValidationInterceptor
