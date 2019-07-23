@@ -29,7 +29,7 @@ import org.springframework.aop.support.DelegatingIntroductionInterceptor;
  * Implements AspectJ annotation-style behavior for the DeclareParents annotation.
  *
  * <p>
- *     委托给定对象的Introduction advisor。 为DeclareParents注释实现AspectJ注释样式行为
+ *     委托给定对象的Introduction advisor。 为DeclareParents注解实现AspectJ注解风格
  * </p>
  * @author Rod Johnson
  * @author Ramnivas Laddad

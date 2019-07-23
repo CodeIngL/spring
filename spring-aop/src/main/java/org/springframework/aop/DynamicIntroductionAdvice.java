@@ -38,7 +38,7 @@ import org.aopalliance.aop.Advice;
  *     introduction通常是混合，使建立复合对象，可以实现Java的多重继承的许多目标。
  * </p>
  * <p>
- *     与{qlink IntroductionInfo}相比，此接口允许建议实现一系列不一定预先知道的接口。 因此可以使用一个{@link IntroductionAdvisor}来指定哪个接口将被公开在一个建议的对象中。
+ *     与{qlink IntroductionInfo}相比，此接口允许advice实现一系列不一定预先知道的接口。 因此可以使用一个{@link IntroductionAdvisor}来指定哪个接口将被公开在一个advised对象中。
  * </p>
  *
  * @author Rod Johnson
@@ -50,6 +50,9 @@ public interface DynamicIntroductionAdvice extends Advice {
 
 	/**
 	 * Does this introduction advice implement the given interface?
+     * <p>
+     *     这个introduction advice是否实现了给定的接口？
+     * </p>
 	 * @param intf the interface to check
 	 * @return whether the advice implements the specified interface
 	 */

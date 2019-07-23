@@ -40,6 +40,20 @@ import java.lang.reflect.Method;
  * in an interceptor chain, will have run, so any state changes they have produced in
  * parameters or ThreadLocal state will be available at the time of evaluation.
  *
+ * <p>
+ *     {@link Pointcut}的一部分：检查目标方法是否符合建议的条件。
+ * 可以静态地或在运行时（动态地）评估MethodMatcher。静态匹配涉及方法和（可能）方法属性。
+ * 动态匹配还使特定调用的参数可用，以及运行应用于连接点的先前建议的任何效果。
+ * </p>
+ * <p>
+ *  如果实现从其{@link #isRuntime()}方法返回{@code false}，则可以静态执行求值，并且对于此方法的所有调用，无论其参数如何，结果都是相同的。
+ *  这意味着如果{@link #isRuntime()}方法返回false，则永远不会调用3-arg匹配{@link #matches(java.lang.reflect.Method, Class, Object[])} 方法。
+ * </p>
+ * <p>
+ *  如果实现从其2-arg匹配{@link #matches(java.lang.reflect.Method, Class)}方法返回true并且其 {@link #isRuntime()}方法返回true，
+ *  则3-arg匹配 {@link #matches(java.lang.reflect.Method, Class, Object[])}方法将在每次潜在执行之前立即调用相关建议，以决定建议是否应该运行。之前的所有建议（例如拦截器链中的早期拦截器）都将运行，因此在评估时可以使用参数或ThreadLocal状态生成的任何状态更改。
+ * </p>
+ *
  * @author Rod Johnson
  * @since 11.11.2003
  * @see Pointcut
@@ -52,6 +66,10 @@ public interface MethodMatcher {
 	 * returns {@code false} or if the {@link #isRuntime()} method
 	 * returns {@code false}, no runtime check (i.e. no.
 	 * {@link #matches(java.lang.reflect.Method, Class, Object[])} call) will be made.
+     * <p>
+     *     执行静态检查给定方法是否匹配。
+     *     如果返回false或者 {@link #isRuntime()}方法返回false，则不会进行运行时检查（即不匹配{@link #matches(java.lang.reflect.Method, Class, Object[])}调用）
+     * </p>
 	 * @param method the candidate method
 	 * @param targetClass the target class (may be {@code null}, in which case
 	 * the candidate class must be taken to be the method's declaring class)
@@ -85,6 +103,11 @@ public interface MethodMatcher {
 	 * {@link #isRuntime()} method returns {@code true}. Invoked
 	 * immediately before potential running of the advice, after any
 	 * advice earlier in the advice chain has run.
+     * <p>
+     *     检查此方法是否存在运行时（动态）匹配，该方法必须静态匹配。
+     * 仅当2-arg matches方法为给定方法和目标类返回true，并且isRuntime（）方法返回true时，才会调用此方法。
+     * 在建议链中的任何建议运行之后，在潜在运行建议之前立即调用。
+     * </p>
 	 * @param method the candidate method
 	 * @param targetClass the target class (may be {@code null}, in which case
 	 * the candidate class must be taken to be the method's declaring class)
