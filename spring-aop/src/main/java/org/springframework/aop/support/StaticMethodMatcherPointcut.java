@@ -27,6 +27,13 @@ import org.springframework.aop.Pointcut;
  * <p>The {@link #setClassFilter "classFilter"} property can be set to customize
  * {@link ClassFilter} behavior. The default is {@link ClassFilter#TRUE}.
  *
+ * <p>
+ *     当我们想要强制子类实现MethodMatcher接口但是子类想要成为切入点时，方便的超类。
+ * </p>
+ * <p>
+ *    可以设置“classFilter”属性以自定义ClassFilter行为。 默认值为ClassFilter.TRUE。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  */
