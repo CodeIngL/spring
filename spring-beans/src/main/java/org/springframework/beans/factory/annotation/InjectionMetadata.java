@@ -86,6 +86,13 @@ public class InjectionMetadata {
 		this.checkedElements = checkedElements;
 	}
 
+	/**
+	 * 注入
+	 * @param target
+	 * @param beanName
+	 * @param pvs
+	 * @throws Throwable
+	 */
 	public void inject(Object target, String beanName, PropertyValues pvs) throws Throwable {
 		Collection<InjectedElement> elementsToIterate =
 				(this.checkedElements != null ? this.checkedElements : this.injectedElements);
@@ -114,6 +121,12 @@ public class InjectionMetadata {
 	}
 
 
+    /**
+     * 是否要刷新缓存
+     * @param metadata
+     * @param clazz
+     * @return
+     */
 	public static boolean needsRefresh(InjectionMetadata metadata, Class<?> clazz) {
 		return (metadata == null || metadata.targetClass != clazz);
 	}

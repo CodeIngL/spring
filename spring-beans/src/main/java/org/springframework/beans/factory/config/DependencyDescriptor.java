@@ -48,20 +48,28 @@ import org.springframework.core.ResolvableType;
 @SuppressWarnings("serial")
 public class DependencyDescriptor extends InjectionPoint implements Serializable {
 
+	//声明的类
 	private final Class<?> declaringClass;
 
+	//方法名
 	private String methodName;
 
+	//参数类型
 	private Class<?>[] parameterTypes;
 
+	//参数序号
 	private int parameterIndex;
 
+	//字段
 	private String fieldName;
 
+	//是否要求
 	private final boolean required;
 
+	//是否需要急切初始化
 	private final boolean eager;
 
+	//嵌入的等级
 	private int nestingLevel = 1;
 
 	private Class<?> containingClass;
@@ -84,6 +92,7 @@ public class DependencyDescriptor extends InjectionPoint implements Serializable
 
 	/**
 	 * Create a new descriptor for a method or constructor parameter.
+	 * 构造方法或者构造函数参数的描述对象
 	 * @param methodParameter the MethodParameter to wrap
 	 * @param required whether the dependency is required
 	 * @param eager whether this dependency is 'eager' in the sense of
@@ -108,6 +117,7 @@ public class DependencyDescriptor extends InjectionPoint implements Serializable
 	/**
 	 * Create a new descriptor for a field.
 	 * Considers the dependency as 'eager'.
+	 * 构造字段的描述
 	 * @param field the field to wrap
 	 * @param required whether the dependency is required
 	 */
@@ -132,6 +142,7 @@ public class DependencyDescriptor extends InjectionPoint implements Serializable
 
 	/**
 	 * Copy constructor.
+	 * copy一份
 	 * @param original the original descriptor to create a copy from
 	 */
 	public DependencyDescriptor(DependencyDescriptor original) {

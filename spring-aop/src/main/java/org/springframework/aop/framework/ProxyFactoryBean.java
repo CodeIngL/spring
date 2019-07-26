@@ -262,6 +262,10 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	 * Create an instance of the AOP proxy to be returned by this factory.
 	 * The instance will be cached for a singleton, and create on each call to
 	 * {@code getObject()} for a proxy.
+	 * <p>
+	 *     Return代理。 客户端从此工厂bean获取bean时调用。
+	 *     创建此工厂要返回的AOP代理的实例。 该实例将被缓存为单例，并在每次调用{@code getObject()}时为代理创建
+	 * </p>
 	 * @return a fresh AOP proxy reflecting the current state of this factory
 	 */
 	@Override
@@ -329,6 +333,9 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	/**
 	 * Return the singleton instance of this class's proxy object,
 	 * lazily creating it if it hasn't been created already.
+	 * <p>
+	 *     返回此类的代理对象的单例实例，如果尚未创建它，则延迟地创建它。
+	 * </p>
 	 * @return the shared singleton proxy
 	 */
 	private synchronized Object getSingletonInstance() {
@@ -583,6 +590,11 @@ public class ProxyFactoryBean extends ProxyCreatorSupport
 	 * specified at the end of the interceptorNames list, the TargetSource will be
 	 * this class's TargetSource member. Otherwise, we get the target bean and wrap
 	 * it in a TargetSource if necessary.
+	 * <p>
+	 *     返回在创建代理时使用的TargetSource。
+	 *     如果未在interceptorNames列表的末尾指定目标，则TargetSource将是此类的TargetSource成员。
+	 *     否则，我们获取目标bean并在必要时将其包装在TargetSource中。
+	 * </p>
 	 */
 	private TargetSource freshTargetSource() {
 		if (this.targetName == null) {

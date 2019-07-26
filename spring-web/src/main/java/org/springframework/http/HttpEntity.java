@@ -46,6 +46,17 @@ import org.springframework.util.ObjectUtils;
  * }
  * </pre>
  *
+ * <p>
+ *     表示HTTP请求或响应实体，由头部和正文组成。
+ * 通常与 {@link org.springframework.web.client.RestTemplate}结合使用，就像这样
+ * </p>
+ * <pre class="code">
+ * HttpHeaders headers = new HttpHeaders();
+ * headers.setContentType(MediaType.TEXT_PLAIN);
+ * HttpEntity&lt;String&gt; entity = new HttpEntity&lt;String&gt;(helloWorld, headers);
+ * URI location = template.postForLocation("http://example.com", entity);
+ * </pre>
+ *
  * @author Arjen Poutsma
  * @author Juergen Hoeller
  * @since 3.0.2
