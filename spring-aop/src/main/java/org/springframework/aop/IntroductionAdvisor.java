@@ -54,6 +54,9 @@ public interface IntroductionAdvisor extends Advisor, IntroductionInfo {
     /**
      * Can the advised interfaces be implemented by the introduction advice?
      * Invoked before adding an IntroductionAdvisor.
+     * <p>
+     *     可以通过介绍建议实现建议的接口吗？ 在添加IntroductionAdvisor之前调用。
+     * </p>
      *
      * @throws IllegalArgumentException if the advised interfaces can't be
      *                                  implemented by the introduction advice
