@@ -811,12 +811,15 @@ class CglibAopProxy implements AopProxy, Serializable {
         /**
          * Gives a marginal performance improvement versus using reflection to
          * invoke the target when invoking public methods.
+         * <p>
+         *     与调用public方法时使用反射调用目标相比，性能略有提高。
+         * </p>
          */
         @Override
         protected Object invokeJoinpoint() throws Throwable {
-            if (this.publicMethod) {
+            if (this.publicMethod) { //公共方法使用cglib
                 return this.methodProxy.invoke(this.target, this.arguments);
-            } else {
+            } else { //使用反射
                 return super.invokeJoinpoint();
             }
         }

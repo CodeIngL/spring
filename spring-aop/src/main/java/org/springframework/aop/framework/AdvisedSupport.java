@@ -269,6 +269,13 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 		addAdvisor(pos, advisor);
 	}
 
+	/**
+	 * 添加advisor，
+	 * 值得注意的事，如果是IntroductionAdvisor，我们将进行校验，并将暴露的接口添加到目标对象上
+	 * @param pos position in chain (0 is head). Must be valid.
+	 * @param advisor the advisor to add at the specified position in the chain
+	 * @throws AopConfigException
+	 */
 	@Override
 	public void addAdvisor(int pos, Advisor advisor) throws AopConfigException {
 		if (advisor instanceof IntroductionAdvisor) {
@@ -361,6 +368,10 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 		}
 	}
 
+	/**
+	 * 校验IntroductionAdvisor，添加其中获得接口实现
+	 * @param advisor
+	 */
 	private void validateIntroductionAdvisor(IntroductionAdvisor advisor) {
 		advisor.validateInterfaces();
 		// If the advisor passed validation, we can make the change.
