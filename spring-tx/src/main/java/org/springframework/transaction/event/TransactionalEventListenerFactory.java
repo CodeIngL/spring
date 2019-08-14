@@ -28,7 +28,7 @@ import org.springframework.core.annotation.AnnotationUtils;
  * annotated method.
  *
  * <p>
- *     ´¦ÀíTransactionalEventListener´ø×¢½â·½·¨µÄEventListenerFactoryÊµÏÖ¡£
+ *     å¤„ç†TransactionalEventListenerå¸¦æ³¨è§£æ–¹æ³•çš„EventListenerFactoryå®ç°ã€‚
  * </p>
  *
  * @author Stephane Nicoll
