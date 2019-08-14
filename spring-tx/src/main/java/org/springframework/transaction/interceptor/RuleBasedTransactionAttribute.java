@@ -140,6 +140,7 @@ public class RuleBasedTransactionAttribute extends DefaultTransactionAttribute i
 		}
 
 		RollbackRuleAttribute winner = null;
+		//最深的胜利
 		int deepest = Integer.MAX_VALUE;
 
 		if (this.rollbackRules != null) {
@@ -157,6 +158,7 @@ public class RuleBasedTransactionAttribute extends DefaultTransactionAttribute i
 		}
 
 		// User superclass behavior (rollback on unchecked) if no rule matches.
+		// 如果没有规则匹配，则用户父类行为（rollback on unchecked）。
 		if (winner == null) {
 			logger.trace("No relevant rollback rule found: applying default rules");
 			return super.rollbackOn(ex);

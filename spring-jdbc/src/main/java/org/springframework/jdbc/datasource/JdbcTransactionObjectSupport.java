@@ -115,6 +115,9 @@ public abstract class JdbcTransactionObjectSupport implements SavepointManager, 
 
 	/**
 	 * This implementation rolls back to the given JDBC 3.0 Savepoint.
+	 * <p>
+	 *     此实现回滚到给定的JDBC 3.0 Savepoint
+	 * </p>
 	 * @see java.sql.Connection#rollback(java.sql.Savepoint)
 	 */
 	@Override
