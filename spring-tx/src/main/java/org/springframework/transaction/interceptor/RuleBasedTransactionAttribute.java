@@ -33,11 +33,11 @@ import org.apache.commons.logging.LogFactory;
  * <p>{@link TransactionAttributeEditor} creates objects of this class.
  *
  * <p>
- *     TransactionAttributeÊµÏÖÍ¨¹ıÓ¦ÓÃĞí¶à»Ø¹ö¹æÔò£¨ÕıÃæºÍ¸ºÃæ£©À´È·¶¨¸ø¶¨Òì³£ÊÇ·ñÓ¦¸Ãµ¼ÖÂÊÂÎñ»Ø¹ö¡£
- *     Èç¹ûÃ»ÓĞ¹æÔòÓëÒì³£Ïà¹Ø£¬ÔòÆäĞĞÎªÀàËÆÓÚDefaultTransactionAttribute£¨»Ø¹öÔËĞĞÊ±Òì³££©¡£
+ *     TransactionAttributeå®ç°é€šè¿‡åº”ç”¨è®¸å¤šå›æ»šè§„åˆ™ï¼ˆæ­£é¢å’Œè´Ÿé¢ï¼‰æ¥ç¡®å®šç»™å®šå¼‚å¸¸æ˜¯å¦åº”è¯¥å¯¼è‡´äº‹åŠ¡å›æ»šã€‚
+ *     å¦‚æœæ²¡æœ‰è§„åˆ™ä¸å¼‚å¸¸ç›¸å…³ï¼Œåˆ™å…¶è¡Œä¸ºç±»ä¼¼äºDefaultTransactionAttributeï¼ˆå›æ»šè¿è¡Œæ—¶å¼‚å¸¸ï¼‰ã€‚
  * </p>
  * <p>
- *      TransactionAttributeEditor´´½¨´ËÀàµÄ¶ÔÏó¡£
+ *      TransactionAttributeEditoråˆ›å»ºæ­¤ç±»çš„å¯¹è±¡ã€‚
  * </p>
  *
  * @author Rod Johnson
@@ -140,7 +140,7 @@ public class RuleBasedTransactionAttribute extends DefaultTransactionAttribute i
 		}
 
 		RollbackRuleAttribute winner = null;
-		//×îÉîµÄÊ¤Àû
+		//æœ€æ·±çš„èƒœåˆ©
 		int deepest = Integer.MAX_VALUE;
 
 		if (this.rollbackRules != null) {
@@ -158,7 +158,7 @@ public class RuleBasedTransactionAttribute extends DefaultTransactionAttribute i
 		}
 
 		// User superclass behavior (rollback on unchecked) if no rule matches.
-		// Èç¹ûÃ»ÓĞ¹æÔòÆ¥Åä£¬ÔòÓÃ»§¸¸ÀàĞĞÎª£¨rollback on unchecked£©¡£
+		// å¦‚æœæ²¡æœ‰è§„åˆ™åŒ¹é…ï¼Œåˆ™ç”¨æˆ·çˆ¶ç±»è¡Œä¸ºï¼ˆrollback on uncheckedï¼‰ã€‚
 		if (winner == null) {
 			logger.trace("No relevant rollback rule found: applying default rules");
 			return super.rollbackOn(ex);

@@ -24,7 +24,7 @@ import org.springframework.transaction.TransactionDefinition;
  * in the AOP transaction package.
  *
  * <p>
- *     ´Ë½Ó¿ÚÏò{@link TransactionDefinition}Ìí¼Ó{@code rollbackOn} ¹æ·¶¡£ ÓÉÓÚ×Ô¶¨Òå{@code rollbackOn} ½öÊÊÓÃÓÚAOP£¬Òò´Ë¸ÃÀà×¤ÁôÔÚAOPÊÂÎñ°üÖĞ
+ *     æ­¤æ¥å£å‘{@link TransactionDefinition}æ·»åŠ {@code rollbackOn} è§„èŒƒã€‚ ç”±äºè‡ªå®šä¹‰{@code rollbackOn} ä»…é€‚ç”¨äºAOPï¼Œå› æ­¤è¯¥ç±»é©»ç•™åœ¨AOPäº‹åŠ¡åŒ…ä¸­
  * </p>
  *
  * @author Rod Johnson
@@ -40,10 +40,10 @@ public interface TransactionAttribute extends TransactionDefinition {
 	 * <p>This may be used for choosing a corresponding transaction manager
 	 * to process this specific transaction.
 	 * <p>
-	 *     ·µ»ØÓë´ËÊÂÎñÊôĞÔ¹ØÁªµÄÏŞ¶¨·ûÖµ¡£
+	 *     è¿”å›ä¸æ­¤äº‹åŠ¡å±æ€§å…³è”çš„é™å®šç¬¦å€¼ã€‚
 	 * </p>
 	 * <p>
-	 *     	 Õâ¿ÉÒÔÓÃÓÚÑ¡ÔñÏàÓ¦µÄÊÂÎñ¹ÜÀíÆ÷À´´¦Àí¸ÃÌØ¶¨ÊÂÎñ¡£
+	 *     	 è¿™å¯ä»¥ç”¨äºé€‰æ‹©ç›¸åº”çš„äº‹åŠ¡ç®¡ç†å™¨æ¥å¤„ç†è¯¥ç‰¹å®šäº‹åŠ¡ã€‚
 	 * </p>
 	 */
 	String getQualifier();

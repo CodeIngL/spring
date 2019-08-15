@@ -64,25 +64,25 @@ import org.springframework.util.Assert;
  * any given DataSource or SessionFactory, respectively.
  *
  * <p>
- *     ¹ÜÀíÃ¿¸öÏß³ÌµÄ×ÊÔ´ºÍÊÂÎñÍ¬²½µÄÖĞÑëÎ¯ÍĞ¡£ÓÉ×ÊÔ´¹ÜÀíÆ÷µÄÏà¹Ø´úÂëÊ¹ÓÃ£¬µ«²»ÊÇÓÉµäĞÍµÄÓ¦ÓÃ³ÌĞò´úÂëÊ¹ÓÃ¡£
+ *     ç®¡ç†æ¯ä¸ªçº¿ç¨‹çš„èµ„æºå’Œäº‹åŠ¡åŒæ­¥çš„ä¸­å¤®å§”æ‰˜ã€‚ç”±èµ„æºç®¡ç†å™¨çš„ç›¸å…³ä»£ç ä½¿ç”¨ï¼Œä½†ä¸æ˜¯ç”±å…¸å‹çš„åº”ç”¨ç¨‹åºä»£ç ä½¿ç”¨ã€‚
  * </p>
  * <p>
- *     Ã¿¸ökeyÖ§³ÖÒ»¸ö×ÊÔ´¶ø²»¸²¸Ç£¬Ò²¾ÍÊÇËµ£¬ÔÚÎªÍ¬Ò»¸ökeyÉèÖÃĞÂ×ÊÔ´Ö®Ç°ĞèÒªÉ¾³ı×ÊÔ´¡£Èç¹ûÍ¬²½´¦ÓÚ»î¶¯×´Ì¬£¬ÔòÖ§³ÖÊÂÎñÍ¬²½ÁĞ±í¡£
+ *     æ¯ä¸ªkeyæ”¯æŒä¸€ä¸ªèµ„æºè€Œä¸è¦†ç›–ï¼Œä¹Ÿå°±æ˜¯è¯´ï¼Œåœ¨ä¸ºåŒä¸€ä¸ªkeyè®¾ç½®æ–°èµ„æºä¹‹å‰éœ€è¦åˆ é™¤èµ„æºã€‚å¦‚æœåŒæ­¥å¤„äºæ´»åŠ¨çŠ¶æ€ï¼Œåˆ™æ”¯æŒäº‹åŠ¡åŒæ­¥åˆ—è¡¨ã€‚
  * </p>
  * <p>
- *     ×ÊÔ´¹ÜÀíÆ÷´úÂëÓ¦¼ì²éÏß³Ì°ó¶¨×ÊÔ´£¬ÀıÈçÍ¨¹ı{@code getResource}»ñµÃJDBCÁ¬½Ó»òHibernate»á»°¡£ÕâÑùµÄ´úÂëÍ¨³£²»Ó¦¸Ã½«×ÊÔ´°ó¶¨µ½Ïß³Ì£¬ÒòÎªÕâÊÇÊÂÎñ¹ÜÀíÆ÷µÄÔğÈÎ¡£
- *     ÁíÒ»¸öÑ¡ÔñÊÇ£¬Èç¹ûÊÂÎñÍ¬²½´¦ÓÚ»î¶¯×´Ì¬£¬ÔòÔÚÊ×´ÎÊ¹ÓÃÊ±ÑÓ³Ù°ó¶¨£¬ÒÔÖ´ĞĞ¿çÔ½ÈÎÒâÊıÁ¿×ÊÔ´µÄÊÂÎñ¡£
+ *     èµ„æºç®¡ç†å™¨ä»£ç åº”æ£€æŸ¥çº¿ç¨‹ç»‘å®šèµ„æºï¼Œä¾‹å¦‚é€šè¿‡{@code getResource}è·å¾—JDBCè¿æ¥æˆ–Hibernateä¼šè¯ã€‚è¿™æ ·çš„ä»£ç é€šå¸¸ä¸åº”è¯¥å°†èµ„æºç»‘å®šåˆ°çº¿ç¨‹ï¼Œå› ä¸ºè¿™æ˜¯äº‹åŠ¡ç®¡ç†å™¨çš„è´£ä»»ã€‚
+ *     å¦ä¸€ä¸ªé€‰æ‹©æ˜¯ï¼Œå¦‚æœäº‹åŠ¡åŒæ­¥å¤„äºæ´»åŠ¨çŠ¶æ€ï¼Œåˆ™åœ¨é¦–æ¬¡ä½¿ç”¨æ—¶å»¶è¿Ÿç»‘å®šï¼Œä»¥æ‰§è¡Œè·¨è¶Šä»»æ„æ•°é‡èµ„æºçš„äº‹åŠ¡ã€‚
  * </p>
  * <p>
- *     ÊÂÎñ¹ÜÀíÆ÷±ØĞëÍ¨¹ı{@link #initSynchronization()}ºÍ{@link #clearSynchronization()}¼¤»îºÍÈ¡Ïû¼¤»îÊÂÎñÍ¬²½¡£ÕâÓÉAbstractPlatformTransactionManager×Ô¶¯Ö§³Ö£¬
- *     Òò´ËÓÉËùÓĞ±ê×¼µÄSpringÊÂÎñ¹ÜÀíÆ÷Ö§³Ö£¬ÀıÈçorg.springframework.transaction.jta.JtaTransactionManagerºÍorg.springframework.jdbc.datasource.DataSourceTransactionManager¡£
+ *     äº‹åŠ¡ç®¡ç†å™¨å¿…é¡»é€šè¿‡{@link #initSynchronization()}å’Œ{@link #clearSynchronization()}æ¿€æ´»å’Œå–æ¶ˆæ¿€æ´»äº‹åŠ¡åŒæ­¥ã€‚è¿™ç”±AbstractPlatformTransactionManagerè‡ªåŠ¨æ”¯æŒï¼Œ
+ *     å› æ­¤ç”±æ‰€æœ‰æ ‡å‡†çš„Springäº‹åŠ¡ç®¡ç†å™¨æ”¯æŒï¼Œä¾‹å¦‚org.springframework.transaction.jta.JtaTransactionManagerå’Œorg.springframework.jdbc.datasource.DataSourceTransactionManagerã€‚
  * </p>
  * <p>
- *     ×ÊÔ´¹ÜÀí´úÂëÖ»Ó¦ÔÚ´Ë¹ÜÀíÆ÷´¦ÓÚ»î¶¯×´Ì¬Ê±×¢²áÍ¬²½£¬Õâ¿ÉÒÔÍ¨¹ıisSynchronizationActive½øĞĞ¼ì²é;ËüÓ¦¸ÃÁ¢¼´Ö´ĞĞ×ÊÔ´ÇåÀí¡£
- *     Èç¹ûÊÂÎñÍ¬²½Î´´¦ÓÚ»î¶¯×´Ì¬£¬Ôò±íÊ¾Ã»ÓĞµ±Ç°ÊÂÎñ£¬»òÕßÊÂÎñ¹ÜÀíÆ÷²»Ö§³ÖÊÂÎñÍ¬²½¡£
+ *     èµ„æºç®¡ç†ä»£ç åªåº”åœ¨æ­¤ç®¡ç†å™¨å¤„äºæ´»åŠ¨çŠ¶æ€æ—¶æ³¨å†ŒåŒæ­¥ï¼Œè¿™å¯ä»¥é€šè¿‡isSynchronizationActiveè¿›è¡Œæ£€æŸ¥;å®ƒåº”è¯¥ç«‹å³æ‰§è¡Œèµ„æºæ¸…ç†ã€‚
+ *     å¦‚æœäº‹åŠ¡åŒæ­¥æœªå¤„äºæ´»åŠ¨çŠ¶æ€ï¼Œåˆ™è¡¨ç¤ºæ²¡æœ‰å½“å‰äº‹åŠ¡ï¼Œæˆ–è€…äº‹åŠ¡ç®¡ç†å™¨ä¸æ”¯æŒäº‹åŠ¡åŒæ­¥ã€‚
  * </p>
  * <p>
- *     ÀıÈç£¬Í¬²½ÓÃÓÚÊ¼ÖÕÔÚJTAÊÂÎñÖĞ·µ»ØÏàÍ¬µÄ×ÊÔ´£¬ÀıÈç£¬·Ö±ğÕë¶ÔÈÎºÎ¸ø¶¨µÄDataSource»òSessionFactoryµÄJDBCÁ¬½Ó»òHibernate»á»°¡£
+ *     ä¾‹å¦‚ï¼ŒåŒæ­¥ç”¨äºå§‹ç»ˆåœ¨JTAäº‹åŠ¡ä¸­è¿”å›ç›¸åŒçš„èµ„æºï¼Œä¾‹å¦‚ï¼Œåˆ†åˆ«é’ˆå¯¹ä»»ä½•ç»™å®šçš„DataSourceæˆ–SessionFactoryçš„JDBCè¿æ¥æˆ–Hibernateä¼šè¯ã€‚
  * </p>
  *
  * @author Juergen Hoeller
@@ -220,7 +220,7 @@ public abstract class TransactionSynchronizationManager {
 	/**
 	 * Unbind a resource for the given key from the current thread.
 	 * <p>
-	 *     ½â³ıµ±Ç°Ïß³ÌÖĞ¸ø¶¨¼üµÄ×ÊÔ´°ó¶¨¡£
+	 *     è§£é™¤å½“å‰çº¿ç¨‹ä¸­ç»™å®šé”®çš„èµ„æºç»‘å®šã€‚
 	 * </p>
 	 * @param key the key to unbind (usually the resource factory)
 	 * @return the previously bound value (usually the active resource object)
@@ -280,7 +280,7 @@ public abstract class TransactionSynchronizationManager {
 	 * Return if transaction synchronization is active for the current thread.
 	 * Can be called before register to avoid unnecessary instance creation.
 	 * <p>
-	 *     Èç¹ûµ±Ç°Ïß³ÌµÄÊÂÎñÍ¬²½´¦ÓÚ»î¶¯×´Ì¬£¬Ôò·µ»Ø¡£ ¿ÉÒÔÔÚ×¢²áÇ°µ÷ÓÃÒÔ±ÜÃâ²»±ØÒªµÄÊµÀı´´½¨
+	 *     å¦‚æœå½“å‰çº¿ç¨‹çš„äº‹åŠ¡åŒæ­¥å¤„äºæ´»åŠ¨çŠ¶æ€ï¼Œåˆ™è¿”å›ã€‚ å¯ä»¥åœ¨æ³¨å†Œå‰è°ƒç”¨ä»¥é¿å…ä¸å¿…è¦çš„å®ä¾‹åˆ›å»º
 	 * </p>
 	 * @see #registerSynchronization
 	 */
@@ -325,7 +325,7 @@ public abstract class TransactionSynchronizationManager {
 	 * Return an unmodifiable snapshot list of all registered synchronizations
 	 * for the current thread.
 	 * <p>
-	 *     ·µ»Øµ±Ç°Ïß³ÌµÄËùÓĞÒÑ×¢²áÍ¬²½µÄ²»¿ÉĞŞ¸ÄµÄ¿ìÕÕÁĞ±í¡£
+	 *     è¿”å›å½“å‰çº¿ç¨‹çš„æ‰€æœ‰å·²æ³¨å†ŒåŒæ­¥çš„ä¸å¯ä¿®æ”¹çš„å¿«ç…§åˆ—è¡¨ã€‚
 	 * </p>
 	 * @return unmodifiable List of TransactionSynchronization instances
 	 * @throws IllegalStateException if synchronization is not active
@@ -344,7 +344,7 @@ public abstract class TransactionSynchronizationManager {
 		}
 		else {
 			// Sort lazily here, not in registerSynchronization.
-			// ÕâÀïÀÁ¶èµØÅÅĞò£¬¶ø²»ÊÇÔÚregisterSynchronizationÖĞ¡£
+			// è¿™é‡Œæ‡’æƒ°åœ°æ’åºï¼Œè€Œä¸æ˜¯åœ¨registerSynchronizationä¸­ã€‚
 			List<TransactionSynchronization> sortedSynchs = new ArrayList<TransactionSynchronization>(synchs);
 			AnnotationAwareOrderComparator.sort(sortedSynchs);
 			return Collections.unmodifiableList(sortedSynchs);

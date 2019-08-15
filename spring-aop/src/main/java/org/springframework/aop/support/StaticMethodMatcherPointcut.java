@@ -28,10 +28,10 @@ import org.springframework.aop.Pointcut;
  * {@link ClassFilter} behavior. The default is {@link ClassFilter#TRUE}.
  *
  * <p>
- *     µ±ÎÒÃÇÏëÒªÇ¿ÖÆ×ÓÀàÊµÏÖMethodMatcher½Ó¿Úµ«ÊÇ×ÓÀàÏëÒª³ÉÎªÇĞÈëµãÊ±£¬·½±ãµÄ³¬Àà¡£
+ *     å½“æˆ‘ä»¬æƒ³è¦å¼ºåˆ¶å­ç±»å®ç°MethodMatcheræ¥å£ä½†æ˜¯å­ç±»æƒ³è¦æˆä¸ºåˆ‡å…¥ç‚¹æ—¶ï¼Œæ–¹ä¾¿çš„è¶…ç±»ã€‚
  * </p>
  * <p>
- *    ¿ÉÒÔÉèÖÃ¡°classFilter¡±ÊôĞÔÒÔ×Ô¶¨ÒåClassFilterĞĞÎª¡£ Ä¬ÈÏÖµÎªClassFilter.TRUE¡£
+ *    å¯ä»¥è®¾ç½®â€œclassFilterâ€å±æ€§ä»¥è‡ªå®šä¹‰ClassFilterè¡Œä¸ºã€‚ é»˜è®¤å€¼ä¸ºClassFilter.TRUEã€‚
  * </p>
  *
  * @author Rod Johnson

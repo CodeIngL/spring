@@ -113,46 +113,46 @@ import org.springframework.util.backoff.FixedBackOff;
  * "AUTO_ACKNOWLEDGE" mode, this container applies automatic message acknowledgment
  * before listener execution, with no redelivery in case of an exception.
  * <p>
- *     ÏûÏ¢ÕìÌıÆ÷ÈİÆ÷±äÌå£¬
- *     ËüÊ¹ÓÃÆÕÍ¨µÄJMS¿Í»§¶ËAPI£¬
- *     ÌØ±ğÊÇ{@code MessageConsumer.receive()} µ÷ÓÃµÄÑ­»·£¬
- *     Ëü»¹ÔÊĞíÊÂÎñĞÔµØ½ÓÊÕÏûÏ¢£¨Ê¹ÓÃXAÊÂÎñ×¢²áËüÃÇ£©¡£
- *     Éè¼ÆÓÃÓÚÔÚ±¾»úJMS»·¾³ÒÔ¼°Java EE»·¾³ÖĞ¹¤×÷£¬Ö»ÓĞºÜĞ¡µÄÅäÖÃ²îÒì¡£
+ *     æ¶ˆæ¯ä¾¦å¬å™¨å®¹å™¨å˜ä½“ï¼Œ
+ *     å®ƒä½¿ç”¨æ™®é€šçš„JMSå®¢æˆ·ç«¯APIï¼Œ
+ *     ç‰¹åˆ«æ˜¯{@code MessageConsumer.receive()} è°ƒç”¨çš„å¾ªç¯ï¼Œ
+ *     å®ƒè¿˜å…è®¸äº‹åŠ¡æ€§åœ°æ¥æ”¶æ¶ˆæ¯ï¼ˆä½¿ç”¨XAäº‹åŠ¡æ³¨å†Œå®ƒä»¬ï¼‰ã€‚
+ *     è®¾è®¡ç”¨äºåœ¨æœ¬æœºJMSç¯å¢ƒä»¥åŠJava EEç¯å¢ƒä¸­å·¥ä½œï¼Œåªæœ‰å¾ˆå°çš„é…ç½®å·®å¼‚ã€‚
  * </p>
  * <p>
- * ÕâÊÇÒ»¸ö¼òµ¥µ«¹¦ÄÜÇ¿´óµÄÏûÏ¢¼àÌıÆ÷ÈİÆ÷ĞÎÊ½¡£
- * ÔÚÆô¶¯Ê±£¬Ëü»ñµÃ¹Ì¶¨ÊıÁ¿µÄJMS»á»°ÒÔµ÷ÓÃÕìÌıÆ÷£¬²¢ÇÒ¿ÉÑ¡µØÔÊĞíÔÚÔËĞĞÊ±¶¯Ì¬µ÷Õû£¨×î¶àÎª×î´óÊıÁ¿£©¡£
- * ÓëSimpleMessageListenerContainerÒ»Ñù£¬ËüµÄÖ÷ÒªÓÅµãÊÇÔËĞĞÊ±¸´ÔÓ¶ÈµÍ£¬
- * ÌØ±ğÊÇ¶ÔJMSÌá¹©³ÌĞòµÄ×îµÍÒªÇó£ºÉõÖÁ²»ĞèÒªJMS ServerSessionPool¹¤¾ß¡£³ı´ËÖ®Íâ£¬Èç¹û´úÀíÔİÊ±²»¿ÉÓÃ£¬Ëü½«ÍêÈ«×ÔÎÒ»Ö¸´£¬²¢ÔÊĞíÍ£Ö¹/ÖØĞÂÆô¶¯ÒÔ¼°ÔËĞĞÊ±¸ü¸ÄÆäÅäÖÃ¡£
+ * è¿™æ˜¯ä¸€ä¸ªç®€å•ä½†åŠŸèƒ½å¼ºå¤§çš„æ¶ˆæ¯ç›‘å¬å™¨å®¹å™¨å½¢å¼ã€‚
+ * åœ¨å¯åŠ¨æ—¶ï¼Œå®ƒè·å¾—å›ºå®šæ•°é‡çš„JMSä¼šè¯ä»¥è°ƒç”¨ä¾¦å¬å™¨ï¼Œå¹¶ä¸”å¯é€‰åœ°å…è®¸åœ¨è¿è¡Œæ—¶åŠ¨æ€è°ƒæ•´ï¼ˆæœ€å¤šä¸ºæœ€å¤§æ•°é‡ï¼‰ã€‚
+ * ä¸SimpleMessageListenerContainerä¸€æ ·ï¼Œå®ƒçš„ä¸»è¦ä¼˜ç‚¹æ˜¯è¿è¡Œæ—¶å¤æ‚åº¦ä½ï¼Œ
+ * ç‰¹åˆ«æ˜¯å¯¹JMSæä¾›ç¨‹åºçš„æœ€ä½è¦æ±‚ï¼šç”šè‡³ä¸éœ€è¦JMS ServerSessionPoolå·¥å…·ã€‚é™¤æ­¤ä¹‹å¤–ï¼Œå¦‚æœä»£ç†æš‚æ—¶ä¸å¯ç”¨ï¼Œå®ƒå°†å®Œå…¨è‡ªæˆ‘æ¢å¤ï¼Œå¹¶å…è®¸åœæ­¢/é‡æ–°å¯åŠ¨ä»¥åŠè¿è¡Œæ—¶æ›´æ”¹å…¶é…ç½®ã€‚
  * </p>
  * <p>
- * Êµ¼ÊµÄMessageListenerÖ´ĞĞ·¢ÉúÔÚÍ¨¹ıSpringµÄTaskExecutor³éÏó´´½¨µÄÒì²½¹¤×÷µ¥ÔªÖĞ¡£
- * Ä¬ÈÏÇé¿öÏÂ£¬¸ù¾İ¡°concurrentConsumers¡±ÉèÖÃ£¬½«ÔÚÆô¶¯Ê±´´½¨Ö¸¶¨ÊıÁ¿µÄµ÷ÓÃ³ÌĞòÈÎÎñ¡£
- * Ö¸¶¨±¸ÓÃTaskExecutorÒÔÓëÏÖÓĞÏß³Ì³Ø¹¤¾ß£¨ÀıÈçJava EE·şÎñÆ÷£©¼¯³É£¬ÀıÈçÊ¹ÓÃCommonJ WorkManager¡£
- * Ê¹ÓÃ±¾»úJMSÉèÖÃ£¬Ã¿¸öÕìÌıÆ÷Ïß³Ì½«Ê¹ÓÃ»º´æµÄJMS»á»°ºÍMessageConsumer£¨½öÔÚ·¢Éú¹ÊÕÏÊ±Ë¢ĞÂ£©£¬¾¡¿ÉÄÜ¸ßĞ§µØÊ¹ÓÃJMSÌá¹©³ÌĞòµÄ×ÊÔ´¡£
+ * å®é™…çš„MessageListeneræ‰§è¡Œå‘ç”Ÿåœ¨é€šè¿‡Springçš„TaskExecutoræŠ½è±¡åˆ›å»ºçš„å¼‚æ­¥å·¥ä½œå•å…ƒä¸­ã€‚
+ * é»˜è®¤æƒ…å†µä¸‹ï¼Œæ ¹æ®â€œconcurrentConsumersâ€è®¾ç½®ï¼Œå°†åœ¨å¯åŠ¨æ—¶åˆ›å»ºæŒ‡å®šæ•°é‡çš„è°ƒç”¨ç¨‹åºä»»åŠ¡ã€‚
+ * æŒ‡å®šå¤‡ç”¨TaskExecutorä»¥ä¸ç°æœ‰çº¿ç¨‹æ± å·¥å…·ï¼ˆä¾‹å¦‚Java EEæœåŠ¡å™¨ï¼‰é›†æˆï¼Œä¾‹å¦‚ä½¿ç”¨CommonJ WorkManagerã€‚
+ * ä½¿ç”¨æœ¬æœºJMSè®¾ç½®ï¼Œæ¯ä¸ªä¾¦å¬å™¨çº¿ç¨‹å°†ä½¿ç”¨ç¼“å­˜çš„JMSä¼šè¯å’ŒMessageConsumerï¼ˆä»…åœ¨å‘ç”Ÿæ•…éšœæ—¶åˆ·æ–°ï¼‰ï¼Œå°½å¯èƒ½é«˜æ•ˆåœ°ä½¿ç”¨JMSæä¾›ç¨‹åºçš„èµ„æºã€‚
  * </p>
  * <p>
- * Í¨¹ı½«Spring org.springframework.transaction.PlatformTransactionManager´«µİµ½¡°transactionManager¡±ÊôĞÔ£¬ÏûÏ¢½ÓÊÕºÍÕìÌıÆ÷Ö´ĞĞ¿ÉÒÔ×Ô¶¯°ü×°ÔÚÊÂÎñÖĞ¡£
- * ÕâÍ¨³£ÊÇJava EE»·¾³ÖĞµÄorg.springframework.transaction.jta.JtaTransactionManager£¬ÒÔ¼°´ÓJNDI»ñÈ¡µÄÖ§³ÖJTAµÄJMS ConnectionFactory£¨Çë²é¿´Java EE·şÎñÆ÷µÄÎÄµµ£©¡£
- * Çë×¢Òâ£¬Èç¹ûÖ¸¶¨ÁËÍâ²¿ÊÂÎñ¹ÜÀíÆ÷£¬Ôò´ËÕìÌıÆ÷ÈİÆ÷½«×Ô¶¯ÎªÃ¿¸öÊÂÎñÖØĞÂ»ñÈ¡ËùÓĞJMS¾ä±ú£¬ÒÔ±ãÓëËùÓĞJava EE·şÎñÆ÷£¨ÌØ±ğÊÇJBoss£©¼æÈİ¡£
- * ¿ÉÒÔÍ¨¹ı¡°cacheLevel¡±/¡°cacheLevelName¡±ÊôĞÔ¸²¸Ç´Ë·Ç»º´æĞĞÎª£¬¼´Ê¹Éæ¼°Íâ²¿ÊÂÎñ¹ÜÀíÆ÷£¬Ò²»áÇ¿ÖÆÖ´ĞĞConnection£¨»òSessionºÍMessageConsumer£©µÄ»º´æ¡£
+ * é€šè¿‡å°†Spring org.springframework.transaction.PlatformTransactionManagerä¼ é€’åˆ°â€œtransactionManagerâ€å±æ€§ï¼Œæ¶ˆæ¯æ¥æ”¶å’Œä¾¦å¬å™¨æ‰§è¡Œå¯ä»¥è‡ªåŠ¨åŒ…è£…åœ¨äº‹åŠ¡ä¸­ã€‚
+ * è¿™é€šå¸¸æ˜¯Java EEç¯å¢ƒä¸­çš„org.springframework.transaction.jta.JtaTransactionManagerï¼Œä»¥åŠä»JNDIè·å–çš„æ”¯æŒJTAçš„JMS ConnectionFactoryï¼ˆè¯·æŸ¥çœ‹Java EEæœåŠ¡å™¨çš„æ–‡æ¡£ï¼‰ã€‚
+ * è¯·æ³¨æ„ï¼Œå¦‚æœæŒ‡å®šäº†å¤–éƒ¨äº‹åŠ¡ç®¡ç†å™¨ï¼Œåˆ™æ­¤ä¾¦å¬å™¨å®¹å™¨å°†è‡ªåŠ¨ä¸ºæ¯ä¸ªäº‹åŠ¡é‡æ–°è·å–æ‰€æœ‰JMSå¥æŸ„ï¼Œä»¥ä¾¿ä¸æ‰€æœ‰Java EEæœåŠ¡å™¨ï¼ˆç‰¹åˆ«æ˜¯JBossï¼‰å…¼å®¹ã€‚
+ * å¯ä»¥é€šè¿‡â€œcacheLevelâ€/â€œcacheLevelNameâ€å±æ€§è¦†ç›–æ­¤éç¼“å­˜è¡Œä¸ºï¼Œå³ä½¿æ¶‰åŠå¤–éƒ¨äº‹åŠ¡ç®¡ç†å™¨ï¼Œä¹Ÿä¼šå¼ºåˆ¶æ‰§è¡ŒConnectionï¼ˆæˆ–Sessionå’ŒMessageConsumerï¼‰çš„ç¼“å­˜ã€‚
  * </p>
  * <p>
- * ¿ÉÒÔÍ¨¹ıÖ¸¶¨¸ßÓÚ¡°concurrentConsumers¡±ÖµµÄ¡°maxConcurrentConsumers¡±ÖµÀ´¼¤»î²¢·¢µ÷¶ÈÆ÷ÊıÁ¿µÄ¶¯Ì¬Ëõ·Å¡£
- * ÓÉÓÚºóÕßµÄÄ¬ÈÏÖµÎª1£¬Òò´ËÄúÒ²¿ÉÒÔ¼òµ¥µØÖ¸¶¨ÀıÈç¡°maxConcurrentConsumers¡±¡£ 5£¬Õâ½«µ¼ÖÂÔÚÏûÏ¢¸ºÔØÔö¼ÓµÄÇé¿öÏÂ¶¯Ì¬À©Õ¹µ½5¸ö²¢·¢Ïû·ÑÕß£¬
- * ²¢ÇÒÒ»µ©¸ºÔØ¼õÉÙ£¬¶¯Ì¬Ëõ¼õ»Ø±ê×¼ÊıÁ¿µÄÏû·ÑÕß¡£¿¼ÂÇµ÷Õû¡°idleTaskExecutionLimit¡±ÉèÖÃÀ´¿ØÖÆÃ¿¸öĞÂÈÎÎñµÄÉúÃüÖÜÆÚ£¬ÒÔ±ÜÃâÆµ·±µØÏòÉÏºÍÏòÏÂÀ©Õ¹£¬ÌØ±ğÊÇÈç¹ûConnectionFactoryÃ»ÓĞ³Ø»¯JMS»á»°ºÍ/»òTaskExecutor²»»ã¼¯Ïß³Ì£¨¼ì²éÄúµÄÅäÖÃ£¡£©¡£
- * Çë×¢Òâ£¬¶¯Ì¬Ëõ·ÅÖ»¶ÔµÚÒ»¸ö¶ÓÁĞÕæÕıÓĞÒâÒå;¶ÔÓÚÄ³¸öÖ÷Ìâ£¬ÄúÍ¨³£»áÊ¹ÓÃÄ¬ÈÏµÄ1¸öÊ¹ÓÃÕßÊı£¬·ñÔòÄú½«ÔÚÍ¬Ò»½ÚµãÉÏ¶à´ÎÊÕµ½ÏàÍ¬µÄÏûÏ¢¡£
+ * å¯ä»¥é€šè¿‡æŒ‡å®šé«˜äºâ€œconcurrentConsumersâ€å€¼çš„â€œmaxConcurrentConsumersâ€å€¼æ¥æ¿€æ´»å¹¶å‘è°ƒåº¦å™¨æ•°é‡çš„åŠ¨æ€ç¼©æ”¾ã€‚
+ * ç”±äºåè€…çš„é»˜è®¤å€¼ä¸º1ï¼Œå› æ­¤æ‚¨ä¹Ÿå¯ä»¥ç®€å•åœ°æŒ‡å®šä¾‹å¦‚â€œmaxConcurrentConsumersâ€ã€‚ 5ï¼Œè¿™å°†å¯¼è‡´åœ¨æ¶ˆæ¯è´Ÿè½½å¢åŠ çš„æƒ…å†µä¸‹åŠ¨æ€æ‰©å±•åˆ°5ä¸ªå¹¶å‘æ¶ˆè´¹è€…ï¼Œ
+ * å¹¶ä¸”ä¸€æ—¦è´Ÿè½½å‡å°‘ï¼ŒåŠ¨æ€ç¼©å‡å›æ ‡å‡†æ•°é‡çš„æ¶ˆè´¹è€…ã€‚è€ƒè™‘è°ƒæ•´â€œidleTaskExecutionLimitâ€è®¾ç½®æ¥æ§åˆ¶æ¯ä¸ªæ–°ä»»åŠ¡çš„ç”Ÿå‘½å‘¨æœŸï¼Œä»¥é¿å…é¢‘ç¹åœ°å‘ä¸Šå’Œå‘ä¸‹æ‰©å±•ï¼Œç‰¹åˆ«æ˜¯å¦‚æœConnectionFactoryæ²¡æœ‰æ± åŒ–JMSä¼šè¯å’Œ/æˆ–TaskExecutorä¸æ±‡é›†çº¿ç¨‹ï¼ˆæ£€æŸ¥æ‚¨çš„é…ç½®ï¼ï¼‰ã€‚
+ * è¯·æ³¨æ„ï¼ŒåŠ¨æ€ç¼©æ”¾åªå¯¹ç¬¬ä¸€ä¸ªé˜Ÿåˆ—çœŸæ­£æœ‰æ„ä¹‰;å¯¹äºæŸä¸ªä¸»é¢˜ï¼Œæ‚¨é€šå¸¸ä¼šä½¿ç”¨é»˜è®¤çš„1ä¸ªä½¿ç”¨è€…æ•°ï¼Œå¦åˆ™æ‚¨å°†åœ¨åŒä¸€èŠ‚ç‚¹ä¸Šå¤šæ¬¡æ”¶åˆ°ç›¸åŒçš„æ¶ˆæ¯ã€‚
  * </p>
  * <p>
- * ×¢Òâ£º²»Òª½«SpringµÄorg.springframework.jms.connection.CachingConnectionFactoryÓë¶¯Ì¬Ëõ·Å½áºÏÊ¹ÓÃ¡£
- * ÀíÏëÇé¿öÏÂ£¬²»Òª½«ËüÓëÏûÏ¢ÕìÌıÆ÷ÈİÆ÷Ò»ÆğÊ¹ÓÃ£¬ÒòÎªÍ¨³£×îºÃÈÃÕìÌıÆ÷ÈİÆ÷±¾ÉíÔÚÆäÉúÃüÖÜÆÚÄÚ´¦ÀíÊÊµ±µÄ»º´æ¡£
- * ´ËÍâ£¬Í£Ö¹ºÍÖØĞÂÆô¶¯ÕìÌıÆ÷ÈİÆ÷Ö»ÄÜÊ¹ÓÃ¶ÀÁ¢µÄ±¾µØ»º´æÁ¬½Ó - ¶ø²»ÊÇÍâ²¿»º´æÁ¬½Ó¡£
+ * æ³¨æ„ï¼šä¸è¦å°†Springçš„org.springframework.jms.connection.CachingConnectionFactoryä¸åŠ¨æ€ç¼©æ”¾ç»“åˆä½¿ç”¨ã€‚
+ * ç†æƒ³æƒ…å†µä¸‹ï¼Œä¸è¦å°†å®ƒä¸æ¶ˆæ¯ä¾¦å¬å™¨å®¹å™¨ä¸€èµ·ä½¿ç”¨ï¼Œå› ä¸ºé€šå¸¸æœ€å¥½è®©ä¾¦å¬å™¨å®¹å™¨æœ¬èº«åœ¨å…¶ç”Ÿå‘½å‘¨æœŸå†…å¤„ç†é€‚å½“çš„ç¼“å­˜ã€‚
+ * æ­¤å¤–ï¼Œåœæ­¢å’Œé‡æ–°å¯åŠ¨ä¾¦å¬å™¨å®¹å™¨åªèƒ½ä½¿ç”¨ç‹¬ç«‹çš„æœ¬åœ°ç¼“å­˜è¿æ¥ - è€Œä¸æ˜¯å¤–éƒ¨ç¼“å­˜è¿æ¥ã€‚
  * </p>
  * <p>
- * Ç¿ÁÒ½¨Òé½«¡°sessionTransacted¡±ÉèÖÃÎª¡°true¡±»òÖ¸¶¨Íâ²¿¡°transactionManager¡±¡£
- * ÓĞ¹ØÈ·ÈÏÄ£Ê½ºÍ±¾»úÊÂÎñÑ¡ÏîµÄÏêÏ¸ĞÅÏ¢£¬Çë²ÎÔÄAbstractMessageListenerContainer javadoc;ÓĞ¹ØÅäÖÃÍâ²¿ÊÂÎñ¹ÜÀíÆ÷µÄÏêÏ¸ĞÅÏ¢£¬
- * Çë²ÎÔÄAbstractPollingMessageListenerContainer javadoc¡£
- * Çë×¢Òâ£¬¶ÔÓÚÄ¬ÈÏµÄ¡°AUTO_ACKNOWLEDGE¡±Ä£Ê½£¬´ËÈİÆ÷ÔÚÕìÌıÆ÷Ö´ĞĞÖ®Ç°Ó¦ÓÃ×Ô¶¯ÏûÏ¢È·ÈÏ£¬Èç¹û·¢ÉúÒì³£Ôò²»»áÖØĞÂ´«µİ¡£
+ * å¼ºçƒˆå»ºè®®å°†â€œsessionTransactedâ€è®¾ç½®ä¸ºâ€œtrueâ€æˆ–æŒ‡å®šå¤–éƒ¨â€œtransactionManagerâ€ã€‚
+ * æœ‰å…³ç¡®è®¤æ¨¡å¼å’Œæœ¬æœºäº‹åŠ¡é€‰é¡¹çš„è¯¦ç»†ä¿¡æ¯ï¼Œè¯·å‚é˜…AbstractMessageListenerContainer javadoc;æœ‰å…³é…ç½®å¤–éƒ¨äº‹åŠ¡ç®¡ç†å™¨çš„è¯¦ç»†ä¿¡æ¯ï¼Œ
+ * è¯·å‚é˜…AbstractPollingMessageListenerContainer javadocã€‚
+ * è¯·æ³¨æ„ï¼Œå¯¹äºé»˜è®¤çš„â€œAUTO_ACKNOWLEDGEâ€æ¨¡å¼ï¼Œæ­¤å®¹å™¨åœ¨ä¾¦å¬å™¨æ‰§è¡Œä¹‹å‰åº”ç”¨è‡ªåŠ¨æ¶ˆæ¯ç¡®è®¤ï¼Œå¦‚æœå‘ç”Ÿå¼‚å¸¸åˆ™ä¸ä¼šé‡æ–°ä¼ é€’ã€‚
  * </p>
  *
  * @author Juergen Hoeller
@@ -583,7 +583,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	 * in the form of a JMS Session plus associated MessageConsumer
 	 * running in a separate thread.
 	 * <p>
-	 *     ´´½¨Ö¸¶¨ÊıÁ¿µÄ²¢·¢Ê¹ÓÃÕß£¬ÒÔJMS»á»°µÄĞÎÊ½ÒÔ¼°ÔÚµ¥¶ÀÏß³ÌÖĞÔËĞĞµÄ¹ØÁªMessageConsumer¡£
+	 *     åˆ›å»ºæŒ‡å®šæ•°é‡çš„å¹¶å‘ä½¿ç”¨è€…ï¼Œä»¥JMSä¼šè¯çš„å½¢å¼ä»¥åŠåœ¨å•ç‹¬çº¿ç¨‹ä¸­è¿è¡Œçš„å…³è”MessageConsumerã€‚
 	 * </p>
 	 * @see #scheduleNewInvoker
 	 * @see #setTaskExecutor
@@ -591,7 +591,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	@Override
 	protected void doInitialize() throws JMSException {
 		synchronized (this.lifecycleMonitor) {
-			//²¢·¢µÄÏû·Ñ
+			//å¹¶å‘çš„æ¶ˆè´¹
 			for (int i = 0; i < this.concurrentConsumers; i++) {
 				scheduleNewInvoker();
 			}
@@ -739,7 +739,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	 * Schedule a new invoker, increasing the total number of scheduled
 	 * invokers for this listener container.
 	 * <p>
-	 *     °²ÅÅĞÂµÄinvoker£¬Ôö¼Ó´ËÕìÌıÆ÷ÈİÆ÷µÄÔ¤¶¨µ÷ÓÃÕß×ÜÊı¡£
+	 *     å®‰æ’æ–°çš„invokerï¼Œå¢åŠ æ­¤ä¾¦å¬å™¨å®¹å™¨çš„é¢„å®šè°ƒç”¨è€…æ€»æ•°ã€‚
 	 * </p>
 	 */
 	private void scheduleNewInvoker() {
@@ -830,7 +830,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 	 * Determine whether this listener container currently has more
 	 * than one idle instance among its scheduled invokers.
 	 * <p>
-	 *     È·¶¨´ËÕìÌıÆ÷ÈİÆ÷µ±Ç°ÊÇ·ñÔÚÆä¼Æ»®µÄµ÷ÓÃ³ÌĞòÖĞ¾ßÓĞ¶à¸ö¿ÕÏĞÊµÀı¡£
+	 *     ç¡®å®šæ­¤ä¾¦å¬å™¨å®¹å™¨å½“å‰æ˜¯å¦åœ¨å…¶è®¡åˆ’çš„è°ƒç”¨ç¨‹åºä¸­å…·æœ‰å¤šä¸ªç©ºé—²å®ä¾‹ã€‚
 	 * </p>
 	 */
 	private int getIdleInvokerCount() {
@@ -1096,7 +1096,7 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 		private volatile boolean idle = true;
 
 		/**
-		 * ÔËĞĞÂß¼­
+		 * è¿è¡Œé€»è¾‘
 		 */
 		@Override
 		public void run() {
@@ -1217,12 +1217,12 @@ public class DefaultMessageListenerContainer extends AbstractPollingMessageListe
 		}
 
 		/**
-		 * µ÷ÓÃ¼àÌı
+		 * è°ƒç”¨ç›‘å¬
 		 * @return
 		 * @throws JMSException
 		 */
 		private boolean invokeListener() throws JMSException {
-			//Èç¹û±ØÒªÎÒÃÇÖØĞÂ³õÊ¼»¯×ÊÔ´
+			//å¦‚æœå¿…è¦æˆ‘ä»¬é‡æ–°åˆå§‹åŒ–èµ„æº
 			initResourcesIfNecessary();
 			boolean messageReceived = receiveAndExecute(this, this.session, this.consumer);
 			this.lastMessageSucceeded = true;
