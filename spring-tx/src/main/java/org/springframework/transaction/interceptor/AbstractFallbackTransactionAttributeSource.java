@@ -44,6 +44,17 @@ import org.springframework.util.ClassUtils;
  * (which is very unlikely), caching could be made configurable. Caching is
  * desirable because of the cost of evaluating rollback rules.
  *
+ * <p>
+ *     TransactionAttributeSourceçš„æŠ½è±¡å®ç°ï¼Œå®ƒç¼“å­˜æ–¹æ³•çš„å±æ€§å¹¶å®ç°å›é€€ç­–ç•¥ï¼š1ã€‚ç‰¹å®šçš„ç›®æ ‡æ–¹æ³•; ç›®æ ‡ç­çº§; å®£å‘Šæ–¹æ³•; 4.å£°æ˜ç±»/æ¥å£ã€‚
+ * </p>
+ * <p>
+ *  å¦‚æœæ²¡æœ‰ä¸ç›®æ ‡æ–¹æ³•å…³è”ï¼Œåˆ™é»˜è®¤ä½¿ç”¨ç›®æ ‡ç±»çš„äº‹åŠ¡å±æ€§ã€‚ ä¸ç›®æ ‡æ–¹æ³•å…³è”çš„ä»»ä½•äº‹åŠ¡å±æ€§éƒ½ä¼šå®Œå…¨è¦†ç›–ç±»äº‹åŠ¡å±æ€§ã€‚ å¦‚æœåœ¨ç›®æ ‡ç±»ä¸Šæ‰¾ä¸åˆ°ï¼Œåˆ™å°†æ£€æŸ¥å·²è°ƒç”¨è°ƒç”¨æ–¹æ³•çš„æ¥å£ï¼ˆå¦‚æœæ˜¯JDKä»£ç†ï¼‰ã€‚
+ * </p>
+ * <p>
+ *  æ­¤å®ç°åœ¨é¦–æ¬¡ä½¿ç”¨åæŒ‰æ–¹æ³•ç¼“å­˜å±æ€§ã€‚ å¦‚æœå¸Œæœ›å…è®¸åŠ¨æ€æ›´æ”¹äº‹åŠ¡å±æ€§ï¼ˆè¿™æ˜¯éå¸¸ä¸å¯èƒ½çš„ï¼‰ï¼Œåˆ™å¯ä»¥ä½¿é«˜é€Ÿç¼“å­˜å¯é…ç½®ã€‚ ç”±äºè¯„ä¼°å›æ»šè§„åˆ™çš„æˆæœ¬ï¼Œç¼“å­˜æ˜¯å¯å–çš„
+ * </p>
+ * <p></p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @since 1.1
@@ -70,10 +81,10 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 	 * after serialization - provided that the concrete subclass is Serializable.
 	 *
 	 * <p>
-	 *     TransactionAttributesµÄ»º´æ£¬ÓÉÌØ¶¨Ä¿±êÀàÉÏµÄ·½·¨¼ü¿Ø¡£
+	 *     TransactionAttributesçš„ç¼“å­˜ï¼Œç”±ç‰¹å®šç›®æ ‡ç±»ä¸Šçš„æ–¹æ³•é”®æ§ã€‚
 	 * </p>
 	 * <p>
-	 *    ÓÉÓÚ´Ë»ùÀàÎ´±ê¼ÇÎªSerializable£¬Òò´ËÔÚĞòÁĞ»¯ºó½«ÖØĞÂ´´½¨»º´æ - Ç°ÌáÊÇ¾ßÌå×ÓÀàÎªSerializable¡£
+	 *    ç”±äºæ­¤åŸºç±»æœªæ ‡è®°ä¸ºSerializableï¼Œå› æ­¤åœ¨åºåˆ—åŒ–åå°†é‡æ–°åˆ›å»ºç¼“å­˜ - å‰ææ˜¯å…·ä½“å­ç±»ä¸ºSerializableã€‚
 	 * </p>
 	 */
 	private final Map<Object, TransactionAttribute> attributeCache =
@@ -85,10 +96,10 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 	 * <p>Defaults to the class's transaction attribute if no method attribute is found.
 	 *
 	 * <p>
-	 *     È·¶¨´Ë·½·¨µ÷ÓÃµÄÊÂÎñÊôĞÔ¡£
+	 *     ç¡®å®šæ­¤æ–¹æ³•è°ƒç”¨çš„äº‹åŠ¡å±æ€§ã€‚
 	 * </p>
 	 * <p>
-	 *     	 Èç¹ûÎ´ÕÒµ½·½·¨ÊôĞÔ£¬ÔòÄ¬ÈÏÎªÀàµÄÊÂÎñÊôĞÔ¡£
+	 *     	 å¦‚æœæœªæ‰¾åˆ°æ–¹æ³•å±æ€§ï¼Œåˆ™é»˜è®¤ä¸ºç±»çš„äº‹åŠ¡å±æ€§ã€‚
 	 * </p>
 	 * @param method the method for the current invocation (never {@code null})
 	 * @param targetClass the target class for this invocation (may be {@code null})
@@ -97,19 +108,19 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 	 */
 	@Override
 	public TransactionAttribute getTransactionAttribute(Method method, Class<?> targetClass) {
-		//ObjectµÄ·½·¨Ö±½Ó·ÅÆú
+		//Objectçš„æ–¹æ³•ç›´æ¥æ”¾å¼ƒ
 		if (method.getDeclaringClass() == Object.class) {
 			return null;
 		}
 
 		// First, see if we have a cached value.
-		// ²éÕÒ»º´æ
+		// æŸ¥æ‰¾ç¼“å­˜
 		Object cacheKey = getCacheKey(method, targetClass);
 		Object cached = this.attributeCache.get(cacheKey);
 		if (cached != null) {
 			// Value will either be canonical value indicating there is no transaction attribute,
 			// or an actual transaction attribute.
-			// Öµ½«ÊÇÖ¸Ê¾Ã»ÓĞÊÂÎñÊôĞÔµÄ¹æ·¶Öµ»òÊµ¼ÊÊÂÎñÊôĞÔ¡£
+			// å€¼å°†æ˜¯æŒ‡ç¤ºæ²¡æœ‰äº‹åŠ¡å±æ€§çš„è§„èŒƒå€¼æˆ–å®é™…äº‹åŠ¡å±æ€§ã€‚
 			if (cached == NULL_TRANSACTION_ATTRIBUTE) {
 				return null;
 			}
@@ -119,15 +130,15 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 		}
 		else {
 			// We need to work it out.
-			// ÎÒÃÇĞèÒª½â¾öÕâ¸öÎÊÌâ¡£ ÒòÎª»º´æµÄÊôĞÔÊÇ¿ÕµÄ£¬ÎÒÃÇĞèÒª¼ÆËã³öÕâ¸öÊôĞÔ
+			// æˆ‘ä»¬éœ€è¦è§£å†³è¿™ä¸ªé—®é¢˜ã€‚ å› ä¸ºç¼“å­˜çš„å±æ€§æ˜¯ç©ºçš„ï¼Œæˆ‘ä»¬éœ€è¦è®¡ç®—å‡ºè¿™ä¸ªå±æ€§
 			TransactionAttribute txAttr = computeTransactionAttribute(method, targetClass);
 			// Put it in the cache.
-			// ¼ÆËã²»³ö£¬ÎÒÃÇ¾ÍÊ¹ÓÃÒ»¸ö¿ÕµÄ·ÅÈë»º´æ£¬
+			// è®¡ç®—ä¸å‡ºï¼Œæˆ‘ä»¬å°±ä½¿ç”¨ä¸€ä¸ªç©ºçš„æ”¾å…¥ç¼“å­˜ï¼Œ
 			if (txAttr == null) {
 				this.attributeCache.put(cacheKey, NULL_TRANSACTION_ATTRIBUTE);
 			}
 			else {
-				//»ñµÃ·½·¨µÄ±êÊ¶£¬Î¨Ò»±êÊ¶
+				//è·å¾—æ–¹æ³•çš„æ ‡è¯†ï¼Œå”¯ä¸€æ ‡è¯†
 				String methodIdentification = ClassUtils.getQualifiedMethodName(method, targetClass);
 				if (txAttr instanceof DefaultTransactionAttribute) {
 					//
@@ -136,7 +147,7 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 				if (logger.isDebugEnabled()) {
 					logger.debug("Adding transactional method '" + methodIdentification + "' with attribute: " + txAttr);
 				}
-				//·ÅÖÃÏàÓ¦»º´æ
+				//æ”¾ç½®ç›¸åº”ç¼“å­˜
 				this.attributeCache.put(cacheKey, txAttr);
 			}
 			return txAttr;
@@ -160,41 +171,41 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 	 * {@link #getTransactionAttribute} is effectively a caching decorator for this method.
 	 * <p>As of 4.1.8, this method can be overridden.
 	 * <p>
-	 *     Óë {@link #getTransactionAttribute}ÏàÍ¬µÄÇ©Ãû£¬µ«²»»º´æ½á¹û¡£  {@link #getTransactionAttribute}Êµ¼ÊÉÏÊÇ´Ë·½·¨µÄ»º´æ×°ÊÎÆ÷¡£
+	 *     ä¸ {@link #getTransactionAttribute}ç›¸åŒçš„ç­¾åï¼Œä½†ä¸ç¼“å­˜ç»“æœã€‚  {@link #getTransactionAttribute}å®é™…ä¸Šæ˜¯æ­¤æ–¹æ³•çš„ç¼“å­˜è£…é¥°å™¨ã€‚
 	 * </p>
 	 * <p>
-	 *     ´Ó4.1.8¿ªÊ¼£¬¿ÉÒÔ¸²¸Ç´Ë·½·¨¡£
+	 *     ä»4.1.8å¼€å§‹ï¼Œå¯ä»¥è¦†ç›–æ­¤æ–¹æ³•ã€‚
 	 * </p>
 	 * @since 4.1.8
 	 * @see #getTransactionAttribute
 	 */
 	protected TransactionAttribute computeTransactionAttribute(Method method, Class<?> targetClass) {
 		// Don't allow no-public methods as required.
-		// ²»ÒªÇó¸ù¾İĞèÒªÊ¹ÓÃno-public·½·¨¡£
+		// ä¸è¦æ±‚æ ¹æ®éœ€è¦ä½¿ç”¨no-publicæ–¹æ³•ã€‚
 		if (allowPublicMethodsOnly() && !Modifier.isPublic(method.getModifiers())) {
 			return null;
 		}
 
 		// Ignore CGLIB subclasses - introspect the actual user class.
-		// ºöÂÔCGLIB×ÓÀà - ¼ì²éÊµ¼ÊµÄÓÃ»§Àà¡£
+		// å¿½ç•¥CGLIBå­ç±» - æ£€æŸ¥å®é™…çš„ç”¨æˆ·ç±»ã€‚
 		Class<?> userClass = ClassUtils.getUserClass(targetClass);
 		// The method may be on an interface, but we need attributes from the target class.
 		// If the target class is null, the method will be unchanged.
-		// ¸Ã·½·¨¿ÉÒÔÔÚ½Ó¿ÚÉÏ£¬µ«ÎÒÃÇĞèÒªÀ´×ÔÄ¿±êÀàµÄÊôĞÔ¡£ Èç¹ûÄ¿±êÀàÎªnull£¬Ôò·½·¨½«±£³Ö²»±ä¡£
+		// è¯¥æ–¹æ³•å¯ä»¥åœ¨æ¥å£ä¸Šï¼Œä½†æˆ‘ä»¬éœ€è¦æ¥è‡ªç›®æ ‡ç±»çš„å±æ€§ã€‚ å¦‚æœç›®æ ‡ç±»ä¸ºnullï¼Œåˆ™æ–¹æ³•å°†ä¿æŒä¸å˜ã€‚
 		Method specificMethod = ClassUtils.getMostSpecificMethod(method, userClass);
 		// If we are dealing with method with generic parameters, find the original method.
-		// Èç¹ûÎÒÃÇÊ¹ÓÃ·ºĞÍ²ÎÊı´¦Àí·½·¨£¬ÇëÕÒµ½Ô­Ê¼·½·¨¡£
+		// å¦‚æœæˆ‘ä»¬ä½¿ç”¨æ³›å‹å‚æ•°å¤„ç†æ–¹æ³•ï¼Œè¯·æ‰¾åˆ°åŸå§‹æ–¹æ³•ã€‚
 		specificMethod = BridgeMethodResolver.findBridgedMethod(specificMethod);
 
 		// First try is the method in the target class.
-		// Ê×ÏÈ³¢ÊÔµÄÊÇÄ¿±êÀàÖĞµÄ·½·¨¡£
+		// é¦–å…ˆå°è¯•çš„æ˜¯ç›®æ ‡ç±»ä¸­çš„æ–¹æ³•ã€‚
 		TransactionAttribute txAttr = findTransactionAttribute(specificMethod);
 		if (txAttr != null) {
 			return txAttr;
 		}
 
 		// Second try is the transaction attribute on the target class.
-		// µÚ¶ş´Î³¢ÊÔÊÇÊÂÎñµÄtarget classÊôĞÔ¡£
+		// ç¬¬äºŒæ¬¡å°è¯•æ˜¯äº‹åŠ¡çš„target classå±æ€§ã€‚
 		txAttr = findTransactionAttribute(specificMethod.getDeclaringClass());
 		if (txAttr != null && ClassUtils.isUserLevelMethod(method)) {
 			return txAttr;
@@ -202,13 +213,13 @@ public abstract class AbstractFallbackTransactionAttributeSource implements Tran
 
 		if (specificMethod != method) {
 			// Fallback is to look at the original method.
-			// ºóÍËÊÇ¿´Ô­Ê¼·½·¨¡£
+			// åé€€æ˜¯çœ‹åŸå§‹æ–¹æ³•ã€‚
 			txAttr = findTransactionAttribute(method);
 			if (txAttr != null) {
 				return txAttr;
 			}
 			// Last fallback is the class of the original method.
-			// ×îºóÒ»¸ö»ØÍËÊÇÔ­Ê¼·½·¨µÄÀà¡£
+			// æœ€åä¸€ä¸ªå›é€€æ˜¯åŸå§‹æ–¹æ³•çš„ç±»ã€‚
 			txAttr = findTransactionAttribute(method.getDeclaringClass());
 			if (txAttr != null && ClassUtils.isUserLevelMethod(method)) {
 				return txAttr;

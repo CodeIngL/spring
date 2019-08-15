@@ -38,10 +38,10 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
  * a bean of type {@link TransactionalEventListenerFactory} is required.
  *
  * <p>
- *     GenericApplicationListenerÊÊÅäÆ÷£¬Ëü½«ÊÂ¼şµÄ´¦ÀíÎ¯ÍĞ¸øTransactionalEventListener´ø×¢ÊÍµÄ·½·¨¡£ Ö§³ÖÓëÈÎºÎ³£¹æEventListener×¢ÊÍ·½·¨ÍêÈ«ÏàÍ¬µÄ¹¦ÄÜ£¬µ«ÊÇÖªµÀÊÂ¼ş·¢²¼ÕßµÄÊÂÎñÉÏÏÂÎÄ¡£
+ *     GenericApplicationListeneré€‚é…å™¨ï¼Œå®ƒå°†äº‹ä»¶çš„å¤„ç†å§”æ‰˜ç»™TransactionalEventListenerå¸¦æ³¨é‡Šçš„æ–¹æ³•ã€‚ æ”¯æŒä¸ä»»ä½•å¸¸è§„EventListeneræ³¨é‡Šæ–¹æ³•å®Œå…¨ç›¸åŒçš„åŠŸèƒ½ï¼Œä½†æ˜¯çŸ¥é“äº‹ä»¶å‘å¸ƒè€…çš„äº‹åŠ¡ä¸Šä¸‹æ–‡ã€‚
  * </p>
  * <p>
- *    ÆôÓÃSpringµÄÊÂÎñ¹ÜÀíÊ±£¬½«×Ô¶¯ÆôÓÃ{@link TransactionalEventListener}µÄ´¦Àí¡£ ¶ÔÓÚÆäËûÇé¿ö£¬ĞèÒª×¢²á{@link TransactionalEventListenerFactory} ÀàĞÍµÄbean¡£
+ *    å¯ç”¨Springçš„äº‹åŠ¡ç®¡ç†æ—¶ï¼Œå°†è‡ªåŠ¨å¯ç”¨{@link TransactionalEventListener}çš„å¤„ç†ã€‚ å¯¹äºå…¶ä»–æƒ…å†µï¼Œéœ€è¦æ³¨å†Œ{@link TransactionalEventListenerFactory} ç±»å‹çš„beanã€‚
  * </p>
  *
  * @author Stephane Nicoll

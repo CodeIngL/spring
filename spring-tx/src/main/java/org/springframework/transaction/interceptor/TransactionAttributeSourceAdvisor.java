@@ -31,10 +31,10 @@ import org.springframework.aop.support.AbstractPointcutAdvisor;
  * itself that it has no work to do.
  *
  * <p>
- *     ÓÉ{@link TransactionAttributeSource}Çı¶¯µÄAdvisor£¬ÓÃÓÚ½öÎªÊÂÎñĞÔ·½·¨°üº¬{@link TransactionInterceptor}¡£
+ *     ç”±{@link TransactionAttributeSource}é©±åŠ¨çš„Advisorï¼Œç”¨äºä»…ä¸ºäº‹åŠ¡æ€§æ–¹æ³•åŒ…å«{@link TransactionInterceptor}ã€‚
  * </p>
  * <p>
- *   ÒòÎªAOP¿ò¼Ü»º´æ½¨Òé¼ÆËã£¬ËùÒÔÕâÍ¨³£±ÈÈÃ{@link TransactionInterceptor}ÔËĞĞ²¢·¢ÏÖ×Ô¼ºÓĞÎŞ¹¤×÷Òª¿ìºÜ¶à¡£
+ *   å› ä¸ºAOPæ¡†æ¶ç¼“å­˜å»ºè®®è®¡ç®—ï¼Œæ‰€ä»¥è¿™é€šå¸¸æ¯”è®©{@link TransactionInterceptor}è¿è¡Œå¹¶å‘ç°è‡ªå·±æœ‰æ— å·¥ä½œè¦å¿«å¾ˆå¤šã€‚
  * </p>
  *
  * @author Rod Johnson
@@ -47,7 +47,7 @@ public class TransactionAttributeSourceAdvisor extends AbstractPointcutAdvisor {
 
 	private TransactionInterceptor transactionInterceptor;
 
-	//ÌáÈ¡pointcut
+	//æå–pointcut
 	private final TransactionAttributeSourcePointcut pointcut = new TransactionAttributeSourcePointcut() {
 		@Override
 		protected TransactionAttributeSource getTransactionAttributeSource() {

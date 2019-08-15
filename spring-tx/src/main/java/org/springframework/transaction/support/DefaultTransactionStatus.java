@@ -37,10 +37,10 @@ import org.springframework.transaction.SavepointManager;
  * {@link org.springframework.transaction.TransactionStatus} interface instead.
  *
  * <p>
- *     ÓÉAbstractPlatformTransactionManagerÊ¹ÓÃµÄorg.springframework.transaction.TransactionStatus½Ó¿ÚµÄÄ¬ÈÏÊµÏÖ¡£ »ùÓÚµ×²ã¡°½»Ò×¶ÔÏó¡±µÄ¸ÅÄî¡£
- * ±£´æAbstractPlatformTransactionManagerÄÚ²¿ĞèÒªµÄËùÓĞ×´Ì¬ĞÅÏ¢£¬°üÀ¨ÓÉ¾ßÌåÊÂÎñ¹ÜÀíÆ÷ÊµÏÖÈ·¶¨µÄÍ¨ÓÃÊÂÎñ¶ÔÏó¡£
- * Ö§³Ö½«Óë±£´æµãÏà¹ØµÄ·½·¨Î¯ÅÉ¸øÊµÏÖSavepointManager½Ó¿ÚµÄÊÂÎñ¶ÔÏó¡£
- * ×¢Òâ£ºÕâ²»ÊÊÓÃÓÚÆäËûPlatformTransactionManagerÊµÏÖ£¬ÌØ±ğÊÇ²»ÊÊÓÃÓÚ²âÊÔ»·¾³ÖĞµÄÄ£ÄâÊÂÎñ¹ÜÀíÆ÷¡£ ÇëÊ¹ÓÃÌæ´úµÄSimpleTransactionStatusÀà»ò¼òµ¥µÄorg.springframework.transaction.TransactionStatus½Ó¿ÚµÄÄ£Äâ¡£
+ *     ç”±AbstractPlatformTransactionManagerä½¿ç”¨çš„org.springframework.transaction.TransactionStatusæ¥å£çš„é»˜è®¤å®ç°ã€‚ åŸºäºåº•å±‚â€œäº¤æ˜“å¯¹è±¡â€çš„æ¦‚å¿µã€‚
+ * ä¿å­˜AbstractPlatformTransactionManagerå†…éƒ¨éœ€è¦çš„æ‰€æœ‰çŠ¶æ€ä¿¡æ¯ï¼ŒåŒ…æ‹¬ç”±å…·ä½“äº‹åŠ¡ç®¡ç†å™¨å®ç°ç¡®å®šçš„é€šç”¨äº‹åŠ¡å¯¹è±¡ã€‚
+ * æ”¯æŒå°†ä¸ä¿å­˜ç‚¹ç›¸å…³çš„æ–¹æ³•å§”æ´¾ç»™å®ç°SavepointManageræ¥å£çš„äº‹åŠ¡å¯¹è±¡ã€‚
+ * æ³¨æ„ï¼šè¿™ä¸é€‚ç”¨äºå…¶ä»–PlatformTransactionManagerå®ç°ï¼Œç‰¹åˆ«æ˜¯ä¸é€‚ç”¨äºæµ‹è¯•ç¯å¢ƒä¸­çš„æ¨¡æ‹Ÿäº‹åŠ¡ç®¡ç†å™¨ã€‚ è¯·ä½¿ç”¨æ›¿ä»£çš„SimpleTransactionStatusç±»æˆ–ç®€å•çš„org.springframework.transaction.TransactionStatusæ¥å£çš„æ¨¡æ‹Ÿã€‚
  * </p>
  *
  * @author Juergen Hoeller
@@ -56,32 +56,32 @@ import org.springframework.transaction.SavepointManager;
 public class DefaultTransactionStatus extends AbstractTransactionStatus {
 
 	/**
-	 * ±êÊ¶ÁËµ±Ç°ÊÂÎñµÄ¶ÔÏó
+	 * æ ‡è¯†äº†å½“å‰äº‹åŠ¡çš„å¯¹è±¡
 	 */
 	private final Object transaction;
 
 	/**
-	 * ÊÇ·ñÊÇÒ»¸öĞÂÊÂÎñ
+	 * æ˜¯å¦æ˜¯ä¸€ä¸ªæ–°äº‹åŠ¡
 	 */
 	private final boolean newTransaction;
 
 	/**
-	 * ÊÇ·ñÊÇÒ»¸öĞÂÍ¬²½
+	 * æ˜¯å¦æ˜¯ä¸€ä¸ªæ–°åŒæ­¥
 	 */
 	private final boolean newSynchronization;
 
 	/**
-	 * Ö»¶ÁÑ¡Ïî
+	 * åªè¯»é€‰é¡¹
 	 */
 	private final boolean readOnly;
 
 	/**
-	 * ÈÕÖ¾ÊÇ·ñ´ğÓ¦
+	 * æ—¥å¿—æ˜¯å¦ç­”åº”
 	 */
 	private final boolean debug;
 
 	/**
-	 * ±»¹ÒÆğµÄ×ÊÔ´³ÖÓĞÕß
+	 * è¢«æŒ‚èµ·çš„èµ„æºæŒæœ‰è€…
 	 */
 	private final Object suspendedResources;
 
@@ -89,7 +89,7 @@ public class DefaultTransactionStatus extends AbstractTransactionStatus {
 	/**
 	 * Create a new DefaultTransactionStatus instance.
 	 * <p>
-	 *     ´´½¨Ò»¸öĞÂµÄDefaultTransactionStatusÊµÀı¡£
+	 *     åˆ›å»ºä¸€ä¸ªæ–°çš„DefaultTransactionStatuså®ä¾‹ã€‚
 	 * </p>
 	 * @param transaction underlying transaction object that can hold
 	 * state for the internal transaction implementation

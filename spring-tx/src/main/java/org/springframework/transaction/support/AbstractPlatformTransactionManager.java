@@ -74,22 +74,22 @@ import org.springframework.transaction.UnexpectedRollbackException;
  *
  *
  * <p>
- *    ÊµÏÖSpring±ê×¼ÊÂÎñ¹¤×÷Á÷µÄ³éÏó»ùÀà£¬×÷Îªorg.springframework.transaction.jta.JtaTransactionManagerµÈ¾ßÌåÆ½Ì¨ÊÂÎñ¹ÜÀíÆ÷µÄ»ù´¡¡£
- *    Ó¦ÓÃÊÊµ±µÄ´«²¥ĞĞÎª;
+ *    å®ç°Springæ ‡å‡†äº‹åŠ¡å·¥ä½œæµçš„æŠ½è±¡åŸºç±»ï¼Œä½œä¸ºorg.springframework.transaction.jta.JtaTransactionManagerç­‰å…·ä½“å¹³å°äº‹åŠ¡ç®¡ç†å™¨çš„åŸºç¡€ã€‚
+ *    åº”ç”¨é€‚å½“çš„ä¼ æ’­è¡Œä¸º;
  * </p>
- * <p> ´Ë»ùÀàÌá¹©ÒÔÏÂ¹¤×÷Á÷´¦Àí£º</p>
+ * <p> æ­¤åŸºç±»æä¾›ä»¥ä¸‹å·¥ä½œæµå¤„ç†ï¼š</p>
  * <ul>
- * <li>È·¶¨ÊÇ·ñ´æÔÚÏÖÓĞÊÂÎñ;
- * <li>Ó¦ÓÃÊÊµ±µÄ´«²¥ĞĞÎª;
- * <li>±ØÒªÊ±ÔİÍ£ºÍ»Ö¸´ÊÂÎñ;
- * <li>¼ì²éÌá½»Ê±µÄrollback-only±êÖ¾;
- * <li>ÔÚ»Ø¹öÊ±Ó¦ÓÃÊÊµ±µÄĞŞ¸Ä£¨Êµ¼Ê»Ø¹ö»ò½öÉèÖÃ»Ø¹ö£©;
- * <li>´¥·¢ÒÑ×¢²áµÄÍ¬²½»Øµ÷£¨Èç¹ûÊÂÎñÍ¬²½´¦ÓÚ»î¶¯×´Ì¬£©¡£
+ * <li>ç¡®å®šæ˜¯å¦å­˜åœ¨ç°æœ‰äº‹åŠ¡;
+ * <li>åº”ç”¨é€‚å½“çš„ä¼ æ’­è¡Œä¸º;
+ * <li>å¿…è¦æ—¶æš‚åœå’Œæ¢å¤äº‹åŠ¡;
+ * <li>æ£€æŸ¥æäº¤æ—¶çš„rollback-onlyæ ‡å¿—;
+ * <li>åœ¨å›æ»šæ—¶åº”ç”¨é€‚å½“çš„ä¿®æ”¹ï¼ˆå®é™…å›æ»šæˆ–ä»…è®¾ç½®å›æ»šï¼‰;
+ * <li>è§¦å‘å·²æ³¨å†Œçš„åŒæ­¥å›è°ƒï¼ˆå¦‚æœäº‹åŠ¡åŒæ­¥å¤„äºæ´»åŠ¨çŠ¶æ€ï¼‰ã€‚
  * </ul>
- * <p> ×ÓÀà±ØĞëÎªÊÂÎñµÄÌØ¶¨×´Ì¬ÊµÏÖÌØ¶¨µÄÄ£°å·½·¨£¬ÀıÈç£ºbegin£¬suspend£¬resume£¬commit£¬rollback¡£
- * ÆäÖĞ×îÖØÒªµÄÊÇ³éÏóµÄ£¬±ØĞëÓÉ¾ßÌåÊµÏÖÌá¹©;¶ÔÓÚÆäÓà²¿·Ö£¬Ìá¹©ÁËÄ¬ÈÏÖµ£¬Òò´Ë¸²¸ÇÊÇ¿ÉÑ¡µÄ¡£</p>
- * <p> ÊÂÎñÍ¬²½ÊÇÒ»ÖÖÍ¨ÓÃ»úÖÆ£¬ÓÃÓÚ×¢²áÔÚÊÂÎñÍê³ÉÊ±µ÷ÓÃµÄ»Øµ÷¡£µ±ÔÚJTAÊÂÎñÖĞÔËĞĞÊ±£¬ÕâÖ÷ÒªÓÉJDBC£¬Hibernate£¬JPAµÈµÄÊı¾İ·ÃÎÊÖ§³ÖÀàÔÚÄÚ²¿Ê¹ÓÃ£ºËüÃÇ×¢²áÔÚÊÂÎñÖĞ´ò¿ªµÄ×ÊÔ´£¬ÒÔ±ãÔÚÊÂÎñÍê³ÉÊ±¹Ø±Õ£¬ÔÊĞíÀıÈçÔÚÊÂÎñÖĞÖØÓÃÏàÍ¬µÄHibernate»á»°¡£Í¬ÑùµÄ»úÖÆÒ²¿ÉÒÔÓÃÓÚÓ¦ÓÃ³ÌĞòÖĞµÄ×Ô¶¨ÒåÍ¬²½ĞèÇó¡£</p>
- * <p> ´ËÀàµÄ×´Ì¬ÊÇ¿ÉĞòÁĞ»¯µÄ£¬ÒÔÔÊĞíĞòÁĞ»¯ÊÂÎñ²ßÂÔÒÔ¼°Ğ¯´øÊÂÎñÀ¹½ØÆ÷µÄ´úÀí¡£Èç¹ûËûÃÇÏ£ÍûÊ¹Æä×´Ì¬Ò²¿ÉĞòÁĞ»¯£¬ÔòÓÉ×ÓÀà¾ö¶¨¡£ÔÚÕâÖÖÇé¿öÏÂ£¬ËüÃÇÓ¦¸ÃÊµÏÖjava.io.Serializable±ê¼Ç½Ó¿Ú£¬Èç¹ûĞèÒª»Ö¸´ÈÎºÎË²Ì¬£¬ËüÃÇ¿ÉÄÜÊÇË½ÓĞµÄreadObject()·½·¨£¨¸ù¾İJavaĞòÁĞ»¯¹æÔò£©¡£
+ * <p> å­ç±»å¿…é¡»ä¸ºäº‹åŠ¡çš„ç‰¹å®šçŠ¶æ€å®ç°ç‰¹å®šçš„æ¨¡æ¿æ–¹æ³•ï¼Œä¾‹å¦‚ï¼šbeginï¼Œsuspendï¼Œresumeï¼Œcommitï¼Œrollbackã€‚
+ * å…¶ä¸­æœ€é‡è¦çš„æ˜¯æŠ½è±¡çš„ï¼Œå¿…é¡»ç”±å…·ä½“å®ç°æä¾›;å¯¹äºå…¶ä½™éƒ¨åˆ†ï¼Œæä¾›äº†é»˜è®¤å€¼ï¼Œå› æ­¤è¦†ç›–æ˜¯å¯é€‰çš„ã€‚</p>
+ * <p> äº‹åŠ¡åŒæ­¥æ˜¯ä¸€ç§é€šç”¨æœºåˆ¶ï¼Œç”¨äºæ³¨å†Œåœ¨äº‹åŠ¡å®Œæˆæ—¶è°ƒç”¨çš„å›è°ƒã€‚å½“åœ¨JTAäº‹åŠ¡ä¸­è¿è¡Œæ—¶ï¼Œè¿™ä¸»è¦ç”±JDBCï¼ŒHibernateï¼ŒJPAç­‰çš„æ•°æ®è®¿é—®æ”¯æŒç±»åœ¨å†…éƒ¨ä½¿ç”¨ï¼šå®ƒä»¬æ³¨å†Œåœ¨äº‹åŠ¡ä¸­æ‰“å¼€çš„èµ„æºï¼Œä»¥ä¾¿åœ¨äº‹åŠ¡å®Œæˆæ—¶å…³é—­ï¼Œå…è®¸ä¾‹å¦‚åœ¨äº‹åŠ¡ä¸­é‡ç”¨ç›¸åŒçš„Hibernateä¼šè¯ã€‚åŒæ ·çš„æœºåˆ¶ä¹Ÿå¯ä»¥ç”¨äºåº”ç”¨ç¨‹åºä¸­çš„è‡ªå®šä¹‰åŒæ­¥éœ€æ±‚ã€‚</p>
+ * <p> æ­¤ç±»çš„çŠ¶æ€æ˜¯å¯åºåˆ—åŒ–çš„ï¼Œä»¥å…è®¸åºåˆ—åŒ–äº‹åŠ¡ç­–ç•¥ä»¥åŠæºå¸¦äº‹åŠ¡æ‹¦æˆªå™¨çš„ä»£ç†ã€‚å¦‚æœä»–ä»¬å¸Œæœ›ä½¿å…¶çŠ¶æ€ä¹Ÿå¯åºåˆ—åŒ–ï¼Œåˆ™ç”±å­ç±»å†³å®šã€‚åœ¨è¿™ç§æƒ…å†µä¸‹ï¼Œå®ƒä»¬åº”è¯¥å®ç°java.io.Serializableæ ‡è®°æ¥å£ï¼Œå¦‚æœéœ€è¦æ¢å¤ä»»ä½•ç¬æ€ï¼Œå®ƒä»¬å¯èƒ½æ˜¯ç§æœ‰çš„readObject()æ–¹æ³•ï¼ˆæ ¹æ®Javaåºåˆ—åŒ–è§„åˆ™ï¼‰ã€‚
  </p>
  * @author Juergen Hoeller
  * @since 28.03.2003
@@ -122,7 +122,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	/**
 	 * Never active transaction synchronization, not even for actual transactions.
      * <p>
-     *     ´Ó²»¼¤»îÊÂÎñÍ¬²½£¬¼´Ê¹¶ÔÓÚÊµ¼ÊÊÂÎñÒ²²»ÊÇ¡£
+     *     ä»ä¸æ¿€æ´»äº‹åŠ¡åŒæ­¥ï¼Œå³ä½¿å¯¹äºå®é™…äº‹åŠ¡ä¹Ÿä¸æ˜¯ã€‚
      * </p>
 	 */
 	public static final int SYNCHRONIZATION_NEVER = 2;
@@ -179,7 +179,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * Return if this transaction manager should activate the thread-bound
 	 * transaction synchronization support.
 	 * <p>
-	 *     Èç¹û´ËÊÂÎñ¹ÜÀíÆ÷Ó¦¼¤»îÏß³Ì°ó¶¨ÊÂÎñÍ¬²½Ö§³Ö£¬Ôò·µ»Ø¡£
+	 *     å¦‚æœæ­¤äº‹åŠ¡ç®¡ç†å™¨åº”æ¿€æ´»çº¿ç¨‹ç»‘å®šäº‹åŠ¡åŒæ­¥æ”¯æŒï¼Œåˆ™è¿”å›ã€‚
 	 * </p>
 	 */
 	public final int getTransactionSynchronization() {
@@ -354,8 +354,8 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * {@code doGetTransaction}, {@code isExistingTransaction}
 	 * and {@code doBegin}.
 	 * <p>
-	 *     ¸ÃÊµÏÖ´¦Àí´«²¥ĞĞÎª¡£Î¯ÍĞ·½·¨¸ø{@code doGetTransaction}, {@code isExistingTransaction}
-	 * 	ºÍ{@code doBegin}.
+	 *     è¯¥å®ç°å¤„ç†ä¼ æ’­è¡Œä¸ºã€‚å§”æ‰˜æ–¹æ³•ç»™{@code doGetTransaction}, {@code isExistingTransaction}
+	 * 	å’Œ{@code doBegin}.
 	 * </p>
 	 * @see #doGetTransaction
 	 * @see #isExistingTransaction
@@ -363,7 +363,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 */
 	@Override
 	public final TransactionStatus getTransaction(TransactionDefinition definition) throws TransactionException {
-	    //»ñµÃĞèÒªÊÂÎñµÄ¶ÔÏó
+	    //è·å¾—éœ€è¦äº‹åŠ¡çš„å¯¹è±¡
 		Object transaction = doGetTransaction();
 
 		// Cache debug flag to avoid repeated checks.
@@ -371,46 +371,46 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 
 		if (definition == null) {
 			// Use defaults if no transaction definition given.
-            // Ã»ÓĞÊÂÎñµÄ¶¨ÒåÊ¹ÓÃÄ¬ÈÏµÄÊÂÎñ¶¨Òå
+            // æ²¡æœ‰äº‹åŠ¡çš„å®šä¹‰ä½¿ç”¨é»˜è®¤çš„äº‹åŠ¡å®šä¹‰
 			definition = new DefaultTransactionDefinition();
 		}
 
-		if (isExistingTransaction(transaction)) { //ÒÑ¾­´æÔÚÊÂÎñÁËÕâĞèÒªÓĞ×ÓÀà×Ô¼ºÖØĞ´
+		if (isExistingTransaction(transaction)) { //å·²ç»å­˜åœ¨äº‹åŠ¡äº†è¿™éœ€è¦æœ‰å­ç±»è‡ªå·±é‡å†™
 			// Existing transaction found -> check propagation behavior to find out how to behave.
-			// ÕÒµ½ÏÖÓĞÊÂÎñ - >¼ì²é´«²¥ĞĞÎªÒÔÁË½âÈçºÎ±íÏÖ¡£
+			// æ‰¾åˆ°ç°æœ‰äº‹åŠ¡ - >æ£€æŸ¥ä¼ æ’­è¡Œä¸ºä»¥äº†è§£å¦‚ä½•è¡¨ç°ã€‚
 			return handleExistingTransaction(definition, transaction, debugEnabled);
 		}
 
 		// Check definition settings for new transaction.
-		// ¼ì²éĞÂÊÂÎñµÄÏà¹ØÉèÖÃ
+		// æ£€æŸ¥æ–°äº‹åŠ¡çš„ç›¸å…³è®¾ç½®
 		if (definition.getTimeout() < TransactionDefinition.TIMEOUT_DEFAULT) {
 			throw new InvalidTimeoutException("Invalid transaction timeout", definition.getTimeout());
 		}
 
 		// No existing transaction found -> check propagation behavior to find out how to proceed.
-		// Ã»ÓĞÊÂÎñ·¢ÏÖ£¬¼ì²é´«²¥ĞĞÎªÈ¥·¢ÏÖ²¢ÈçºÎ½â¾ö
+		// æ²¡æœ‰äº‹åŠ¡å‘ç°ï¼Œæ£€æŸ¥ä¼ æ’­è¡Œä¸ºå»å‘ç°å¹¶å¦‚ä½•è§£å†³
 		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_MANDATORY) {
 			throw new IllegalTransactionStateException(
 					"No existing transaction found for transaction marked with propagation 'mandatory'");
 		}
-		//´«²¥ĞĞÎªÎªPROPAGATION_REQUIRED£¬PROPAGATION_REQUIRES_NEW£¬PROPAGATION_NESTED
+		//ä¼ æ’­è¡Œä¸ºä¸ºPROPAGATION_REQUIREDï¼ŒPROPAGATION_REQUIRES_NEWï¼ŒPROPAGATION_NESTED
 		else if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRED ||
 				definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW ||
 				definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) {
-			//ÓÃÓÚ¹ÒÆğ×ÊÔ´»òÕß»Ö¸´
+			//ç”¨äºæŒ‚èµ·èµ„æºæˆ–è€…æ¢å¤
 			SuspendedResourcesHolder suspendedResources = suspend(null);
 			if (debugEnabled) {
 				logger.debug("Creating new transaction with name [" + definition.getName() + "]: " + definition);
 			}
 			try {
-			    //ÊÇ·ñĞÂÍ¬²½
+			    //æ˜¯å¦æ–°åŒæ­¥
 				boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
-				//¹¹½¨ÊÂÎñ×´Ì¬
+				//æ„å»ºäº‹åŠ¡çŠ¶æ€
 				DefaultTransactionStatus status = newTransactionStatus(
 						definition, transaction, true, newSynchronization, debugEnabled, suspendedResources);
-				//¿ªÊ¼ÊÂÎñ
+				//å¼€å§‹äº‹åŠ¡
 				doBegin(transaction, definition);
-				//×¼±¸Í¬²½
+				//å‡†å¤‡åŒæ­¥
 				prepareSynchronization(status, definition);
 				return status;
 			}
@@ -425,42 +425,42 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 		}
 		else {
 			// Create "empty" transaction: no actual transaction, but potentially synchronization.
-            // ´´½¨¡°¿Õ¡±ÊÂÎñ£ºÃ»ÓĞÊµ¼ÊÊÂÎñ£¬µ«¿ÉÄÜÊÇÍ¬²½¡£
+            // åˆ›å»ºâ€œç©ºâ€äº‹åŠ¡ï¼šæ²¡æœ‰å®é™…äº‹åŠ¡ï¼Œä½†å¯èƒ½æ˜¯åŒæ­¥ã€‚
 			if (definition.getIsolationLevel() != TransactionDefinition.ISOLATION_DEFAULT && logger.isWarnEnabled()) {
 				logger.warn("Custom isolation level specified but no actual transaction initiated; " +
 						"isolation level will effectively be ignored: " + definition);
 			}
 			boolean newSynchronization = (getTransactionSynchronization() == SYNCHRONIZATION_ALWAYS);
-			//×¼±¸ÊÂÎñµÄ×´Ì¬
+			//å‡†å¤‡äº‹åŠ¡çš„çŠ¶æ€
 			return prepareTransactionStatus(definition, null, true, newSynchronization, debugEnabled, null);
 		}
 	}
 
 	/**
 	 * Create a TransactionStatus for an existing transaction.
-	 * ¸ù¾İÒÑ¾­´æÔÚµÄÊÂÎñ£¬¹¹½¨Ò»¸öµÄÊÂÎñ×´Ì¬
+	 * æ ¹æ®å·²ç»å­˜åœ¨çš„äº‹åŠ¡ï¼Œæ„å»ºä¸€ä¸ªçš„äº‹åŠ¡çŠ¶æ€
 	 */
 	private TransactionStatus handleExistingTransaction(
 			TransactionDefinition definition, Object transaction, boolean debugEnabled)
 			throws TransactionException {
 
-		//´¦Àíµ±Ç°ÊÂÎñ¶¨ÒåµÄ´«²¥ĞĞÎª
-		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NEVER) { //²»Òª´«²¥
+		//å¤„ç†å½“å‰äº‹åŠ¡å®šä¹‰çš„ä¼ æ’­è¡Œä¸º
+		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NEVER) { //ä¸è¦ä¼ æ’­
 			throw new IllegalTransactionStateException(
 					"Existing transaction found for transaction marked with propagation 'never'");
 		}
 
-		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NOT_SUPPORTED) { //²»Ö§³Ö´«²¥£¬¹ÒÆğµ±Ç°µÄÊÂÎñ
+		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NOT_SUPPORTED) { //ä¸æ”¯æŒä¼ æ’­ï¼ŒæŒ‚èµ·å½“å‰çš„äº‹åŠ¡
 			if (debugEnabled) {
 				logger.debug("Suspending current transaction");
 			}
-			Object suspendedResources = suspend(transaction); //¹ÒÆğ¾ÉÊÂÎñ
+			Object suspendedResources = suspend(transaction); //æŒ‚èµ·æ—§äº‹åŠ¡
 			boolean newSynchronization = (getTransactionSynchronization() == SYNCHRONIZATION_ALWAYS);
 			return prepareTransactionStatus(
 					definition, null, false, newSynchronization, debugEnabled, suspendedResources);
 		}
 
-		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW) { //Ö§³Ö´«²¥£¬µ«ÊÇĞèÒªĞÂ´´½¨¸öÊÂÎñ£¬¹ÒÆğµ±Ç°µÄÊÂÎñ
+		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_REQUIRES_NEW) { //æ”¯æŒä¼ æ’­ï¼Œä½†æ˜¯éœ€è¦æ–°åˆ›å»ºä¸ªäº‹åŠ¡ï¼ŒæŒ‚èµ·å½“å‰çš„äº‹åŠ¡
 			if (debugEnabled) {
 				logger.debug("Suspending current transaction, creating new transaction with name [" +
 						definition.getName() + "]");
@@ -484,7 +484,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			}
 		}
 
-		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) { //Ä¬ÈÏÊÇ²»Ö§³ÖµÄ£¬³ı·ÇÄãÊÖ¶¯Ö¸¶¨ÁËÏà¹ØÊôĞÔ
+		if (definition.getPropagationBehavior() == TransactionDefinition.PROPAGATION_NESTED) { //é»˜è®¤æ˜¯ä¸æ”¯æŒçš„ï¼Œé™¤éä½ æ‰‹åŠ¨æŒ‡å®šäº†ç›¸å…³å±æ€§
 			if (!isNestedTransactionAllowed()) {
 				throw new NestedTransactionNotSupportedException(
 						"Transaction manager does not allow nested transactions by default - " +
@@ -497,7 +497,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				// Create savepoint within existing Spring-managed transaction,
 				// through the SavepointManager API implemented by TransactionStatus.
 				// Usually uses JDBC 3.0 savepoints. Never activates Spring synchronization.
-				// Í¨¹ıTransactionStatusÊµÏÖµÄSavepointManager APIÔÚÏÖÓĞµÄSpring¹ÜÀíµÄÊÂÎñÖĞ´´½¨±£´æµã¡£Í¨³£Ê¹ÓÃJDBC 3.0±£´æµã¡£ ÓÀÔ¶²»»á¼¤»îSpringÍ¬²½¡£
+				// é€šè¿‡TransactionStatuså®ç°çš„SavepointManager APIåœ¨ç°æœ‰çš„Springç®¡ç†çš„äº‹åŠ¡ä¸­åˆ›å»ºä¿å­˜ç‚¹ã€‚é€šå¸¸ä½¿ç”¨JDBC 3.0ä¿å­˜ç‚¹ã€‚ æ°¸è¿œä¸ä¼šæ¿€æ´»SpringåŒæ­¥ã€‚
 				DefaultTransactionStatus status =
 						prepareTransactionStatus(definition, transaction, false, false, debugEnabled, null);
 				status.createAndHoldSavepoint();
@@ -507,7 +507,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 				// Nested transaction through nested begin and commit/rollback calls.
 				// Usually only for JTA: Spring synchronization might get activated here
 				// in case of a pre-existing JTA transaction.
-				// Ç¶Ì×ÊÂÎñÍ¨¹ıÇ¶Ì×µÄbeginºÍcommit / rollbackµ÷ÓÃ¡£ Í¨³£½öÊÊÓÃÓÚJTA£ºÈç¹û´æÔÚÔ¤ÏÈ´æÔÚµÄJTAÊÂÎñ£¬Ôò¿ÉÄÜ»áÔÚ´Ë´¦¼¤»îSpringÍ¬²½¡£
+				// åµŒå¥—äº‹åŠ¡é€šè¿‡åµŒå¥—çš„beginå’Œcommit / rollbackè°ƒç”¨ã€‚ é€šå¸¸ä»…é€‚ç”¨äºJTAï¼šå¦‚æœå­˜åœ¨é¢„å…ˆå­˜åœ¨çš„JTAäº‹åŠ¡ï¼Œåˆ™å¯èƒ½ä¼šåœ¨æ­¤å¤„æ¿€æ´»SpringåŒæ­¥ã€‚
 				boolean newSynchronization = (getTransactionSynchronization() != SYNCHRONIZATION_NEVER);
 				DefaultTransactionStatus status = newTransactionStatus(
 						definition, transaction, true, newSynchronization, debugEnabled, null);
@@ -548,7 +548,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * Create a new TransactionStatus for the given arguments,
 	 * also initializing transaction synchronization as appropriate.
 	 * <p>
-	 *     Ê¹ÓÃÖ¸¶¨µÄ²ÎÊı¹¹½¨Ò»¸öÊÂÎñ×´Ì¬£¬µ±È»»á³õÊ¼»¯ºÏÊÊµÄÊÂÎñÍ¬²½£¬Èç¹û¿ÉÄÜµÄ»°£¬
+	 *     ä½¿ç”¨æŒ‡å®šçš„å‚æ•°æ„å»ºä¸€ä¸ªäº‹åŠ¡çŠ¶æ€ï¼Œå½“ç„¶ä¼šåˆå§‹åŒ–åˆé€‚çš„äº‹åŠ¡åŒæ­¥ï¼Œå¦‚æœå¯èƒ½çš„è¯ï¼Œ
 	 * </p>
 	 * @see #newTransactionStatus
 	 * @see #prepareTransactionStatus
@@ -557,10 +557,10 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			TransactionDefinition definition, Object transaction, boolean newTransaction,
 			boolean newSynchronization, boolean debug, Object suspendedResources) {
 
-		//¹¹½¨ÊÂÎñµÄ×´Ì¬
+		//æ„å»ºäº‹åŠ¡çš„çŠ¶æ€
 		DefaultTransactionStatus status = newTransactionStatus(
 				definition, transaction, newTransaction, newSynchronization, debug, suspendedResources);
-		//×¼±¸Í¬²½²ßÂÔ
+		//å‡†å¤‡åŒæ­¥ç­–ç•¥
 		prepareSynchronization(status, definition);
 		return status;
 	}
@@ -568,17 +568,17 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	/**
 	 * Create a TransactionStatus instance for the given arguments.
 	 * <p>
-	 *     Îª¸ø¶¨µÄ²ÎÊı´´½¨TransactionStatusÊµÀı¡£
+	 *     ä¸ºç»™å®šçš„å‚æ•°åˆ›å»ºTransactionStatuså®ä¾‹ã€‚
 	 * </p>
 	 */
 	protected DefaultTransactionStatus newTransactionStatus(
 			TransactionDefinition definition, Object transaction, boolean newTransaction,
 			boolean newSynchronization, boolean debug, Object suspendedResources) {
 
-		//ÊÇ·ñÊÇÕæÊµĞèÒªÍ¬²½
+		//æ˜¯å¦æ˜¯çœŸå®éœ€è¦åŒæ­¥
 		boolean actualNewSynchronization = newSynchronization &&
 				!TransactionSynchronizationManager.isSynchronizationActive();
-		//¹¹½¨ÊÂÎñ×´Ì¬
+		//æ„å»ºäº‹åŠ¡çŠ¶æ€
 		return new DefaultTransactionStatus(
 				transaction, newTransaction, actualNewSynchronization,
 				definition.isReadOnly(), debug, suspendedResources);
@@ -586,17 +586,17 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 
 	/**
 	 * Initialize transaction synchronization as appropriate.
-	 * ¸ù¾İĞèÒª³õÊ¼»¯ÊÂÎñÍ¬²½¡£
+	 * æ ¹æ®éœ€è¦åˆå§‹åŒ–äº‹åŠ¡åŒæ­¥ã€‚
 	 */
 	protected void prepareSynchronization(DefaultTransactionStatus status, TransactionDefinition definition) {
-		if (status.isNewSynchronization()) { //Èç¹ûÊÇĞÂµÄÍ¬²½²Ù×÷£¬ÄÇÃ´ÉèÖÃµ½Ïß³ÌÉÏÈ¥
-			TransactionSynchronizationManager.setActualTransactionActive(status.hasTransaction()); //ÊÇ·ñÔÚÍ¬²½ÖĞ
+		if (status.isNewSynchronization()) { //å¦‚æœæ˜¯æ–°çš„åŒæ­¥æ“ä½œï¼Œé‚£ä¹ˆè®¾ç½®åˆ°çº¿ç¨‹ä¸Šå»
+			TransactionSynchronizationManager.setActualTransactionActive(status.hasTransaction()); //æ˜¯å¦åœ¨åŒæ­¥ä¸­
 			TransactionSynchronizationManager.setCurrentTransactionIsolationLevel(
 					definition.getIsolationLevel() != TransactionDefinition.ISOLATION_DEFAULT ?
-							definition.getIsolationLevel() : null); //»ñµÃ¸ôÀë¼¶±ğ
-			TransactionSynchronizationManager.setCurrentTransactionReadOnly(definition.isReadOnly()); //Ö»¶Á£¿
-			TransactionSynchronizationManager.setCurrentTransactionName(definition.getName()); //Ãû×Ö
-			TransactionSynchronizationManager.initSynchronization(); //³õÊ¼»¯
+							definition.getIsolationLevel() : null); //è·å¾—éš”ç¦»çº§åˆ«
+			TransactionSynchronizationManager.setCurrentTransactionReadOnly(definition.isReadOnly()); //åªè¯»ï¼Ÿ
+			TransactionSynchronizationManager.setCurrentTransactionName(definition.getName()); //åå­—
+			TransactionSynchronizationManager.initSynchronization(); //åˆå§‹åŒ–
 		}
 	}
 
@@ -622,7 +622,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * then delegates to the {@code doSuspend} template method.
      *
      * <p>
-     *     Suspend¸ø¶¨µÄÊÂÎñ¡£ Ê×ÏÈSuspends£¬ÊÂÎñÍ¬²½£¬È»ºóÎ¯ÍĞ¸ø{@code doSuspend}Ä£°å·½·¨¡£
+     *     Suspendç»™å®šçš„äº‹åŠ¡ã€‚ é¦–å…ˆSuspendsï¼Œäº‹åŠ¡åŒæ­¥ï¼Œç„¶åå§”æ‰˜ç»™{@code doSuspend}æ¨¡æ¿æ–¹æ³•ã€‚
      * </p>
 	 * @param transaction the current transaction object
 	 * (or {@code null} to just suspend active synchronizations, if any)
@@ -632,57 +632,57 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * @see #resume
 	 */
 	protected final SuspendedResourcesHolder suspend(Object transaction) throws TransactionException {
-		if (TransactionSynchronizationManager.isSynchronizationActive()) { //ÊÇ·ñÊÇÍ¬²½¼¤»îµÄ
-			//·µ»Ø±»¹ÒÆğµÄ×ÊÔ´Í¬²½
+		if (TransactionSynchronizationManager.isSynchronizationActive()) { //æ˜¯å¦æ˜¯åŒæ­¥æ¿€æ´»çš„
+			//è¿”å›è¢«æŒ‚èµ·çš„èµ„æºåŒæ­¥
 			List<TransactionSynchronization> suspendedSynchronizations = doSuspendSynchronization();
 			try {
 				Object suspendedResources = null;
 				if (transaction != null) {
-					//¹ÒÆğÊÂÎñ
+					//æŒ‚èµ·äº‹åŠ¡
 					suspendedResources = doSuspend(transaction);
 				}
-				//»ñµÃµ±Ç°µÄÃû×Ö
+				//è·å¾—å½“å‰çš„åå­—
 				String name = TransactionSynchronizationManager.getCurrentTransactionName();
-				//ÉèÖÃ¿Õ
+				//è®¾ç½®ç©º
 				TransactionSynchronizationManager.setCurrentTransactionName(null);
-				//»ñµÃµ±Ç°µÄ¶ÁĞ´
+				//è·å¾—å½“å‰çš„è¯»å†™
 				boolean readOnly = TransactionSynchronizationManager.isCurrentTransactionReadOnly();
-				//ÉèÖÃfalse
+				//è®¾ç½®false
 				TransactionSynchronizationManager.setCurrentTransactionReadOnly(false);
-				//»ñµÃµ±Ç°µÄ¸ôÀë¼¶±ğ
+				//è·å¾—å½“å‰çš„éš”ç¦»çº§åˆ«
 				Integer isolationLevel = TransactionSynchronizationManager.getCurrentTransactionIsolationLevel();
-				//³õÊ¼»¯
+				//åˆå§‹åŒ–
 				TransactionSynchronizationManager.setCurrentTransactionIsolationLevel(null);
-				//»ñµÃµ±Ç°µÄ×´Ì¬
+				//è·å¾—å½“å‰çš„çŠ¶æ€
 				boolean wasActive = TransactionSynchronizationManager.isActualTransactionActive();
-				//ÖØÖÃ
+				//é‡ç½®
 				TransactionSynchronizationManager.setActualTransactionActive(false);
-				//·µ»Øholder³ÖÓĞÕâĞ©ĞÅÏ¢
+				//è¿”å›holderæŒæœ‰è¿™äº›ä¿¡æ¯
 				return new SuspendedResourcesHolder(
 						suspendedResources, suspendedSynchronizations, name, readOnly, isolationLevel, wasActive);
 			}
 			catch (RuntimeException ex) {
 				// doSuspend failed - original transaction is still active...
-				// doSuspendÊ§°Ü - Ô­Ê¼ÊÂÎñÈÔÈ»ÓĞĞ§......
+				// doSuspendå¤±è´¥ - åŸå§‹äº‹åŠ¡ä»ç„¶æœ‰æ•ˆ......
 				doResumeSynchronization(suspendedSynchronizations);
 				throw ex;
 			}
 			catch (Error err) {
 				// doSuspend failed - original transaction is still active...
-				// doSuspendÊ§°Ü - Ô­Ê¼ÊÂÎñÈÔÈ»ÓĞĞ§......
+				// doSuspendå¤±è´¥ - åŸå§‹äº‹åŠ¡ä»ç„¶æœ‰æ•ˆ......
 				doResumeSynchronization(suspendedSynchronizations);
 				throw err;
 			}
 		}
 		else if (transaction != null) {
 			// Transaction active but no synchronization active.
-			// ÊÂÎñ´¦ÓÚ»î¶¯×´Ì¬µ«Î´¼¤»îÊÂÎñÍ¬²½£¬¼òµ¥µÄ¹ÒÆğÊÂÎñ¾Í¿ÉÒÔÁË
+			// äº‹åŠ¡å¤„äºæ´»åŠ¨çŠ¶æ€ä½†æœªæ¿€æ´»äº‹åŠ¡åŒæ­¥ï¼Œç®€å•çš„æŒ‚èµ·äº‹åŠ¡å°±å¯ä»¥äº†
 			Object suspendedResources = doSuspend(transaction);
 			return new SuspendedResourcesHolder(suspendedResources);
 		}
 		else {
 			// Neither transaction nor synchronization active.
-			// ÊÂÎñºÍÍ¬²½¶¼²»»î¶¯¡£
+			// äº‹åŠ¡å’ŒåŒæ­¥éƒ½ä¸æ´»åŠ¨ã€‚
 			return null;
 		}
 	}
@@ -692,7 +692,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * template method first, then resuming transaction synchronization.
 	 *
 	 * <p>
-	 *     »Ö¸´¸ø¶¨µÄ½»Ò×¡£ Ê×ÏÈÎ¯ÍĞdoResumeÄ£°å·½·¨£¬È»ºó»Ö¸´ÊÂÎñÍ¬²½¡£
+	 *     æ¢å¤ç»™å®šçš„äº¤æ˜“ã€‚ é¦–å…ˆå§”æ‰˜doResumeæ¨¡æ¿æ–¹æ³•ï¼Œç„¶åæ¢å¤äº‹åŠ¡åŒæ­¥ã€‚
 	 * </p>
 	 * @param transaction the current transaction object
 	 * @param resourcesHolder the object that holds suspended resources,
@@ -705,15 +705,15 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			throws TransactionException {
 
 		if (resourcesHolder != null) {
-			//´¦Àí±»¹ÒÆğµÄ×ÊÔ´
+			//å¤„ç†è¢«æŒ‚èµ·çš„èµ„æº
 			Object suspendedResources = resourcesHolder.suspendedResources;
 			if (suspendedResources != null) {
 				doResume(transaction, suspendedResources);
 			}
-			//´¦Àí±»¹ÒÆğµÄÍ¬²½Æ÷
+			//å¤„ç†è¢«æŒ‚èµ·çš„åŒæ­¥å™¨
 			List<TransactionSynchronization> suspendedSynchronizations = resourcesHolder.suspendedSynchronizations;
 			if (suspendedSynchronizations != null) {
-				//ÉèÖÃ»áÏß³Ì
+				//è®¾ç½®ä¼šçº¿ç¨‹
 				TransactionSynchronizationManager.setActualTransactionActive(resourcesHolder.wasActive);
 				TransactionSynchronizationManager.setCurrentTransactionIsolationLevel(resourcesHolder.isolationLevel);
 				TransactionSynchronizationManager.setCurrentTransactionReadOnly(resourcesHolder.readOnly);
@@ -747,7 +747,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * Suspend all current synchronizations and deactivate transaction
 	 * synchronization for the current thread.
 	 * <p>
-	 *     ¹ÒÆğËùÓĞµ±Ç°Í¬²½²¢Í£ÓÃµ±Ç°Ïß³ÌµÄÊÂÎñÍ¬²½¡£
+	 *     æŒ‚èµ·æ‰€æœ‰å½“å‰åŒæ­¥å¹¶åœç”¨å½“å‰çº¿ç¨‹çš„äº‹åŠ¡åŒæ­¥ã€‚
 	 * </p>
 	 * @return the List of suspended TransactionSynchronization objects
 	 */
@@ -765,7 +765,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * Reactivate transaction synchronization for the current thread
 	 * and resume all given synchronizations.
 	 * <p>
-	 *     ÖØĞÂ¼¤»îµ±Ç°Ïß³ÌµÄÊÂÎñÍ¬²½²¢»Ö¸´ËùÓĞ¸ø¶¨µÄÍ¬²½¡£
+	 *     é‡æ–°æ¿€æ´»å½“å‰çº¿ç¨‹çš„äº‹åŠ¡åŒæ­¥å¹¶æ¢å¤æ‰€æœ‰ç»™å®šçš„åŒæ­¥ã€‚
 	 * </p>
 	 * @param suspendedSynchronizations List of TransactionSynchronization objects
 	 */
@@ -783,8 +783,8 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * transactions and programmatic rollback requests.
 	 *
 	 * <p>
-	 *     ´ËÌá½»ÊµÏÖ´¦Àí²ÎÓëÏÖÓĞÊÂÎñºÍ±à³Ì»Ø¹öÇëÇó¡£
-	 *     ´ú±íisRollbackOnly£¬doCommitºÍrollback¡£
+	 *     æ­¤æäº¤å®ç°å¤„ç†å‚ä¸ç°æœ‰äº‹åŠ¡å’Œç¼–ç¨‹å›æ»šè¯·æ±‚ã€‚
+	 *     ä»£è¡¨isRollbackOnlyï¼ŒdoCommitå’Œrollbackã€‚
 	 * </p>
 	 * Delegates to {@code isRollbackOnly}, {@code doCommit}
 	 * and {@code rollback}.
@@ -799,13 +799,13 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 					"Transaction is already completed - do not call commit or rollback more than once per transaction");
 		}
 
-		//ÊÂÎñ×´Ìå
+		//äº‹åŠ¡çŠ¶ä½“
 		DefaultTransactionStatus defStatus = (DefaultTransactionStatus) status;
-		if (defStatus.isLocalRollbackOnly()) { //ÇëÇó»Ø¹ö
+		if (defStatus.isLocalRollbackOnly()) { //è¯·æ±‚å›æ»š
 			if (defStatus.isDebug()) {
 				logger.debug("Transactional code has requested rollback");
 			}
-			//´¦Àí»Ø¹ö
+			//å¤„ç†å›æ»š
 			processRollback(defStatus);
 			return;
 		}
@@ -823,7 +823,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			return;
 		}
 
-		//Ìá½»
+		//æäº¤
 		processCommit(defStatus);
 	}
 
@@ -831,7 +831,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * Process an actual commit.
 	 * Rollback-only flags have already been checked and applied.
 	 * <p>
-	 *     ´¦ÀíÊµ¼ÊÌá½»¡£ ½ö»Ø¹ö±êÖ¾ÒÑ±»¼ì²é²¢Ó¦ÓÃ¡£
+	 *     å¤„ç†å®é™…æäº¤ã€‚ ä»…å›æ»šæ ‡å¿—å·²è¢«æ£€æŸ¥å¹¶åº”ç”¨ã€‚
 	 * </p>
 	 * @param status object representing the transaction
 	 * @throws TransactionException in case of commit failure
@@ -840,11 +840,11 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 		try {
 			boolean beforeCompletionInvoked = false;
 			try {
-				//×¼±¸Ìá½»
+				//å‡†å¤‡æäº¤
 				prepareForCommit(status);
-				//´¥·¢Ìá½»
+				//è§¦å‘æäº¤
 				triggerBeforeCommit(status);
-				//´¥·¢Íê³É
+				//è§¦å‘å®Œæˆ
 				triggerBeforeCompletion(status);
 				//
 				beforeCompletionInvoked = true;
@@ -857,14 +857,14 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 					if (status.isDebug()) {
 						logger.debug("Releasing transaction savepoint");
 					}
-					//ÊÍ·Å°²È«µã
+					//é‡Šæ”¾å®‰å…¨ç‚¹
 					status.releaseHeldSavepoint();
 				}
 				else if (status.isNewTransaction()) {
 					if (status.isDebug()) {
 						logger.debug("Initiating transaction commit");
 					}
-					//Ìá½»ÊÂÎñ
+					//æäº¤äº‹åŠ¡
 					doCommit(status);
 				}
 				// Throw UnexpectedRollbackException if we have a global rollback-only
@@ -876,14 +876,14 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			}
 			catch (UnexpectedRollbackException ex) {
 				// can only be caused by doCommit
-				// ´¥·¢Íê³É
+				// è§¦å‘å®Œæˆ
 				triggerAfterCompletion(status, TransactionSynchronization.STATUS_ROLLED_BACK);
 				throw ex;
 			}
 			catch (TransactionException ex) {
 				// can only be caused by doCommit
 				if (isRollbackOnCommitFailure()) {
-					//»Ø¹ö
+					//å›æ»š
 					doRollbackOnCommitException(status, ex);
 				}
 				else {
@@ -909,17 +909,17 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 			// Trigger afterCommit callbacks, with an exception thrown there
 			// propagated to callers but the transaction still considered as committed.
 			try {
-				//½áÊøÌá½»
+				//ç»“æŸæäº¤
 				triggerAfterCommit(status);
 			}
 			finally {
-				//Íê³É
+				//å®Œæˆ
 				triggerAfterCompletion(status, TransactionSynchronization.STATUS_COMMITTED);
 			}
 
 		}
 		finally {
-			//Íê³É
+			//å®Œæˆ
 			cleanupAfterCompletion(status);
 		}
 	}
@@ -951,20 +951,23 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	private void processRollback(DefaultTransactionStatus status) {
 		try {
 			try {
+				//è§¦å‘å®Œæˆä¹‹å‰æ“ä½œ
 				triggerBeforeCompletion(status);
-				if (status.hasSavepoint()) {
+				if (status.hasSavepoint()) { //å­˜åœ¨å®‰å…¨ç‚¹
 					if (status.isDebug()) {
 						logger.debug("Rolling back transaction to savepoint");
 					}
 					status.rollbackToHeldSavepoint();
 				}
-				else if (status.isNewTransaction()) {
+				else if (status.isNewTransaction()) { //æ–°äº‹åŠ¡
 					if (status.isDebug()) {
 						logger.debug("Initiating transaction rollback");
 					}
+					//å›æ»š
 					doRollback(status);
 				}
 				else if (status.hasTransaction()) {
+					//
 					if (status.isLocalRollbackOnly() || isGlobalRollbackOnParticipationFailure()) {
 						if (status.isDebug()) {
 							logger.debug("Participating transaction failed - marking existing transaction as rollback-only");
@@ -1077,7 +1080,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * @param completionStatus completion status according to TransactionSynchronization constants
 	 */
 	private void triggerAfterCompletion(DefaultTransactionStatus status, int completionStatus) {
-		if (status.isNewSynchronization()) {
+		if (status.isNewSynchronization()) { //å­˜åœ¨äº‹åŠ¡åŒæ­¥
 			List<TransactionSynchronization> synchronizations = TransactionSynchronizationManager.getSynchronizations();
 			TransactionSynchronizationManager.clearSynchronization();
 			if (!status.hasTransaction() || status.isNewTransaction()) {
@@ -1118,7 +1121,7 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * Clean up after completion, clearing synchronization if necessary,
 	 * and invoking doCleanupAfterCompletion.
 	 * <p>
-	 *     Íê³ÉºóÇåÀí£¬±ØÒªÊ±Çå³ıÍ¬²½£¬²¢µ÷ÓÃdoCleanupAfterCompletion¡£
+	 *     å®Œæˆåæ¸…ç†ï¼Œå¿…è¦æ—¶æ¸…é™¤åŒæ­¥ï¼Œå¹¶è°ƒç”¨doCleanupAfterCompletionã€‚
 	 * </p>
 	 * @param status object representing the transaction
 	 * @see #doCleanupAfterCompletion
@@ -1159,15 +1162,15 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * returned transaction object.
 	 *
 	 * <p>
-	 *     ·µ»Øµ±Ç°ÊÂÎñ×´Ì¬µÄÊÂÎñ¶ÔÏó¡£
+	 *     è¿”å›å½“å‰äº‹åŠ¡çŠ¶æ€çš„äº‹åŠ¡å¯¹è±¡ã€‚
 	 * </p>
 	 * <p>
-	 *     ·µ»ØµÄ¶ÔÏóÍ¨³£ÌØ¶¨ÓÚ¾ßÌåµÄÊÂÎñ¹ÜÀíÆ÷ÊµÏÖ£¬ÒÔ¿ÉĞŞ¸ÄµÄ·½Ê½Ğ¯´øÏàÓ¦µÄÊÂÎñ×´Ì¬¡£
-	 *     ´Ë¶ÔÏó½«Ö±½Ó»ò×÷ÎªDefaultTransactionStatusÊµÀıµÄÒ»²¿·Ö´«µİµ½ÆäËûÄ£°å·½·¨£¨ÀıÈçdoBeginºÍdoCommit£©¡£
+	 *     è¿”å›çš„å¯¹è±¡é€šå¸¸ç‰¹å®šäºå…·ä½“çš„äº‹åŠ¡ç®¡ç†å™¨å®ç°ï¼Œä»¥å¯ä¿®æ”¹çš„æ–¹å¼æºå¸¦ç›¸åº”çš„äº‹åŠ¡çŠ¶æ€ã€‚
+	 *     æ­¤å¯¹è±¡å°†ç›´æ¥æˆ–ä½œä¸ºDefaultTransactionStatuså®ä¾‹çš„ä¸€éƒ¨åˆ†ä¼ é€’åˆ°å…¶ä»–æ¨¡æ¿æ–¹æ³•ï¼ˆä¾‹å¦‚doBeginå’ŒdoCommitï¼‰ã€‚
 	 * </p>
 	 * <p>
-	 *     ·µ»ØµÄ¶ÔÏóÓ¦°üº¬ÓĞ¹ØÈÎºÎÏÖÓĞÊÂÎñµÄĞÅÏ¢£¬¼´ÔÚÊÂÎñ¹ÜÀíÆ÷ÉÏµ±Ç°µÄgetTransactionµ÷ÓÃÖ®Ç°ÒÑ¾­Æô¶¯µÄÊÂÎñ¡£
-	 *     Òò´Ë£¬doGetTransactionÊµÏÖÍ¨³£»á²éÕÒÏÖÓĞÊÂÎñ²¢ÔÚ·µ»ØµÄÊÂÎñ¶ÔÏóÖĞ´æ´¢ÏàÓ¦µÄ×´Ì¬
+	 *     è¿”å›çš„å¯¹è±¡åº”åŒ…å«æœ‰å…³ä»»ä½•ç°æœ‰äº‹åŠ¡çš„ä¿¡æ¯ï¼Œå³åœ¨äº‹åŠ¡ç®¡ç†å™¨ä¸Šå½“å‰çš„getTransactionè°ƒç”¨ä¹‹å‰å·²ç»å¯åŠ¨çš„äº‹åŠ¡ã€‚
+	 *     å› æ­¤ï¼ŒdoGetTransactionå®ç°é€šå¸¸ä¼šæŸ¥æ‰¾ç°æœ‰äº‹åŠ¡å¹¶åœ¨è¿”å›çš„äº‹åŠ¡å¯¹è±¡ä¸­å­˜å‚¨ç›¸åº”çš„çŠ¶æ€
 	 * </p>
 	 * @return the current transaction object
 	 * @throws org.springframework.transaction.CannotCreateTransactionException
@@ -1314,10 +1317,10 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * <p>Note that exceptions will get propagated to the commit caller
 	 * and cause a rollback of the transaction.
 	 * <p>
-	 *     ×¼±¸Ìá½»£¬ÔÚbeforeCommitÍ¬²½»Øµ÷·¢ÉúÖ®Ç°Ö´ĞĞ¡£
+	 *     å‡†å¤‡æäº¤ï¼Œåœ¨beforeCommitåŒæ­¥å›è°ƒå‘ç”Ÿä¹‹å‰æ‰§è¡Œã€‚
 	 * </p>
 	 * <p>
-	 * Çë×¢Òâ£¬Òì³£½«´«²¥µ½Ìá½»µ÷ÓÃ·½²¢µ¼ÖÂÊÂÎñ»Ø¹ö
+	 * è¯·æ³¨æ„ï¼Œå¼‚å¸¸å°†ä¼ æ’­åˆ°æäº¤è°ƒç”¨æ–¹å¹¶å¯¼è‡´äº‹åŠ¡å›æ»š
 	 * </p>
 	 * @param status the status representation of the transaction
 	 * @throws RuntimeException in case of errors; will be <b>propagated to the caller</b>
@@ -1415,38 +1418,38 @@ public abstract class AbstractPlatformTransactionManager implements PlatformTran
 	 * Holder for suspended resources.
 	 * Used internally by {@code suspend} and {@code resume}.
 	 * <p>
-	 *     ÔİÍ£×ÊÔ´µÄ³ÖÓĞÈË¡£ ÔİÍ£ºÍ»Ö¸´ÄÚ²¿Ê¹ÓÃ¡£
+	 *     æš‚åœèµ„æºçš„æŒæœ‰äººã€‚ æš‚åœå’Œæ¢å¤å†…éƒ¨ä½¿ç”¨ã€‚
 	 * </p>
 	 */
 	protected static class SuspendedResourcesHolder {
 
 		/**
-		 * ±»ÔİÍ£µÄ×ÊÔ´
+		 * è¢«æš‚åœçš„èµ„æº
 		 */
 		private final Object suspendedResources;
 
 		/**
-		 * ÏàÓ¦µÄÍ¬²½Æ÷
+		 * ç›¸åº”çš„åŒæ­¥å™¨
 		 */
 		private List<TransactionSynchronization> suspendedSynchronizations;
 
 		/**
-		 * ÆäËûÊôĞÔÃèÊö
+		 * å…¶ä»–å±æ€§æè¿°
 		 */
 		private String name;
 
 		/**
-		 * ÆäËûÊôĞÔÃèÊö
+		 * å…¶ä»–å±æ€§æè¿°
 		 */
 		private boolean readOnly;
 
 		/**
-		 * ÆäËûÊôĞÔÃèÊö
+		 * å…¶ä»–å±æ€§æè¿°
 		 */
 		private Integer isolationLevel;
 
 		/**
-		 * ÆäËûÊôĞÔÃèÊö
+		 * å…¶ä»–å±æ€§æè¿°
 		 */
 		private boolean wasActive;
 

@@ -24,7 +24,7 @@ import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
  * ignoring any application-defined Advisors.
  *
  * <p>
- *     ½ö¿¼ÂÇ»ù´¡¼Ü¹¹(¿ò¼ÜÄÚ²¿)AdvisorµÄbeanµÄauto-proxy´´½¨Õß£¬ºöÂÔÈÎºÎÓ¦ÓÃ³ÌĞò¶¨ÒåµÄAdvisors¡£
+ *     ä»…è€ƒè™‘åŸºç¡€æ¶æ„(æ¡†æ¶å†…éƒ¨)Advisorçš„beançš„auto-proxyåˆ›å»ºè€…ï¼Œå¿½ç•¥ä»»ä½•åº”ç”¨ç¨‹åºå®šä¹‰çš„Advisorsã€‚
  * </p>
  *
  * @author Juergen Hoeller
@@ -43,7 +43,7 @@ public class InfrastructureAdvisorAutoProxyCreator extends AbstractAdvisorAutoPr
 	}
 
 	/**
-	 * ¸ÃAop×é¼şÍ¨¹ıbeanµÄ¶¨ÒåÖĞroleÀ´Çø·ÖbeanÊÇ·ñÎª¿ò¼ÜÄÚ²¿µÄbean¡£
+	 * è¯¥Aopç»„ä»¶é€šè¿‡beançš„å®šä¹‰ä¸­roleæ¥åŒºåˆ†beanæ˜¯å¦ä¸ºæ¡†æ¶å†…éƒ¨çš„beanã€‚
 	 * @see BeanDefinition#ROLE_INFRASTRUCTURE
 	 * @param beanName the name of the Advisor bean
 	 * @return

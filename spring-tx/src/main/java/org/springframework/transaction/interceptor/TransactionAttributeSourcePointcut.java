@@ -27,7 +27,7 @@ import org.springframework.util.ObjectUtils;
  * {@link TransactionAttributeSource} has an attribute for a given method.
  *
  * <p>
- *     Èç¹ûµ×²ã{@link TransactionAttributeSource}¾ßÓĞ¸ø¶¨·½·¨µÄÊôĞÔ£¬ÔòÊµÏÖPointcutµÄÄÚ²¿Àà¡£
+ *     å¦‚æœåº•å±‚{@link TransactionAttributeSource}å…·æœ‰ç»™å®šæ–¹æ³•çš„å±æ€§ï¼Œåˆ™å®ç°Pointcutçš„å†…éƒ¨ç±»ã€‚
  * </p>
  *
  * @author Juergen Hoeller
@@ -37,7 +37,7 @@ import org.springframework.util.ObjectUtils;
 abstract class TransactionAttributeSourcePointcut extends StaticMethodMatcherPointcut implements Serializable {
 
 	/**
-	 * Ä¿±êÀàµÄ·½·¨ÊÇ·ñÆ¥Åä
+	 * ç›®æ ‡ç±»çš„æ–¹æ³•æ˜¯å¦åŒ¹é…
 	 * @param method the candidate method
 	 * @param targetClass the target class (may be {@code null}, in which case
 	 * the candidate class must be taken to be the method's declaring class)
@@ -48,6 +48,7 @@ abstract class TransactionAttributeSourcePointcut extends StaticMethodMatcherPoi
 		if (targetClass != null && TransactionalProxy.class.isAssignableFrom(targetClass)) {
 			return false;
 		}
+		//è·å¾—
 		TransactionAttributeSource tas = getTransactionAttributeSource();
 		return (tas == null || tas.getTransactionAttribute(method, targetClass) != null);
 	}

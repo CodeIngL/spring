@@ -30,13 +30,13 @@ import java.io.Flushable;
  * allowing for fine-grained interaction with their execution order (if necessary).
  *
  * <p>
- *     ÊÂÎñÍ¬²½»Øµ÷µÄ½Ó¿Ú¡£ ÓÉAbstractPlatformTransactionManagerÖ§³Ö¡£
+ *     äº‹åŠ¡åŒæ­¥å›è°ƒçš„æ¥å£ã€‚ ç”±AbstractPlatformTransactionManageræ”¯æŒã€‚
  * </p>
  * <p>
- * 	 TransactionSynchronizationÊµÏÖ¿ÉÒÔÊµÏÖOrdered½Ó¿ÚÀ´Ó°ÏìËüÃÇµÄÖ´ĞĞË³Ğò¡£ Î´ÊµÏÖOrdered½Ó¿ÚµÄÍ¬²½½«¸½¼Óµ½Í¬²½Á´µÄÄ©Î²¡£
+ * 	 TransactionSynchronizationå®ç°å¯ä»¥å®ç°Orderedæ¥å£æ¥å½±å“å®ƒä»¬çš„æ‰§è¡Œé¡ºåºã€‚ æœªå®ç°Orderedæ¥å£çš„åŒæ­¥å°†é™„åŠ åˆ°åŒæ­¥é“¾çš„æœ«å°¾ã€‚
  * </p>
  * <p>
- *     SpringÖ´ĞĞµÄÏµÍ³Í¬²½Ê¹ÓÃÌØ¶¨µÄË³ĞòÖµ£¬ÔÊĞíÓëÆäÖ´ĞĞË³Ğò£¨Èç¹ûĞèÒª£©½øĞĞÏ¸Á£¶ÈµÄ½»»¥¡£
+ *     Springæ‰§è¡Œçš„ç³»ç»ŸåŒæ­¥ä½¿ç”¨ç‰¹å®šçš„é¡ºåºå€¼ï¼Œå…è®¸ä¸å…¶æ‰§è¡Œé¡ºåºï¼ˆå¦‚æœéœ€è¦ï¼‰è¿›è¡Œç»†ç²’åº¦çš„äº¤äº’ã€‚
  * </p>
  * @author Juergen Hoeller
  * @since 02.06.2003

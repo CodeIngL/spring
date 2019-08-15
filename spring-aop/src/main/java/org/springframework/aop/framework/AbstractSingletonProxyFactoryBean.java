@@ -35,10 +35,10 @@ import org.springframework.util.ClassUtils;
  * consistent interface management.
  *
  * <p>
- *     ÓÃÓÚÉú³Éµ¥Àı·¶Î§´úÀí¶ÔÏóµÄ{@link FactoryBean}ÀàĞÍµÄ±ã½İ³¬Àà¡£
+ *     ç”¨äºç”Ÿæˆå•ä¾‹èŒƒå›´ä»£ç†å¯¹è±¡çš„{@link FactoryBean}ç±»å‹çš„ä¾¿æ·è¶…ç±»ã€‚
  * </p>
  * <p>
- *    ¹ÜÀíÇ°ÖÃÀ¹½ØÆ÷ºÍºóÖÃÀ¹½ØÆ÷(ÒıÓÃ£¬¶ø²»ÊÇ»ùÓÚÀ¹½ØÆ÷Ãû³Æ£¬Èç{@link ProxyFactoryBean})ÖĞ)²¢Ìá¹©Ò»ÖÂµÄ½Ó¿Ú¹ÜÀí
+ *    ç®¡ç†å‰ç½®æ‹¦æˆªå™¨å’Œåç½®æ‹¦æˆªå™¨(å¼•ç”¨ï¼Œè€Œä¸æ˜¯åŸºäºæ‹¦æˆªå™¨åç§°ï¼Œå¦‚{@link ProxyFactoryBean})ä¸­)å¹¶æä¾›ä¸€è‡´çš„æ¥å£ç®¡ç†
  * </p>
  *
  * @author Juergen Hoeller
@@ -151,7 +151,7 @@ public abstract class AbstractSingletonProxyFactoryBean extends ProxyConfig
 
 		ProxyFactory proxyFactory = new ProxyFactory();
 
-		//Ìí¼ÓÇ°ÖÃÀ¹½ØÆ÷
+		//æ·»åŠ å‰ç½®æ‹¦æˆªå™¨
 		if (this.preInterceptors != null) {
 			for (Object interceptor : this.preInterceptors) {
 				proxyFactory.addAdvisor(this.advisorAdapterRegistry.wrap(interceptor));
@@ -159,10 +159,10 @@ public abstract class AbstractSingletonProxyFactoryBean extends ProxyConfig
 		}
 
 		// Add the main interceptor (typically an Advisor).
-		// Ìí¼ÓÖ÷ÒªµÄÀ¹½ØÆ÷
+		// æ·»åŠ ä¸»è¦çš„æ‹¦æˆªå™¨
 		proxyFactory.addAdvisor(this.advisorAdapterRegistry.wrap(createMainInterceptor()));
 
-		//Ìí¼ÓºóÖÃÀ¹½ØÆ÷
+		//æ·»åŠ åç½®æ‹¦æˆªå™¨
 		if (this.postInterceptors != null) {
 			for (Object interceptor : this.postInterceptors) {
 				proxyFactory.addAdvisor(this.advisorAdapterRegistry.wrap(interceptor));
@@ -171,18 +171,18 @@ public abstract class AbstractSingletonProxyFactoryBean extends ProxyConfig
 
 		proxyFactory.copyFrom(this);
 
-		//¹¹½¨TargetSource
+		//æ„å»ºTargetSource
 		TargetSource targetSource = createTargetSource(this.target);
 		proxyFactory.setTargetSource(targetSource);
 
-		//ĞèÒª´úÀíµÄ½Ó¿Ú
+		//éœ€è¦ä»£ç†çš„æ¥å£
 		if (this.proxyInterfaces != null) {
 			proxyFactory.setInterfaces(this.proxyInterfaces);
 		}
-		//²»ÊÇ»ùÓÚÀàµÄ´úÀí
+		//ä¸æ˜¯åŸºäºç±»çš„ä»£ç†
 		else if (!isProxyTargetClass()) {
 			// Rely on AOP infrastructure to tell us what interfaces to proxy.
-			// ¼ÆËãËùÓĞ½Ó¿Ú
+			// è®¡ç®—æ‰€æœ‰æ¥å£
 			proxyFactory.setInterfaces(ClassUtils.getAllInterfacesForClass(targetSource.getTargetClass(), this.proxyClassLoader));
 		}
 

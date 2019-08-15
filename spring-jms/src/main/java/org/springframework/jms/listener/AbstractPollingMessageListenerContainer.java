@@ -67,19 +67,19 @@ import org.springframework.transaction.support.TransactionSynchronizationUtils;
  * including dynamic scaling of concurrent consumers and automatic self recovery.
  *
  * <p>
- *     ÕìÌıÆ÷ÈİÆ÷ÊµÏÖµÄ»ùÀà£¬Ëü»ùÓÚÂÖÑ¯¡£Îª»ùÓÚ{@link javax.jms.MessageConsumer}µÄÕìÌıÆ÷´¦ÀíÌá¹©Ö§³Ö£¬¿ÉÑ¡Ôñ²ÎÓëÍâ²¿¹ÜÀíµÄÊÂÎñ¡£
+ *     ä¾¦å¬å™¨å®¹å™¨å®ç°çš„åŸºç±»ï¼Œå®ƒåŸºäºè½®è¯¢ã€‚ä¸ºåŸºäº{@link javax.jms.MessageConsumer}çš„ä¾¦å¬å™¨å¤„ç†æä¾›æ”¯æŒï¼Œå¯é€‰æ‹©å‚ä¸å¤–éƒ¨ç®¡ç†çš„äº‹åŠ¡ã€‚
  * </p>
  * <p>
- *     ´ËÕìÌıÆ÷ÈİÆ÷±äÌåÊÇÎªÖØ¸´ÂÖÑ¯³¢ÊÔ¶ø¹¹½¨µÄ£¬Ã¿´Îµ÷ÓÃ¶¼»áµ÷ÓÃreceiveAndExecute·½·¨¡£ËùÊ¹ÓÃµÄMessageConsumer¿ÉÒÔÖØĞÂ»ñµÃÒÔ´ïµ½³¢ÊÔ»òÔÚ³¢ÊÔÖ®¼ä»º´æ;ÕâÈ¡¾öÓÚ¾ßÌåµÄÊµÊ©¡£¿ÉÒÔÍ¨¹ı¡°receiveTimeout¡±ÊôĞÔÅäÖÃÃ¿´Î³¢ÊÔµÄ½ÓÊÕ³¬Ê±¡£
+ *     æ­¤ä¾¦å¬å™¨å®¹å™¨å˜ä½“æ˜¯ä¸ºé‡å¤è½®è¯¢å°è¯•è€Œæ„å»ºçš„ï¼Œæ¯æ¬¡è°ƒç”¨éƒ½ä¼šè°ƒç”¨receiveAndExecuteæ–¹æ³•ã€‚æ‰€ä½¿ç”¨çš„MessageConsumerå¯ä»¥é‡æ–°è·å¾—ä»¥è¾¾åˆ°å°è¯•æˆ–åœ¨å°è¯•ä¹‹é—´ç¼“å­˜;è¿™å–å†³äºå…·ä½“çš„å®æ–½ã€‚å¯ä»¥é€šè¿‡â€œreceiveTimeoutâ€å±æ€§é…ç½®æ¯æ¬¡å°è¯•çš„æ¥æ”¶è¶…æ—¶ã€‚
  * </p>
  * <p>
- *    µ×²ã»úÖÆ»ùÓÚ±ê×¼JMS MessageConsumer´¦Àí£¬ËüÓëJava EE»·¾³ÖĞµÄ±¾»úJMSºÍJMSÍêÈ«¼æÈİ¡£ JMS MessageConsumer.setMessageListener¹¤¾ßºÍJMS ServerSessionPool¹¤¾ß¶¼²»ÊÇ±ØĞèµÄ¡£ÕâÖÖ·½·¨µÄÁíÒ»¸öÓÅµãÊÇ¿ÉÒÔÍêÈ«¿ØÖÆ¼àÌı¹ı³Ì£¬ÔÊĞí×Ô¶¨ÒåËõ·ÅºÍÏŞÖÆÒÔ¼°²¢·¢ÏûÏ¢´¦Àí£¨ÕâÈ¡¾öÓÚ¾ßÌåµÄ×ÓÀà£©¡£
+ *    åº•å±‚æœºåˆ¶åŸºäºæ ‡å‡†JMS MessageConsumerå¤„ç†ï¼Œå®ƒä¸Java EEç¯å¢ƒä¸­çš„æœ¬æœºJMSå’ŒJMSå®Œå…¨å…¼å®¹ã€‚ JMS MessageConsumer.setMessageListenerå·¥å…·å’ŒJMS ServerSessionPoolå·¥å…·éƒ½ä¸æ˜¯å¿…éœ€çš„ã€‚è¿™ç§æ–¹æ³•çš„å¦ä¸€ä¸ªä¼˜ç‚¹æ˜¯å¯ä»¥å®Œå…¨æ§åˆ¶ç›‘å¬è¿‡ç¨‹ï¼Œå…è®¸è‡ªå®šä¹‰ç¼©æ”¾å’Œé™åˆ¶ä»¥åŠå¹¶å‘æ¶ˆæ¯å¤„ç†ï¼ˆè¿™å–å†³äºå…·ä½“çš„å­ç±»ï¼‰ã€‚
  * </p>
  * <p>
- * Í¨¹ı½«Spring PlatformTransactionManager´«µİµ½¡°transactionManager¡±ÊôĞÔ£¬ÏûÏ¢½ÓÊÕºÍÕìÌıÆ÷Ö´ĞĞ¿ÉÒÔ×Ô¶¯°üº¬ÔÚÊÂÎñÖĞ¡£ÕâÍ¨³£ÊÇJava EE»·¾³ÖĞµÄorg.springframework.transaction.jta.JtaTransactionManager£¬ÒÔ¼°´ÓJNDI»ñÈ¡µÄJTA¸ĞÖªJMS ConnectionFactory£¨Çë²é¿´Ó¦ÓÃ³ÌĞò·şÎñÆ÷µÄÎÄµµ£©¡£
+ * é€šè¿‡å°†Spring PlatformTransactionManagerä¼ é€’åˆ°â€œtransactionManagerâ€å±æ€§ï¼Œæ¶ˆæ¯æ¥æ”¶å’Œä¾¦å¬å™¨æ‰§è¡Œå¯ä»¥è‡ªåŠ¨åŒ…å«åœ¨äº‹åŠ¡ä¸­ã€‚è¿™é€šå¸¸æ˜¯Java EEç¯å¢ƒä¸­çš„org.springframework.transaction.jta.JtaTransactionManagerï¼Œä»¥åŠä»JNDIè·å–çš„JTAæ„ŸçŸ¥JMS ConnectionFactoryï¼ˆè¯·æŸ¥çœ‹åº”ç”¨ç¨‹åºæœåŠ¡å™¨çš„æ–‡æ¡£ï¼‰ã€‚
  * </p>
  * <p>
- * ´Ë»ùÀà²»¼Ù¶¨ÓÃÓÚÂÖÑ¯µ÷ÓÃ³ÌĞòµÄÒì²½Ö´ĞĞµÄÈÎºÎÌØ¶¨»úÖÆ¡£²é¿´DefaultMessageListenerContainer£¬ÁË½â»ùÓÚSpringµÄorg.springframework.core.task.TaskExecutor³éÏóµÄ¾ßÌåÊµÏÖ£¬°üÀ¨²¢·¢Ïû·ÑÕßµÄ¶¯Ì¬À©Õ¹ºÍ×Ô¶¯×ÔÎÒ»Ö¸´
+ * æ­¤åŸºç±»ä¸å‡å®šç”¨äºè½®è¯¢è°ƒç”¨ç¨‹åºçš„å¼‚æ­¥æ‰§è¡Œçš„ä»»ä½•ç‰¹å®šæœºåˆ¶ã€‚æŸ¥çœ‹DefaultMessageListenerContainerï¼Œäº†è§£åŸºäºSpringçš„org.springframework.core.task.TaskExecutoræŠ½è±¡çš„å…·ä½“å®ç°ï¼ŒåŒ…æ‹¬å¹¶å‘æ¶ˆè´¹è€…çš„åŠ¨æ€æ‰©å±•å’Œè‡ªåŠ¨è‡ªæˆ‘æ¢å¤
  * </p>
  *
  * @author Juergen Hoeller
@@ -235,7 +235,7 @@ public abstract class AbstractPollingMessageListenerContainer extends AbstractMe
 	 * Execute the listener for a message received from the given consumer,
 	 * wrapping the entire operation in an external transaction if demanded.
 	 * <p>
-	 *     Ö´ĞĞÕìÌıÆ÷ÒÔ»ñÈ¡´Ó¸ø¶¨Ê¹ÓÃÕß½ÓÊÕµÄÏûÏ¢£¬Èç¹ûĞèÒª£¬½«Õû¸ö²Ù×÷°ü×°ÔÚÍâ²¿ÊÂÎñÖĞ¡£
+	 *     æ‰§è¡Œä¾¦å¬å™¨ä»¥è·å–ä»ç»™å®šä½¿ç”¨è€…æ¥æ”¶çš„æ¶ˆæ¯ï¼Œå¦‚æœéœ€è¦ï¼Œå°†æ•´ä¸ªæ“ä½œåŒ…è£…åœ¨å¤–éƒ¨äº‹åŠ¡ä¸­ã€‚
 	 * </p>
 	 * @param session the JMS Session to work on
 	 * @param consumer the MessageConsumer to work on

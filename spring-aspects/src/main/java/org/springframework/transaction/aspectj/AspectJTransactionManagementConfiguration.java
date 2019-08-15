@@ -30,7 +30,7 @@ import org.springframework.transaction.config.TransactionManagementConfigUtils;
  * to enable AspectJ-based annotation-driven transaction management.
  *
  * <p>
- *     {@code @Configuration}Àà£¬ÓÃÓÚ×¢²áÆôÓÃ»ùÓÚAspectJµÄ×¢½âÇı¶¯µÄÊÂÎñ¹ÜÀíËù±ØĞèµÄSpring»ù´¡½á¹¹bean¡£
+ *     {@code @Configuration}ç±»ï¼Œç”¨äºæ³¨å†Œå¯ç”¨åŸºäºAspectJçš„æ³¨è§£é©±åŠ¨çš„äº‹åŠ¡ç®¡ç†æ‰€å¿…éœ€çš„SpringåŸºç¡€ç»“æ„beanã€‚
  * </p>
  *
  * @author Chris Beams

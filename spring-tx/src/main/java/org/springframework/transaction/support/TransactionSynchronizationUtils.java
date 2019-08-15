@@ -57,7 +57,7 @@ public abstract class TransactionSynchronizationUtils {
 	 * Unwrap the given resource handle if necessary; otherwise return
 	 * the given handle as-is.
 	 * <p>
-	 *     ±ØÒªÊ±Õ¹¿ª¸ø¶¨µÄ×ÊÔ´¾ä±ú; ·ñÔò°´Ô­Ñù·µ»Ø¸ø¶¨µÄ¾ä±ú¡£
+	 *     å¿…è¦æ—¶å±•å¼€ç»™å®šçš„èµ„æºå¥æŸ„; å¦åˆ™æŒ‰åŸæ ·è¿”å›ç»™å®šçš„å¥æŸ„ã€‚
 	 * </p>
 	 * @see org.springframework.core.InfrastructureProxy#getWrappedObject()
 	 */

@@ -27,8 +27,8 @@ import org.springframework.util.ClassUtils;
  * and configuring AOP proxy instances in custom user code.
  *
  * <p>
- *     AOP´úÀíµÄ¹¤³§ÓÃÓÚ³ÌÐò»¯Ê¹ÓÃ£¬¶ø²»ÊÇÍ¨¹ýbean¹¤³§ÖÐµÄÉùÃ÷ÐÔÉèÖÃ¡£
- *     ´ËÀàÌá¹©ÁËÒ»ÖÖÔÚ×Ô¶¨ÒåÓÃ»§´úÂëÖÐ»ñÈ¡ºÍÅäÖÃAOP´úÀíÊµÀýµÄ¼òµ¥·½·¨¡£
+ *     AOPä»£ç†çš„å·¥åŽ‚ç”¨äºŽç¨‹åºåŒ–ä½¿ç”¨ï¼Œè€Œä¸æ˜¯é€šè¿‡beanå·¥åŽ‚ä¸­çš„å£°æ˜Žæ€§è®¾ç½®ã€‚
+ *     æ­¤ç±»æä¾›äº†ä¸€ç§åœ¨è‡ªå®šä¹‰ç”¨æˆ·ä»£ç ä¸­èŽ·å–å’Œé…ç½®AOPä»£ç†å®žä¾‹çš„ç®€å•æ–¹æ³•ã€‚
  * </p>
  *
  * @author Rod Johnson

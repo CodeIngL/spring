@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
  * for use with auto-proxying.
  *
  * <p>
- *     HelperÓÃÓÚ´ÓBeanFactory¼ìË÷±ê×¼Spring Advisors£¬ÓÃÓÚ×Ô¶¯´úÀí¡£
+ *     Helperç”¨äºä»BeanFactoryæ£€ç´¢æ ‡å‡†Spring Advisorsï¼Œç”¨äºè‡ªåŠ¨ä»£ç†ã€‚
  * </p>
  *
  * @author Juergen Hoeller
@@ -65,21 +65,21 @@ public class BeanFactoryAdvisorRetrievalHelper {
 	 * ignoring FactoryBeans and excluding beans that are currently in creation.
 	 *
 	 * <p>
-	 *     ÔÚµ±Ç°bean¹¤³§ÖĞ²éÕÒËùÓĞ·ûºÏÌõ¼şµÄAdvisor bean£¬ºöÂÔFactoryBeans²¢ÅÅ³ıµ±Ç°ÕıÔÚ´´½¨µÄbean¡£
+	 *     åœ¨å½“å‰beanå·¥å‚ä¸­æŸ¥æ‰¾æ‰€æœ‰ç¬¦åˆæ¡ä»¶çš„Advisor beanï¼Œå¿½ç•¥FactoryBeanså¹¶æ’é™¤å½“å‰æ­£åœ¨åˆ›å»ºçš„beanã€‚
 	 * </p>
 	 * @return the list of {@link org.springframework.aop.Advisor} beans
 	 * @see #isEligibleBean
 	 */
 	public List<Advisor> findAdvisorBeans() {
 		// Determine list of advisor bean names, if not cached already.
-		// È·¶¨Advisor³ÌĞòbeanÃû³ÆÁĞ±í£¨Èç¹ûÉĞÎ´»º´æ£©¡£
+		// ç¡®å®šAdvisorç¨‹åºbeanåç§°åˆ—è¡¨ï¼ˆå¦‚æœå°šæœªç¼“å­˜ï¼‰ã€‚
 		String[] advisorNames = null;
 		synchronized (this) {
 			advisorNames = this.cachedAdvisorBeanNames;
 			if (advisorNames == null) {
 				// Do not initialize FactoryBeans here: We need to leave all regular beans
 				// uninitialized to let the auto-proxy creator apply to them!
-				// ²»ÒªÔÚÕâÀï³õÊ¼»¯FactoryBeans£ºÎÒÃÇĞèÒª±£ÁôËùÓĞÎ´³õÊ¼»¯µÄ³£¹æbean£¬ÈÃ×Ô¶¯´úÀí´´½¨ÕßÊÊÓÃÓÚËüÃÇ£¡
+				// ä¸è¦åœ¨è¿™é‡Œåˆå§‹åŒ–FactoryBeansï¼šæˆ‘ä»¬éœ€è¦ä¿ç•™æ‰€æœ‰æœªåˆå§‹åŒ–çš„å¸¸è§„beanï¼Œè®©è‡ªåŠ¨ä»£ç†åˆ›å»ºè€…é€‚ç”¨äºå®ƒä»¬ï¼
 				advisorNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(
 						this.beanFactory, Advisor.class, true, false);
 				this.cachedAdvisorBeanNames = advisorNames;
@@ -127,10 +127,10 @@ public class BeanFactoryAdvisorRetrievalHelper {
 	 * Determine whether the aspect bean with the given name is eligible.
 	 * <p>The default implementation always returns {@code true}.
 	 * <p>
-	 *     È·¶¨¾ßÓĞ¸ø¶¨Ãû³ÆµÄ·½ÃæbeanÊÇ·ñ·ûºÏÌõ¼ş¡£
+	 *     ç¡®å®šå…·æœ‰ç»™å®šåç§°çš„æ–¹é¢beanæ˜¯å¦ç¬¦åˆæ¡ä»¶ã€‚
 	 * </p>
 	 * <p>
-	 *     Ä¬ÈÏÊµÏÖÊ¼ÖÕ·µ»Øtrue
+	 *     é»˜è®¤å®ç°å§‹ç»ˆè¿”å›true
 	 * </p>
 	 * @param beanName the name of the aspect bean
 	 * @return whether the bean is eligible
