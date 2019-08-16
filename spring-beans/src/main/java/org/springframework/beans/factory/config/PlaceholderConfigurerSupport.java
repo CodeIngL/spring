@@ -82,11 +82,11 @@ import org.springframework.util.StringValueResolver;
  *
  *
  *
- * <p>ÊôĞÔ×ÊÔ´ÅäÖÃÆ÷µÄ³éÏó»ùÀà£¬ÓÃÓÚ½âÎöbean¶¨ÒåÊôĞÔÖµÖĞµÄÕ¼Î»·û¡£ÊµÏÖ½«Öµ´ÓÊôĞÔÎÄ¼ş»òÆäËûÊôĞÔÔ´À­Èëbean¶¨Òå¡£
- * Ä¬ÈÏÕ¼Î»·ûÓï·¨×ñÑ­Ant / Log4J / JSP ELÑùÊ½£º
+ * <p>å±æ€§èµ„æºé…ç½®å™¨çš„æŠ½è±¡åŸºç±»ï¼Œç”¨äºè§£æbeanå®šä¹‰å±æ€§å€¼ä¸­çš„å ä½ç¬¦ã€‚å®ç°å°†å€¼ä»å±æ€§æ–‡ä»¶æˆ–å…¶ä»–å±æ€§æºæ‹‰å…¥beanå®šä¹‰ã€‚
+ * é»˜è®¤å ä½ç¬¦è¯­æ³•éµå¾ªAnt / Log4J / JSP ELæ ·å¼ï¼š
  * <pre class="code">${...}</pre>
  * <pre class="code">${...}</pre>
- * Ê¾ÀıXML bean¶¨Òå£º
+ * ç¤ºä¾‹XML beanå®šä¹‰ï¼š
  * <pre class="code">
  * <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"/>
  *   <property name="driverClassName" value="${driver}"/>
@@ -94,20 +94,20 @@ import org.springframework.util.StringValueResolver;
  * </bean>
  * </pre>
  *
- * Ê¾ÀıÊôĞÔÎÄ¼ş£º
+ * ç¤ºä¾‹å±æ€§æ–‡ä»¶ï¼š
  * <pre class="code">driver=com.mysql.jdbc.Driver
  * dbname=mysql:mydb</pre>
  *
- * ´ø×¢ÊÍµÄbean¶¨Òå¿ÉÒÔÊ¹ÓÃ@Value×¢ÊÍÀ´ÀûÓÃÊôĞÔÌæ»»£º
+ * å¸¦æ³¨é‡Šçš„beanå®šä¹‰å¯ä»¥ä½¿ç”¨@Valueæ³¨é‡Šæ¥åˆ©ç”¨å±æ€§æ›¿æ¢ï¼š
  * <pre class="code">@Value("${person.age}")</pre>
- * ÊµÏÖ¼ì²ébeanÒıÓÃÖĞµÄ¼òµ¥ÊôĞÔÖµ£¬ÁĞ±í£¬Ó³Éä£¬µÀ¾ßºÍbeanÃû³Æ¡£´ËÍâ£¬Õ¼Î»·ûÖµ»¹¿ÉÒÔ½»²æÒıÓÃÆäËûÕ¼Î»·û£¬ÀıÈç£º
+ * å®ç°æ£€æŸ¥beanå¼•ç”¨ä¸­çš„ç®€å•å±æ€§å€¼ï¼Œåˆ—è¡¨ï¼Œæ˜ å°„ï¼Œé“å…·å’Œbeanåç§°ã€‚æ­¤å¤–ï¼Œå ä½ç¬¦å€¼è¿˜å¯ä»¥äº¤å‰å¼•ç”¨å…¶ä»–å ä½ç¬¦ï¼Œä¾‹å¦‚ï¼š
  * <pre class="code">rootPath=myrootdir
  * subPath=${rootPath}/subdir</pre>
- * ÓëPropertyOverrideConfigurerÏà±È£¬´ËÀàĞÍµÄ×ÓÀàÔÊĞíÔÚbean¶¨ÒåÖĞÌî³äÏÔÊ½Õ¼Î»·û¡£
- * Èç¹ûÅäÖÃ³ÌĞòÎŞ·¨½âÎöÕ¼Î»·û£¬Ôò½«Å×³öBeanDefinitionStoreException¡£Èç¹ûÒª¼ì²é¶à¸öÊôĞÔÎÄ¼ş£¬ÇëÍ¨¹ılocationsÊôĞÔÖ¸¶¨¶à¸ö×ÊÔ´¡£Äú»¹¿ÉÒÔ¶¨Òå¶à¸öÅäÖÃÆ÷£¬Ã¿¸öÅäÖÃÆ÷¶¼ÓĞ×Ô¼ºµÄÕ¼Î»·ûÓï·¨¡£Èç¹ûÎŞ·¨½âÎöÕ¼Î»·û£¬ÇëÊ¹ÓÃ{@link #ignoreUnresolvablePlaceholders}¹ÊÒâ½ûÖ¹Å×³öÒì³£¡£
+ * ä¸PropertyOverrideConfigurerç›¸æ¯”ï¼Œæ­¤ç±»å‹çš„å­ç±»å…è®¸åœ¨beanå®šä¹‰ä¸­å¡«å……æ˜¾å¼å ä½ç¬¦ã€‚
+ * å¦‚æœé…ç½®ç¨‹åºæ— æ³•è§£æå ä½ç¬¦ï¼Œåˆ™å°†æŠ›å‡ºBeanDefinitionStoreExceptionã€‚å¦‚æœè¦æ£€æŸ¥å¤šä¸ªå±æ€§æ–‡ä»¶ï¼Œè¯·é€šè¿‡locationså±æ€§æŒ‡å®šå¤šä¸ªèµ„æºã€‚æ‚¨è¿˜å¯ä»¥å®šä¹‰å¤šä¸ªé…ç½®å™¨ï¼Œæ¯ä¸ªé…ç½®å™¨éƒ½æœ‰è‡ªå·±çš„å ä½ç¬¦è¯­æ³•ã€‚å¦‚æœæ— æ³•è§£æå ä½ç¬¦ï¼Œè¯·ä½¿ç”¨{@link #ignoreUnresolvablePlaceholders}æ•…æ„ç¦æ­¢æŠ›å‡ºå¼‚å¸¸ã€‚
  *
- * ¿ÉÒÔÍ¨¹ıpropertiesÊôĞÔÎªÃ¿¸öconfigurerÊµÀıÈ«¾Ö¶¨ÒåÄ¬ÈÏÊôĞÔÖµ£¬Ò²¿ÉÒÔÊ¹ÓÃÄ¬ÈÏÖµ·Ö¸ô·ûÖğ¸öÊôĞÔµØ¶¨ÒåÄ¬ÈÏÖµ£¬Ä¬ÈÏÖµÎª¡°:¡±²¢¿ÉÍ¨¹ısetValueSeparator£¨String£©×Ô¶¨Òå¡£
- * Ê¾Àı¾ßÓĞÄ¬ÈÏÖµµÄXMLÊôĞÔ£º</p>
+ * å¯ä»¥é€šè¿‡propertieså±æ€§ä¸ºæ¯ä¸ªconfigurerå®ä¾‹å…¨å±€å®šä¹‰é»˜è®¤å±æ€§å€¼ï¼Œä¹Ÿå¯ä»¥ä½¿ç”¨é»˜è®¤å€¼åˆ†éš”ç¬¦é€ä¸ªå±æ€§åœ°å®šä¹‰é»˜è®¤å€¼ï¼Œé»˜è®¤å€¼ä¸ºâ€œ:â€å¹¶å¯é€šè¿‡setValueSeparatorï¼ˆStringï¼‰è‡ªå®šä¹‰ã€‚
+ * ç¤ºä¾‹å…·æœ‰é»˜è®¤å€¼çš„XMLå±æ€§ï¼š</p>
  *
  * <pre class="code">
  *   <property name="url" value="jdbc:${dbname:defaultdb}"/>
@@ -142,14 +142,14 @@ public abstract class PlaceholderConfigurerSupport extends PropertyResourceConfi
 	protected String valueSeparator = DEFAULT_VALUE_SEPARATOR;
 
 	/**
-	 * ÊÇ·ñÈ¥µôÁ½±ßµÄ¿Õ¸ñ
+	 * æ˜¯å¦å»æ‰ä¸¤è¾¹çš„ç©ºæ ¼
 	 */
 	protected boolean trimValues = false;
 
 	protected String nullValue;
 
 	/**
-	 * ÊÇ·ñºöÂÔÎ´½âÎöµÄÖµ
+	 * æ˜¯å¦å¿½ç•¥æœªè§£æçš„å€¼
 	 */
 	protected boolean ignoreUnresolvablePlaceholders = false;
 
@@ -246,7 +246,7 @@ public abstract class PlaceholderConfigurerSupport extends PropertyResourceConfi
 
 
 	/**
-	 * ´¦ÀíÊôĞÔÖµ
+	 * å¤„ç†å±æ€§å€¼
 	 * @param beanFactoryToProcess
 	 * @param valueResolver
 	 */
@@ -258,11 +258,11 @@ public abstract class PlaceholderConfigurerSupport extends PropertyResourceConfi
 
 		String[] beanNames = beanFactoryToProcess.getBeanDefinitionNames();
 
-		//±éÀú´¦Àí
+		//éå†å¤„ç†
 		for (String curName : beanNames) {
 			// Check that we're not parsing our own bean definition,
 			// to avoid failing on unresolvable placeholders in properties file locations.
-			// ¼ì²éÎÒÃÇÊÇ·ñÕıÔÚ½âÎö×Ô¼ºµÄbean¶¨Òå£¬ÒÔ±ÜÃâÔÚÊôĞÔÎÄ¼şÎ»ÖÃÖĞÎŞ·¨½âÎöµÄÕ¼Î»·ûÊ§°Ü¡£
+			// æ£€æŸ¥æˆ‘ä»¬æ˜¯å¦æ­£åœ¨è§£æè‡ªå·±çš„beanå®šä¹‰ï¼Œä»¥é¿å…åœ¨å±æ€§æ–‡ä»¶ä½ç½®ä¸­æ— æ³•è§£æçš„å ä½ç¬¦å¤±è´¥ã€‚
 			if (!(curName.equals(this.beanName) && beanFactoryToProcess.equals(this.beanFactory))) {
 				BeanDefinition bd = beanFactoryToProcess.getBeanDefinition(curName);
 				try {
@@ -275,11 +275,11 @@ public abstract class PlaceholderConfigurerSupport extends PropertyResourceConfi
 		}
 
 		// New in Spring 2.5: resolve placeholders in alias target names and aliases as well.
-		// Spring 2.5ÖĞµÄĞÂ¹¦ÄÜ£º½âÎö±ğÃûÄ¿±êÃû³ÆºÍ±ğÃûÖĞµÄÕ¼Î»·û¡£
+		// Spring 2.5ä¸­çš„æ–°åŠŸèƒ½ï¼šè§£æåˆ«åç›®æ ‡åç§°å’Œåˆ«åä¸­çš„å ä½ç¬¦ã€‚
 		beanFactoryToProcess.resolveAliases(valueResolver);
 
 		// New in Spring 3.0: resolve placeholders in embedded values such as annotation attributes.
-		// Spring 3.0ÖĞµÄĞÂ¹¦ÄÜ£º½âÎöÇ¶ÈëÖµ£¨Èç×¢½âÊôĞÔ£©ÖĞµÄÕ¼Î»·û¡£
+		// Spring 3.0ä¸­çš„æ–°åŠŸèƒ½ï¼šè§£æåµŒå…¥å€¼ï¼ˆå¦‚æ³¨è§£å±æ€§ï¼‰ä¸­çš„å ä½ç¬¦ã€‚
 		beanFactoryToProcess.addEmbeddedValueResolver(valueResolver);
 	}
 
