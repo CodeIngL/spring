@@ -158,15 +158,13 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 			return invokeJoinpoint();
 		}
 
-		Object interceptorOrInterceptionAdvice =
-				this.interceptorsAndDynamicMethodMatchers.get(++this.currentInterceptorIndex);
-		if (interceptorOrInterceptionAdvice instanceof InterceptorAndDynamicMethodMatcher) {
+		Object interceptorOrInterceptionAdvice = this.interceptorsAndDynamicMethodMatchers.get(++this.currentInterceptorIndex);
+		if (interceptorOrInterceptionAdvice instanceof InterceptorAndDynamicMethodMatcher) { //如果是特殊的拦截器
 			// Evaluate dynamic method matcher here: static part will already have
 			// been evaluated and found to match.
 			// 在此评估动态方法匹配器：静态部件已经过评估并且发现匹配。
-			InterceptorAndDynamicMethodMatcher dm =
-					(InterceptorAndDynamicMethodMatcher) interceptorOrInterceptionAdvice;
-			if (dm.methodMatcher.matches(this.method, this.targetClass, this.arguments)) {
+			InterceptorAndDynamicMethodMatcher dm = (InterceptorAndDynamicMethodMatcher) interceptorOrInterceptionAdvice;
+			if (dm.methodMatcher.matches(this.method, this.targetClass, this.arguments)) { //评估成功，我们使用调用
 				return dm.interceptor.invoke(this);
 			}
 			else {
@@ -179,6 +177,7 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 		else {
 			// It's an interceptor, so we just invoke it: The pointcut will have
 			// been evaluated statically before this object was constructed.
+			// 它是一个拦截器，所以我们只是调用它：在构造这个对象之前，将对切入点进行静态评估。
 			return ((MethodInterceptor) interceptorOrInterceptionAdvice).invoke(this);
 		}
 	}
@@ -186,6 +185,9 @@ public class ReflectiveMethodInvocation implements ProxyMethodInvocation, Clonea
 	/**
 	 * Invoke the joinpoint using reflection.
 	 * Subclasses can override this to use custom invocation.
+	 * <p>
+	 *     作为AOP方法调用的一部分，通过反射调用给定目标。
+	 * </p>
 	 * @return the return value of the joinpoint
 	 * @throws Throwable if invoking the joinpoint resulted in an exception
 	 */

@@ -39,10 +39,10 @@ import org.springframework.aop.support.MethodMatchers;
  * caching can be provided by subclasses.
  *
  * <p>
- *     ÔÚ¸ø¶¨{@link Advised}¶ÔÏóµÄÇé¿öÏÂ£¬ÎªMethodÖÆ¶¨advice chainµÄ¼òµ¥µ«Ã÷È·µÄ·½·¨¡£
+ *     åœ¨ç»™å®š{@link Advised}å¯¹è±¡çš„æƒ…å†µä¸‹ï¼Œä¸ºMethodåˆ¶å®šadvice chainçš„ç®€å•ä½†æ˜ç¡®çš„æ–¹æ³•ã€‚
  * </p>
  * <p>
- *     Ê¼ÖÕÖØ½¨Ã¿¸öadvice chain; »º´æ¿ÉÒÔÓÉ×ÓÀàÌá¹©
+ *     å§‹ç»ˆé‡å»ºæ¯ä¸ªadvice chain; ç¼“å­˜å¯ä»¥ç”±å­ç±»æä¾›
  * </p>
  *
  * @author Juergen Hoeller
@@ -59,26 +59,26 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 
 		// This is somewhat tricky... We have to process introductions first,
 		// but we need to preserve order in the ultimate list.
-		// ÕâÓĞµã¼¬ÊÖ......ÎÒÃÇ±ØĞëÊ×ÏÈ´¦Àíintroductions£¬µ«ÎÒÃÇĞèÒª±£Áô×îÖÕÁĞ±íÖĞµÄË³Ğò¡£
-		List<Object> interceptorList = new ArrayList<Object>(config.getAdvisors().length); //À¹½ØÆ÷ÁĞ±í
-		Class<?> actualClass = (targetClass != null ? targetClass : method.getDeclaringClass()); //Êµ¼ÊµÄÀà
-		boolean hasIntroductions = hasMatchingIntroductions(config, actualClass); //´æÔÚIntroductionAdvisorÆ¥ÅäÉÏ
-		//»ñµÃÈ«¾Ö×¢²á±í
+		// è¿™æœ‰ç‚¹æ£˜æ‰‹......æˆ‘ä»¬å¿…é¡»é¦–å…ˆå¤„ç†introductionsï¼Œä½†æˆ‘ä»¬éœ€è¦ä¿ç•™æœ€ç»ˆåˆ—è¡¨ä¸­çš„é¡ºåºã€‚
+		List<Object> interceptorList = new ArrayList<Object>(config.getAdvisors().length); //æ‹¦æˆªå™¨åˆ—è¡¨
+		Class<?> actualClass = (targetClass != null ? targetClass : method.getDeclaringClass()); //å®é™…çš„ç±»
+		boolean hasIntroductions = hasMatchingIntroductions(config, actualClass); //å­˜åœ¨IntroductionAdvisoråŒ¹é…ä¸Š
+		//è·å¾—å…¨å±€æ³¨å†Œè¡¨
 		AdvisorAdapterRegistry registry = GlobalAdvisorAdapterRegistry.getInstance();
 
 		for (Advisor advisor : config.getAdvisors()) {
 			if (advisor instanceof PointcutAdvisor) {
 				// Add it conditionally.
-				// ÓĞÌõ¼şµØÌí¼ÓËü
+				// æœ‰æ¡ä»¶åœ°æ·»åŠ å®ƒ
 				PointcutAdvisor pointcutAdvisor = (PointcutAdvisor) advisor;
-				if (config.isPreFiltered() || pointcutAdvisor.getPointcut().getClassFilter().matches(actualClass)) {//Ê×ÏÈÀàÆ¥Åä
-					MethodInterceptor[] interceptors = registry.getInterceptors(advisor); //»ñµÃ·½·¨À¹½ØÆ÷
-					MethodMatcher mm = pointcutAdvisor.getPointcut().getMethodMatcher(); //»ñµÃ·½·¨ÉÏÆ¥Åä
-					if (MethodMatchers.matches(mm, method, actualClass, hasIntroductions)) { //ĞèÒªÆ¥Åä·½·¨
-						if (mm.isRuntime()) { //ÔËĞĞÊ±²Ù×÷µÄ
+				if (config.isPreFiltered() || pointcutAdvisor.getPointcut().getClassFilter().matches(actualClass)) {//é¦–å…ˆç±»åŒ¹é…
+					MethodInterceptor[] interceptors = registry.getInterceptors(advisor); //è·å¾—æ–¹æ³•æ‹¦æˆªå™¨
+					MethodMatcher mm = pointcutAdvisor.getPointcut().getMethodMatcher(); //è·å¾—æ–¹æ³•ä¸ŠåŒ¹é…
+					if (MethodMatchers.matches(mm, method, actualClass, hasIntroductions)) { //éœ€è¦åŒ¹é…æ–¹æ³•
+						if (mm.isRuntime()) { //è¿è¡Œæ—¶æ“ä½œçš„
 							// Creating a new object instance in the getInterceptors() method
 							// isn't a problem as we normally cache created chains.
-							// ÔÚgetInterceptors()·½·¨ÖĞ´´½¨Ò»¸öĞÂµÄ¶ÔÏóÊµÀı²»ÊÇÎÊÌâ£¬ÒòÎªÎÒÃÇÍ¨³£»á»º´æ´´½¨µÄÁ´¡£
+							// åœ¨getInterceptors()æ–¹æ³•ä¸­åˆ›å»ºä¸€ä¸ªæ–°çš„å¯¹è±¡å®ä¾‹ä¸æ˜¯é—®é¢˜ï¼Œå› ä¸ºæˆ‘ä»¬é€šå¸¸ä¼šç¼“å­˜åˆ›å»ºçš„é“¾ã€‚
 							for (MethodInterceptor interceptor : interceptors) {
 								interceptorList.add(new InterceptorAndDynamicMethodMatcher(interceptor, mm));
 							}
@@ -91,12 +91,12 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 			}
 			else if (advisor instanceof IntroductionAdvisor) {
 				IntroductionAdvisor ia = (IntroductionAdvisor) advisor;
-				if (config.isPreFiltered() || ia.getClassFilter().matches(actualClass)) { //ÀàÆ¥Åä
+				if (config.isPreFiltered() || ia.getClassFilter().matches(actualClass)) { //ç±»åŒ¹é…
 					Interceptor[] interceptors = registry.getInterceptors(advisor);
 					interceptorList.addAll(Arrays.asList(interceptors));
 				}
 			}
-			else {//ÆÕÍ¨
+			else {//æ™®é€š
 				Interceptor[] interceptors = registry.getInterceptors(advisor);
 				interceptorList.addAll(Arrays.asList(interceptors));
 			}
@@ -108,7 +108,7 @@ public class DefaultAdvisorChainFactory implements AdvisorChainFactory, Serializ
 	/**
 	 * Determine whether the Advisors contain matching introductions.
 	 * <p>
-	 *     È·¶¨AdvisorsÊÇ·ñ°üº¬Æ¥ÅäµÄintroductions¡£
+	 *     ç¡®å®šAdvisorsæ˜¯å¦åŒ…å«åŒ¹é…çš„introductionsã€‚
 	 * </p>
 	 */
 	private static boolean hasMatchingIntroductions(Advised config, Class<?> actualClass) {

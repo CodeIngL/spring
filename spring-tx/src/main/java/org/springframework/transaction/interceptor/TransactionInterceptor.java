@@ -42,14 +42,14 @@ import org.springframework.transaction.PlatformTransactionManager;
  * <p>TransactionInterceptors are thread-safe.
  *
  * <p>
- *     AOP Alliance MethodInterceptor£¬ÓÃÓÚÊ¹ÓÃÆÕÍ¨SpringÊÂÎñ»ù´¡½á¹¹£¨PlatformTransactionManager£©½øĞĞÉùÃ÷Ê½ÊÂÎñ¹ÜÀí¡£
+ *     AOP Alliance MethodInterceptorï¼Œç”¨äºä½¿ç”¨æ™®é€šSpringäº‹åŠ¡åŸºç¡€ç»“æ„ï¼ˆPlatformTransactionManagerï¼‰è¿›è¡Œå£°æ˜å¼äº‹åŠ¡ç®¡ç†ã€‚
  * </p>
  * <p>
- *      ´ÓTransactionAspectSupportÀàÅÉÉú£¬ÆäÖĞ°üº¬ÓëSpring»ù´¡ÊÂÎñAPIµÄ¼¯³É¡£
- *      TransactionInterceptorÖ»ÊÇÒÔÕıÈ·µÄË³Ğòµ÷ÓÃÏà¹ØµÄ³¬Àà·½·¨£¬ÀıÈçinvokeWithinTransaction¡£
+ *      ä»TransactionAspectSupportç±»æ´¾ç”Ÿï¼Œå…¶ä¸­åŒ…å«ä¸SpringåŸºç¡€äº‹åŠ¡APIçš„é›†æˆã€‚
+ *      TransactionInterceptoråªæ˜¯ä»¥æ­£ç¡®çš„é¡ºåºè°ƒç”¨ç›¸å…³çš„è¶…ç±»æ–¹æ³•ï¼Œä¾‹å¦‚invokeWithinTransactionã€‚
  * </p>
  * <p>
- *      TransactionInterceptorsÊÇÏß³Ì°²È«µÄ¡£
+ *      TransactionInterceptorsæ˜¯çº¿ç¨‹å®‰å…¨çš„ã€‚
  * </p>
  *
  * @author Rod Johnson
@@ -101,12 +101,12 @@ public class TransactionInterceptor extends TransactionAspectSupport implements 
 		// Work out the target class: may be {@code null}.
 		// The TransactionAttributeSource should be passed the target class
 		// as well as the method, which may be from an interface.
-		// ÕÒ³öÄ¿±êÀà£º¿ÉÄÜÊÇnull¡£
-		// TransactionAttributeSourceÓ¦¸Ã´«µİÄ¿±êÀàÒÔ¼°¿ÉÄÜÀ´×Ô½Ó¿ÚµÄ·½·¨¡£
+		// æ‰¾å‡ºç›®æ ‡ç±»ï¼šå¯èƒ½æ˜¯nullã€‚
+		// TransactionAttributeSourceåº”è¯¥ä¼ é€’ç›®æ ‡ç±»ä»¥åŠå¯èƒ½æ¥è‡ªæ¥å£çš„æ–¹æ³•ã€‚
 		Class<?> targetClass = (invocation.getThis() != null ? AopUtils.getTargetClass(invocation.getThis()) : null);
 
 		// Adapt to TransactionAspectSupport's invokeWithinTransaction...
-		// Î¯ÍĞ¸øTransactionAspectSupport´¦Àí
+		// å§”æ‰˜ç»™TransactionAspectSupportå¤„ç†
 		return invokeWithinTransaction(invocation.getMethod(), targetClass, new InvocationCallback() {
 			@Override
 			public Object proceedWithInvocation() throws Throwable {

@@ -406,7 +406,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 
 	/**
-	 * 查找自动注入的信息
+	 * 查找自动注入的信息,构建相应的缓存
 	 * @param beanName
 	 * @param clazz
 	 * @param pvs
@@ -440,8 +440,8 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 
 	/**
 	 *
-	 * 构建Autowired的源信息
-	 * @param clazz
+	 * 构建Autowired的源信息，
+	 * @param clazz 目标bean的类型
 	 * @return
 	 */
 	private InjectionMetadata buildAutowiringMetadata(final Class<?> clazz) {
@@ -452,7 +452,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 			final LinkedList<InjectionMetadata.InjectedElement> currElements =
 					new LinkedList<InjectionMetadata.InjectedElement>();
 
-			//字段上的
+			//字段上的注解
 			ReflectionUtils.doWithLocalFields(targetClass, new ReflectionUtils.FieldCallback() {
 				@Override
 				public void doWith(Field field) throws IllegalArgumentException, IllegalAccessException {
@@ -464,6 +464,7 @@ public class AutowiredAnnotationBeanPostProcessor extends InstantiationAwareBean
 							}
 							return;
 						}
+						//是否要求
 						boolean required = determineRequiredStatus(ann);
 						currElements.add(new AutowiredFieldElement(field, required));
 					}

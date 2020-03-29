@@ -218,11 +218,11 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 
 	@Override
 	protected Object doGetTransaction() {
-		DataSourceTransactionObject txObject = new DataSourceTransactionObject(); //¹¹½¨ÊÂÎñ¶ÔÏó
-		txObject.setSavepointAllowed(isNestedTransactionAllowed()); //ÉèÖÃ°²È«µã
+		DataSourceTransactionObject txObject = new DataSourceTransactionObject(); //æ„å»ºäº‹åŠ¡å¯¹è±¡
+		txObject.setSavepointAllowed(isNestedTransactionAllowed()); //è®¾ç½®å®‰å…¨ç‚¹
 		ConnectionHolder conHolder =
-				(ConnectionHolder) TransactionSynchronizationManager.getResource(this.dataSource); //´Ó¹ÜÀíÆ÷ÖĞ»ñµÃ
-		txObject.setConnectionHolder(conHolder, false); //ÉèÖÃ
+				(ConnectionHolder) TransactionSynchronizationManager.getResource(this.dataSource); //ä»ç®¡ç†å™¨ä¸­è·å¾—
+		txObject.setConnectionHolder(conHolder, false); //è®¾ç½®
 		return txObject;
 	}
 
@@ -235,38 +235,38 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 	/**
 	 * This implementation sets the isolation level but ignores the timeout.
 	 * <p>
-	 *     ´ËÊµÏÖÉèÖÃ¸ôÀë¼¶±ğµ«ºöÂÔ³¬Ê±¡£
+	 *     æ­¤å®ç°è®¾ç½®éš”ç¦»çº§åˆ«ä½†å¿½ç•¥è¶…æ—¶ã€‚
 	 * </p>
 	 */
 	@Override
 	protected void doBegin(Object transaction, TransactionDefinition definition) {
-		DataSourceTransactionObject txObject = (DataSourceTransactionObject) transaction; //µ±Ç°´ú±íÁËÊÂÎñµÄ¶ÔÏó
+		DataSourceTransactionObject txObject = (DataSourceTransactionObject) transaction; //å½“å‰ä»£è¡¨äº†äº‹åŠ¡çš„å¯¹è±¡
 		Connection con = null;
 
 		try {
 			if (!txObject.hasConnectionHolder() ||
 					txObject.getConnectionHolder().isSynchronizedWithTransaction()) {
-				Connection newCon = this.dataSource.getConnection(); //»ñµÃĞÂÁ¬½Ó
+				Connection newCon = this.dataSource.getConnection(); //è·å¾—æ–°è¿æ¥
 				if (logger.isDebugEnabled()) {
 					logger.debug("Acquired Connection [" + newCon + "] for JDBC transaction");
 				}
 				txObject.setConnectionHolder(new ConnectionHolder(newCon), true);
 			}
 
-			//ÉèÖÃ
+			//è®¾ç½®
 			txObject.getConnectionHolder().setSynchronizedWithTransaction(true);
-			//Á¬½Ó
+			//è¿æ¥
 			con = txObject.getConnectionHolder().getConnection();
 
-			//»ñµÃ¸ôÀë¼¶±ğ
+			//è·å¾—éš”ç¦»çº§åˆ«
 			Integer previousIsolationLevel = DataSourceUtils.prepareConnectionForTransaction(con, definition);
-			//ÉèÖÃÏÈÇ°µÄ¸ôÀë¼¶±ğ
+			//è®¾ç½®å…ˆå‰çš„éš”ç¦»çº§åˆ«
 			txObject.setPreviousIsolationLevel(previousIsolationLevel);
 
 			// Switch to manual commit if necessary. This is very expensive in some JDBC drivers,
 			// so we don't want to do it unnecessarily (for example if we've explicitly
 			// configured the connection pool to set it already).
-			// ±ØÒªÊ±ÇĞ»»µ½ÊÖ¶¯Ìá½»¡£ ÕâÔÚÄ³Ğ©JDBCÇı¶¯³ÌĞòÖĞ·Ç³£°º¹ó£¬Òò´ËÎÒÃÇ²»Ï£Íû²»±ØÒªµØÖ´ĞĞ´Ë²Ù×÷£¨ÀıÈç£¬Èç¹ûÎÒÃÇÒÑÃ÷È·ÅäÖÃÁ¬½Ó³ØÒÔ½øĞĞÉèÖÃ£©¡£
+			// å¿…è¦æ—¶åˆ‡æ¢åˆ°æ‰‹åŠ¨æäº¤ã€‚ è¿™åœ¨æŸäº›JDBCé©±åŠ¨ç¨‹åºä¸­éå¸¸æ˜‚è´µï¼Œå› æ­¤æˆ‘ä»¬ä¸å¸Œæœ›ä¸å¿…è¦åœ°æ‰§è¡Œæ­¤æ“ä½œï¼ˆä¾‹å¦‚ï¼Œå¦‚æœæˆ‘ä»¬å·²æ˜ç¡®é…ç½®è¿æ¥æ± ä»¥è¿›è¡Œè®¾ç½®ï¼‰ã€‚
 			if (con.getAutoCommit()) {
 				txObject.setMustRestoreAutoCommit(true);
 				if (logger.isDebugEnabled()) {
@@ -278,15 +278,15 @@ public class DataSourceTransactionManager extends AbstractPlatformTransactionMan
 			prepareTransactionalConnection(con, definition);
 			txObject.getConnectionHolder().setTransactionActive(true);
 
-			//»ñµÃ³¬Ê±Ê±¼ä
+			//è·å¾—è¶…æ—¶æ—¶é—´
 			int timeout = determineTimeout(definition);
-			//²»ÊÇÄ¬ÈÏµÃµ½£¬¾ÍÉèÖÃÏà¹Ø¶ÔÏóµÄÊ±¼ä
+			//ä¸æ˜¯é»˜è®¤å¾—åˆ°ï¼Œå°±è®¾ç½®ç›¸å…³å¯¹è±¡çš„æ—¶é—´
 			if (timeout != TransactionDefinition.TIMEOUT_DEFAULT) {
 				txObject.getConnectionHolder().setTimeoutInSeconds(timeout);
 			}
 
 			// Bind the connection holder to the thread.
-			// °ó¶¨µ½Ïß³Ì
+			// ç»‘å®šåˆ°çº¿ç¨‹
 			if (txObject.isNewConnectionHolder()) {
 				TransactionSynchronizationManager.bindResource(getDataSource(), txObject.getConnectionHolder());
 			}

@@ -1783,6 +1783,12 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
         return wrappedBean;
     }
 
+    /**
+     * 调用相关实现Aware的方法，
+     * 这里主要是beanName
+     * classloader
+     * beanfactroy
+     */
     private void invokeAwareMethods(final String beanName, final Object bean) {
         if (bean instanceof Aware) {
             if (bean instanceof BeanNameAware) {

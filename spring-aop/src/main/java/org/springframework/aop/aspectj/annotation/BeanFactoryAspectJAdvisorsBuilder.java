@@ -34,7 +34,7 @@ import org.springframework.util.Assert;
  * Spring Advisors based on them, for use with auto-proxying.
  *
  * <p>
- *     HelperÓÃÓÚ´ÓBeanFactory¼ìË÷@AspectJ bean²¢»ùÓÚËüÃÇ¹¹½¨Spring Advisors£¬ÓÃÓÚ×Ô¶¯´úÀí¡£
+ *     Helperç”¨äºä»BeanFactoryæ£€ç´¢@AspectJ beanå¹¶åŸºäºå®ƒä»¬æ„å»ºSpring Advisorsï¼Œç”¨äºè‡ªåŠ¨ä»£ç†ã€‚
  * </p>
  *
  * @author Juergen Hoeller
@@ -82,47 +82,47 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 	 * <p>Creates a Spring Advisor for each AspectJ advice method.
 	 *
 	 * <p>
-	 *     ÔÚµ±Ç°bean¹¤³§ÖĞ²éÕÒAspectJ×¢½âµÄÇĞÃæbean£¬²¢·µ»Ø±íÊ¾ËüÃÇµÄSpring AOP AdvisorsÁĞ±í¡£
+	 *     åœ¨å½“å‰beanå·¥å‚ä¸­æŸ¥æ‰¾AspectJæ³¨è§£çš„åˆ‡é¢beanï¼Œå¹¶è¿”å›è¡¨ç¤ºå®ƒä»¬çš„Spring AOP Advisorsåˆ—è¡¨ã€‚
 	 * </p>
 	 * <p>
-	 *     ÎªÃ¿¸öAspectJ½¨Òé·½·¨´´½¨Ò»¸öSpring Advisor¡£
+	 *     ä¸ºæ¯ä¸ªAspectJå»ºè®®æ–¹æ³•åˆ›å»ºä¸€ä¸ªSpring Advisorã€‚
 	 * </p>
 	 * @return the list of {@link org.springframework.aop.Advisor} beans
 	 * @see #isEligibleBean
 	 */
 	public List<Advisor> buildAspectJAdvisors() {
-		//»ñµÃËùÓĞaspectjµÄÃû×Ö
+		//è·å¾—æ‰€æœ‰aspectjçš„åå­—
 		List<String> aspectNames = this.aspectBeanNames;
 
-		//Èç¹ûÎª¿Õ£¬ÎÒÃÇĞèÒª½øĞĞ¹¹½¨
+		//å¦‚æœä¸ºç©ºï¼Œæˆ‘ä»¬éœ€è¦è¿›è¡Œæ„å»º
 		if (aspectNames == null) {
 			synchronized (this) {
 				aspectNames = this.aspectBeanNames;
 				if (aspectNames == null) {
 					List<Advisor> advisors = new LinkedList<Advisor>();
 					aspectNames = new LinkedList<String>();
-					//²éÕÒËùÓĞµÄ¶ÔÏó
+					//æŸ¥æ‰¾æ‰€æœ‰çš„å¯¹è±¡
 					String[] beanNames = BeanFactoryUtils.beanNamesForTypeIncludingAncestors(
 							this.beanFactory, Object.class, true, false);
-					//±éÀú2´¦ÀíËùÓĞµÄ¶«Î÷
+					//éå†2å¤„ç†æ‰€æœ‰çš„ä¸œè¥¿
 					for (String beanName : beanNames) {
 						if (!isEligibleBean(beanName)) {
 							continue;
 						}
 						// We must be careful not to instantiate beans eagerly as in this case they
 						// would be cached by the Spring container but would not have been weaved.
-						// ÎÒÃÇ±ØĞëĞ¡ĞÄ²»Òª¼±ÇĞµØÊµÀı»¯bean£¬ÒòÎªÔÚÕâÖÖÇé¿öÏÂ£¬ËüÃÇ½«±»SpringÈİÆ÷»º´æµ«²»»á±»Ö¯Èë¡£
+						// æˆ‘ä»¬å¿…é¡»å°å¿ƒä¸è¦æ€¥åˆ‡åœ°å®ä¾‹åŒ–beanï¼Œå› ä¸ºåœ¨è¿™ç§æƒ…å†µä¸‹ï¼Œå®ƒä»¬å°†è¢«Springå®¹å™¨ç¼“å­˜ä½†ä¸ä¼šè¢«ç»‡å…¥ã€‚
 						Class<?> beanType = this.beanFactory.getType(beanName);
 						if (beanType == null) {
 							continue;
 						}
 						if (this.advisorFactory.isAspect(beanType)) {
 							aspectNames.add(beanName);
-							//¹¹½¨Ïà¹ØµÄÔªĞÅÏ¢
+							//æ„å»ºç›¸å…³çš„å…ƒä¿¡æ¯
 							AspectMetadata amd = new AspectMetadata(beanType, beanName);
-							//ÀàĞÍ
+							//ç±»å‹
 							if (amd.getAjType().getPerClause().getKind() == PerClauseKind.SINGLETON) {
-								//ÔÙ´Î¹¹½¨Ïà¹ØµÄ»º´æ
+								//å†æ¬¡æ„å»ºç›¸å…³çš„ç¼“å­˜
 								MetadataAwareAspectInstanceFactory factory =
 										new BeanFactoryAspectInstanceFactory(this.beanFactory, beanName);
 								List<Advisor> classAdvisors = this.advisorFactory.getAdvisors(factory);
@@ -153,20 +153,20 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 			}
 		}
 
-		//Èç¹û»¹ÊÇÎª¿Õ£¬Ö±½Ó·µ»Ø¿Õ
+		//å¦‚æœè¿˜æ˜¯ä¸ºç©ºï¼Œç›´æ¥è¿”å›ç©º
 		if (aspectNames.isEmpty()) {
 			return Collections.emptyList();
 		}
 		//
 		List<Advisor> advisors = new LinkedList<Advisor>();
 		for (String aspectName : aspectNames) {
-			//³¢ÊÔ´Ó»º´æÖĞ»ñÈ¡
+			//å°è¯•ä»ç¼“å­˜ä¸­è·å–
 			List<Advisor> cachedAdvisors = this.advisorsCache.get(aspectName);
 			if (cachedAdvisors != null) {
 				advisors.addAll(cachedAdvisors);
 			}
 			else {
-				// Ã»ÓĞ»º´æ£¬ÔÚ´ÓÁíÒ»¸ö»º´æÖĞ»ñÈ¡£¬
+				// æ²¡æœ‰ç¼“å­˜ï¼Œåœ¨ä»å¦ä¸€ä¸ªç¼“å­˜ä¸­è·å–ï¼Œ
 				MetadataAwareAspectInstanceFactory factory = this.aspectFactoryCache.get(aspectName);
 				advisors.addAll(this.advisorFactory.getAdvisors(factory));
 			}
@@ -177,7 +177,7 @@ public class BeanFactoryAspectJAdvisorsBuilder {
 	/**
 	 * Return whether the aspect bean with the given name is eligible.
 	 * <p>
-	 *     ·µ»Ø¾ßÓĞ¸ø¶¨Ãû³ÆµÄ·½ÃæbeanÊÇ·ñ·ûºÏÌõ¼ş¡£
+	 *     è¿”å›å…·æœ‰ç»™å®šåç§°çš„æ–¹é¢beanæ˜¯å¦ç¬¦åˆæ¡ä»¶ã€‚
 	 * </p>
 	 * @param beanName the name of the aspect bean
 	 * @return whether the bean is eligible

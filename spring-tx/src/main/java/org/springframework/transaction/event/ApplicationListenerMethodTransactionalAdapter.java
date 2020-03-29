@@ -37,6 +37,13 @@ import org.springframework.transaction.support.TransactionSynchronizationManager
  * when Spring's transaction management is enabled. For other cases, registering
  * a bean of type {@link TransactionalEventListenerFactory} is required.
  *
+ * <p>
+ *     GenericApplicationListener适配器，它将事件的处理委托给TransactionalEventListener带注释的方法。 支持与任何常规EventListener注释方法完全相同的功能，但是知道事件发布者的事务上下文。
+ * </p>
+ * <p>
+ *    启用Spring的事务管理时，将自动启用{@link TransactionalEventListener}的处理。 对于其他情况，需要注册{@link TransactionalEventListenerFactory} 类型的bean。
+ * </p>
+ *
  * @author Stephane Nicoll
  * @author Juergen Hoeller
  * @since 4.2

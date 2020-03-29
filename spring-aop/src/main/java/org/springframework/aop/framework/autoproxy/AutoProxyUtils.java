@@ -67,6 +67,9 @@ public abstract class AutoProxyUtils {
 	 * class rather than its interfaces. Checks the
 	 * {@link #PRESERVE_TARGET_CLASS_ATTRIBUTE "preserveTargetClass" attribute}
 	 * of the corresponding bean definition.
+	 * <p>
+	 *     确定给定的bean是否应该使用其目标类而不是其接口进行代理。 检查相应bean定义的“{@link #PRESERVE_TARGET_CLASS_ATTRIBUTE "preserveTargetClass" attribute}
+	 * </p>
 	 * @param beanFactory the containing ConfigurableListableBeanFactory
 	 * @param beanName the name of the bean
 	 * @return whether the given bean should be proxied with its target class
@@ -82,6 +85,9 @@ public abstract class AutoProxyUtils {
 	/**
 	 * Determine the original target class for the specified bean, if possible,
 	 * otherwise falling back to a regular {@code getType} lookup.
+	 * <p>
+	 *     如果可能，确定指定bean的原始目标类，否则返回常规{@code getType}查找。
+	 * </p>
 	 * @param beanFactory the containing ConfigurableListableBeanFactory
 	 * @param beanName the name of the bean
 	 * @return the original target class as stored in the bean definition, if any

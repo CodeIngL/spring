@@ -55,26 +55,26 @@ import org.springframework.util.StringValueResolver;
  * simply do not update your {@code xsi:schemaLocation} and continue using the 3.0 XSD.
  *
  * <p>
- *     {@link PlaceholderConfigurerSupport}×ÓÀà£¬ÓÃÓÚ¸ù¾İ{@link #setLocation local},{@link #setProperties properties}ºÍ/»òÏµÍ³ÊôĞÔºÍ»·¾³±äÁ¿½âÎö$ {...}Õ¼Î»·û¡£
+ *     {@link PlaceholderConfigurerSupport}å­ç±»ï¼Œç”¨äºæ ¹æ®{@link #setLocation local},{@link #setProperties properties}å’Œ/æˆ–ç³»ç»Ÿå±æ€§å’Œç¯å¢ƒå˜é‡è§£æ$ {...}å ä½ç¬¦ã€‚
  * </p>
  * <p>
- *     ´ÓSpring 3.1¿ªÊ¼£¬PropertySourcesPlaceholderConfigurerÓ¦ÓÅÏÈÓÃÓÚ´ËÊµÏÖ;Í¨¹ıÀûÓÃSpring 3.1ÖĞÌá¹©µÄEnvironmentºÍPropertySource»úÖÆ£¬Ëü¸ü¼ÓÁé»î¡£
+ *     ä»Spring 3.1å¼€å§‹ï¼ŒPropertySourcesPlaceholderConfigureråº”ä¼˜å…ˆç”¨äºæ­¤å®ç°;é€šè¿‡åˆ©ç”¨Spring 3.1ä¸­æä¾›çš„Environmentå’ŒPropertySourceæœºåˆ¶ï¼Œå®ƒæ›´åŠ çµæ´»ã€‚
  * </p>
  * <p>
- *     {@link PropertyPlaceholderConfigurer} ÈÔÈ»ÊÊºÏÔÚÒÔÏÂÇé¿öÏÂÊ¹ÓÃ£º
+ *     {@link PropertyPlaceholderConfigurer} ä»ç„¶é€‚åˆåœ¨ä»¥ä¸‹æƒ…å†µä¸‹ä½¿ç”¨ï¼š
  *     <ul>
  *         <li>
- *             spring-contextÄ£¿é²»¿ÉÓÃ£¨¼´£¬Ò»¸öÊ¹ÓÃSpringµÄ{@code BeanFactory} API¶ø²»ÊÇApplicationContext£©¡£
+ *             spring-contextæ¨¡å—ä¸å¯ç”¨ï¼ˆå³ï¼Œä¸€ä¸ªä½¿ç”¨Springçš„{@code BeanFactory} APIè€Œä¸æ˜¯ApplicationContextï¼‰ã€‚
  *         </li>
  *         <li>
- *             ÏÖÓĞÅäÖÃÊ¹ÓÃ¡°systemPropertiesMode¡±ºÍ/»ò¡°systemPropertiesModeName¡±ÊôĞÔ¡£¹ÄÀøÓÃ»§²»ÔÙÊ¹ÓÃÕâĞ©ÉèÖÃ£¬¶øÊÇÍ¨¹ıÈİÆ÷µÄ»·¾³ÅäÖÃÊôĞÔÔ´ËÑË÷Ë³Ğò;µ«ÊÇ£¬Í¨¹ı¼ÌĞøÊ¹ÓÃPropertyPlaceholderConfigurer¿ÉÒÔ±£³Ö¹¦ÄÜµÄ¾«È·±£Áô¡£
+ *             ç°æœ‰é…ç½®ä½¿ç”¨â€œsystemPropertiesModeâ€å’Œ/æˆ–â€œsystemPropertiesModeNameâ€å±æ€§ã€‚é¼“åŠ±ç”¨æˆ·ä¸å†ä½¿ç”¨è¿™äº›è®¾ç½®ï¼Œè€Œæ˜¯é€šè¿‡å®¹å™¨çš„ç¯å¢ƒé…ç½®å±æ€§æºæœç´¢é¡ºåº;ä½†æ˜¯ï¼Œé€šè¿‡ç»§ç»­ä½¿ç”¨PropertyPlaceholderConfigurerå¯ä»¥ä¿æŒåŠŸèƒ½çš„ç²¾ç¡®ä¿ç•™ã€‚
  *         </li>
  *         <li></li>
  *     </ul>
  * </p>
  * <p>
- *     ÔÚSpring 3.1Ö®Ç°£¬<context£ºproperty-placeholder /> namespaceÔªËØ×¢²áÁËPropertyPlaceholderConfigurerµÄÒ»¸öÊµÀı¡£Èç¹ûÊ¹ÓÃÃüÃû¿Õ¼äµÄspring-context-3.0.xsd¶¨Òå£¬ËüÈÔÈ»»áÕâÑù×ö¡£
- *     Ò²¾ÍÊÇËµ£¬¼´Ê¹Ê¹ÓÃSpring 3.1£¬Ò²¿ÉÒÔÍ¨¹ıÃüÃû¿Õ¼ä±£ÁôPropertyPlaceholderConfigurerµÄ×¢²á;Ö»ÊÇ²»Òª¸üĞÂÄãµÄxsi£ºschemaLocation²¢¼ÌĞøÊ¹ÓÃ3.0 XSD
+ *     åœ¨Spring 3.1ä¹‹å‰ï¼Œ<contextï¼šproperty-placeholder /> namespaceå…ƒç´ æ³¨å†Œäº†PropertyPlaceholderConfigurerçš„ä¸€ä¸ªå®ä¾‹ã€‚å¦‚æœä½¿ç”¨å‘½åç©ºé—´çš„spring-context-3.0.xsdå®šä¹‰ï¼Œå®ƒä»ç„¶ä¼šè¿™æ ·åšã€‚
+ *     ä¹Ÿå°±æ˜¯è¯´ï¼Œå³ä½¿ä½¿ç”¨Spring 3.1ï¼Œä¹Ÿå¯ä»¥é€šè¿‡å‘½åç©ºé—´ä¿ç•™PropertyPlaceholderConfigurerçš„æ³¨å†Œ;åªæ˜¯ä¸è¦æ›´æ–°ä½ çš„xsiï¼šschemaLocationå¹¶ç»§ç»­ä½¿ç”¨3.0 XSD
  * </p>
  *
  * @author Juergen Hoeller

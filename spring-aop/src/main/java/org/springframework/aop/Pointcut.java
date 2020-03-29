@@ -23,13 +23,13 @@ package org.springframework.aop;
  * Both these basic terms and a Pointcut itself can be combined to build up combinations
  * (e.g. through {@link org.springframework.aop.support.ComposablePointcut}).
  * <p>
- *     ºËĞÄSpringÇĞÈëµã³éÏó¡£
+ *     æ ¸å¿ƒSpringåˆ‡å…¥ç‚¹æŠ½è±¡ã€‚
  * </p>
  * <p>
- *     ÇĞÈëµãÓÉClassFilterºÍMethodMatcher×é³É¡£
+ *     åˆ‡å…¥ç‚¹ç”±ClassFilterå’ŒMethodMatcherç»„æˆã€‚
  * </p>
  * <p>
- *    ÕâĞ©»ù±¾ÊõÓïºÍPointcut±¾Éí¶¼¿ÉÒÔ×éºÏÆğÀ´¹¹½¨×éºÏ(ÀıÈçÍ¨¹ı{@link org.springframework.aop.support.ComposablePointcut})¡£
+ *    è¿™äº›åŸºæœ¬æœ¯è¯­å’ŒPointcutæœ¬èº«éƒ½å¯ä»¥ç»„åˆèµ·æ¥æ„å»ºç»„åˆ(ä¾‹å¦‚é€šè¿‡{@link org.springframework.aop.support.ComposablePointcut})ã€‚
  * </p>
  *
  * @author Rod Johnson
@@ -44,7 +44,7 @@ public interface Pointcut {
 	/**
 	 * Return the ClassFilter for this pointcut.
 	 * <p>
-	 *     ·µ»Ø´ËpointcutµÄClassFilter¡£
+	 *     è¿”å›æ­¤pointcutçš„ClassFilterã€‚
 	 * </p>
 	 * @return the ClassFilter (never {@code null})
 	 */
@@ -53,7 +53,7 @@ public interface Pointcut {
 	/**
 	 * Return the MethodMatcher for this pointcut.
 	 * <p>
-	 *     ·µ»Ø´ËpointcutµÄMethodMatcher¡£
+	 *     è¿”å›æ­¤pointcutçš„MethodMatcherã€‚
 	 * </p>
 	 * @return the MethodMatcher (never {@code null})
 	 */
@@ -63,7 +63,7 @@ public interface Pointcut {
 	/**
 	 *  anonical Pointcut instance that always matches.
 	 *  <p>
-	 *      ·Ç³£¹æµÄPointcutÊµÀı±êÊ¶Ê¼ÖÕÆ¥Åä¡£
+	 *      éå¸¸è§„çš„Pointcutå®ä¾‹æ ‡è¯†å§‹ç»ˆåŒ¹é…ã€‚
 	 *  </p>
 	 */
 	Pointcut TRUE = TruePointcut.INSTANCE;

@@ -24,9 +24,9 @@ import org.springframework.util.Assert;
  * Convenience superclass for configuration used in creating proxies,
  * to ensure that all proxy creators have consistent properties.
  * <p>
- *     ÓÃÓÚ´´½¨´úÀíµÄÅäÖÃµÄ±ã½İ³¬Àà£¬ÒÔÈ·±£ËùÓĞ´úÀí´´½¨Õß¾ßÓĞÒ»ÖÂµÄÊôĞÔ¡£
+ *     ç”¨äºåˆ›å»ºä»£ç†çš„é…ç½®çš„ä¾¿æ·è¶…ç±»ï¼Œä»¥ç¡®ä¿æ‰€æœ‰ä»£ç†åˆ›å»ºè€…å…·æœ‰ä¸€è‡´çš„å±æ€§ã€‚
  * </p>
- * ÅäÖÃÀà
+ * é…ç½®ç±»
  *
  * @author Rod Johnson
  * @author Juergen Hoeller
@@ -40,19 +40,19 @@ public class ProxyConfig implements Serializable {
     private static final long serialVersionUID = -8409359707199703185L;
 
 
-    //Ç¿ÖÆÊ¹ÓÃÀà´úÀí
+    //å¼ºåˆ¶ä½¿ç”¨ç±»ä»£ç†
     private boolean proxyTargetClass = false;
 
-    //ÊÇ·ñ½øĞĞÓÅ»¯
+    //æ˜¯å¦è¿›è¡Œä¼˜åŒ–
     private boolean optimize = false;
 
-    //ÊÇ·ñÌí¼Ó{@link Advised}½Ó¿Ú
+    //æ˜¯å¦æ·»åŠ {@link Advised}æ¥å£
     boolean opaque = false;
 
-    //ÊÇ·ñ±©Â¶´úÀíµ½Ïß³ÌÉÏÏÂÎÄÖĞ
+    //æ˜¯å¦æš´éœ²ä»£ç†åˆ°çº¿ç¨‹ä¸Šä¸‹æ–‡ä¸­
     boolean exposeProxy = false;
 
-    //ÊÇ·ñ¶³½áÅäÖÃ£¬±íÊ¾Ä¿±ê±»´úÀíºóÓ¦¸Ã²»ÄÜÔÚĞŞ¸Ä
+    //æ˜¯å¦å†»ç»“é…ç½®ï¼Œè¡¨ç¤ºç›®æ ‡è¢«ä»£ç†ååº”è¯¥ä¸èƒ½åœ¨ä¿®æ”¹
     private boolean frozen = false;
 
 
@@ -67,15 +67,15 @@ public class ProxyConfig implements Serializable {
      * the proxy-target-class behavior will also be applied if no interfaces
      * have been specified (and no interface autodetection is activated).
      * <p>
-     * ÉèÖÃÊÇ·ñÖ±½Ó´úÀíÄ¿±êÀà£¬¶ø²»ÊÇ½ö´úÀíÌØ¶¨µÄ½Ó¿Ú¡£ Ä¬ÈÏÎª¡°false¡±¡£
+     * è®¾ç½®æ˜¯å¦ç›´æ¥ä»£ç†ç›®æ ‡ç±»ï¼Œè€Œä¸æ˜¯ä»…ä»£ç†ç‰¹å®šçš„æ¥å£ã€‚ é»˜è®¤ä¸ºâ€œfalseâ€ã€‚
      * </p>
      * <p>
-     * ½«ÆäÉèÖÃÎª¡°true¡±ÒÔÇ¿ÖÆ´úÀíTargetSourceµÄ¹«¿ªÄ¿±êÀà¡£
-     * Èç¹û¸ÃÄ¿±êÀàÊÇ½Ó¿Ú£¬Ôò½«Îª¸ø¶¨½Ó¿Ú´´½¨JDK´úÀí¡£
-     * Èç¹û¸ÃÄ¿±êÀàÊÇÈÎºÎÆäËûÀà£¬Ôò½«Îª¸ø¶¨Àà´´½¨CGLIB´úÀí¡£
+     * å°†å…¶è®¾ç½®ä¸ºâ€œtrueâ€ä»¥å¼ºåˆ¶ä»£ç†TargetSourceçš„å…¬å¼€ç›®æ ‡ç±»ã€‚
+     * å¦‚æœè¯¥ç›®æ ‡ç±»æ˜¯æ¥å£ï¼Œåˆ™å°†ä¸ºç»™å®šæ¥å£åˆ›å»ºJDKä»£ç†ã€‚
+     * å¦‚æœè¯¥ç›®æ ‡ç±»æ˜¯ä»»ä½•å…¶ä»–ç±»ï¼Œåˆ™å°†ä¸ºç»™å®šç±»åˆ›å»ºCGLIBä»£ç†ã€‚
      * </p>
      * <p>
-     * ×¢Òâ£º¸ù¾İ¾ßÌå´úÀí¹¤³§µÄÅäÖÃ£¬Èç¹ûÎ´Ö¸¶¨ÈÎºÎ½Ó¿Ú£¬ÔòÒ²½«Ó¦ÓÃproxy-target-classĞĞÎª£¨²¢ÇÒÎ´¼¤»îÈÎºÎ½Ó¿Ú×Ô¶¯¼ì²â£©
+     * æ³¨æ„ï¼šæ ¹æ®å…·ä½“ä»£ç†å·¥å‚çš„é…ç½®ï¼Œå¦‚æœæœªæŒ‡å®šä»»ä½•æ¥å£ï¼Œåˆ™ä¹Ÿå°†åº”ç”¨proxy-target-classè¡Œä¸ºï¼ˆå¹¶ä¸”æœªæ¿€æ´»ä»»ä½•æ¥å£è‡ªåŠ¨æ£€æµ‹ï¼‰
      * </p>
      *
      * @see org.springframework.aop.TargetSource#getTargetClass()
@@ -87,7 +87,7 @@ public class ProxyConfig implements Serializable {
     /**
      * Return whether to proxy the target class directly as well as any interfaces.
      * <p>
-     * ·µ»ØÊÇ·ñÖ±½Ó´úÀíÄ¿±êÀàÒÔ¼°ÈÎºÎ½Ó¿Ú¡£
+     * è¿”å›æ˜¯å¦ç›´æ¥ä»£ç†ç›®æ ‡ç±»ä»¥åŠä»»ä½•æ¥å£ã€‚
      */
     public boolean isProxyTargetClass() {
         return this.proxyTargetClass;
@@ -104,11 +104,11 @@ public class ProxyConfig implements Serializable {
      * if other settings preclude optimization: for example, if "exposeProxy"
      * is set to "true" and that's not compatible with the optimization.
      * <p>
-     * ÉèÖÃ´úÀíÊÇ·ñÓ¦Ö´ĞĞ»ı¼«ÓÅ»¯¡£ ¡°»ı¼«ÓÅ»¯¡±µÄÈ·ÇĞº¬ÒåÔÚ´úÀíÖ®¼ä»áÓĞËù²»Í¬£¬µ«Í¨³£»áÓĞÒ»Ğ©È¨ºâ¡£ Ä¬ÈÏÎª¡°false¡±¡£
+     * è®¾ç½®ä»£ç†æ˜¯å¦åº”æ‰§è¡Œç§¯æä¼˜åŒ–ã€‚ â€œç§¯æä¼˜åŒ–â€çš„ç¡®åˆ‡å«ä¹‰åœ¨ä»£ç†ä¹‹é—´ä¼šæœ‰æ‰€ä¸åŒï¼Œä½†é€šå¸¸ä¼šæœ‰ä¸€äº›æƒè¡¡ã€‚ é»˜è®¤ä¸ºâ€œfalseâ€ã€‚
      * </p>
      * <p>
-     * ÀıÈç£¬optimizeÍ¨³£ÒâÎ¶×ÅÔÚ´´½¨´úÀíºó£¬advice¸ü¸Ä²»»áÉúĞ§¡£ Òò´Ë£¬Ä¬ÈÏÇé¿öÏÂ½ûÓÃoptimize¡£
-     * Èç¹ûÆäËûÉèÖÃÔ¤ÏÈÅÅ³ıÁËoptimize£¬Ôò¿ÉÒÔºöÂÔoptimize=¡°true¡±£ºÀıÈç£¬Èç¹û¡°exposeProxy¡±ÉèÖÃÎª¡°true¡±²¢ÇÒÓëoptimize²»¼æÈİ
+     * ä¾‹å¦‚ï¼Œoptimizeé€šå¸¸æ„å‘³ç€åœ¨åˆ›å»ºä»£ç†åï¼Œadviceæ›´æ”¹ä¸ä¼šç”Ÿæ•ˆã€‚ å› æ­¤ï¼Œé»˜è®¤æƒ…å†µä¸‹ç¦ç”¨optimizeã€‚
+     * å¦‚æœå…¶ä»–è®¾ç½®é¢„å…ˆæ’é™¤äº†optimizeï¼Œåˆ™å¯ä»¥å¿½ç•¥optimize=â€œtrueâ€ï¼šä¾‹å¦‚ï¼Œå¦‚æœâ€œexposeProxyâ€è®¾ç½®ä¸ºâ€œtrueâ€å¹¶ä¸”ä¸optimizeä¸å…¼å®¹
      * </p>
      */
     public void setOptimize(boolean optimize) {
@@ -128,9 +128,9 @@ public class ProxyConfig implements Serializable {
      * <p>Default is "false", meaning that any AOP proxy can be cast to
      * {@link Advised}.
      * <p>
-     * ÉèÖÃÊÇ·ñÓ¦×èÖ¹½«´ËÅäÖÃ´´½¨µÄ´úÀíÇ¿ÖÆ×ª»»Îª {@link Advised}²éÑ¯´úÀí×´Ì¬¡£
+     * è®¾ç½®æ˜¯å¦åº”é˜»æ­¢å°†æ­¤é…ç½®åˆ›å»ºçš„ä»£ç†å¼ºåˆ¶è½¬æ¢ä¸º {@link Advised}æŸ¥è¯¢ä»£ç†çŠ¶æ€ã€‚
      * <p>
-     * Ä¬ÈÏÖµÎª¡°false¡±£¬±íÊ¾ÈÎºÎAOP´úÀí¶¼¿ÉÒÔ×ª»»Îª{@link Advised}
+     * é»˜è®¤å€¼ä¸ºâ€œfalseâ€ï¼Œè¡¨ç¤ºä»»ä½•AOPä»£ç†éƒ½å¯ä»¥è½¬æ¢ä¸º{@link Advised}
      */
     public void setOpaque(boolean opaque) {
         this.opaque = opaque;
@@ -153,11 +153,11 @@ public class ProxyConfig implements Serializable {
      * This means that no guarantees are provided that AopContext access will
      * work consistently within any method of the advised object.
      * <p>
-     * ÉèÖÃÑ¡Ïî:´úÀíÊÇ·ñÓ¦¸ÃÓÉAOP¿ò¼Ü×÷ÎªThreadLocal¹«¿ª£¬ÒÔ±ãÍ¨¹ıAopContextÀà½øĞĞ¼ìË÷¡£ Èç¹ûadvised objectĞèÒªµ÷ÓÃ×Ô¼ºµÄÁíÒ»¸öadvised method£¬Õâ½«·Ç³£ÓĞÓÃ¡£
-     * £¨Èç¹ûÊ¹ÓÃthis£¬Ôò²»»á½øĞĞadvisedµÄ·½·¨µÄµ÷ÓÃ£©¡£
+     * è®¾ç½®é€‰é¡¹:ä»£ç†æ˜¯å¦åº”è¯¥ç”±AOPæ¡†æ¶ä½œä¸ºThreadLocalå…¬å¼€ï¼Œä»¥ä¾¿é€šè¿‡AopContextç±»è¿›è¡Œæ£€ç´¢ã€‚ å¦‚æœadvised objectéœ€è¦è°ƒç”¨è‡ªå·±çš„å¦ä¸€ä¸ªadvised methodï¼Œè¿™å°†éå¸¸æœ‰ç”¨ã€‚
+     * ï¼ˆå¦‚æœä½¿ç”¨thisï¼Œåˆ™ä¸ä¼šè¿›è¡Œadvisedçš„æ–¹æ³•çš„è°ƒç”¨ï¼‰ã€‚
      * </p>
      * <p>
-     * Ä¬ÈÏÎª¡°false¡±£¬ÒÔ±ÜÃâ²»±ØÒªµÄ¶îÍâÀ¹½Ø¡£ ÕâÒâÎ¶×Å²»±£Ö¤AopContext·ÃÎÊ½«ÔÚadvised objectµÄÈÎºÎ·½·¨ÖĞÒ»ÖÂµØ¹¤×÷¡£
+     * é»˜è®¤ä¸ºâ€œfalseâ€ï¼Œä»¥é¿å…ä¸å¿…è¦çš„é¢å¤–æ‹¦æˆªã€‚ è¿™æ„å‘³ç€ä¸ä¿è¯AopContextè®¿é—®å°†åœ¨advised objectçš„ä»»ä½•æ–¹æ³•ä¸­ä¸€è‡´åœ°å·¥ä½œã€‚
      * </p>
      */
     public void setExposeProxy(boolean exposeProxy) {
@@ -178,10 +178,10 @@ public class ProxyConfig implements Serializable {
      * useful for optimization, and useful when we don't want callers to
      * be able to manipulate configuration after casting to Advised.
      * <p>
-     * ÉèÖÃÑ¡Ïî:ÊÇ·ñÓ¦¶³½á´ËÅäÖÃ¡£
+     * è®¾ç½®é€‰é¡¹:æ˜¯å¦åº”å†»ç»“æ­¤é…ç½®ã€‚
      * </p>
      * <p>
-     * µ±ÅäÖÃ±»¶³½áÊ±£¬²»ÄÜ½øĞĞÈÎºÎadvice¸ü¸Ä¡£ Õâ¶ÔÓÚoptimizationºÜÓĞÓÃ£¬µ±ÎÒÃÇ²»Ï£Íûµ÷ÓÃÕßÔÚ×ª»»ÎªAdvisedÖ®ºóÄÜ¹»²Ù×÷ÅäÖÃÊ±·Ç³£ÓĞÓÃ
+     * å½“é…ç½®è¢«å†»ç»“æ—¶ï¼Œä¸èƒ½è¿›è¡Œä»»ä½•adviceæ›´æ”¹ã€‚ è¿™å¯¹äºoptimizationå¾ˆæœ‰ç”¨ï¼Œå½“æˆ‘ä»¬ä¸å¸Œæœ›è°ƒç”¨è€…åœ¨è½¬æ¢ä¸ºAdvisedä¹‹åèƒ½å¤Ÿæ“ä½œé…ç½®æ—¶éå¸¸æœ‰ç”¨
      * </p>
      */
     public void setFrozen(boolean frozen) {
@@ -191,7 +191,7 @@ public class ProxyConfig implements Serializable {
     /**
      * Return whether the config is frozen, and no advice changes can be made.
      * <p>
-     * ·µ»ØÊÇ·ñ¶³½áÅäÖÃ£¬²¢ÇÒ²»ÄÜ½øĞĞÈÎºÎ½¨Òé¸ü¸Ä¡£
+     * è¿”å›æ˜¯å¦å†»ç»“é…ç½®ï¼Œå¹¶ä¸”ä¸èƒ½è¿›è¡Œä»»ä½•å»ºè®®æ›´æ”¹ã€‚
      * </p>
      */
     public boolean isFrozen() {

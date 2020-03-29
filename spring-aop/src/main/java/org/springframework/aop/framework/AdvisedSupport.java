@@ -55,13 +55,13 @@ import org.springframework.util.CollectionUtils;
  * This class is used to hold snapshots of proxies.
  *
  * <p>
- *     AOP´úÀíÅäÖÃ¹ÜÀíÆ÷µÄ»ùÀà¡£ ËüÃÇ±¾Éí²»ÊÇAOP´úÀí£¬µ«ÊÇÕâ¸öÀàµÄ×ÓÀàÍ¨³£ÊÇÖ±½Ó´ÓÖĞ»ñÈ¡AOP´úÀíÊµÀıµÄ¹¤³§¡£
+ *     AOPä»£ç†é…ç½®ç®¡ç†å™¨çš„åŸºç±»ã€‚ å®ƒä»¬æœ¬èº«ä¸æ˜¯AOPä»£ç†ï¼Œä½†æ˜¯è¿™ä¸ªç±»çš„å­ç±»é€šå¸¸æ˜¯ç›´æ¥ä»ä¸­è·å–AOPä»£ç†å®ä¾‹çš„å·¥å‚ã€‚
  * </p>
  * <p>
- *      ´ËÀàÌá¹©ÁËAdvicesºÍAdvisorµÄÄÚÎñ¹ÜÀíµÄ×ÓÀà£¬µ«Êµ¼ÊÉÏ²¢Î´ÊµÏÖ×ÓÀàÌá¹©µÄ´úÀí´´½¨·½·¨¡£
+ *      æ­¤ç±»æä¾›äº†Adviceså’ŒAdvisorçš„å†…åŠ¡ç®¡ç†çš„å­ç±»ï¼Œä½†å®é™…ä¸Šå¹¶æœªå®ç°å­ç±»æä¾›çš„ä»£ç†åˆ›å»ºæ–¹æ³•ã€‚
  * </p>
  * <p>
- *      Õâ¸öÀàÊÇ¿ÉĞòÁĞ»¯µÄ; ×ÓÀà²»±ØÊÇ¡£ ´ËÀàÓÃÓÚ±£´æ´úÀíµÄ¿ìÕÕ¡£
+ *      è¿™ä¸ªç±»æ˜¯å¯åºåˆ—åŒ–çš„; å­ç±»ä¸å¿…æ˜¯ã€‚ æ­¤ç±»ç”¨äºä¿å­˜ä»£ç†çš„å¿«ç…§ã€‚
  * </p>
  *
  * @author Rod Johnson
@@ -269,6 +269,13 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 		addAdvisor(pos, advisor);
 	}
 
+	/**
+	 * æ·»åŠ advisorï¼Œ
+	 * å€¼å¾—æ³¨æ„çš„äº‹ï¼Œå¦‚æœæ˜¯IntroductionAdvisorï¼Œæˆ‘ä»¬å°†è¿›è¡Œæ ¡éªŒï¼Œå¹¶å°†æš´éœ²çš„æ¥å£æ·»åŠ åˆ°ç›®æ ‡å¯¹è±¡ä¸Š
+	 * @param pos position in chain (0 is head). Must be valid.
+	 * @param advisor the advisor to add at the specified position in the chain
+	 * @throws AopConfigException
+	 */
 	@Override
 	public void addAdvisor(int pos, Advisor advisor) throws AopConfigException {
 		if (advisor instanceof IntroductionAdvisor) {
@@ -361,6 +368,10 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 		}
 	}
 
+	/**
+	 * æ ¡éªŒIntroductionAdvisorï¼Œæ·»åŠ å…¶ä¸­è·å¾—æ¥å£å®ç°
+	 * @param advisor
+	 */
 	private void validateIntroductionAdvisor(IntroductionAdvisor advisor) {
 		advisor.validateInterfaces();
 		// If the advisor passed validation, we can make the change.
@@ -489,7 +500,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	 * Determine a list of {@link org.aopalliance.intercept.MethodInterceptor} objects
 	 * for the given method, based on this configuration.
 	 * <P>
-	 *     ¸ù¾İ´ËÅäÖÃÈ·¶¨¸ø¶¨·½·¨µÄ {@link org.aopalliance.intercept.MethodInterceptor} ¶ÔÏóÁĞ±í¡£
+	 *     æ ¹æ®æ­¤é…ç½®ç¡®å®šç»™å®šæ–¹æ³•çš„ {@link org.aopalliance.intercept.MethodInterceptor} å¯¹è±¡åˆ—è¡¨ã€‚
 	 * @param method the proxied method
 	 * @param targetClass the target class
 	 * @return List of MethodInterceptors (may also include InterceptorAndDynamicMethodMatchers)
@@ -498,7 +509,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 		MethodCacheKey cacheKey = new MethodCacheKey(method);
 		List<Object> cached = this.methodCache.get(cacheKey);
 		if (cached == null) {
-		    //»ñµÃÀ¹½ØÆ÷»òÕß¶¯Ì¬À¹½ØÆ÷
+		    //è·å¾—æ‹¦æˆªå™¨æˆ–è€…åŠ¨æ€æ‹¦æˆªå™¨
 			cached = this.advisorChainFactory.getInterceptorsAndDynamicInterceptionAdvice(this, method, targetClass);
 			this.methodCache.put(cacheKey, cached);
 		}
@@ -548,7 +559,7 @@ public class AdvisedSupport extends ProxyConfig implements Advised {
 	 * Build a configuration-only copy of this AdvisedSupport,
 	 * replacing the TargetSource
 	 * <p>
-	 *     ¹¹½¨´ËAdvisedSupportµÄ½öÅäÖÃ¸±±¾£¬Ìæ»»TargetSource
+	 *     æ„å»ºæ­¤AdvisedSupportçš„ä»…é…ç½®å‰¯æœ¬ï¼Œæ›¿æ¢TargetSource
 	 * </p>
 	 */
 	AdvisedSupport getConfigurationOnlyCopy() {

@@ -27,6 +27,10 @@ import org.springframework.util.Assert;
  * Simple MethodMatcher that looks for a specific Java 5 annotation
  * being present on a method (checking both the method on the invoked
  * interface, if any, and the corresponding method on the target class).
+ * <p>
+ *     简单的MethodMatcher，用于查找方法中存在的特定Java 5注解（检查调用接口上的方法，如果有，以及目标类上的相应方法）。
+ *     典型的不关注方法执行时的参数
+ * </p>
  *
  * @author Juergen Hoeller
  * @since 2.0

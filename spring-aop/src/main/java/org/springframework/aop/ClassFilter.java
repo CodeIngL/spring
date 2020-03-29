@@ -27,7 +27,7 @@ package org.springframework.aop;
  *     筛选器限制切入点或引言与给定的一组目标类的匹配。
  * </p>
  * <p>
- *     可以用作切入点的一部分或用于整个IntroductionAdvisor的目标。
+ *     可以用作{@link Pointcut}的一部分或用于整个{@link IntroductionAdvisor}的目标。
  * </p>
  *
  * @author Rod Johnson
@@ -38,6 +38,9 @@ public interface ClassFilter {
 
 	/**
 	 * Should the pointcut apply to the given interface or target class?
+	 * <p>
+	 *     pointcut是否应用于给定的接口或目标类？
+	 * </p>
 	 * @param clazz the candidate target class
 	 * @return whether the advice should apply to the given target class
 	 */

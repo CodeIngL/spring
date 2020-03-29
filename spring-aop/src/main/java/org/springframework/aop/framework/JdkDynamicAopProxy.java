@@ -52,6 +52,22 @@ import org.springframework.util.ClassUtils;
  * <p>Proxies are serializable so long as all Advisors (including Advices
  * and Pointcuts) and the TargetSource are serializable.
  *
+ * <p>
+ * 基于JDK动态代理的Spring AOP框架的基于JDK的AopProxy实现。
+ * </p>
+ * <p>
+ *      创建动态代理，实现AopProxy公开的接口。 动态代理不能用于代理类中定义的方法，而不能用于接口。
+ * </p>
+ * <p>
+ *      此类对象应通过代理工厂获取，由AdvisedSupport类配置。 该类是Spring的AOP框架的内部，不需要由客户端代码直接使用。
+ * </p>
+ * <p>
+ *      如果底层（目标）类是线程安全的，那么使用此类创建的代理将是线程安全的。
+ * </p>
+ * <p>
+ *      只要所有Advisors（包括Advices和Pointcuts）和TargetSource都可序列化，代理就是可序列化的。
+ * </p>
+ *
  * @author Rod Johnson
  * @author Juergen Hoeller
  * @author Rob Harrop
@@ -125,6 +141,10 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 	/**
 	 * Finds any {@link #equals} or {@link #hashCode} method that may be defined
 	 * on the supplied set of interfaces.
+	 * <p>
+	 *     查找可在所提供的接口集上定义的任何{@link #equals}或{@link #hashCode}方法。
+	 * </p>
+	 *
 	 * @param proxiedInterfaces the interfaces to introspect
 	 */
 	private void findDefinedEqualsAndHashCodeMethods(Class<?>[] proxiedInterfaces) {
@@ -156,6 +176,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 		Object oldProxy = null;
 		boolean setProxyContext = false;
 
+		//
 		TargetSource targetSource = this.advised.targetSource;
 		Class<?> targetClass = null;
 		Object target = null;
@@ -195,6 +216,7 @@ final class JdkDynamicAopProxy implements AopProxy, InvocationHandler, Serializa
 			}
 
 			// Get the interception chain for this method.
+			// 获得该方法的拦截链
 			List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
 
 			// Check whether we have any advice. If we don't, we can fallback on direct

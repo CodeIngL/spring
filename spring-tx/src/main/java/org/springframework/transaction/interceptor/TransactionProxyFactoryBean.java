@@ -101,21 +101,21 @@ import org.springframework.transaction.PlatformTransactionManager;
  * </bean>}</pre>
  *
  * <p>
- *     ´úÀí¹¤³§beanÓÃÓÚ¼ò»¯ÉùÃ÷Ê½ÊÂÎñ´¦Àí¡£ÕâÊÇ±ê×¼AOP org.springframework.aop.framework.ProxyFactoryBeanµÄÒ»¸ö·½±ãµÄÌæ´ú·½·¨£¬Ëü¾ßÓĞµ¥¶ÀµÄTransactionInterceptor¶¨Òå¡£
- * ĞèÒªÖ¸¶¨Èı¸öÖ÷ÒªÊôĞÔ£º
- * Èç¹ûÃ»ÓĞÏÔÊ½ÉèÖÃ¡°transactionManager¡±ÊôĞÔ²¢ÇÒ´ËFactoryBeanÔÚListableBeanFactoryÖĞÔËĞĞ£¬Ôò½«´ÓBeanFactoryÖĞ»ñÈ¡ÀàĞÍÎªPlatformTransactionManagerµÄÆ¥Åäbean¡£
- * ÓëTransactionInterceptorÏà·´£¬ÊÂÎñÊôĞÔ±»Ö¸¶¨ÎªÊôĞÔ£¬·½·¨Ãû³ÆÎª¼ü£¬ÊÂÎñÊôĞÔÃèÊö·ûÎªÖµ¡£·½·¨Ãû³ÆÊ¼ÖÕÓ¦ÓÃÓÚÄ¿±êÀà¡£
- * ÔÚÄÚ²¿£¬Ê¹ÓÃÁËTransactionInterceptorÊµÀı£¬µ«´ËÀàµÄÓÃ»§²»±Ø¹ØĞÄ¡£¿ÉÑ¡µØ£¬¿ÉÒÔÖ¸¶¨·½·¨ÇĞÈëµãÒÔÒıÆğ¶Ôµ×²ãTransactionInterceptorµÄÌõ¼şµ÷ÓÃ¡£
- * ¿ÉÒÔÉèÖÃ¡°preInterceptors¡±ºÍ¡°postInterceptors¡±ÊôĞÔÒÔÏò»ìºÏÖĞÌí¼ÓÆäËûÀ¹½ØÆ÷£¬Èçorg.springframework.aop.interceptor.PerformanceMonitorInterceptor¡£
- * ÌáÊ¾£º´ËÀàÍ¨³£Óë¸¸/×Óbean¶¨ÒåÒ»ÆğÊ¹ÓÃ¡£Í¨³££¬Äú½«ÔÚ³éÏó¸¸bean¶¨ÒåÖĞ¶¨ÒåÊÂÎñ¹ÜÀíÆ÷ºÍÈ±Ê¡ÊÂÎñÊôĞÔ£¨¶ÔÓÚ·½·¨Ãû³ÆÄ£Ê½£©£¬´Ó¶øÎªÌØ¶¨Ä¿±ê¶ÔÏóÅÉÉú¾ßÌåµÄ×Óbean¶¨Òå¡£Õâ½«Ã¿¸öbeanµÄ¶¨Òå¹¤×÷Á¿½µÖÁ×îµÍ¡£
+ *     ä»£ç†å·¥å‚beanç”¨äºç®€åŒ–å£°æ˜å¼äº‹åŠ¡å¤„ç†ã€‚è¿™æ˜¯æ ‡å‡†AOP org.springframework.aop.framework.ProxyFactoryBeançš„ä¸€ä¸ªæ–¹ä¾¿çš„æ›¿ä»£æ–¹æ³•ï¼Œå®ƒå…·æœ‰å•ç‹¬çš„TransactionInterceptorå®šä¹‰ã€‚
+ * éœ€è¦æŒ‡å®šä¸‰ä¸ªä¸»è¦å±æ€§ï¼š
+ * å¦‚æœæ²¡æœ‰æ˜¾å¼è®¾ç½®â€œtransactionManagerâ€å±æ€§å¹¶ä¸”æ­¤FactoryBeanåœ¨ListableBeanFactoryä¸­è¿è¡Œï¼Œåˆ™å°†ä»BeanFactoryä¸­è·å–ç±»å‹ä¸ºPlatformTransactionManagerçš„åŒ¹é…beanã€‚
+ * ä¸TransactionInterceptorç›¸åï¼Œäº‹åŠ¡å±æ€§è¢«æŒ‡å®šä¸ºå±æ€§ï¼Œæ–¹æ³•åç§°ä¸ºé”®ï¼Œäº‹åŠ¡å±æ€§æè¿°ç¬¦ä¸ºå€¼ã€‚æ–¹æ³•åç§°å§‹ç»ˆåº”ç”¨äºç›®æ ‡ç±»ã€‚
+ * åœ¨å†…éƒ¨ï¼Œä½¿ç”¨äº†TransactionInterceptorå®ä¾‹ï¼Œä½†æ­¤ç±»çš„ç”¨æˆ·ä¸å¿…å…³å¿ƒã€‚å¯é€‰åœ°ï¼Œå¯ä»¥æŒ‡å®šæ–¹æ³•åˆ‡å…¥ç‚¹ä»¥å¼•èµ·å¯¹åº•å±‚TransactionInterceptorçš„æ¡ä»¶è°ƒç”¨ã€‚
+ * å¯ä»¥è®¾ç½®â€œpreInterceptorsâ€å’Œâ€œpostInterceptorsâ€å±æ€§ä»¥å‘æ··åˆä¸­æ·»åŠ å…¶ä»–æ‹¦æˆªå™¨ï¼Œå¦‚org.springframework.aop.interceptor.PerformanceMonitorInterceptorã€‚
+ * æç¤ºï¼šæ­¤ç±»é€šå¸¸ä¸çˆ¶/å­beanå®šä¹‰ä¸€èµ·ä½¿ç”¨ã€‚é€šå¸¸ï¼Œæ‚¨å°†åœ¨æŠ½è±¡çˆ¶beanå®šä¹‰ä¸­å®šä¹‰äº‹åŠ¡ç®¡ç†å™¨å’Œç¼ºçœäº‹åŠ¡å±æ€§ï¼ˆå¯¹äºæ–¹æ³•åç§°æ¨¡å¼ï¼‰ï¼Œä»è€Œä¸ºç‰¹å®šç›®æ ‡å¯¹è±¡æ´¾ç”Ÿå…·ä½“çš„å­beanå®šä¹‰ã€‚è¿™å°†æ¯ä¸ªbeançš„å®šä¹‰å·¥ä½œé‡é™è‡³æœ€ä½ã€‚
  * </p>
  * <p>
- *      * ÀúÊ·×¢ÊÍ£º´ËÀà×î³õÉè¼ÆÓÃÓÚº­¸ÇÉùÃ÷ĞÔÊÂÎñ»®·ÖµÄµäĞÍÇé¿ö£º¼´Ê¹ÓÃÊÂÎñ´úÀí°ü×°µ¥¸öÄ¿±ê¶ÔÏó£¬´úÀíÄ¿±êÊµÏÖµÄËùÓĞ½Ó¿Ú¡£µ«ÊÇ£¬ÔÚSpring 2.0¼°¸ü¸ß°æ±¾ÖĞ£¬´Ë´¦Ìá¹©µÄ¹¦ÄÜ±»¸ü·½±ãµÄtx£ºXMLÃüÃû¿Õ¼äËùÈ¡´ú¡£Çë²ÎÔÄSpring²Î¿¼ÎÄµµµÄÉùÃ÷Ê½ÊÂÎñ¹ÜÀí²¿·Ö£¬ÒÔÁË½âÓÃÓÚ¹ÜÀíSpringÓ¦ÓÃ³ÌĞòÖĞµÄÊÂÎñµÄÏÖ´úÑ¡Ïî¡£³öÓÚÕâĞ©Ô­Òò£¬ÓÃ»§Ó¦¸ÃÖ§³Ötx£ºXMLÃüÃû¿Õ¼äÒÔ¼°@TransactionalºÍ@EnableTransactionManagement×¢ÊÍ¡£
+ *      * å†å²æ³¨é‡Šï¼šæ­¤ç±»æœ€åˆè®¾è®¡ç”¨äºæ¶µç›–å£°æ˜æ€§äº‹åŠ¡åˆ’åˆ†çš„å…¸å‹æƒ…å†µï¼šå³ä½¿ç”¨äº‹åŠ¡ä»£ç†åŒ…è£…å•ä¸ªç›®æ ‡å¯¹è±¡ï¼Œä»£ç†ç›®æ ‡å®ç°çš„æ‰€æœ‰æ¥å£ã€‚ä½†æ˜¯ï¼Œåœ¨Spring 2.0åŠæ›´é«˜ç‰ˆæœ¬ä¸­ï¼Œæ­¤å¤„æä¾›çš„åŠŸèƒ½è¢«æ›´æ–¹ä¾¿çš„txï¼šXMLå‘½åç©ºé—´æ‰€å–ä»£ã€‚è¯·å‚é˜…Springå‚è€ƒæ–‡æ¡£çš„å£°æ˜å¼äº‹åŠ¡ç®¡ç†éƒ¨åˆ†ï¼Œä»¥äº†è§£ç”¨äºç®¡ç†Springåº”ç”¨ç¨‹åºä¸­çš„äº‹åŠ¡çš„ç°ä»£é€‰é¡¹ã€‚å‡ºäºè¿™äº›åŸå› ï¼Œç”¨æˆ·åº”è¯¥æ”¯æŒtxï¼šXMLå‘½åç©ºé—´ä»¥åŠ@Transactionalå’Œ@EnableTransactionManagementæ³¨é‡Šã€‚
  * </p>
  * <ul>
- * <li>" * ¡°transactionManager¡±£ºÒªÊ¹ÓÃµÄPlatformTransactionManagerÊµÏÖ£¨ÀıÈç£¬org.springframework.transaction.jta.JtaTransactionManagerÊµÀı£©
- * <li> * ¡°target¡±£ºÓ¦ÎªÆä´´½¨ÊÂÎñ´úÀíµÄÄ¿±ê¶ÔÏó
- * <li> * ¡°transactionAttributes¡±£ºÃ¿¸öÄ¿±ê·½·¨Ãû³Æ£¨»ò·½·¨Ãû³ÆÄ£Ê½£©µÄÊÂÎñÊôĞÔ£¨ÀıÈç£¬´«²¥ĞĞÎªºÍ¡°readOnly¡±±êÖ¾£©
+ * <li>" * â€œtransactionManagerâ€ï¼šè¦ä½¿ç”¨çš„PlatformTransactionManagerå®ç°ï¼ˆä¾‹å¦‚ï¼Œorg.springframework.transaction.jta.JtaTransactionManagerå®ä¾‹ï¼‰
+ * <li> * â€œtargetâ€ï¼šåº”ä¸ºå…¶åˆ›å»ºäº‹åŠ¡ä»£ç†çš„ç›®æ ‡å¯¹è±¡
+ * <li> * â€œtransactionAttributesâ€ï¼šæ¯ä¸ªç›®æ ‡æ–¹æ³•åç§°ï¼ˆæˆ–æ–¹æ³•åç§°æ¨¡å¼ï¼‰çš„äº‹åŠ¡å±æ€§ï¼ˆä¾‹å¦‚ï¼Œä¼ æ’­è¡Œä¸ºå’Œâ€œreadOnlyâ€æ ‡å¿—ï¼‰
  * </ul>
  * <p></p>
  * <p></p>
@@ -228,7 +228,7 @@ public class TransactionProxyFactoryBean extends AbstractSingletonProxyFactoryBe
 	 * As of 4.2, this method adds {@link TransactionalProxy} to the set of
 	 * proxy interfaces in order to avoid re-processing of transaction metadata.
 	 * <p>
-	 *     ´Ó4.2¿ªÊ¼£¬´Ë·½·¨½«{@link TransactionalProxy}Ìí¼Óµ½´úÀí½Ó¿Ú¼¯£¬ÒÔ±ÜÃâÖØĞÂ´¦ÀíÊÂÎñÔªÊı¾İ
+	 *     ä»4.2å¼€å§‹ï¼Œæ­¤æ–¹æ³•å°†{@link TransactionalProxy}æ·»åŠ åˆ°ä»£ç†æ¥å£é›†ï¼Œä»¥é¿å…é‡æ–°å¤„ç†äº‹åŠ¡å…ƒæ•°æ®
 	 * </p>
 	 */
 	@Override

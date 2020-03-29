@@ -24,7 +24,7 @@ import java.lang.reflect.Method;
  * a method matcher may be able to optimize matching more effectively for example.
  *
  * <p>
- *     一种特殊类型的{@link MethodMatcher}，在匹配方法时考虑引入。
+ *     一种特殊类型的{@link MethodMatcher}，在匹配方法时考虑introductions。
  *     如果没有关于目标类的introductions，则method matcher可能能够更有效地优化匹配，例如。
  * </p>
  *

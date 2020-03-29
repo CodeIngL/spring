@@ -55,19 +55,19 @@ import org.springframework.util.StringValueResolver;
  * and related javadocs for details on manipulating environment property sources.
  *
  * <p>
- *    ÌØÊâµÄ{@link PlaceholderConfigurerSupport}£¬ËüÕë¶Ôµ±Ç°Spring {@link Environment}¼°Æä{@link PropertySources}½âÎöbean¶¨ÒåÊôĞÔÖµºÍ{@code @Value}×¢½âÖĞµÄ${...}Õ¼Î»·û¡£
+ *    ç‰¹æ®Šçš„{@link PlaceholderConfigurerSupport}ï¼Œå®ƒé’ˆå¯¹å½“å‰Spring {@link Environment}åŠå…¶{@link PropertySources}è§£æbeanå®šä¹‰å±æ€§å€¼å’Œ{@code @Value}æ³¨è§£ä¸­çš„${...}å ä½ç¬¦ã€‚
  * </p>
  * <p>
- *    ´ËÀà±»Éè¼ÆÎªSpring 3.1Ó¦ÓÃ³ÌĞòÖĞ{@code PropertyPlaceholderConfigurer}µÄÒ»°ãÌæ´úÆ·¡£
- *    Ä¬ÈÏÇé¿öÏÂ£¬ËüÔÚ{@code property-placeholder}ÖĞÊ¹ÓÃÔªËØÀ´Ö§³Öspring-context-3.1 XSD£¬¶øspring-context version <= 3.0¡£
- *    Ä¬ÈÏÊ¹ÓÃ{@code PropertyPlaceholderConfigurer} À´È·±£Ïòºó¼æÈİĞÔ¡£ÓĞ¹ØÍêÕûµÄÏêÏ¸ĞÅÏ¢£¬Çë²ÎÔÄspring-context XSDÎÄµµ¡£
+ *    æ­¤ç±»è¢«è®¾è®¡ä¸ºSpring 3.1åº”ç”¨ç¨‹åºä¸­{@code PropertyPlaceholderConfigurer}çš„ä¸€èˆ¬æ›¿ä»£å“ã€‚
+ *    é»˜è®¤æƒ…å†µä¸‹ï¼Œå®ƒåœ¨{@code property-placeholder}ä¸­ä½¿ç”¨å…ƒç´ æ¥æ”¯æŒspring-context-3.1 XSDï¼Œè€Œspring-context version <= 3.0ã€‚
+ *    é»˜è®¤ä½¿ç”¨{@code PropertyPlaceholderConfigurer} æ¥ç¡®ä¿å‘åå…¼å®¹æ€§ã€‚æœ‰å…³å®Œæ•´çš„è¯¦ç»†ä¿¡æ¯ï¼Œè¯·å‚é˜…spring-context XSDæ–‡æ¡£ã€‚
  * </p>
  * <p>
- *    ÈÎºÎ±¾µØÊôĞÔ£¨ÀıÈçÍ¨¹ı{@link #setProperties}£¬{@link #setLocations}µÈÌí¼ÓµÄÊôĞÔ£©¶¼½«Ìí¼Ó×÷ÎªÒ»¸ö{@code PropertySource}¡£
- *    ±¾µØÊôĞÔµÄËÑË÷ÓÅÏÈ¼¶»ùÓÚ{@link #setLocalOverride localOverride}ÊôĞÔµÄÖµ£¬Ä¬ÈÏÇé¿öÏÂÎª{@code false}£¬±íÊ¾ÔÚËùÓĞ»·¾³ÊôĞÔÔ´Ö®ºó×îºóËÑË÷±¾µØÊôĞÔ¡£
+ *    ä»»ä½•æœ¬åœ°å±æ€§ï¼ˆä¾‹å¦‚é€šè¿‡{@link #setProperties}ï¼Œ{@link #setLocations}ç­‰æ·»åŠ çš„å±æ€§ï¼‰éƒ½å°†æ·»åŠ ä½œä¸ºä¸€ä¸ª{@code PropertySource}ã€‚
+ *    æœ¬åœ°å±æ€§çš„æœç´¢ä¼˜å…ˆçº§åŸºäº{@link #setLocalOverride localOverride}å±æ€§çš„å€¼ï¼Œé»˜è®¤æƒ…å†µä¸‹ä¸º{@code false}ï¼Œè¡¨ç¤ºåœ¨æ‰€æœ‰ç¯å¢ƒå±æ€§æºä¹‹åæœ€åæœç´¢æœ¬åœ°å±æ€§ã€‚
  * </p>
  * <p>
- *   ÓĞ¹Ø²Ù×÷»·¾³ÊôĞÔÔ´µÄÏêÏ¸ĞÅÏ¢£¬Çë²ÎÔÄ{@link org.springframework.core.env.ConfigurableEnvironment ConfigurableEnvironment}ºÍÏà¹ØµÄjavadoc¡£
+ *   æœ‰å…³æ“ä½œç¯å¢ƒå±æ€§æºçš„è¯¦ç»†ä¿¡æ¯ï¼Œè¯·å‚é˜…{@link org.springframework.core.env.ConfigurableEnvironment ConfigurableEnvironment}å’Œç›¸å…³çš„javadocã€‚
  * </p>
  *
  * @author Chris Beams
@@ -138,9 +138,9 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 	 */
 	@Override
 	public void postProcessBeanFactory(ConfigurableListableBeanFactory beanFactory) throws BeansException {
-		if (this.propertySources == null) { //ÑÓ³Ù³õÊ¼»¯
+		if (this.propertySources == null) { //å»¶è¿Ÿåˆå§‹åŒ–
 			this.propertySources = new MutablePropertySources();
-			if (this.environment != null) { //¼ÓÈë»·¾³Ô´
+			if (this.environment != null) { //åŠ å…¥ç¯å¢ƒæº
 				this.propertySources.addLast(
 					new PropertySource<Environment>(ENVIRONMENT_PROPERTIES_PROPERTY_SOURCE_NAME, this.environment) {
 						@Override
@@ -151,7 +151,7 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 				);
 			}
 			try {
-				//¹¹½¨±¾µØÔ´
+				//æ„å»ºæœ¬åœ°æº
 				PropertySource<?> localPropertySource =
 						new PropertiesPropertySource(LOCAL_PROPERTIES_PROPERTY_SOURCE_NAME, mergeProperties());
 				if (this.localOverride) {
@@ -174,17 +174,17 @@ public class PropertySourcesPlaceholderConfigurer extends PlaceholderConfigurerS
 	 * Visit each bean definition in the given bean factory and attempt to replace ${...} property
 	 * placeholders with values from the given properties.
 	 * <p>
-	 *     ·ÃÎÊ¸ø¶¨bean¹¤³§ÖĞµÄÃ¿¸öbean¶¨Òå£¬²¢³¢ÊÔÊ¹ÓÃ¸ø¶¨ÊôĞÔÖĞµÄÖµÌæ»»${...}ÊôĞÔÕ¼Î»·û¡£
+	 *     è®¿é—®ç»™å®šbeanå·¥å‚ä¸­çš„æ¯ä¸ªbeanå®šä¹‰ï¼Œå¹¶å°è¯•ä½¿ç”¨ç»™å®šå±æ€§ä¸­çš„å€¼æ›¿æ¢${...}å±æ€§å ä½ç¬¦ã€‚
 	 * </p>
 	 */
 	protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess,
 			final ConfigurablePropertyResolver propertyResolver) throws BeansException {
 
-		//Ç°×º
+		//å‰ç¼€
 		propertyResolver.setPlaceholderPrefix(this.placeholderPrefix);
-		//ºó×º
+		//åç¼€
 		propertyResolver.setPlaceholderSuffix(this.placeholderSuffix);
-		//ÖµµÄ·Ö¸î·û
+		//å€¼çš„åˆ†å‰²ç¬¦
 		propertyResolver.setValueSeparator(this.valueSeparator);
 
 		StringValueResolver valueResolver = new StringValueResolver() {

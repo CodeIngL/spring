@@ -79,10 +79,10 @@ public abstract class AbstractTransactionStatus implements TransactionStatus {
 	 * on this TransactionStatus object.
 	 *
 	 * <p>
-	 *     Í¨¹ı¼ì²é´ËTransactionStatusÈ·¶¨½ö»Ø¹ö±êÖ¾¡£
+	 *     é€šè¿‡æ£€æŸ¥æ­¤TransactionStatusç¡®å®šä»…å›æ»šæ ‡å¿—ã€‚
 	 * </p>
 	 * <p>
-	 *  Èç¹ûÓ¦ÓÃ³ÌĞòÔÚ´ËTransactionStatus¶ÔÏóÉÏµ÷ÓÃsetRollbackOnly£¬Ôò½ö·µ»Ø¡°true¡±
+	 *  å¦‚æœåº”ç”¨ç¨‹åºåœ¨æ­¤TransactionStatuså¯¹è±¡ä¸Šè°ƒç”¨setRollbackOnlyï¼Œåˆ™ä»…è¿”å›â€œtrueâ€
 	 * </p>
 	 */
 	public boolean isLocalRollbackOnly() {

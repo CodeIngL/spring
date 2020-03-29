@@ -35,6 +35,14 @@ import org.springframework.core.io.ProtocolResolver;
  * making them obvious to ApplicationContext client code. The present
  * methods should only be used by startup and shutdown code.
  *
+ * <p>
+ *     SPI接口由大多数（如果不是全部）应用程序上下文实现。
+ *     除了{@link org.springframework.context.ApplicationContext}接口中的应用程序上下文客户端方法之外，还提供配置应用程序上下文的工具。
+ * </p>
+ * <p>
+ *    这里封装了配置和生命周期方法，以避免使它们对{@link org.springframework.context.ApplicationContext}客户端代码变得明显。 本方法只能由启动和关闭代码使用
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Chris Beams
  * @since 03.11.2003

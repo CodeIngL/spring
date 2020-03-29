@@ -26,17 +26,29 @@ import org.springframework.util.ObjectUtils;
  * Inner class that implements a Pointcut that matches if the underlying
  * {@link TransactionAttributeSource} has an attribute for a given method.
  *
+ * <p>
+ *     如果底层{@link TransactionAttributeSource}具有给定方法的属性，则实现Pointcut的内部类。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 2.5.5
  */
 @SuppressWarnings("serial")
 abstract class TransactionAttributeSourcePointcut extends StaticMethodMatcherPointcut implements Serializable {
 
+	/**
+	 * 目标类的方法是否匹配
+	 * @param method the candidate method
+	 * @param targetClass the target class (may be {@code null}, in which case
+	 * the candidate class must be taken to be the method's declaring class)
+	 * @return
+	 */
 	@Override
 	public boolean matches(Method method, Class<?> targetClass) {
 		if (targetClass != null && TransactionalProxy.class.isAssignableFrom(targetClass)) {
 			return false;
 		}
+		//获得
 		TransactionAttributeSource tas = getTransactionAttributeSource();
 		return (tas == null || tas.getTransactionAttribute(method, targetClass) != null);
 	}
