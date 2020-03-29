@@ -69,8 +69,10 @@ public class AnnotationTransactionAttributeSource extends AbstractFallbackTransa
 	private static final boolean ejb3Present = ClassUtils.isPresent(
 			"javax.ejb.TransactionAttribute", AnnotationTransactionAttributeSource.class.getClassLoader());
 
+	//是否仅仅是public方法
 	private final boolean publicMethodsOnly;
 
+	//支持事物注解的解析器
 	private final Set<TransactionAnnotationParser> annotationParsers;
 
 
@@ -157,6 +159,15 @@ public class AnnotationTransactionAttributeSource extends AbstractFallbackTransa
 	 * @param ae the annotated method or class
 	 * @return TransactionAttribute the configured transaction attribute,
 	 * or {@code null} if none was found
+	 * <p>
+	 *     确定给定方法或类的事务属性。
+	 * </p>
+	 * <p>
+	 *    此实现委托配置的TransactionAnnotationParsers，用于将已知注释解析为Spring的元数据属性类。 如果它不是事务性的，则返回null。
+	 * </p>
+	 * <p>
+	 *    可以重写以支持带有事务元数据的自定义注释。
+	 * </p>
 	 */
 	protected TransactionAttribute determineTransactionAttribute(AnnotatedElement ae) {
 		if (ae.getAnnotations().length > 0) {

@@ -71,6 +71,19 @@ import org.springframework.web.util.NestedServletException;
  * filter's {@link #getServletContext() ServletContext} (see
  * {@link org.springframework.web.context.support.WebApplicationContextUtils}).
  *
+ * <p>
+ *     javax.servlet.Filter的简单基本实现，它将其配置参数（web.xml中filter标签中的init-param条目）视为bean属性。
+ * </p>
+ * <p>
+ * 适用于任何类型过滤器的便捷超类。 配置参数的类型转换是自动的，相应的setter方法将使用转换后的值进行调用。 子类也可以指定必需的属性。 不会匹配bean属性setter的参数将被忽略。
+ * </p>
+ * <p>
+ * 此过滤器将实际过滤留给子类，子类必须实现javax.servlet.Filter.doFilter方法。
+ * </p>
+ * <p>
+ *  此通用过滤器基类不依赖于Spring org.springframework.context.ApplicationContext概念。 过滤器通常不加载它们自己的上下文，而是从Spring根应用程序上下文访问服务bean，可以通过过滤器的ServletContext访问（请参阅org.springframework.web.context.support.WebApplicationContextUtils）。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @since 06.12.2003
  * @see #addRequiredProperty

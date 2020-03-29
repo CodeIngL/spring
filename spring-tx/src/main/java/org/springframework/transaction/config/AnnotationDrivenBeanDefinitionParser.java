@@ -42,6 +42,14 @@ import org.springframework.transaction.interceptor.TransactionInterceptor;
  * '{@code proxy-target-class}' attribute to '{@code true}', which
  * will result in class-based proxies being created.
  *
+ * <p>
+ *     BeanDefinitionParser实现，允许用户轻松配置启用注释驱动的事务划分所需的所有基础结构bean。
+ * </p>
+ * <p>
+ *      默认情况下，所有代理都创建为JDK代理。 如果将对象作为具体类而不是接口注入，则可能会导致一些问题。
+ *      要克服此限制，您可以将'proxy-target-class'属性设置为'true'，这将导致创建基于类的代理。
+ * </p>
+ *
  * @author Juergen Hoeller
  * @author Rob Harrop
  * @author Chris Beams

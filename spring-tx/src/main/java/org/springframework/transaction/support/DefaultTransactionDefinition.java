@@ -51,14 +51,19 @@ public class DefaultTransactionDefinition implements TransactionDefinition, Seri
 	/** Constants instance for TransactionDefinition */
 	static final Constants constants = new Constants(TransactionDefinition.class);
 
+	//传播行为
 	private int propagationBehavior = PROPAGATION_REQUIRED;
 
+	//隔离级别
 	private int isolationLevel = ISOLATION_DEFAULT;
 
+	//超时
 	private int timeout = TIMEOUT_DEFAULT;
 
+	//是否只读
 	private boolean readOnly = false;
 
+	//名字
 	private String name;
 
 
